@@ -1,0 +1,14 @@
+{
+    "users": [
+      {
+        "username": "forestschwrtz",
+        "passwordHash": "$WN+wF8BN6Zp7,$2",
+        "id": 1
+      },
+      {
+        "username": "the app state is in redux store",
+        "passwordHash": "5vC~HU[T>6&MB6f",
+        "id": 2
+      }
+    ]
+  }
