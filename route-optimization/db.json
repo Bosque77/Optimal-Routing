@@ -1,13 +1,15 @@
 {
     "users": [
       {
-        "username": "forestschwrtz",
-        "passwordHash": "$WN+wF8BN6Zp7,$2",
+        "username": "user_1",
+        "password": "password123",
+        "passwordHash": "$2b$10$drQ3m/uP5sejRRlfHNwNfu4Esxec454XqrE9j6ivWG8E/pYa4HF1u",
         "id": 1
       },
       {
-        "username": "the app state is in redux store",
-        "passwordHash": "5vC~HU[T>6&MB6f",
+        "username": "user_2",
+        "password": "password1234",
+        "passwordHash": "$2b$10$//cykx4aefD9n4YOKYB7kuFGGoHto3izcLWxvmgyZSc0GnAIf8Oh6",
         "id": 2
       }
     ]
