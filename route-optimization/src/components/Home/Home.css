@@ -19,3 +19,7 @@
   text-align: center;
   -webkit-background-size: cover;
 } */
+
+header, main, footer {
+  padding-left: 300px;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import './Home.css'
 import SideNav from '../SideNav/SideNav'
+import LandfillList from '../LandfillList/LandfillList'
 
 
 import {
@@ -11,7 +12,18 @@ const Home = () => {
     return (
         <div className="body">
             <Routes>
-                <Route path="/" element={<SideNav />} />
+                <Route path="/" element={
+                    <div>
+                        <SideNav />
+                        <main>
+                            <div className="container">
+                                <LandfillList />
+                            </div>
+                        </main>
+
+                    </div>
+                }
+                />
             </Routes>
             {/* <SignInForm /> */}
         </div>
