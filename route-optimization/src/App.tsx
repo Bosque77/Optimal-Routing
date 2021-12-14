@@ -1,6 +1,7 @@
 import React from 'react'
 // import logo from './logo.svg';
 import './App.css'
+// import Login from './components/LoginPage/Login'
 import Home from './components/Home/Home'
 import {
     BrowserRouter as Router, Route, Routes

@@ -10,6 +10,7 @@ import {
 const SignInForm = () => {
 
     const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
 
 
     // const onEmailChange = (target : React.FormEvent<HTMLInputElement>) =>{
@@ -20,6 +21,8 @@ const SignInForm = () => {
     const handleLogin = (event: React.SyntheticEvent) => {
         event.preventDefault()
         console.log('inside form login')
+        console.log(email)
+        console.log(password)
     }
 
 
@@ -30,7 +33,7 @@ const SignInForm = () => {
                 </div>
                 <form id="email-form" name="email-form" data-name="Email Form" className="form" autoComplete="off" onSubmit={handleLogin}><input type="email" className="text_field" maxLength={256} name="email" data-name="Email"
                     placeholder="Email Address" id="email" autoCapitalize="off" value={email} onChange={({target})=>setEmail(target.value)}/><input type="password" className="text_field"
-                    maxLength={256} name="Password" data-name="Password" placeholder="Password" id="Password" /><input
+                    maxLength={256} name="Password" data-name="Password" placeholder="Password" id="Password" value={password}  onChange={({target})=>setPassword(target.value)}/><input
                     type="submit" value="Sign In" data-wait="Please wait..." className="btn grey darken-1"/></form>
                 <div className="w-form-done">
                     <div>Thank you! Your submission has been received!</div>
