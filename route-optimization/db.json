@@ -1,51 +1,51 @@
 {
-    "users": [
-      {
-        "username": "user_1",
-        "password": "password123",
-        "passwordHash": "$2b$10$drQ3m/uP5sejRRlfHNwNfu4Esxec454XqrE9j6ivWG8E/pYa4HF1u",
-        "id": 1
-      },
-      {
-        "username": "user_2",
-        "password": "password1234",
-        "passwordHash": "$2b$10$//cykx4aefD9n4YOKYB7kuFGGoHto3izcLWxvmgyZSc0GnAIf8Oh6",
-        "id": 2
-      }
-    ],
-    "landfills":[
-      {
-        "name": "landfill_1",
-        "street": "4703 Cambridge Dr.",
-        "city": "Sandy Springs",
-        "state": "Georgia",
-        "zipcode": 30338,
-        "latitude": 33.93,
-        "longitude": -84.318,
-        "active": true,
-        "id": 1
-      },
-      {
-        "name": "landfill_2",
-        "street": "1775 County Services Pkwy SW",
-        "city": "Marietta",
-        "state": "Georgia",
-        "zipcode": 30008,
-        "latitude": 33.91,
-        "longitude": -84.58,
-        "active": true,
-        "id":2
-      },
-      {
-        "name": "landfill_3",
-        "street": "3001 S Pioneer Dr SE",
-        "city": "Smyrna",
-        "state": "Georgia",
-        "zipcode": 30082,
-        "latitude": 33.82,
-        "longitude": -84.50,
-        "active": false,
-        "id": 3
-      }
-    ]
-  }
+  "users": [
+    {
+      "username": "user_1",
+      "password": "password123",
+      "passwordHash": "$2b$10$drQ3m/uP5sejRRlfHNwNfu4Esxec454XqrE9j6ivWG8E/pYa4HF1u",
+      "id": 1
+    },
+    {
+      "username": "user_2",
+      "password": "password1234",
+      "passwordHash": "$2b$10$//cykx4aefD9n4YOKYB7kuFGGoHto3izcLWxvmgyZSc0GnAIf8Oh6",
+      "id": 2
+    }
+  ],
+  "landfills": [
+    {
+      "name": "landfill_1",
+      "street": "4703 Cambridge Dr.",
+      "city": "Sandy Springs",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 33.93,
+      "longitude": -84.318,
+      "active": false,
+      "id": 1
+    },
+    {
+      "name": "landfill_2",
+      "street": "1775 County Services Pkwy SW",
+      "city": "Marietta",
+      "state": "Georgia",
+      "zipcode": 30008,
+      "latitude": 33.91,
+      "longitude": -84.58,
+      "active": true,
+      "id": 2
+    },
+    {
+      "name": "landfill_3",
+      "street": "3001 S Pioneer Dr SE",
+      "city": "Smyrna",
+      "state": "Georgia",
+      "zipcode": 30082,
+      "latitude": 33.82,
+      "longitude": -84.5,
+      "active": false,
+      "id": 3
+    }
+  ]
+}
