@@ -33,7 +33,6 @@ export const updateLandfill = (updated_landfill:Landfill) => {
 
     return async (dispatch: Dispatch<Action>)  => {
         const landfill = await landfillService.put(updated_landfill)
-        console.log('about to dispatch the action ')
         dispatch({
             type: ActionType.UPDATE_LANDFILL,
             data: landfill

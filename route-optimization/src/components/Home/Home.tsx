@@ -1,7 +1,7 @@
 import React from 'react'
 import './Home.css'
 import SideNav from '../SideNav/SideNav'
-import LandfillList from '../LandfillList/LandfillList'
+import LandfillList from '../LandfillList'
 
 
 import {
