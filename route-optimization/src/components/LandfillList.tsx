@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Landfill } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -16,12 +16,14 @@ const TopSpacing = styled.div`
 const LandfillList = () => {
 
     const dispatch = useDispatch()
+    
     const { initializeLandfills, updateLandfill } = bindActionCreators(actionCreators, dispatch)
     useEffect(() => {
         M.AutoInit()
         initializeLandfills()
     }, [])
     const landfills = useSelector((state: State) => state.landfills)
+    const [landfill, setLandfill] = useState(landfills[0])
 
 
 
@@ -34,14 +36,12 @@ const LandfillList = () => {
             new_landfill.active = true
         }
         updateLandfill(new_landfill)
-
     }
 
 
-    // FOREST CHANGE THIS CODE TO USE REDUX TO SET THE CURRENT LANDFILL YOU ARE WORKING ON
 
-    const setLandfill = (landfill:Landfill) => {   
-        console.log('inside set landfill')
+    const editLandfill = (landfill:Landfill) => {   
+        setLandfill(landfill)
         const elem = document.getElementById('modal1')
         if (elem) {
             const instance = M.Modal.getInstance(elem)
@@ -64,7 +64,7 @@ const LandfillList = () => {
                     <td>{landfill.latitude}</td>
                     <td>{landfill.longitude}</td>
                     <td>{(landfill.active) ? <a className="red btn-small" onClick={() => changeLandfillStatus(landfill)}>Deactivate</a> : <a className="green lighten-1 btn-small" onClick={() => changeLandfillStatus(landfill)}>Activate</a>}</td>
-                    <td> <button className="btn-floating btn waves-light red" onClick={() => setLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
+                    <td> <button className="btn-floating btn waves-light red" onClick={() => editLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
                 </tr>
             )
         )
@@ -97,10 +97,7 @@ const LandfillList = () => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Edit Landfill</h4>
-                    <LandfillForm />
-                </div>
-                <div className="modal-footer">
-                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <LandfillForm landfill={landfill}/>
                 </div>
             </div>
         </div>

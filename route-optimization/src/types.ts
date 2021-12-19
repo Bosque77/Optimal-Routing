@@ -1,5 +1,5 @@
 export interface Landfill {
-    id: number;
+    id: string;
     name: string;
     street: string;
     city: string;

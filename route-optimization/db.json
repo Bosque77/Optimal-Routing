@@ -15,26 +15,26 @@
   ],
   "landfills": [
     {
+      "id": 1,
+      "name": "The Mega Complex",
+      "street": "4703 Cambridge Dr.",
+      "city": "Sandy Springs",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 28,
+      "longitude": 34,
+      "active": true
+    },
+    {
+      "id": 2,
       "name": "landfill_1",
       "street": "4703 Cambridge Dr.",
       "city": "Sandy Springs",
       "state": "Georgia",
       "zipcode": 30338,
-      "latitude": 33.93,
-      "longitude": -84.318,
-      "active": true,
-      "id": 1
-    },
-    {
-      "name": "landfill_2",
-      "street": "1775 County Services Pkwy SW",
-      "city": "Marietta",
-      "state": "Georgia",
-      "zipcode": 30008,
-      "latitude": 33.91,
-      "longitude": -84.58,
-      "active": true,
-      "id": 2
+      "latitude": 33,
+      "longitude": -84,
+      "active": true
     },
     {
       "name": "landfill_3",
