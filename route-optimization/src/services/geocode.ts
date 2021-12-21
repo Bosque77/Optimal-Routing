@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Address, HttpResponse } from '../types'
+import { Address, HttpResponse, LatLng } from '../types'
 
 
 const base_url = 'https://maps.googleapis.com/maps/api/geocode/json?address='
@@ -15,19 +15,28 @@ const get = async (address: Address): Promise<HttpResponse> => {
 
     try {
         const response = await axios.get(url)
-        console.log(response.data)
-        const lat_lng = response.data.results[0].geometry.location
-        const formatted_response: HttpResponse = {
-            status: 'OK',
-            message: '',
-            data : lat_lng,
+        const response_status = response.data.status
+        if(response_status==='OK'){
+            const lat_lng = response.data.results[0].geometry.location
+            const formatted_response: HttpResponse = {
+                status: 'OK',
+                message: '',
+                data : lat_lng as LatLng,
+            }
+            return formatted_response
+        }else{
+            const formatted_response: HttpResponse = {
+                status: 'ERROR',
+                message: response.data.error_message,
+                data : {},
+            }
+            return formatted_response
         }
-        return formatted_response
-    } catch {
+    } catch (err){
         console.log('error in getting the HttpResponse')
         const formatted_response: HttpResponse = {
             status: 'ERROR',
-            message: '',
+            message: 'Error: '+err,
             data : {},
         }
         return formatted_response

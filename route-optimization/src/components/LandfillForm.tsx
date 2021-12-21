@@ -4,12 +4,9 @@ import { actionCreators } from '../state'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
+import { LatLng } from '../types'
 
 
-type LatLng = {
-    lat: number,
-    lng: number
-}
 
 const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditState: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
@@ -24,10 +21,16 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
 
         // M.AutoInit()
         console.log('inside useEffect')
-        const elems = document.querySelectorAll('.modal')
-            
-        const instances = M.Modal.init(elems,{onCloseEnd : () => setEditState(false)})
-        instances[0].open()
+        const modal_1 = document.querySelector('#modal1')
+        if(modal_1){
+            const instance = M.Modal.init(modal_1,{onCloseEnd : () => setEditState(false)})
+            instance.open()
+        }
+        const geo_modal = document.querySelector('#geoModal')
+        if(geo_modal){
+            M.Modal.init(geo_modal)
+        }
+
 
     }, [])
 
@@ -54,15 +57,16 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
             'zipcode': parseInt(zipcode)
         }
         const response = await geocode.get(address)
+        if(response.status==='ERROR'){
+            M.toast({html: `${response.message}`})
+        }
         const lat_lng = response.data as LatLng
         setCoord(lat_lng)
-        console.log(lat_lng)
         const modal_elem = document.getElementById('geoModal')
         if (modal_elem) {
             const instance = M.Modal.getInstance(modal_elem)
             instance.open()
         }
-        console.log(lat_lng)
     }
 
 

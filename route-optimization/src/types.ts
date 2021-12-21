@@ -1,3 +1,9 @@
+
+export interface LatLng  {
+    lat: number,
+    lng: number
+}
+
 export interface Landfill {
     id: string;
     name: string;
@@ -24,7 +30,7 @@ type Status = 'OK' | 'ERROR'
 export interface HttpResponse {
     status: Status;
     message: string,
-    data: Record<string,unknown>
+    data: unknown
 }
 
 

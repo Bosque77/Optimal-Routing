@@ -28,10 +28,10 @@
     {
       "id": 2,
       "name": "test",
-      "street": "4703 Cambridge Dr.",
-      "city": "Sandy Springs",
-      "state": "Georgia",
-      "zipcode": 30338,
+      "street": "219 Evans Street",
+      "city": "San Diego",
+      "state": "California",
+      "zipcode": 92102,
       "latitude": 33,
       "longitude": -84,
       "active": true
@@ -45,7 +45,7 @@
       "zipcode": 30338,
       "latitude": 33,
       "longitude": -84,
-      "active": true
+      "active": false
     }
   ]
 }
