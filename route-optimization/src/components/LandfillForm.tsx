@@ -57,6 +57,7 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
             'zipcode': parseInt(zipcode)
         }
         const response = await geocode.get(address)
+        console.log(response)
         if(response.status==='ERROR'){
             M.toast({html: `${response.message}`})
         }
@@ -74,14 +75,19 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
     const submit = () => {
         console.log('inside on submit')
         const id = landfill.id
-        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseInt(latitude), 'longitude': parseInt(longitude), active }
+        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
         updateLandfill(new_landfill)
         setEditState(false)
     }
 
     const assignLatLng = () => {
-        setLatitude(lat_lng.lat.toString())
-        setLongitude(lat_lng.lng.toString())
+        setLatitude(lat_lng.lat.toFixed(2))
+        setLongitude(lat_lng.lng.toFixed(2))
+        const modal_elem = document.getElementById('geoModal')
+        if (modal_elem) {
+            const instance = M.Modal.getInstance(modal_elem)
+            instance.close()
+        }
 
     }
 
