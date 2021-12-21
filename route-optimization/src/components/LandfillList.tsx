@@ -58,7 +58,8 @@ const LandfillList = () => {
                     <td>{landfill.zipcode}</td>
                     <td>{landfill.latitude}</td>
                     <td>{landfill.longitude}</td>
-                    <td>{(landfill.active) ? <a className="red btn-small" onClick={() => changeLandfillStatus(landfill)}>Deactivate</a> : <a className="green lighten-1 btn-small" onClick={() => changeLandfillStatus(landfill)}>Activate</a>}</td>
+                    <td>{(landfill.active) ? <p><label><input type="checkbox" checked={true} onClick={() => changeLandfillStatus(landfill)} /><span>Active</span></label> </p>: <p><label><input type="checkbox" checked={false} onClick={() => changeLandfillStatus(landfill)} /><span>Inactive</span></label> </p>}</td>
+                    {/* <td>{(landfill.active) ? <a className="red btn-small" onClick={() => changeLandfillStatus(landfill)}>Deactivate</a> : <a className="green lighten-1 btn-small" onClick={() => changeLandfillStatus(landfill)}>Activate</a>}</td> */}
                     <td> <button className="btn-floating btn waves-light red" onClick={() => editLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
                 </tr>
             )

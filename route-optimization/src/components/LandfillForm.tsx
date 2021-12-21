@@ -29,16 +29,6 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
         const instances = M.Modal.init(elems,{onCloseEnd : () => setEditState(false)})
         instances[0].open()
 
-
-        // M.AutoInit()
-        // const elem = document.getElementById('modal1')
-        // console.log(elem)
-        // if (elem) {
-        //     console.log('inside setting modal properties')
-        //     const instance = M.Modal.getInstance(elem)
-        //     M.Modal.init(elem,{onCloseEnd : () => console.log('on close of modal')})
-        //     instance.open()
-        // }
     }, [])
 
     const [name, setName] = useState(landfill.name)
