@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Landfill } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -16,7 +16,7 @@ const TopSpacing = styled.div`
 const LandfillList = () => {
 
     const dispatch = useDispatch()
-    
+
     const { initializeLandfills, updateLandfill } = bindActionCreators(actionCreators, dispatch)
     useEffect(() => {
         M.AutoInit()
@@ -24,6 +24,7 @@ const LandfillList = () => {
     }, [])
     const landfills = useSelector((state: State) => state.landfills)
     const [landfill, setLandfill] = useState(landfills[0])
+    const [edit_state, setEditState] = useState(false)
 
 
 
@@ -40,16 +41,10 @@ const LandfillList = () => {
 
 
 
-    const editLandfill = (landfill:Landfill) => {   
+    const editLandfill = (landfill: Landfill) => {
         setLandfill(landfill)
-        const elem = document.getElementById('modal1')
-        if (elem) {
-            const instance = M.Modal.getInstance(elem)
-            instance.open()
-        }
-
-
-        console.log(landfill)
+        setEditState(true)
+    
     }
 
 
@@ -94,12 +89,10 @@ const LandfillList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            <div id="modal1" className="modal">
-                <div className="modal-content">
-                    <h4>Edit Landfill</h4>
-                    <LandfillForm landfill={landfill}/>
-                </div>
-            </div>
+            {edit_state && <LandfillForm landfill={landfill} setEditState ={setEditState}/>
+
+            }
+
         </div>
     )
 }

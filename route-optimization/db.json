@@ -21,13 +21,13 @@
       "city": "Sandy Springs",
       "state": "Georgia",
       "zipcode": 30338,
-      "latitude": 28,
-      "longitude": 34,
-      "active": true
+      "latitude": 33,
+      "longitude": -84,
+      "active": false
     },
     {
       "id": 2,
-      "name": "landfill_1",
+      "name": "test",
       "street": "4703 Cambridge Dr.",
       "city": "Sandy Springs",
       "state": "Georgia",
@@ -37,15 +37,15 @@
       "active": true
     },
     {
-      "name": "landfill_3",
-      "street": "3001 S Pioneer Dr SE",
-      "city": "Smyrna",
+      "id": 3,
+      "name": "The Mega Complex",
+      "street": "4703 Cambridge Dr.",
+      "city": "Sandy Springs",
       "state": "Georgia",
-      "zipcode": 30082,
-      "latitude": 33.82,
-      "longitude": -84.5,
-      "active": true,
-      "id": 3
+      "zipcode": 30338,
+      "latitude": 33,
+      "longitude": -84,
+      "active": true
     }
   ]
 }
