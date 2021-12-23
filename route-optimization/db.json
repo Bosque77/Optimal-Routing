@@ -16,14 +16,14 @@
   "landfills": [
     {
       "id": 1,
-      "name": "The Mega Complex",
+      "name": "Johnnys Hidawaya",
       "street": "4703 Cambridge Dr.",
       "city": "Sandy Springs",
       "state": "Georgia",
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false
+      "active": true
     },
     {
       "id": 2,

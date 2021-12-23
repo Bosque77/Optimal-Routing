@@ -25,8 +25,7 @@ const LandfillList = () => {
     }, [])
     const landfills = useSelector((state: State) => state.landfills)
     const [landfill, setLandfill] = useState(landfills[0])
-    const [edit_state, setEditState] = useState(false)
-    // const [confirmDeleteStatus, setConfirmDeleteStatus] = useState(false)
+    const [formActive, setFormActive] = useState(false)
     const [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
 
 
@@ -46,7 +45,7 @@ const LandfillList = () => {
 
     const editLandfill = (landfill: Landfill) => {
         setLandfill(landfill)
-        setEditState(true)
+        setFormActive(true)
     }
 
     const onDeleteLandfill = (landfill: Landfill) => {
@@ -80,6 +79,13 @@ const LandfillList = () => {
 
     return (
         <div>
+            <div className="row ">
+                <br></br>
+                <div className="col offset-s10">
+                    <button className='btn black offset-s10'>New Landfill</button>
+                </div>
+
+            </div>
             <TopSpacing>
                 <table>
                     <thead>
@@ -99,8 +105,8 @@ const LandfillList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {edit_state && <LandfillForm landfill={landfill} setEditState={setEditState} />}
-            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive}  landfill={landfill}/>}
+            {formActive && <LandfillForm landfill={landfill} setActive={setFormActive} type='EDIT' />}
+            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill} />}
 
         </div>
     )

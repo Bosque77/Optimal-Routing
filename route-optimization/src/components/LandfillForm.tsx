@@ -6,9 +6,14 @@ import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
 import { LatLng } from '../types'
 
+interface prop {
+    landfill?: Landfill,
+    setActive: React.Dispatch<React.SetStateAction<boolean>>,
+    type: 'CREATE' | 'EDIT'
+}
 
 
-const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditState: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const LandfillForm = ({ landfill, setActive, type }: prop ) => {
 
     console.log('inside the landfill form')
     console.log(landfill)
@@ -23,7 +28,7 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if(modal_1){
-            const instance = M.Modal.init(modal_1,{onCloseEnd : () => setEditState(false)})
+            const instance = M.Modal.init(modal_1,{onCloseEnd : () => setActive(false)})
             instance.open()
         }
         const geo_modal = document.querySelector('#geoModal')
@@ -43,7 +48,7 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
     const [longitude, setLongitude] = useState(landfill.longitude.toString())
     const [active, setStatus] = useState(landfill.active)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-    // let lat_lng = {lat:0.0, lng: 0.0}
+  
 
     const dispatch = useDispatch()
     const { updateLandfill } = bindActionCreators(actionCreators, dispatch)
@@ -77,7 +82,7 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
         const id = landfill.id
         const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
         updateLandfill(new_landfill)
-        setEditState(false)
+        setActive(false)
     }
 
     const assignLatLng = () => {

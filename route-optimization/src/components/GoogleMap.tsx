@@ -23,7 +23,7 @@ import { createCustomEqual } from 'fast-equals'
 import { isLatLngLiteral } from '@googlemaps/typescript-guards'
 import styled from 'styled-components'
 import { Landfill } from '../types'
-import landfill_icon from '../static/images/trash.png'
+import landfill_icon from '../static/images/map-pin.svg'
 
 const TopSpacing = styled.div`
   margin-top: 2em;
@@ -98,7 +98,7 @@ const GoogleMap = ({ landfills }: MyProps) => {
                         {landfills && landfills.map((landfill) => {
                             const latlng = { lat: landfill.latitude, lng: landfill.longitude }
                             if(landfill.active){
-                                return(< Marker key = { landfill.id } position = { latlng } icon={landfill_icon}/>)
+                                return(< Marker key = { landfill.id } position = { latlng } icon={landfill_icon} />)
                             }else{
                                 return
                             }
