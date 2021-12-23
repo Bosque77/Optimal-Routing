@@ -23,7 +23,7 @@ import { createCustomEqual } from 'fast-equals'
 import { isLatLngLiteral } from '@googlemaps/typescript-guards'
 import styled from 'styled-components'
 import { Landfill } from '../types'
-
+import landfill_icon from '../static/images/trash.png'
 
 const TopSpacing = styled.div`
   margin-top: 2em;
@@ -42,9 +42,11 @@ const GoogleMap = ({ landfills }: MyProps) => {
     // const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
     const [zoom, setZoom] = React.useState(3) // initial zoom
     const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
-        lat: 27,
-        lng: 27.3,
+        lat: 33,
+        lng: -84,
     })
+
+
 
 
     // const createLandfillMarkers = () => {
@@ -77,7 +79,9 @@ const GoogleMap = ({ landfills }: MyProps) => {
     }
     // [END maps_react_map_component_app_state]
 
-
+    // const landfill_icon = '../static/images/landscape_icon.png'
+    // const landfill_icon =
+    // 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
 
     // [START maps_react_map_component_app_return]
     return (
@@ -94,7 +98,7 @@ const GoogleMap = ({ landfills }: MyProps) => {
                         {landfills && landfills.map((landfill) => {
                             const latlng = { lat: landfill.latitude, lng: landfill.longitude }
                             if(landfill.active){
-                                return(< Marker key = { landfill.id } position = { latlng } />)
+                                return(< Marker key = { landfill.id } position = { latlng } icon={landfill_icon}/>)
                             }else{
                                 return
                             }
