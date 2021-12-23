@@ -22,6 +22,7 @@ import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { createCustomEqual } from 'fast-equals'
 import { isLatLngLiteral } from '@googlemaps/typescript-guards'
 import styled from 'styled-components'
+import { Landfill } from '../types'
 
 
 const TopSpacing = styled.div`
@@ -32,18 +33,40 @@ const render = (status: Status) => {
     return <h1>{status}</h1>
 }
 
-const GoogleMap: React.VFC = () => {
+interface MyProps {
+    landfills?: Landfill[];
+}
+
+const GoogleMap = ({ landfills }: MyProps) => {
     // [START maps_react_map_component_app_state]
-    const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
+    // const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
     const [zoom, setZoom] = React.useState(3) // initial zoom
     const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
         lat: 27,
         lng: 27.3,
     })
 
+
+    // const createLandfillMarkers = () => {
+    //     const 
+    //     if (landfills) {
+    //         for (let i = 0; i < landfills.length; i++) {
+    //             const current_landfill = landfills[i]
+    //             const latitude = current_landfill.latitude
+    //             const longitude = current_landfill.longitude
+    //             const lat_lng = { lat: latitude, lng: longitude }
+
+    //         }
+    //     }
+
+    // }
+
+
+
     const onClick = (e: google.maps.MapMouseEvent) => {
+        console.log(e.latLng!)
         // avoid directly mutating state
-        setClicks([...clicks, e.latLng!])
+        // setClicks([...clicks, e.latLng!])
     }
 
     const onIdle = (m: google.maps.Map) => {
@@ -68,9 +91,15 @@ const GoogleMap: React.VFC = () => {
                         zoom={zoom}
                         style={{ flexGrow: '1', height: '50vh' }}
                     >
-                        {clicks.map((latLng, i) => (
-                            <Marker key={i} position={latLng} />
-                        ))}
+                        {landfills && landfills.map((landfill) => {
+                            const latlng = { lat: landfill.latitude, lng: landfill.longitude }
+                            if(landfill.active){
+                                return(< Marker key = { landfill.id } position = { latlng } />)
+                            }else{
+                                return
+                            }
+                            
+                        })}
                     </Map>
                 </Wrapper>
             </TopSpacing>

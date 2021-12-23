@@ -23,7 +23,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true
+      "active": false
     },
     {
       "id": 2,
@@ -34,7 +34,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true
+      "active": false
     },
     {
       "id": 3,

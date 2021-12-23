@@ -30,7 +30,7 @@ const LandfillPage = () => {
                         <SideNav />
                         <main>
                             <div className="container">
-                                <GoogleMap />
+                                <GoogleMap landfills={landfills}/>
                                 <LandfillList />
                             </div>
                         </main>
