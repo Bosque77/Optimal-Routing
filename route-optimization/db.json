@@ -34,7 +34,7 @@
       "zipcode": 30316,
       "latitude": 33.741,
       "longitude": -84.346,
-      "active": false
+      "active": true
     },
     {
       "id": 3,
@@ -45,7 +45,7 @@
       "zipcode": 92102,
       "latitude": 32.708,
       "longitude": -117.135,
-      "active": false
+      "active": true
     }
   ]
 }

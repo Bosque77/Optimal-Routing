@@ -18,5 +18,9 @@ interface INIT_LANDFILLS {
     data: Landfill[]
 }
 
+interface DELETE_LANDFILL {
+    type: ActionType.DELETE_LANDFILL;
+    data: Landfill
+}
 
-export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS
+export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL

@@ -16,10 +16,19 @@ const put = async (landfill:Landfill) => {
     return response.data
 }
 
+
+const deleteLandfill = async (landfill:Landfill) => {
+    console.log('inside the landfill services delete request')
+    const id = landfill.id
+    const url = baseUrl+`/${id}`
+    const response = await axios.delete(url)
+    return response
+}
+
 const createNew = async (content:NewLandfill) => {
     const object = { content, important: false }
     const response = await axios.post(baseUrl, object)
     return response.data
 }
 
-export default { getAll, put, createNew }
+export default { getAll, put, createNew, deleteLandfill }

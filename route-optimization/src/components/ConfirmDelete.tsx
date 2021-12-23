@@ -1,12 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../state'
+import { Landfill } from '../types'
 
 interface props {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
-    setStatus: React.Dispatch<React.SetStateAction<boolean>>
+    landfill?: Landfill
 }
 
-const ConfirmDelete = ({ setActive, setStatus }: props) => {
+const ConfirmDelete = ({ setActive, landfill }: props) => {
+
+    const dispatch = useDispatch()
+
+    const { deleteLandfill } = bindActionCreators(actionCreators, dispatch)
 
 
     React.useEffect(() => {
@@ -19,7 +26,11 @@ const ConfirmDelete = ({ setActive, setStatus }: props) => {
     }, [])
 
     const handleConfirmation = (status: boolean) => {
-        setStatus(status)
+        if (status) {
+            if(landfill){
+                deleteLandfill(landfill)
+            }
+        }
         setActive(false)
     }
 
@@ -31,7 +42,7 @@ const ConfirmDelete = ({ setActive, setStatus }: props) => {
                         Are you sure you want to delete this item?
 
                     </div>
-                    <br/>
+                    <br />
                     <div className="row">
                         <div className="col s5"></div>
                         <div className="col s1">

@@ -26,7 +26,7 @@ const LandfillList = () => {
     const landfills = useSelector((state: State) => state.landfills)
     const [landfill, setLandfill] = useState(landfills[0])
     const [edit_state, setEditState] = useState(false)
-    const [confirmDeleteStatus, setConfirmDeleteStatus] = useState(false)
+    // const [confirmDeleteStatus, setConfirmDeleteStatus] = useState(false)
     const [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
 
 
@@ -49,8 +49,9 @@ const LandfillList = () => {
         setEditState(true)
     }
 
-    const deleteLandfill = (landfill: Landfill) => {
+    const onDeleteLandfill = (landfill: Landfill) => {
         console.log('inside delete landfill')
+        setLandfill(landfill)
         setConfirmDeleteActive(true)
 
     }
@@ -68,7 +69,7 @@ const LandfillList = () => {
                     <td>{landfill.longitude}</td>
                     <td>{(landfill.active) ? <p><label><input type="checkbox" checked={true} onChange={() => changeLandfillStatus(landfill)} /><span>Active</span></label> </p> : <p><label><input type="checkbox" checked={false} onChange={() => changeLandfillStatus(landfill)} /><span>Inactive</span></label> </p>}</td>
                     <td> <button className="btn-floating btn waves-light red" onClick={() => editLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
-                    <td> <button className="btn-floating btn black" onClick={() => deleteLandfill(landfill)}><i className="material-icons">delete</i></button></td>
+                    <td> <button className="btn-floating btn black" onClick={() => onDeleteLandfill(landfill)}><i className="material-icons">delete</i></button></td>
                 </tr>
             )
         )
@@ -99,7 +100,7 @@ const LandfillList = () => {
                 </table>
             </TopSpacing>
             {edit_state && <LandfillForm landfill={landfill} setEditState={setEditState} />}
-            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} setStatus={setConfirmDeleteStatus} />}
+            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive}  landfill={landfill}/>}
 
         </div>
     )
