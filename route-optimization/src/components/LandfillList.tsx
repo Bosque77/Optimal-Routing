@@ -6,6 +6,7 @@ import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import LandfillForm from './LandfillForm'
+import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
 
@@ -25,6 +26,8 @@ const LandfillList = () => {
     const landfills = useSelector((state: State) => state.landfills)
     const [landfill, setLandfill] = useState(landfills[0])
     const [edit_state, setEditState] = useState(false)
+    const [confirmDeleteStatus, setConfirmDeleteStatus] = useState(false)
+    const [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
 
 
 
@@ -44,7 +47,12 @@ const LandfillList = () => {
     const editLandfill = (landfill: Landfill) => {
         setLandfill(landfill)
         setEditState(true)
-    
+    }
+
+    const deleteLandfill = (landfill: Landfill) => {
+        console.log('inside delete landfill')
+        setConfirmDeleteActive(true)
+
     }
 
 
@@ -58,8 +66,9 @@ const LandfillList = () => {
                     <td>{landfill.zipcode}</td>
                     <td>{landfill.latitude}</td>
                     <td>{landfill.longitude}</td>
-                    <td>{(landfill.active) ? <p><label><input type="checkbox" checked={true} onChange={() => changeLandfillStatus(landfill)} /><span>Active</span></label> </p>: <p><label><input type="checkbox" checked={false} onChange={() => changeLandfillStatus(landfill)} /><span>Inactive</span></label> </p>}</td>
+                    <td>{(landfill.active) ? <p><label><input type="checkbox" checked={true} onChange={() => changeLandfillStatus(landfill)} /><span>Active</span></label> </p> : <p><label><input type="checkbox" checked={false} onChange={() => changeLandfillStatus(landfill)} /><span>Inactive</span></label> </p>}</td>
                     <td> <button className="btn-floating btn waves-light red" onClick={() => editLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
+                    <td> <button className="btn-floating btn black" onClick={() => deleteLandfill(landfill)}><i className="material-icons">delete</i></button></td>
                 </tr>
             )
         )
@@ -89,9 +98,8 @@ const LandfillList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {edit_state && <LandfillForm landfill={landfill} setEditState ={setEditState}/>
-
-            }
+            {edit_state && <LandfillForm landfill={landfill} setEditState={setEditState} />}
+            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} setStatus={setConfirmDeleteStatus} />}
 
         </div>
     )

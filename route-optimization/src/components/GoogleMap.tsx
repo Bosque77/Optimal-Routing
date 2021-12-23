@@ -40,7 +40,7 @@ interface MyProps {
 const GoogleMap = ({ landfills }: MyProps) => {
     // [START maps_react_map_component_app_state]
     // const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
-    const [zoom, setZoom] = React.useState(3) // initial zoom
+    const [zoom, setZoom] = React.useState(4) // initial zoom
     const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
         lat: 33,
         lng: -84,
