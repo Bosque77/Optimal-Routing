@@ -74,12 +74,20 @@ const CreateLandfillForm = ({setActive }: prop) => {
 
 
 
-    const submit = () => {
+    const submit = async () => {
         console.log('inside on submit')
-        const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
-        console.log(new_landfill)
-        createLandfill(new_landfill)
-        setActive(false)
+
+        if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
+            M.toast({html: 'All fields need to be filled out'})
+        }else{
+            const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
+            console.log(new_landfill)
+            await createLandfill(new_landfill)
+            M.toast({html: 'Created New Landfill'})
+            setActive(false)
+        }
+
+
     }
 
     const assignLatLng = () => {
@@ -142,7 +150,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <button className="waves-effect waves-teal btn-flat" type="submit">Submit</button>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">
