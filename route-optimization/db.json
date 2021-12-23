@@ -23,7 +23,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true
+      "active": false
     },
     {
       "id": 3,
@@ -34,7 +34,7 @@
       "zipcode": 92102,
       "latitude": 32.708,
       "longitude": -117.135,
-      "active": true
+      "active": false
     },
     {
       "name": "Forest is a Beast",
@@ -44,8 +44,30 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true,
+      "active": false,
       "id": 4
+    },
+    {
+      "name": "This is a test",
+      "street": "4703 Cambridge Dr.",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 33.935,
+      "longitude": -84.318,
+      "active": false,
+      "id": 5
+    },
+    {
+      "name": "another test big dog",
+      "street": "252",
+      "city": "Hallbrook",
+      "state": "Arizona",
+      "zipcode": null,
+      "latitude": 34.902,
+      "longitude": -110.158,
+      "active": false,
+      "id": 6
     }
   ]
 }

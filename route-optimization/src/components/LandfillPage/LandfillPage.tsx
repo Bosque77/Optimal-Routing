@@ -9,7 +9,7 @@ import GoogleMap from '../GoogleMap'
 import {
     Route, Routes
 } from 'react-router-dom'
-
+import './LandfillPage.css'
 
 const LandfillPage = () => {
 
