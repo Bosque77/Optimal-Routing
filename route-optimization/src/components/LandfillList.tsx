@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-import LandfillForm from './LandfillForm'
+import EditLandfillForm from './EditLandfillForm'
+import CreateLandfillForm from './CreateLandfillForm'
 import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -24,8 +25,9 @@ const LandfillList = () => {
         initializeLandfills()
     }, [])
     const landfills = useSelector((state: State) => state.landfills)
-    const [landfill, setLandfill] = useState(landfills[0])
-    const [formActive, setFormActive] = useState(false)
+    const [landfill, setLandfill] = useState<Landfill>(landfills[0])
+    const [editFormActive, setEditFormActive] = useState(false)
+    const [createFormActive, setCreateFormActive] = useState(false)
     const [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
 
 
@@ -45,7 +47,7 @@ const LandfillList = () => {
 
     const editLandfill = (landfill: Landfill) => {
         setLandfill(landfill)
-        setFormActive(true)
+        setEditFormActive(true)
     }
 
     const onDeleteLandfill = (landfill: Landfill) => {
@@ -53,6 +55,10 @@ const LandfillList = () => {
         setLandfill(landfill)
         setConfirmDeleteActive(true)
 
+    }
+
+    const onCreateLandfill = () => {
+        setCreateFormActive(true)
     }
 
 
@@ -82,7 +88,7 @@ const LandfillList = () => {
             <div className="row ">
                 <br></br>
                 <div className="col offset-s10">
-                    <button className='btn black offset-s10'>New Landfill</button>
+                    <button className='btn black offset-s10' onClick={() => onCreateLandfill()}>New Landfill</button>
                 </div>
 
             </div>
@@ -105,7 +111,8 @@ const LandfillList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {formActive && <LandfillForm landfill={landfill} setActive={setFormActive} type='EDIT' />}
+            {editFormActive && <EditLandfillForm landfill={landfill} setActive={setEditFormActive}  />}
+            {createFormActive && <CreateLandfillForm setActive={setCreateFormActive}  />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill} />}
 
         </div>

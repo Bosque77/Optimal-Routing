@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Landfill, Address } from '../types'
+import { NewLandfill, Address } from '../types'
 import { actionCreators } from '../state'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -7,51 +7,48 @@ import geocode from '../services/geocode'
 import { LatLng } from '../types'
 
 interface prop {
-    landfill?: Landfill,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
-    type: 'CREATE' | 'EDIT'
 }
 
 
-const LandfillForm = ({ landfill, setActive, type }: prop ) => {
+const CreateLandfillForm = ({setActive }: prop) => {
 
-    console.log('inside the landfill form')
-    console.log(landfill)
+    const dispatch = useDispatch()
+    const { createLandfill } = bindActionCreators(actionCreators, dispatch)
 
-    if (!landfill) {
-        return <div></div>
-    }
 
     useEffect(() => {
 
         // M.AutoInit()
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
-        if(modal_1){
-            const instance = M.Modal.init(modal_1,{onCloseEnd : () => setActive(false)})
+        if (modal_1) {
+            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
             instance.open()
         }
         const geo_modal = document.querySelector('#geoModal')
-        if(geo_modal){
+        if (geo_modal) {
             M.Modal.init(geo_modal)
         }
 
-
     }, [])
 
-    const [name, setName] = useState(landfill.name)
-    const [street, setStreet] = useState(landfill.street)
-    const [city, setCity] = useState(landfill.city)
-    const [state, setState] = useState(landfill.state)
-    const [zipcode, setZipcode] = useState(landfill.zipcode.toString())
-    const [latitude, setLatitude] = useState(landfill.latitude.toString())
-    const [longitude, setLongitude] = useState(landfill.longitude.toString())
-    const [active, setStatus] = useState(landfill.active)
-    const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-  
 
-    const dispatch = useDispatch()
-    const { updateLandfill } = bindActionCreators(actionCreators, dispatch)
+    const [name, setName] = useState('')
+    const [street, setStreet] = useState('')
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [zipcode, setZipcode] = useState('')
+    const [latitude, setLatitude] = useState('')
+    const [longitude, setLongitude] = useState('')
+    const [active, setStatus] = useState(false)
+    const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
+
+
+
+
+
+
 
     const geoLocate = async () => {
         console.log('inside geoLocate')
@@ -63,8 +60,8 @@ const LandfillForm = ({ landfill, setActive, type }: prop ) => {
         }
         const response = await geocode.get(address)
         console.log(response)
-        if(response.status==='ERROR'){
-            M.toast({html: `${response.message}`})
+        if (response.status === 'ERROR') {
+            M.toast({ html: `${response.message}` })
         }
         const lat_lng = response.data as LatLng
         setCoord(lat_lng)
@@ -79,9 +76,9 @@ const LandfillForm = ({ landfill, setActive, type }: prop ) => {
 
     const submit = () => {
         console.log('inside on submit')
-        const id = landfill.id
-        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
-        updateLandfill(new_landfill)
+        const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
+        console.log(new_landfill)
+        createLandfill(new_landfill)
         setActive(false)
     }
 
@@ -104,7 +101,7 @@ const LandfillForm = ({ landfill, setActive, type }: prop ) => {
                     <form className="col s12" onSubmit={submit}>
                         <div className="row">
                             <div className="input-field col s6">
-                                <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
+                                <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)}/>
                                 <label htmlFor="name" className="active">Name</label>
                             </div>
                             <div className="input-field col s6">
@@ -172,5 +169,5 @@ const LandfillForm = ({ landfill, setActive, type }: prop ) => {
 
 }
 
-export default LandfillForm
+export default CreateLandfillForm
 

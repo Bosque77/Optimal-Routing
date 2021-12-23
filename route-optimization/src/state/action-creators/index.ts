@@ -2,7 +2,7 @@ import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import landfillService from '../../services/landfills'
 import { Dispatch } from 'redux'
-import { Landfill } from '../../types'
+import { Landfill, NewLandfill } from '../../types'
 
 
 
@@ -19,15 +19,15 @@ export const initializeLandfills = () => {
 }
 
 
-// export const createNote = (content:NewLandfill): Promise<void> => {
-//     return async dispatch => {
-//         const new_landfill = await landfillService.createNew(content)
-//         dispatch({
-//             type: 'NEW_LANDFILL',
-//             data: new_landfill,
-//         })
-//     }
-// }
+export const createLandfill = (landfill:NewLandfill) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_landfill = await landfillService.createNew(landfill)
+        dispatch({
+            type: ActionType.ADD_LANDFILL,
+            data: new_landfill,
+        })
+    }
+}
 
 export const updateLandfill = (updated_landfill:Landfill) => {
 

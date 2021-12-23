@@ -25,9 +25,9 @@ const deleteLandfill = async (landfill:Landfill) => {
     return response
 }
 
-const createNew = async (content:NewLandfill) => {
-    const object = { content, important: false }
-    const response = await axios.post(baseUrl, object)
+const createNew = async (landfill:NewLandfill) => {
+    const response = await axios.post(baseUrl, landfill)
+    console.log(response)
     return response.data
 }
 

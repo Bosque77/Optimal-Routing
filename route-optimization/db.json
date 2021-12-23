@@ -26,17 +26,6 @@
       "active": true
     },
     {
-      "id": 2,
-      "name": "Flat Shoals",
-      "street": "470 Flat Shoals Ave",
-      "city": "Atlanta",
-      "state": "Georgia",
-      "zipcode": 30316,
-      "latitude": 33.741,
-      "longitude": -84.346,
-      "active": true
-    },
-    {
       "id": 3,
       "name": "The Mega Complex",
       "street": "219 Evans Street",
@@ -46,6 +35,17 @@
       "latitude": 32.708,
       "longitude": -117.135,
       "active": true
+    },
+    {
+      "name": "Forest is a Beast",
+      "street": "4703 Cambridge Dr.",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 33.935,
+      "longitude": -84.318,
+      "active": true,
+      "id": 4
     }
   ]
 }
