@@ -21,8 +21,8 @@
       "city": "Sandy Springs",
       "state": "Georgia",
       "zipcode": 30338,
-      "latitude": 33.93,
-      "longitude": -84.32,
+      "latitude": 33.935,
+      "longitude": -84.318,
       "active": true
     },
     {
@@ -32,19 +32,19 @@
       "city": "dunwoody",
       "state": "georgia",
       "zipcode": 30338,
-      "latitude": 33.95,
-      "longitude": -84.34,
+      "latitude": 33.935,
+      "longitude": -84.318,
       "active": true
     },
     {
       "id": 3,
       "name": "The Mega Complex",
       "street": "219 Evans Street",
-      "city": "Calhoun",
-      "state": "Georgia",
-      "zipcode": 30338,
-      "latitude": 34.5,
-      "longitude": -84.95,
+      "city": "San Diego",
+      "state": "California",
+      "zipcode": 92102,
+      "latitude": 32.708,
+      "longitude": -117.135,
       "active": true
     }
   ]

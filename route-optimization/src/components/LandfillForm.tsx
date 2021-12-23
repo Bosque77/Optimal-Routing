@@ -81,8 +81,8 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
     }
 
     const assignLatLng = () => {
-        setLatitude(lat_lng.lat.toFixed(2))
-        setLongitude(lat_lng.lng.toFixed(2))
+        setLatitude(lat_lng.lat.toFixed(3))
+        setLongitude(lat_lng.lng.toFixed(3))
         const modal_elem = document.getElementById('geoModal')
         if (modal_elem) {
             const instance = M.Modal.getInstance(modal_elem)
@@ -146,8 +146,8 @@ const LandfillForm = ({ landfill, setEditState }: { landfill: Landfill, setEditS
                     <div id="geoModal" className="modal">
                         <div className="modal-content">
                             <h6>Geolocation</h6>
-                            <div >Latitude: {lat_lng.lat.toFixed(2)} </div>
-                            <div>Longitude: {lat_lng.lng.toFixed(2)}</div>
+                            <div >Latitude: {lat_lng.lat.toFixed(3)} </div>
+                            <div>Longitude: {lat_lng.lng.toFixed(3)}</div>
                             <br />
                             <div className="right row">
                                 <div className="col s5=4">

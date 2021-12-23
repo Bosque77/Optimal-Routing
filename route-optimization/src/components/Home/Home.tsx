@@ -4,7 +4,7 @@ import './Home.css'
 import SideNav from '../SideNav/SideNav'
 import LandfillList from '../LandfillList'
 // import Map from '../Map'
-import Test from '../Test'
+import GoogleMap from '../GoogleMap'
 import {
     Route, Routes
 } from 'react-router-dom'
@@ -23,7 +23,7 @@ const Home = () => {
                         <SideNav />
                         <main>
                             <div className="container">
-                                <Test />
+                                <GoogleMap />
                                 <LandfillList />
                             </div>
                         </main>
