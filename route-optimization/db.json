@@ -28,10 +28,10 @@
     {
       "id": 2,
       "name": "test",
-      "street": "",
+      "street": "4703 Cambridge Dr.",
       "city": "dunwoody",
       "state": "georgia",
-      "zipcode": null,
+      "zipcode": 30338,
       "latitude": 33.95,
       "longitude": -84.34,
       "active": true
@@ -45,7 +45,7 @@
       "zipcode": 30338,
       "latitude": 34.5,
       "longitude": -84.95,
-      "active": false
+      "active": true
     }
   ]
 }
