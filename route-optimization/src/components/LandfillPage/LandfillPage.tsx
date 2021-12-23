@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from 'react'
-import './Landfill.css'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import SideNav from '../SideNav/SideNav'
 import LandfillList from '../LandfillList'
-// import Map from '../Map'
+import { bindActionCreators } from 'redux'
+import { actionCreators, State} from '../../state'
 import GoogleMap from '../GoogleMap'
 import {
     Route, Routes
@@ -12,7 +13,13 @@ import {
 
 const LandfillPage = () => {
 
+    const dispatch = useDispatch()
+    const { initializeLandfills} = bindActionCreators(actionCreators, dispatch)
+    useEffect(() => {
+        initializeLandfills()
+    }, [])
 
+    const landfills = useSelector((state: State) => state.landfills)
 
     return (
         <div className="body">
