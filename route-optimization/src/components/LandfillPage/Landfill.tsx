@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
-import './Home.css'
+import './Landfill.css'
 import SideNav from '../SideNav/SideNav'
 import LandfillList from '../LandfillList'
 // import Map from '../Map'
@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 
-const Home = () => {
+const LandfillPage = () => {
 
 
 
@@ -39,4 +39,4 @@ const Home = () => {
 
 
 
-export default Home
+export default LandfillPage
