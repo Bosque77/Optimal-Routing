@@ -61,15 +61,17 @@ const CreateLandfillForm = ({setActive }: prop) => {
         const response = await geocode.get(address)
         console.log(response)
         if (response.status === 'ERROR') {
-            M.toast({ html: `${response.message}` })
+            M.toast({ html: 'Was not able to geolocate this location' })
+        }else{
+            const lat_lng = response.data as LatLng
+            setCoord(lat_lng)
+            const modal_elem = document.getElementById('geoModal')
+            if (modal_elem) {
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.open()
+            }
         }
-        const lat_lng = response.data as LatLng
-        setCoord(lat_lng)
-        const modal_elem = document.getElementById('geoModal')
-        if (modal_elem) {
-            const instance = M.Modal.getInstance(modal_elem)
-            instance.open()
-        }
+
     }
 
 

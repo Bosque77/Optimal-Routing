@@ -15,29 +15,18 @@
   ],
   "landfills": [
     {
-      "id": 1,
-      "name": "Johnnys Hidawaya",
+      "name": "df",
       "street": "4703 Cambridge Dr.",
-      "city": "Sandy Springs",
+      "city": "Atlanta",
       "state": "Georgia",
-      "zipcode": 30338,
+      "zipcode": 48574,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false
+      "active": false,
+      "id": 6
     },
     {
-      "id": 3,
-      "name": "The Mega Complex",
-      "street": "219 Evans Street",
-      "city": "San Diego",
-      "state": "California",
-      "zipcode": null,
-      "latitude": 32.708,
-      "longitude": -117.135,
-      "active": true
-    },
-    {
-      "name": "Forest is a Beast",
+      "name": "Forest",
       "street": "4703 Cambridge Dr.",
       "city": "Atlanta",
       "state": "Georgia",
@@ -45,7 +34,18 @@
       "latitude": 33.935,
       "longitude": -84.318,
       "active": false,
-      "id": 4
+      "id": 7
+    },
+    {
+      "name": "test",
+      "street": "4703 Cambridge Dr.",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 33.935,
+      "longitude": -84.318,
+      "active": false,
+      "id": 8
     }
   ]
 }

@@ -32,6 +32,7 @@ const ConfirmDelete = ({ setActive, landfill }: props) => {
             }
         }
         setActive(false)
+
     }
 
     return (
@@ -46,10 +47,10 @@ const ConfirmDelete = ({ setActive, landfill }: props) => {
                     <div className="row">
                         <div className="col s5"></div>
                         <div className="col s1">
-                            <button onClick={() => handleConfirmation(true)} className="btn black" >Yes</button>
+                            <button onClick={() => handleConfirmation(true)} className="btn black modal-close" >Yes</button>
                         </div>
                         <div className="col s1">
-                            <button onClick={() => handleConfirmation(false)} className="btn black">No</button>
+                            <button onClick={() => handleConfirmation(false)} className="btn black modal-close">No</button>
                         </div>
 
 
