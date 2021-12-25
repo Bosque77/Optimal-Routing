@@ -1,13 +1,13 @@
-// import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express';
-import User from '../models/user'
+import { User } from '../models/user'
+import config from '../utils/config'
 
 
-const loginRouter = express.Router();
+const loginRouter = express.Router()
 
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 loginRouter.post('/', async (req, res) => {
   const body = req.body
 
@@ -22,18 +22,21 @@ loginRouter.post('/', async (req, res) => {
     })
   }
 
-  // const userForToken = {
-  //   username: user.username,
-  //   id: user._id,
-  // }
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
 
-  const token = {}   // FOREST NEED TO UPDATE THIS LATER 
-  // const token = jwt.sign(userForToken, process.env.SECRET)
 
-  res
-    .status(200)
-    .send({ token, username: user.username, name: user.name })
+  if (config.SECRET) {
+    const token = jwt.sign(userForToken, config.SECRET)
+    res
+      .status(200)
+      .send({ token, username: user.username})
 
+  }
 })
+
+
 
 export default loginRouter

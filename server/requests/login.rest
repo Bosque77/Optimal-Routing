@@ -1,7 +1,27 @@
+
+### Correct Sign On
 POST http://localhost:3001/api/login/
 Content-Type: application/json
 
 {
-    "username": "mluukkai",
-    "password": "mluukkai"
+    "username": "user_1",
+    "password": "password123"
+}
+
+### Incorrect Password
+POST http://localhost:3001/api/login/
+Content-Type: application/json
+
+{
+    "username": "user_1",
+    "password": "incorrect password"
+}
+
+### Incorrect Username
+POST http://localhost:3001/api/login/
+Content-Type: application/json
+
+{
+    "username": "user_2",
+    "password": "password123"
 }
