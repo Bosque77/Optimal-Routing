@@ -10,7 +10,7 @@ import { Landfill, LoginInfo, NewLandfill, UserToken } from '../../types'
 
 
 export const initializeLandfills = () => {
-    return async (dispatch: Dispatch<Action>)  => {
+    return async (dispatch: Dispatch<Action>) => {
         const landfills = await landfillService.getAll()
         dispatch({
             type: ActionType.INIT_LANDFILLS,
@@ -20,7 +20,7 @@ export const initializeLandfills = () => {
 }
 
 
-export const createLandfill = (landfill:NewLandfill) => {
+export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
         const new_landfill = await landfillService.createNew(landfill)
         dispatch({
@@ -30,9 +30,9 @@ export const createLandfill = (landfill:NewLandfill) => {
     }
 }
 
-export const updateLandfill = (updated_landfill:Landfill) => {
+export const updateLandfill = (updated_landfill: Landfill) => {
 
-    return async (dispatch: Dispatch<Action>)  => {
+    return async (dispatch: Dispatch<Action>) => {
         const landfill = await landfillService.put(updated_landfill)
         dispatch({
             type: ActionType.UPDATE_LANDFILL,
@@ -41,7 +41,7 @@ export const updateLandfill = (updated_landfill:Landfill) => {
     }
 }
 
-export const deleteLandfill = (landfill:Landfill) => {
+export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
         await landfillService.deleteLandfill(landfill)  // Need to implement some type of error handling here
         dispatch({
@@ -52,13 +52,23 @@ export const deleteLandfill = (landfill:Landfill) => {
 }
 
 
-export const loginUser = (login_info:LoginInfo) => {
+export const loginUser = (login_info: LoginInfo) => {
     return async (dispatch: Dispatch<Action>) => {
         const user_data: UserToken = await loginService.login(login_info)
-
+        window.localStorage.setItem('user_token', JSON.stringify(user_data))
         dispatch({
             type: ActionType.SET_USER_TOKEN,
             data: user_data
+        })
+    }
+}
+
+
+export const setUserToken = (user_token: UserToken) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.SET_USER_TOKEN,
+            data: user_token
         })
     }
 }

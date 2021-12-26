@@ -13,10 +13,10 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  /* background-image: url('./images/suru-desktop-wallpaper-ubuntu-vivid.jpg'); */
+  background-image: url('./images/suru-desktop-wallpaper-ubuntu-vivid.jpg');
   background-position: 50% 50%;
   background-size: cover;
   height: 100vh;
   text-align: center;
   -webkit-background-size: cover;
-}
+} 

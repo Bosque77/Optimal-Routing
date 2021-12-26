@@ -15,17 +15,6 @@
   ],
   "landfills": [
     {
-      "name": "Forest",
-      "street": "4703 Cambridge Dr.",
-      "city": "Atlanta",
-      "state": "Georgia",
-      "zipcode": 30338,
-      "latitude": 33.935,
-      "longitude": -84.318,
-      "active": true,
-      "id": 7
-    },
-    {
       "name": "test",
       "street": "4703 Cambridge Dr.",
       "city": "Atlanta",
@@ -33,7 +22,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true,
+      "active": false,
       "id": 8
     },
     {
@@ -44,8 +33,19 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false,
+      "active": true,
       "id": 9
+    },
+    {
+      "name": "SD Complex",
+      "street": "219 Evans Street",
+      "city": "San Diego",
+      "state": "California",
+      "zipcode": 92102,
+      "latitude": 32.708,
+      "longitude": -117.135,
+      "active": true,
+      "id": 10
     }
   ]
 }
