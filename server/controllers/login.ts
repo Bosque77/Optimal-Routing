@@ -1,17 +1,24 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express';
-import { User } from '../models/user'
+import User from '../models/user'
 import config from '../utils/config'
+
+interface NewUser {
+  _id: string,
+  username: string,
+  passwordHash: string
+}
 
 
 const loginRouter = express.Router()
 
 
 loginRouter.post('/', async (req, res) => {
+  console.log('inside user post')
   const body = req.body
 
-  const user = await User.findOne({ username: body.username })
+  const user = await User.findOne({ username: body.username }) as unknown as NewUser
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(body.password, user.passwordHash)

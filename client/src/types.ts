@@ -44,3 +44,8 @@ export interface NewLandfill {
     longitude: number;
     active: boolean;
 }
+
+export interface User {
+    username: string;
+    password: string;
+}

@@ -15,17 +15,6 @@
   ],
   "landfills": [
     {
-      "name": "df",
-      "street": "4703 Cambridge Dr.",
-      "city": "Atlanta",
-      "state": "Georgia",
-      "zipcode": 48574,
-      "latitude": 33.935,
-      "longitude": -84.318,
-      "active": false,
-      "id": 6
-    },
-    {
       "name": "Forest",
       "street": "4703 Cambridge Dr.",
       "city": "Atlanta",
@@ -33,7 +22,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false,
+      "active": true,
       "id": 7
     },
     {
@@ -44,8 +33,19 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false,
+      "active": true,
       "id": 8
+    },
+    {
+      "name": "Jungle",
+      "street": "4703 Cambridge Dr.",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 33.935,
+      "longitude": -84.318,
+      "active": false,
+      "id": 9
     }
   ]
 }

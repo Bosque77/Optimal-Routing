@@ -4,15 +4,15 @@ import helper from './test_helper'
 import app from '../app'
 const api = supertest(app)
 import bcrypt from 'bcrypt'
-import { User } from '../models/user'
+import User from '../models/user'
 
 
 describe('when there is initially one user at db', () => {
     beforeEach(async () => {
       await User.deleteMany({})
   
-      const passwordHash = await bcrypt.hash('sekret', 10)
-      const user = new User({ username: 'root', passwordHash })
+      const passwordHash = await bcrypt.hash('password123', 10)
+      const user = new User({ username: 'user_1', passwordHash })
   
       await user.save()
     })
@@ -27,7 +27,7 @@ describe('when there is initially one user at db', () => {
       }
   
       await api
-        .post('/api/users')
+        .post('/users')
         .send(newUser)
         .expect(200)
         .expect('Content-Type', /application\/json/)
@@ -35,21 +35,20 @@ describe('when there is initially one user at db', () => {
       const usersAtEnd = await helper.usersInDb()
       expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
   
-      // const usernames = usersAtEnd.map(u => u.username)
-      // expect(usernames).toContain(newUser.username)
+      const usernames = usersAtEnd.map((u: { username: any }) => u.username)
+      expect(usernames).toContain(newUser.username)
     })
   
     test('creation fails with proper statuscode and message if username already taken', async () => {
       const usersAtStart = await helper.usersInDb()
   
       const newUser = {
-        username: 'root',
-        name: 'Superuser',
-        password: 'salainen',
+        username: "user_1",
+        password: "password123",
       }
   
       const result = await api
-        .post('/api/users')
+        .post('/users')
         .send(newUser)
         .expect(400)
         .expect('Content-Type', /application\/json/)
