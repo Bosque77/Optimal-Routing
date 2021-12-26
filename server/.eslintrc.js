@@ -1,17 +1,17 @@
-{
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking"
-    ],
+  module.exports = {
     "plugins": ["@typescript-eslint"],
-    "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
+    'env': {
+        'browser': true,
+        'commonjs': true,
+        'es2021': true,
+        'jest': true,
     },
-    "rules": {
-      "@typescript-eslint/semi": ["error"],
+    'extends': ['eslint:recommended',  "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking"],
+    'parserOptions': {
+        'ecmaVersion': 12
+    },
+    'rules': {
+      "@typescript-eslint/semi": ["error","never"],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/restrict-template-expressions": "off",
@@ -21,10 +21,27 @@
         "error",
         { "argsIgnorePattern": "^_" }
       ],
-      "no-case-declarations": "off"
+      "no-case-declarations": "off",
+        'indent': [
+            'error',
+            4
+        ],
+        'linebreak-style': [
+            'error',
+            'unix'
+        ],
+        'quotes': [
+            'error',
+            'single'
+        ],
+        'semi': [
+            'error',
+            'never'
+        ]
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "project": "./tsconfig.json"
     }
   }
+

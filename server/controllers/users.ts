@@ -6,7 +6,7 @@ const usersRouter = express.Router()
 
 usersRouter.get('/', async (_request, response) => {
     console.log('inside get users')
-    const Users = await User.find({}).populate('blogs')
+    const Users = await User.find({})
     response.json(Users.map((User: { toJSON: () => any; }) => User.toJSON()))
 })
 
