@@ -1,13 +1,18 @@
 import React from 'react'
-// import logo from './logo.svg';
 import './App.css'
 import Login from './components/LoginPage/Login'
-// import LandfillPage from './components/LandfillPage/LandfillPage'
 import {
     BrowserRouter as Router, Route, Routes
 } from 'react-router-dom'
+import { State} from './state'
+import { useSelector } from 'react-redux'
+// import LandfillPage from './components/LandfillPage/LandfillPage'
+import HomePage from './components/HomePage/HomePage'
 
 function App() {
+
+    const user_token = useSelector((state: State) => state.userToken)
+
 
 
 
@@ -15,7 +20,8 @@ function App() {
         <Router>
             <div className="App">
                 <Routes>
-                    <Route path="/*" element={<Login />} />
+                    {!user_token && <Route path="/*" element={<Login />} /> }
+                    {user_token && <Route path="/*" element={<HomePage />} /> }
                 </Routes>
             </div>
         </Router>

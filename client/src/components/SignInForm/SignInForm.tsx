@@ -26,9 +26,17 @@ const SignInForm = () => {
         event.preventDefault()
         const login_info: LoginInfo = {username: email, password: password}
         // eslint-disable-next-line no-debugger
-        const response = await loginUser(login_info)
-        console.log('after user login')
-        console.log(response)
+        try{
+            const response = await loginUser(login_info)
+            console.log('logging the login response')
+            console.log(response)
+        } catch(error){
+            console.log(error)
+            M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
+        }
+        
+        // console.log('after user login')
+        // console.log(response)
     }
 
 

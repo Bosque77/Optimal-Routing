@@ -4,7 +4,7 @@ import userTokenReducer from './userTokenReducer'
 
 const reducers = combineReducers({
     landfills: landfillReducer,
-    usertoken: userTokenReducer
+    userToken: userTokenReducer
 })
 
 export default reducers

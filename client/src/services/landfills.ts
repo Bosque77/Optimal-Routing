@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { Landfill, NewLandfill } from '../types'
 
-const baseUrl = 'http://localhost:3001/landfills'
+const baseUrl = `${process.env.REACT_APP_BASE_URL}/landfills`
+// const baseUrl = 'http://localhost:3001/landfills'
 
 const getAll = async () => {
     const response = await axios.get(baseUrl)

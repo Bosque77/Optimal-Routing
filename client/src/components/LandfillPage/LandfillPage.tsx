@@ -12,6 +12,7 @@ import {
 import './LandfillPage.css'
 
 const LandfillPage = () => {
+    console.log('inside landfill page')
 
     const dispatch = useDispatch()
     const { initializeLandfills} = bindActionCreators(actionCreators, dispatch)

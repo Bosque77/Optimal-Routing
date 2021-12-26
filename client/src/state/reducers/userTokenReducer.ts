@@ -4,13 +4,11 @@ import { Action } from '../actions'
 import { UserToken } from '../../types'
 
 
-const initialState: UserToken = {
-    token: 'no set token',
-    username: 'test123'
-}
 
 
-export const userTokenReducer = (state: UserToken = initialState, action: Action): UserToken => {
+const initialState = null
+
+export const userTokenReducer = (state: UserToken | null = initialState, action: Action): UserToken | null => {
     switch (action.type) {
     case ActionType.SET_USER_TOKEN:
         return action.data
