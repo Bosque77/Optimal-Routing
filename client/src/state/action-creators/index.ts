@@ -1,8 +1,9 @@
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import landfillService from '../../services/landfills'
+import loginService from '../../services/login'
 import { Dispatch } from 'redux'
-import { Landfill, NewLandfill } from '../../types'
+import { Landfill, LoginInfo, NewLandfill, UserToken } from '../../types'
 
 
 
@@ -46,6 +47,18 @@ export const deleteLandfill = (landfill:Landfill) => {
         dispatch({
             type: ActionType.DELETE_LANDFILL,
             data: landfill
+        })
+    }
+}
+
+
+export const loginUser = (login_info:LoginInfo) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const user_data: UserToken = await loginService.login(login_info)
+
+        dispatch({
+            type: ActionType.SET_USER_TOKEN,
+            data: user_data
         })
     }
 }

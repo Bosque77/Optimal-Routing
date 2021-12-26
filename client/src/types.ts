@@ -49,3 +49,13 @@ export interface User {
     username: string;
     password: string;
 }
+
+export interface LoginInfo {
+    username: string;
+    password: string;
+}
+
+export interface UserToken {
+    token: string;
+    username: string;
+}

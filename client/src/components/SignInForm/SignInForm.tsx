@@ -4,25 +4,31 @@ import logo from './images/logo.svg'
 import {
     Link
 } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../../state'
+import { LoginInfo } from '../../types'
 
 
 
 const SignInForm = () => {
 
+    const dispatch = useDispatch()
+    const { loginUser} = bindActionCreators(actionCreators, dispatch)
+
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
 
-    // const onEmailChange = (target : React.FormEvent<HTMLInputElement>) =>{
-    //     console.log(target.currentTarget.value)
-    //     setEmail(target.currentTarget.value)
-    // }
 
-    const handleLogin = (event: React.SyntheticEvent) => {
+
+    const handleLogin = async (event: React.SyntheticEvent) => {
         event.preventDefault()
-        console.log('inside form login')
-        console.log(email)
-        console.log(password)
+        const login_info: LoginInfo = {username: email, password: password}
+        // eslint-disable-next-line no-debugger
+        const response = await loginUser(login_info)
+        console.log('after user login')
+        console.log(response)
     }
 
 
@@ -31,7 +37,7 @@ const SignInForm = () => {
             <div className="w-form">
                 <div className="placeholder-text-style-embed-code w-embed">
                 </div>
-                <form id="email-form" name="email-form" data-name="Email Form" className="form" autoComplete="off" onSubmit={handleLogin}><input type="email" className="text_field" maxLength={256} name="email" data-name="Email"
+                <form id="email-form" name="email-form" data-name="Email Form" className="form" autoComplete="off" onSubmit={handleLogin}><input type="text" className="text_field" maxLength={256} name="email" data-name="Email"
                     placeholder="Email Address" id="email" autoCapitalize="off" value={email} onChange={({target})=>setEmail(target.value)}/><input type="password" className="text_field"
                     maxLength={256} name="Password" data-name="Password" placeholder="Password" id="Password" value={password}  onChange={({target})=>setPassword(target.value)}/><input
                     type="submit" value="Sign In" data-wait="Please wait..." className="btn grey darken-1"/></form>

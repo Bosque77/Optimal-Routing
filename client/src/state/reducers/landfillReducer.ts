@@ -3,9 +3,6 @@ import { Landfill } from '../../types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 
-// interface State {
-//     landfills: Landfill[]
-// }
 
 const initialState: Landfill[] = []
 
