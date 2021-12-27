@@ -14,29 +14,36 @@ const RegionSelector = () => {
 
     const dispatch = useDispatch()
     const { initializeRegions, setRegion } = bindActionCreators(actionCreators, dispatch)
-    
+
     const user_token = useSelector((state: State) => state.userToken)
     const regions = useSelector((state: State) => state.regions)
+    const set_region = useSelector((state: State) => state.setRegion)
 
-
-    // if(regions){
-    //     const region = regions[0]
-    //     setRegion(region)
-    // }
 
     useEffect(() => {
         M.AutoInit()
-        if(user_token){
-            if(!regions){
+        if (user_token) {
+            if (!regions) {
                 initializeRegions(user_token.token)
-            }else{
+            } else {
                 setRegion(regions[0])
             }
-         
+
         }
-      
+
     }, [regions])
 
+
+    const insertRegionTabs = () => {
+        return (
+            regions?.map(region => {
+                return (
+                    <><li key={region.id}><a href="#!" onClick={() => setRegion(region)}>{region.name}</a></li><li className="divider" tabIndex={-1}></li></>
+                )
+            })
+
+        )
+    }
 
 
 
@@ -44,16 +51,15 @@ const RegionSelector = () => {
         <div>
             <TopSpacing >
                 <div className="row right-align">
-                    <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>Select Region</a>
+                    <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>{set_region?.name}</a>
                 </div>
             </TopSpacing>
 
             <ul id='dropdown1' className='dropdown-content'>
-                <li><a href="#!">one</a></li>
-                <li><a href="#!">two</a></li>
-                <li><a href="#!">three</a></li>
-                <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
-                <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
+
+
+       
+                {insertRegionTabs()}
             </ul>
         </div>
 
