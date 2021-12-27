@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import bcrypt from 'bcrypt'
 import express from 'express'
-import { Mongoose } from 'mongoose'
 import User from '../models/user'
 
 const usersRouter = express.Router()

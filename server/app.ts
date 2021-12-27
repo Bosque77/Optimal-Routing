@@ -6,6 +6,7 @@ require('express-async-errors')
 import cors from 'cors'
 
 import usersRouter from './controllers/users'
+import regionRouter from './controllers/regions'
 import loginRouter from './controllers/login'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
@@ -29,6 +30,7 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 
+app.use('/regions', regionRouter)
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 

@@ -18,7 +18,7 @@ class SideNav extends Component {
                     <li>
                         {/* <div> <i className="material-icons">add</i></div> */}
                         <div><a href="#!" className=""><img className="icon" src={icon} /></a></div>
-                        
+
                     </li>
                     <li><div className="divider"></div></li>
                     <li><a href="#!" >Landfills</a></li>
@@ -27,6 +27,7 @@ class SideNav extends Component {
                     <li><a href="#!" >Orders</a></li>
                     <li><a href="#!" >Routes</a></li>
                 </ul>
+
             </div>
         )
     }
