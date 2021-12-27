@@ -19,20 +19,23 @@ const RegionSelector = () => {
     const regions = useSelector((state: State) => state.regions)
 
 
-    if(regions){
-        const region = regions[0]
-        setRegion(region)
-    }
+    // if(regions){
+    //     const region = regions[0]
+    //     setRegion(region)
+    // }
 
     useEffect(() => {
         M.AutoInit()
         if(user_token){
-            console.log('inside the useEffect Hook')
-            console.log(user_token)
-            initializeRegions(user_token.token)
+            if(!regions){
+                initializeRegions(user_token.token)
+            }else{
+                setRegion(regions[0])
+            }
+         
         }
       
-    }, [])
+    }, [regions])
 
 
 
