@@ -36,11 +36,9 @@ const RegionSelector = () => {
 
     const insertRegionTabs = () => {
         return (
-            regions?.map(region => {
-                return (
-                    <><li key={region.id}><a href="#!" onClick={() => setRegion(region)}>{region.name}</a></li><li className="divider" tabIndex={-1}></li></>
-                )
-            })
+            regions?.map(region => 
+                <li key={region.id}><a href="#!" onClick={() => setRegion(region)}>{region.name}</a></li>
+            )
 
         )
     }
@@ -58,7 +56,6 @@ const RegionSelector = () => {
             <ul id='dropdown1' className='dropdown-content'>
 
 
-       
                 {insertRegionTabs()}
             </ul>
         </div>
