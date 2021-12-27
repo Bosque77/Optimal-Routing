@@ -21,8 +21,4 @@ regionRouter.get('/', async(req:any, res) => {
 })
 
 
-// regionRouter.get('/', (_req,res) => {
-//     res.status(200).send('made it through')
-// })
-
 export default regionRouter

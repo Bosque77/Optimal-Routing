@@ -5,7 +5,7 @@ import logger from './utils/logger'
 import User from './models/user'
 import Region from './models/region'
 // import bcrypt from 'bcrypt'
-
+import { NewLandfill } from './types'
 
 
 
@@ -26,6 +26,10 @@ const users = [
 
 const regions = [
     {
+        'name': 'Default',
+        'user_id': '61c7483607e4533869b9ec08',
+    },
+    {
         'name': 'Atlanta',
         'user_id': '61c7483607e4533869b9ec08',
     },
@@ -35,6 +39,40 @@ const regions = [
     }
 ]
 
+const landfills: NewLandfill[] = [
+    {
+        'name': 'The Mega Complex',
+        'street': '4703 Cambridge Dr.',
+        'city': 'Sandy Springs',
+        'state': 'Georgia',
+        'zipcode': 30338,
+        'latitude': 33.935,
+        'longitude': -84.318,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_name': 'Default'
+    },
+    {
+        'name': 'Flat Shoals',
+        'street': '470 Flat Shoals Ave',
+        'city': 'Atlanta',
+        'state': 'Georgia',
+        'zipcode': 30316,
+        'latitude': 33.741,
+        'longitude': -84.346,
+        'active': true
+    },
+    {
+        'name': 'The Mega Complex',
+        'street': '219 Evans Street',
+        'city': 'San Diego',
+        'state': 'California',
+        'zipcode': 92102,
+        'latitude': 32.708,
+        'longitude': -117.135,
+        'active': true
+    }
+]
 
 
 const initUsers = async () => {
@@ -73,7 +111,7 @@ const initRegions = async () => {
 
     await Region.deleteMany({})
 
-    const region_objects = regions.map(region => new Region({  name: region.name, user_id: region.user_id }))
+    const region_objects = regions.map(region => new Region({ name: region.name, user_id: region.user_id }))
     const promise_array = region_objects.map(region => region.save())
     await Promise.all(promise_array)
 
