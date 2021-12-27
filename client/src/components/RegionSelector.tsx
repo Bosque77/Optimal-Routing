@@ -13,9 +13,16 @@ const RegionSelector = () => {
     console.log('inside Region Selector Component')
 
     const dispatch = useDispatch()
-    const { initializeRegions,  } = bindActionCreators(actionCreators, dispatch)
+    const { initializeRegions, setRegion } = bindActionCreators(actionCreators, dispatch)
     
     const user_token = useSelector((state: State) => state.userToken)
+    const regions = useSelector((state: State) => state.regions)
+
+
+    if(regions){
+        const region = regions[0]
+        setRegion(region)
+    }
 
     useEffect(() => {
         M.AutoInit()

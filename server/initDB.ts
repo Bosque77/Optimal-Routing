@@ -4,6 +4,7 @@ import config from './utils/config'
 import logger from './utils/logger'
 import User from './models/user'
 import Region from './models/region'
+import Landfill from './models/landfill'
 // import bcrypt from 'bcrypt'
 import { NewLandfill } from './types'
 
@@ -60,7 +61,9 @@ const landfills: NewLandfill[] = [
         'zipcode': 30316,
         'latitude': 33.741,
         'longitude': -84.346,
-        'active': true
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_name': 'Default'
     },
     {
         'name': 'The Mega Complex',
@@ -70,7 +73,9 @@ const landfills: NewLandfill[] = [
         'zipcode': 92102,
         'latitude': 32.708,
         'longitude': -117.135,
-        'active': true
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_name': 'Default'
     }
 ]
 
@@ -119,8 +124,28 @@ const initRegions = async () => {
 }
 
 
+const initLandfills = async () => {
+    if (config.MONGODB_URI) {
+        await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+            .then(() => {
+                logger.info('connected to MongoDB')
+            })
+            .catch((error) => {
+                logger.error('error connection to MongoDB:', error.message)
+            })
+    }
+
+    await Landfill.deleteMany({})
+
+    const landfill_objects = landfills.map(landfill => new Landfill({...landfill }))
+    const promise_array = landfill_objects.map(landfill => landfill.save())
+    await Promise.all(promise_array)
+
+    mongoose.disconnect()
+}
 
 
 
 initUsers()
 initRegions()
+initLandfills()

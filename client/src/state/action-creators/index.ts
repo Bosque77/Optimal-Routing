@@ -4,7 +4,7 @@ import landfillService from '../../services/landfills'
 import loginService from '../../services/login'
 import regionService from '../../services/regions'
 import { Dispatch } from 'redux'
-import { Landfill, LoginInfo, NewLandfill, UserToken } from '../../types'
+import { Landfill, LoginInfo, NewLandfill, Region, UserToken } from '../../types'
 
 
 
@@ -16,6 +16,22 @@ export const initializeRegions = (user_id: string) => {
             type: ActionType.INIT_REGIONS,
             data: regions
         })
+    }
+}
+
+// export const setRegion = (region: Region) => {
+//     return async (dispatch: Dispatch<Action>) => {
+//         dispatch({
+//             type: ActionType.SET_REGION,
+//             data: region
+//         })
+//     }
+// }
+
+export const setRegion = (region: Region) => {
+    return {
+        type: ActionType.SET_REGION,
+        data: region
     }
 }
 

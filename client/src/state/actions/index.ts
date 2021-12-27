@@ -34,4 +34,9 @@ interface INIT_REGIONS {
     data: Region[]
 }
 
-export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS
+
+interface SET_REGION {
+    type:ActionType.SET_REGION,
+    data: Region
+}
+export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION
