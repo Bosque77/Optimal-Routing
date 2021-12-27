@@ -16,6 +16,13 @@ export interface Landfill {
     active: boolean;
 }
 
+
+export interface Region {
+    id: string;
+    name:string;
+    user_id:string;
+}
+
 export interface Address {
     street: string;
     city: string;

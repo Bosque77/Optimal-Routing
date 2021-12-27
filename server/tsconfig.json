@@ -1,15 +1,29 @@
+// {
+//   "compilerOptions": {
+//     "noImplicitAny": true,
+//     "noImplicitReturns": true,
+//     "strictNullChecks": true,
+//     "strictPropertyInitialization": true,
+//     "strictBindCallApply": true,
+//     "noUnusedLocals": true,
+//     "noUnusedParameters": true,
+//     "noImplicitThis": true,
+//     "alwaysStrict": true,
+//     "esModuleInterop": true,
+//     "declaration": true,
+//   }
+// }
+
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "strictBindCallApply": true,
+    "target": "ES6",
+    "outDir": "./build/",
+    "module": "commonjs",
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "declaration": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true
   }
 }

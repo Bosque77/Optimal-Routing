@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { User } from '../types'
 
-const baseUrl = 'http://localhost:3001/users'
+const baseUrl = '/users'
 
 
 const login = async (user:User) => {

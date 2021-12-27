@@ -3,6 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import logger from './logger'
+import User from '../models/user'
+import jwt from 'jsonwebtoken'
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const requestLogger = (req:any, _res:any, next:any) => {
     logger.info('Method:', req.method)
@@ -32,8 +34,33 @@ const errorHandler = (error:any, _request:any, response:any, next:any) => {
     next(error)
 }
 
+
+const tokenExtractor= (request:any,_response:any,next:any) => {
+    const authorization = request.get('authorization')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        request['token'] = authorization.substring(7)
+    }
+    next()
+}
+
+const userExtractor  = async (request:any,response:any,next:any) => {
+    const token = request.token as string
+    // eslint-disable-next-line no-undef
+    if(process.env.SECRET){
+        const decodedToken= jwt.verify(token, process.env.SECRET) as any
+        if (!token || !decodedToken.id) {
+            return response.status(401).json({ error: 'token missing or invalid' })
+        }
+        const user = await User.findById(decodedToken.id)
+        request['user'] = user
+    }
+    next()
+}
+
 export default {
     requestLogger,
     unknownEndpoint,
-    errorHandler
+    errorHandler,
+    tokenExtractor,
+    userExtractor
 }

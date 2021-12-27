@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import config from './utils/config'
 import express from 'express'
 import mongoose from 'mongoose'
@@ -28,9 +29,10 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
+app.use(middleware.tokenExtractor)
 
 
-app.use('/regions', regionRouter)
+app.use('/regions', middleware.userExtractor,regionRouter)
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 

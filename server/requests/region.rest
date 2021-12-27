@@ -1,0 +1,9 @@
+
+### Correct Sign On
+GET http://localhost:3003/regions/
+Content-Type: application/json
+
+### Correct Sign On
+GET http://localhost:3003/regions/61c7483607e4533869b9ec08
+Content-Type: application/json
+

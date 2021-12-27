@@ -1,6 +1,6 @@
 import React from 'react'
 import SideNav from '../SideNav/SideNav'
-import LandfillPage from '../LandfillPage/LandfillPage'
+// import LandfillPage from '../LandfillPage/LandfillPage'
 import './HomePage.css'
 import RegionSelector from '../RegionSelector'
 
@@ -9,7 +9,7 @@ const HomePage = () => {
         <SideNav />
         <div className="container">
             <RegionSelector />
-            <LandfillPage />
+            {/* <LandfillPage /> */}
         </div>
 
     </div>)

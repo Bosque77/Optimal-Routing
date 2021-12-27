@@ -2,11 +2,22 @@ import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import landfillService from '../../services/landfills'
 import loginService from '../../services/login'
+import regionService from '../../services/regions'
 import { Dispatch } from 'redux'
 import { Landfill, LoginInfo, NewLandfill, UserToken } from '../../types'
 
 
 
+
+export const initializeRegions = (user_id: string) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const regions = await regionService.getAll(user_id)
+        dispatch({
+            type: ActionType.INIT_REGIONS,
+            data: regions
+        })
+    }
+}
 
 
 export const initializeLandfills = () => {
@@ -18,6 +29,8 @@ export const initializeLandfills = () => {
         })
     }
 }
+
+
 
 
 export const createLandfill = (landfill: NewLandfill) => {

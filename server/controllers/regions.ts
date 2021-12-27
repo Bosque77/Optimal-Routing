@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
@@ -6,10 +7,11 @@ import regionService from '../services/regionService'
 
 const regionRouter = express.Router()
 
-regionRouter.get('/:id', async (req, res) => {
+regionRouter.get('/', async(req:any, res) => {
     try {
-        const user_id = req.params.id
-        console.log(user_id)
+        const user = req.user
+        const user_id = user._id as string
+        
         const regions = (await regionService.getEntries(user_id))
         res.status(200).send(regions)
     }catch (error){
@@ -19,8 +21,8 @@ regionRouter.get('/:id', async (req, res) => {
 })
 
 
-regionRouter.get('/', (_req,res) => {
-    res.status(200).send('made it through')
-})
+// regionRouter.get('/', (_req,res) => {
+//     res.status(200).send('made it through')
+// })
 
 export default regionRouter

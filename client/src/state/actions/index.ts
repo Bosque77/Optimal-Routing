@@ -1,4 +1,4 @@
-import { Landfill, UserToken } from '../../types'
+import { Landfill, UserToken, Region } from '../../types'
 import { ActionType } from '../action-types'
 
 
@@ -28,4 +28,10 @@ interface SET_USER_TOKEN {
     data: UserToken
 }
 
-export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN
+
+interface INIT_REGIONS {
+    type:ActionType.INIT_REGIONS,
+    data: Region[]
+}
+
+export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS

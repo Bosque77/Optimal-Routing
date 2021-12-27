@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
+import { actionCreators, State } from '../state'
 
 const TopSpacing = styled.div`
   margin-top: 2em;
@@ -7,11 +10,21 @@ const TopSpacing = styled.div`
 
 const RegionSelector = () => {
 
+    console.log('inside Region Selector Component')
+
+    const dispatch = useDispatch()
+    const { initializeRegions,  } = bindActionCreators(actionCreators, dispatch)
+    
+    const user_token = useSelector((state: State) => state.userToken)
+
     useEffect(() => {
-
         M.AutoInit()
-
-
+        if(user_token){
+            console.log('inside the useEffect Hook')
+            console.log(user_token)
+            initializeRegions(user_token.token)
+        }
+      
     }, [])
 
 
@@ -39,3 +52,4 @@ const RegionSelector = () => {
 
 
 export default RegionSelector
+
