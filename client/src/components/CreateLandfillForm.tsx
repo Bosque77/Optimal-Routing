@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NewLandfill, Address } from '../types'
-import { actionCreators } from '../state'
-import { useDispatch } from 'react-redux'
+import { actionCreators, State } from '../state'
+import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
 import { LatLng } from '../types'
@@ -15,7 +15,11 @@ const CreateLandfillForm = ({setActive }: prop) => {
 
     const dispatch = useDispatch()
     const { createLandfill } = bindActionCreators(actionCreators, dispatch)
+    const region = useSelector((state: State) => state.setRegion)
 
+    if(!region){
+        return(<div></div>)
+    }
 
     useEffect(() => {
 
@@ -82,7 +86,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
         if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
             M.toast({html: 'All fields need to be filled out'})
         }else{
-            const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
+            const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id }
             console.log(new_landfill)
             await createLandfill(new_landfill)
             M.toast({html: 'Created New Landfill'})
@@ -152,7 +156,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <button className="waves-effect waves-teal btn-flat modal-close" type="submit">Submit</button>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">

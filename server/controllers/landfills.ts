@@ -43,4 +43,20 @@ landfillRouter.put('/:id', async(req:any, res) => {
 })
 
 
+landfillRouter.post('/', async (req:any, res)=> {
+    try {
+        const user = req.user
+        const user_id = user._id as string
+        const new_landfill = req.body
+        const landfill_object = new Landfill({...new_landfill,'user_id': user_id})
+        
+        
+        const returned_data = (await landfill_object.save())
+        res.status(200).send(returned_data)
+    }catch (error){
+        res.status(500).send('Error getting the landfill entries by user and region')
+    }
+})
+
+
 export default landfillRouter

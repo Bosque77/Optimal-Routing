@@ -52,6 +52,8 @@ export const initializeLandfills = (region:Region) => {
 export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
         const new_landfill = await landfillService.createNew(landfill)
+        console.log('about to dispatch the new landfill')
+        console.log(new_landfill)
         dispatch({
             type: ActionType.ADD_LANDFILL,
             data: new_landfill,

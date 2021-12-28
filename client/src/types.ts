@@ -50,6 +50,7 @@ export interface NewLandfill {
     latitude: number;
     longitude: number;
     active: boolean;
+    region_id:string;
 }
 
 export interface User {

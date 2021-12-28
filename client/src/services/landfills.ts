@@ -1,6 +1,4 @@
 import axios from 'axios'
-// import { useSelector } from 'react-redux'
-// import { State } from '../state'
 import { Landfill, NewLandfill, Region } from '../types'
 import {token} from './config'
 const baseUrl = '/landfills'
@@ -52,8 +50,11 @@ const deleteLandfill = async (landfill: Landfill) => {
 }
 
 const createNew = async (landfill: NewLandfill) => {
-    const response = await axios.post(baseUrl, landfill)
-    console.log(response)
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.post(baseUrl, landfill, config)
+    console.log(response.data)
     return response.data
 }
 
