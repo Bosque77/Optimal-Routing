@@ -17,7 +17,7 @@ const RegionSelector = () => {
     console.log('inside Region Selector Component')
 
     const dispatch = useDispatch()
-    const { initializeRegions, setRegion, createRegion } = bindActionCreators(actionCreators, dispatch)
+    const { initializeRegions, setRegion, createRegion, deleteRegion } = bindActionCreators(actionCreators, dispatch)
 
 
     const [new_region, setNewRegion] = useState('')
@@ -37,7 +37,7 @@ const RegionSelector = () => {
         }
 
         if (user_token) {
-            if (regions.length <1) {
+            if (regions.length < 1) {
                 initializeRegions()
             } else {
                 setRegion(regions[0])
@@ -59,7 +59,7 @@ const RegionSelector = () => {
 
     const onCreateRegion = () => {
         console.log('inside createRegion')
-        const new_region_object = {name: new_region}
+        const new_region_object = { name: new_region }
         createRegion(new_region_object)
     }
 
@@ -68,6 +68,13 @@ const RegionSelector = () => {
         if (modal_elem) {
             const instance = M.Modal.getInstance(modal_elem)
             instance.open()
+        }
+    }
+
+    const onDeleteRegion = () => {
+        console.log('inside onDeleteRegion')
+        if(set_region){
+            deleteRegion(set_region)
         }
     }
 
@@ -82,9 +89,12 @@ const RegionSelector = () => {
                     <div className="col right-align">
                         <button className='btn-floating' onClick={openAddRegionModal}><i className="material-icons">add</i></button>
                     </div>
-                    <div className="col right-align">
-                        <button className='btn-floating black' ><i className="material-icons">delete</i></button>
-                    </div>
+                    {
+                        (set_region?.name !== 'Default') && <div className="col right-align">
+                            <button className='btn-floating black' onClick={() => onDeleteRegion()}><i className="material-icons">delete</i></button>
+                        </div>
+                    }
+
 
                 </div>
             </TopSpacing>
@@ -95,7 +105,7 @@ const RegionSelector = () => {
             </ul>
 
 
-            <div id="addRegionModal" className="modal" style={{width:30}}>
+            <div id="addRegionModal" className="modal" style={{ width: 30 }}>
                 <div className="modal-content">
                     <h6>Insert Region</h6>
                     <input value={new_region} placeholder="New Region" onChange={({ target }) => setNewRegion(target.value)} />

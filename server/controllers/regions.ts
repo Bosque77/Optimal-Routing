@@ -38,4 +38,17 @@ regionRouter.post('/', async(req:any, res) => {
 
 })
 
+
+regionRouter.delete('/:id', async(req:any, res) => {
+    console.log('inside region delete request')
+    try{
+        const region_id = req.params.id
+        await Region.findByIdAndDelete(region_id)
+        res.status(200).send('landfill deleted successfully')
+    }catch(error){
+        console.log('error occured')
+        res.status(500).send('Error deleting the landfill')
+    }
+})
+
 export default regionRouter

@@ -43,7 +43,7 @@ landfillRouter.put('/:id', async(req:any, res) => {
 })
 
 landfillRouter.delete('/:id', async(req:any, res) => {
-    console.log('inside landfill put request')
+    console.log('inside landfill delete request')
     try{
         const landfill_id = req.params.id
         await Landfill.findByIdAndDelete(landfill_id)

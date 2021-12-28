@@ -28,6 +28,11 @@ interface DELETE_LANDFILL {
     data: Landfill
 }
 
+interface DELETE_REGION {
+    type: ActionType.DELETE_REGION;
+    data: Region
+}
+
 interface SET_USER_TOKEN {
     type: ActionType.SET_USER_TOKEN;
     data: UserToken
@@ -44,4 +49,5 @@ interface SET_REGION {
     type:ActionType.SET_REGION,
     data: Region
 }
-export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION
+export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS |
+ DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION | DELETE_REGION

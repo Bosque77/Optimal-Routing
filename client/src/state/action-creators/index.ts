@@ -75,7 +75,7 @@ export const updateLandfill = (updated_landfill: Landfill) => {
 
 export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
-        await landfillService.deleteLandfill(landfill)  // Need to implement some type of error handling here
+        await landfillService.deleteLandfill(landfill)  
         dispatch({
             type: ActionType.DELETE_LANDFILL,
             data: landfill
@@ -83,6 +83,16 @@ export const deleteLandfill = (landfill: Landfill) => {
     }
 }
 
+
+export const deleteRegion = (region:Region) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await regionService.remove(region)  
+        dispatch({
+            type: ActionType.DELETE_REGION,
+            data: region
+        })
+    }
+}
 
 export const loginUser = (login_info: LoginInfo) => {
     return async (dispatch: Dispatch<Action>) => {

@@ -1,6 +1,7 @@
 
 import axios from 'axios'
-import { NewRegion } from '../types'
+// import RegionSelector from '../components/RegionSelector'
+import { NewRegion, Region } from '../types'
 import { token } from './config'
 const baseUrl = '/regions'
 
@@ -24,4 +25,16 @@ const createNew = async (region:NewRegion) => {
     return response.data
 }
 
-export default { getAll, createNew }
+const remove= async (region:Region) => {
+    const config = {
+        headers: { Authorization: token },
+    }
+
+    const url = baseUrl+`/${region.id}`
+    const response = await axios.delete(url,config)
+    return response.data
+}
+
+
+
+export default { getAll, createNew, remove }

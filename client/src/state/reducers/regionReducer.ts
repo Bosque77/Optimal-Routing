@@ -11,6 +11,11 @@ export const regionReducer = (state: Region[] = initialState, action: Action): R
     switch (action.type) {
     case ActionType.ADD_REGION:
         return [...state, action.data]
+    case ActionType.DELETE_REGION:
+    {
+        const id = action.data.id
+        return state.filter(region => region.id !== id)
+    }
     case ActionType.INIT_REGIONS:
         return action.data
 
