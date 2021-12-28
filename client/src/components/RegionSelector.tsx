@@ -53,7 +53,6 @@ const RegionSelector = () => {
             regions?.map(region =>
                 <li key={region.id}><a href="#!" onClick={() => setRegion(region)}>{region.name}</a></li>
             )
-
         )
     }
 

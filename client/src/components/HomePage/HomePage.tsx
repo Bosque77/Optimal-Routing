@@ -3,13 +3,18 @@ import SideNav from '../SideNav/SideNav'
 import LandfillPage from '../LandfillPage/LandfillPage'
 import './HomePage.css'
 import RegionSelector from '../RegionSelector'
+import { Route, Routes } from 'react-router-dom'
 
 const HomePage = () => {
     return (<div>
         <SideNav />
         <div className="container">
             <RegionSelector />
-            <LandfillPage />
+            <Routes>
+                <Route path="/landfill" element={<LandfillPage />} />
+                <Route path="/" element={<LandfillPage />} />
+            </Routes>
+
         </div>
 
     </div>)
