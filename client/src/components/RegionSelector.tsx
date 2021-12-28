@@ -21,7 +21,15 @@ const RegionSelector = () => {
 
 
     useEffect(() => {
-        M.AutoInit()
+        // M.AutoInit()
+        const elems = document.querySelectorAll('.dropdown-trigger')
+        M.Dropdown.init(elems, { constrainWidth: false })
+
+        const add_region_modal = document.querySelector('#addRegionModal')
+        if (add_region_modal) {
+            M.Modal.init(add_region_modal)
+        }
+
         if (user_token) {
             if (!regions) {
                 initializeRegions(user_token.token)
@@ -36,11 +44,23 @@ const RegionSelector = () => {
 
     const insertRegionTabs = () => {
         return (
-            regions?.map(region => 
+            regions?.map(region =>
                 <li key={region.id}><a href="#!" onClick={() => setRegion(region)}>{region.name}</a></li>
             )
 
         )
+    }
+
+    const createRegion = () => {
+        console.log('inside createRegion')
+    }
+
+    const openAddRegionModal = () => {
+        const modal_elem = document.getElementById('addRegionModal')
+        if (modal_elem) {
+            const instance = M.Modal.getInstance(modal_elem)
+            instance.open()
+        }
     }
 
 
@@ -48,15 +68,35 @@ const RegionSelector = () => {
         <div>
             <TopSpacing >
                 <div className="row right-align">
-                    <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>{set_region?.name}</a>
+                    <div className="col offset l10 right-align">
+                        <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>{set_region?.name}</a>
+                    </div>
+                    <div className="col right-align">
+                        <button className='btn-floating' onClick={openAddRegionModal}><i className="material-icons">add</i></button>
+                    </div>
+                    <div className="col right-align">
+                        <button className='btn-floating black' ><i className="material-icons">delete</i></button>
+                    </div>
+
                 </div>
             </TopSpacing>
 
             <ul id='dropdown1' className='dropdown-content'>
-
-
                 {insertRegionTabs()}
             </ul>
+
+            <div id="addRegionModal" className="modal">
+                <div className="modal-content">
+                    <h6>Insert Region</h6>
+                    <br />
+                    <div className="right row">
+                        <div className="col s2">
+                            <button className="btn" onClick={createRegion}>Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
     )

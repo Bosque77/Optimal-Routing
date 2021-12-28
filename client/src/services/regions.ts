@@ -17,7 +17,6 @@ const getAll = async (user_id:string) => {
     const config = {
         headers: { Authorization: token },
     }
-
     const response = await axios.get(baseUrl,config)
     return response.data
 }
