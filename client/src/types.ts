@@ -23,6 +23,8 @@ export interface Region {
     user_id:string;
 }
 
+
+
 export interface Address {
     street: string;
     city: string;
@@ -51,6 +53,10 @@ export interface NewLandfill {
     longitude: number;
     active: boolean;
     region_id:string;
+}
+
+export interface NewRegion {
+    name: string;
 }
 
 export interface User {

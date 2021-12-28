@@ -4,14 +4,14 @@ import landfillService from '../../services/landfills'
 import loginService from '../../services/login'
 import regionService from '../../services/regions'
 import { Dispatch } from 'redux'
-import { Landfill, LoginInfo, NewLandfill, Region, UserToken } from '../../types'
+import { Landfill, LoginInfo, NewLandfill, NewRegion, Region, UserToken } from '../../types'
 
 
 
 
-export const initializeRegions = (user_id: string) => {
+export const initializeRegions = () => {
     return async (dispatch: Dispatch<Action>) => {
-        const regions = await regionService.getAll(user_id)
+        const regions = await regionService.getAll()
         dispatch({
             type: ActionType.INIT_REGIONS,
             data: regions
@@ -19,14 +19,7 @@ export const initializeRegions = (user_id: string) => {
     }
 }
 
-// export const setRegion = (region: Region) => {
-//     return async (dispatch: Dispatch<Action>) => {
-//         dispatch({
-//             type: ActionType.SET_REGION,
-//             data: region
-//         })
-//     }
-// }
+
 
 export const setRegion = (region: Region) => {
     return {
@@ -47,8 +40,6 @@ export const initializeLandfills = (region:Region) => {
 }
 
 
-
-
 export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
         const new_landfill = await landfillService.createNew(landfill)
@@ -57,6 +48,16 @@ export const createLandfill = (landfill: NewLandfill) => {
         dispatch({
             type: ActionType.ADD_LANDFILL,
             data: new_landfill,
+        })
+    }
+}
+
+export const createRegion = (region:NewRegion) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_region = await regionService.createNew(region)
+        dispatch({
+            type: ActionType.ADD_REGION,
+            data: new_region,
         })
     }
 }

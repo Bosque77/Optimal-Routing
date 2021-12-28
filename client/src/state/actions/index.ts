@@ -8,6 +8,11 @@ interface ADD_LANDFILL {
     data: Landfill
 }
 
+interface ADD_REGION {
+    type:ActionType.ADD_REGION,
+    data: Region
+}
+
 interface UPDATE_LANDFILL {
     type: ActionType.UPDATE_LANDFILL;
     data: Landfill
@@ -39,4 +44,4 @@ interface SET_REGION {
     type:ActionType.SET_REGION,
     data: Region
 }
-export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION
+export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS | DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION

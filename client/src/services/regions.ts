@@ -1,19 +1,13 @@
 
 import axios from 'axios'
+import { NewRegion } from '../types'
+import { token } from './config'
 const baseUrl = '/regions'
 
 
 
 
-let token = ''
-
-
-const setToken = (newToken: string) => {
-    token = `bearer ${newToken}`
-}
-
-const getAll = async (user_id:string) => {
-    setToken(user_id)
+const getAll = async () => {
     const config = {
         headers: { Authorization: token },
     }
@@ -21,4 +15,13 @@ const getAll = async (user_id:string) => {
     return response.data
 }
 
-export default { getAll, setToken }
+
+const createNew = async (region:NewRegion) => {
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.post(baseUrl,region,config)
+    return response.data
+}
+
+export default { getAll, createNew }

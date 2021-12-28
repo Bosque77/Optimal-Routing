@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 import { actionCreators, State } from '../state'
+import './RegionSelector.css'
 
 const TopSpacing = styled.div`
   margin-top: 2em;
 `
+
+
+
 
 const RegionSelector = () => {
 
     console.log('inside Region Selector Component')
 
     const dispatch = useDispatch()
-    const { initializeRegions, setRegion } = bindActionCreators(actionCreators, dispatch)
+    const { initializeRegions, setRegion, createRegion } = bindActionCreators(actionCreators, dispatch)
 
+
+    const [new_region, setNewRegion] = useState('')
     const user_token = useSelector((state: State) => state.userToken)
     const regions = useSelector((state: State) => state.regions)
     const set_region = useSelector((state: State) => state.setRegion)
@@ -31,8 +37,8 @@ const RegionSelector = () => {
         }
 
         if (user_token) {
-            if (!regions) {
-                initializeRegions(user_token.token)
+            if (regions.length <1) {
+                initializeRegions()
             } else {
                 setRegion(regions[0])
             }
@@ -51,8 +57,10 @@ const RegionSelector = () => {
         )
     }
 
-    const createRegion = () => {
+    const onCreateRegion = () => {
         console.log('inside createRegion')
+        const new_region_object = {name: new_region}
+        createRegion(new_region_object)
     }
 
     const openAddRegionModal = () => {
@@ -81,22 +89,28 @@ const RegionSelector = () => {
                 </div>
             </TopSpacing>
 
+
             <ul id='dropdown1' className='dropdown-content'>
                 {insertRegionTabs()}
             </ul>
 
-            <div id="addRegionModal" className="modal">
+
+            <div id="addRegionModal" className="modal" style={{width:30}}>
                 <div className="modal-content">
                     <h6>Insert Region</h6>
+                    <input value={new_region} placeholder="New Region" onChange={({ target }) => setNewRegion(target.value)} />
                     <br />
                     <div className="right row">
                         <div className="col s2">
-                            <button className="btn" onClick={createRegion}>Submit</button>
+                            <button className="btn modal-close" onClick={() => onCreateRegion()}>Submit</button>
                         </div>
 
                     </div>
                 </div>
             </div>
+
+
+
         </div>
 
     )
