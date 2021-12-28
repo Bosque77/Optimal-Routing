@@ -1,22 +1,34 @@
 import axios from 'axios'
-import { Landfill, NewLandfill } from '../types'
+// import { useSelector } from 'react-redux'
+// import { State } from '../state'
+import { Landfill, NewLandfill, Region } from '../types'
+import {token} from './config'
 const baseUrl = '/landfills'
 
 
-let token = ''
 
 
-const setToken = (newToken:string) => {
-    token = `bearer ${newToken}`
+const getByRegion = async (region:Region) => {
+    const url = baseUrl+`/region/${region.id}`
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.get(url, config)
+    return response.data
 }
 
 
-// const baseUrl = `${process.env.REACT_APP_BASE_URL}/landfills`
-// const baseUrl = 'http://localhost:3001/landfills'
-
 const getAll = async () => {
-    const response = await axios.get(baseUrl)
-    return response.data
+    if(token){
+        const config = {
+            headers: { Authorization: token },
+        }
+        console.log(config)
+        const response = await axios.get(baseUrl, config)
+        return response.data
+    }else{
+        throw('Cannot access landfills until the user token is present')
+    }
 }
 
 const put = async (landfill: Landfill) => {
@@ -24,11 +36,10 @@ const put = async (landfill: Landfill) => {
         headers: { Authorization: token },
     }
 
-    console.log('inside the landfill services put request')
     const id = landfill.id
     const url = baseUrl + `/${id}`
-    const response = await axios.put(url, landfill, config)
-    return response.data
+    await axios.put(url, landfill, config)
+    return landfill
 }
 
 
@@ -46,4 +57,4 @@ const createNew = async (landfill: NewLandfill) => {
     return response.data
 }
 
-export default { getAll, put, createNew, deleteLandfill, setToken }
+export default { getAll, put, createNew, deleteLandfill, getByRegion }

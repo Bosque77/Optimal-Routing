@@ -13,9 +13,14 @@ const LandfillPage = () => {
 
     const dispatch = useDispatch()
     const { initializeLandfills } = bindActionCreators(actionCreators, dispatch)
+
+    const region = useSelector((state: State) => state.setRegion)
+
     useEffect(() => {
-        initializeLandfills()
-    }, [])
+        if(region){
+            initializeLandfills(region)
+        }
+    }, [region])
 
     const landfills = useSelector((state: State) => state.landfills)
 

@@ -46,6 +46,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
     const [longitude, setLongitude] = useState(landfill.longitude.toString())
     const [active, setStatus] = useState(landfill.active)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
+    
 
 
 

@@ -36,9 +36,9 @@ export const setRegion = (region: Region) => {
 }
 
 
-export const initializeLandfills = () => {
+export const initializeLandfills = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {
-        const landfills = await landfillService.getAll()
+        const landfills = await landfillService.getByRegion(region)
         dispatch({
             type: ActionType.INIT_LANDFILLS,
             data: landfills

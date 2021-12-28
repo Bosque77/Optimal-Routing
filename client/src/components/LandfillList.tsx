@@ -19,11 +19,14 @@ const LandfillList = () => {
 
     const dispatch = useDispatch()
 
-    const { initializeLandfills, updateLandfill } = bindActionCreators(actionCreators, dispatch)
+    const { updateLandfill } = bindActionCreators(actionCreators, dispatch)
+
+
     useEffect(() => {
         M.AutoInit()
-        initializeLandfills()
+
     }, [])
+    
     const landfills = useSelector((state: State) => state.landfills)
     const [landfill, setLandfill] = useState<Landfill>(landfills[0])
     const [editFormActive, setEditFormActive] = useState(false)

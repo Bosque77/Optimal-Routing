@@ -7,6 +7,7 @@ require('express-async-errors')
 import cors from 'cors'
 
 import usersRouter from './controllers/users'
+import landfillRouter from './controllers/landfills'
 import regionRouter from './controllers/regions'
 import loginRouter from './controllers/login'
 import middleware from './utils/middleware'
@@ -33,6 +34,7 @@ app.use(middleware.tokenExtractor)
 
 
 app.use('/regions', middleware.userExtractor,regionRouter)
+app.use('/landfills', middleware.userExtractor,landfillRouter)
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 

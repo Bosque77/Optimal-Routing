@@ -13,5 +13,5 @@ export interface NewLandfill{
     longitude: number,
     active: boolean,
     user_id: string,
-    region_name: string,
+    region_id: string,
 }

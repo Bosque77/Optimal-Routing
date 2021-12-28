@@ -15,28 +15,33 @@ const users = [
         'username': 'user_1',
         'password': 'password123',
         'passwordHash': '$2b$10$drQ3m/uP5sejRRlfHNwNfu4Esxec454XqrE9j6ivWG8E/pYa4HF1u',
-        'id': '61c7483607e4533869b9ec08'
+        '_id': '61c7483607e4533869b9ec08'
     },
     {
         'username': 'user_2',
         'password': 'password1234',
         'passwordHash': '$2b$10$//cykx4aefD9n4YOKYB7kuFGGoHto3izcLWxvmgyZSc0GnAIf8Oh6',
-        'id': '61c7483607e4533869b9ec09'
+        '_id': '61c7483607e4533869b9ec09'
     }
 ]
 
 const regions = [
     {
+
         'name': 'Default',
         'user_id': '61c7483607e4533869b9ec08',
+        '_id': '61ca3cb19e9ade7351418e30'
     },
     {
+
         'name': 'Atlanta',
         'user_id': '61c7483607e4533869b9ec08',
+        '_id': '61ca3cb19e9ade7351418e31'
     },
     {
         'name': 'Woodstock',
         'user_id': '61c7483607e4533869b9ec08',
+        '_id': '61ca3cb19e9ade7351418e32'
     }
 ]
 
@@ -51,7 +56,7 @@ const landfills: NewLandfill[] = [
         'longitude': -84.318,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_name': 'Default'
+        'region_id': '61ca3cb19e9ade7351418e30',
     },
     {
         'name': 'Flat Shoals',
@@ -63,7 +68,7 @@ const landfills: NewLandfill[] = [
         'longitude': -84.346,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_name': 'Default'
+        'region_id': '61ca3cb19e9ade7351418e30',
     },
     {
         'name': 'The Mega Complex',
@@ -75,7 +80,7 @@ const landfills: NewLandfill[] = [
         'longitude': -117.135,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_name': 'Default'
+        'region_id': '61ca3cb19e9ade7351418e30',
     }
 ]
 
@@ -93,7 +98,7 @@ const initUsers = async () => {
 
     await User.deleteMany({})
 
-    const user_objects = users.map(user => new User({ _id: user.id, username: user.username, passwordHash: user.passwordHash }))
+    const user_objects = users.map(user => new User({ _id: user._id, username: user.username, passwordHash: user.passwordHash }))
     const promise_array = user_objects.map(user => user.save())
     await Promise.all(promise_array)
 
@@ -116,7 +121,7 @@ const initRegions = async () => {
 
     await Region.deleteMany({})
 
-    const region_objects = regions.map(region => new Region({ name: region.name, user_id: region.user_id }))
+    const region_objects = regions.map(region => new Region({ ...region }))
     const promise_array = region_objects.map(region => region.save())
     await Promise.all(promise_array)
 
@@ -125,23 +130,31 @@ const initRegions = async () => {
 
 
 const initLandfills = async () => {
-    if (config.MONGODB_URI) {
-        await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-            .then(() => {
-                logger.info('connected to MongoDB')
-            })
-            .catch((error) => {
-                logger.error('error connection to MongoDB:', error.message)
-            })
+
+    try {
+
+
+        if (config.MONGODB_URI) {
+            await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+                .then(() => {
+                    logger.info('connected to MongoDB')
+                })
+                .catch((error) => {
+                    logger.error('error connection to MongoDB:', error.message)
+                })
+        }
+
+        console.log('started deleting landfills')
+        await Landfill.deleteMany({})
+        console.log('finished deleting landfills')
+        const landfill_objects = landfills.map(landfill => new Landfill({ ...landfill }))
+        const promise_array = landfill_objects.map(landfill => landfill.save())
+        await Promise.all(promise_array)
+
+        mongoose.disconnect()
+    } catch (error) {
+        console.log(error)
     }
-
-    await Landfill.deleteMany({})
-
-    const landfill_objects = landfills.map(landfill => new Landfill({...landfill }))
-    const promise_array = landfill_objects.map(landfill => landfill.save())
-    await Promise.all(promise_array)
-
-    mongoose.disconnect()
 }
 
 

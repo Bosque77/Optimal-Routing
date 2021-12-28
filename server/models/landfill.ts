@@ -12,7 +12,7 @@ const landfillSchema = new mongoose.Schema({
     longitude: Number,
     active: Boolean,
     user_id: String,
-    region_name: String,
+    region_id: String,
 })
 
 landfillSchema.set('toJSON', {
