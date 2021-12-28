@@ -42,10 +42,12 @@ const put = async (landfill: Landfill) => {
 
 
 const deleteLandfill = async (landfill: Landfill) => {
-    console.log('inside the landfill services delete request')
+    const config = {
+        headers: { Authorization: token },
+    }
     const id = landfill.id
     const url = baseUrl + `/${id}`
-    const response = await axios.delete(url)
+    const response = await axios.delete(url, config)
     return response
 }
 
