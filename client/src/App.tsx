@@ -21,8 +21,9 @@ function App() {
         const user_token = window.localStorage.getItem('user_token')
         if (user_token) {
             const parsed_user_token: UserToken = JSON.parse(user_token)
-            setUserToken(parsed_user_token)
             setToken(parsed_user_token.token)
+            setUserToken(parsed_user_token)
+            
         }
     }, [])
 
