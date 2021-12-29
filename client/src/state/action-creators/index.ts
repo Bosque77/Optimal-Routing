@@ -3,8 +3,9 @@ import { Action } from '../actions'
 import landfillService from '../../services/landfills'
 import loginService from '../../services/login'
 import regionService from '../../services/regions'
+import driverService from '../../services/driver'
 import { Dispatch } from 'redux'
-import { Landfill, LoginInfo, NewLandfill, NewRegion, Region, UserToken } from '../../types'
+import { Driver, Landfill, LoginInfo, NewLandfill, NewRegion, Region, UserToken } from '../../types'
 
 
 
@@ -35,6 +36,18 @@ export const initializeLandfills = (region:Region) => {
         dispatch({
             type: ActionType.INIT_LANDFILLS,
             data: landfills
+        })
+    }
+}
+
+
+export const initializeDrivers = (region:Region) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const drivers = await driverService.getAll()
+        // const drivers = await driverService.getByRegion(region)
+        dispatch({
+            type: ActionType.INIT_DRIVERS,
+            data: drivers
         })
     }
 }
@@ -73,12 +86,34 @@ export const updateLandfill = (updated_landfill: Landfill) => {
     }
 }
 
+
+export const updateDriver = (updated_driver: Driver) => {
+
+    return async (dispatch: Dispatch<Action>) => {
+        const driver = await driverService.put(updated_driver)
+        dispatch({
+            type: ActionType.UPDATE_DRIVER,
+            data: driver
+        })
+    }
+}
+
 export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
         await landfillService.deleteLandfill(landfill)  
         dispatch({
             type: ActionType.DELETE_LANDFILL,
             data: landfill
+        })
+    }
+}
+
+export const deleteDriver = (driver: Driver) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await driverService.deleteDriver(driver)  
+        dispatch({
+            type: ActionType.DELETE_DRIVER,
+            data: driver
         })
     }
 }

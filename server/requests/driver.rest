@@ -1,0 +1,9 @@
+
+### Correct Sign On
+GET http://localhost:3003/drivers/
+Content-Type: application/json
+
+### Correct Sign On
+GET http://localhost:3003/drivers/region/61ca3cb19e9ade7351418e30
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJfMSIsImlkIjoiNjFjNzQ4MzYwN2U0NTMzODY5YjllYzA4IiwiaWF0IjoxNjQwODAyNTQxfQ.wB1AQlZtu4WSdBUTgRhnoiuX35gVnQdQddq46-r0Z3o

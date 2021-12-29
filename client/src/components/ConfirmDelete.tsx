@@ -2,18 +2,20 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state'
-import { Landfill } from '../types'
+import { Driver, Landfill } from '../types'
 
 interface props {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
-    landfill?: Landfill
+    landfill?: Landfill,
+    driver?: Driver
 }
 
-const ConfirmDelete = ({ setActive, landfill }: props) => {
+const ConfirmDelete = ({ setActive, landfill, driver }: props) => {
 
     const dispatch = useDispatch()
 
     const { deleteLandfill } = bindActionCreators(actionCreators, dispatch)
+    const { deleteDriver } = bindActionCreators(actionCreators, dispatch)
 
 
     React.useEffect(() => {
@@ -29,6 +31,8 @@ const ConfirmDelete = ({ setActive, landfill }: props) => {
         if (status) {
             if(landfill){
                 deleteLandfill(landfill)
+            }else if(driver){
+                deleteDriver(driver)
             }
         }
         setActive(false)
@@ -45,11 +49,11 @@ const ConfirmDelete = ({ setActive, landfill }: props) => {
                     </div>
                     <br />
                     <div className="row">
-                        <div className="col s5"></div>
-                        <div className="col s1">
+                        <div className="col s4"></div>
+                        <div className="col s2">
                             <button onClick={() => handleConfirmation(true)} className="btn black modal-close" >Yes</button>
                         </div>
-                        <div className="col s1">
+                        <div className="col s2">
                             <button onClick={() => handleConfirmation(false)} className="btn black modal-close">No</button>
                         </div>
 

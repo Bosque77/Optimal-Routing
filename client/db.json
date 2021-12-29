@@ -13,27 +13,23 @@
       "id": 2
     }
   ],
-
-    "regions" : [
+  "regions": [
     {
-
-        "name": "Default",
-        "user_id": "61c7483607e4533869b9ec08",
-        "id": "61ca3cb19e9ade7351418e30"
+      "name": "Default",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e30"
     },
     {
-
-        "name": "Atlanta",
-        "user_id": "61c7483607e4533869b9ec08",
-        "id": "61ca3cb19e9ade7351418e31"
+      "name": "Atlanta",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e31"
     },
     {
-        "name": "Woodstock",
-        "user_id": "61c7483607e4533869b9ec08",
-        "id": "61ca3cb19e9ade7351418e32"
+      "name": "Woodstock",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e32"
     }
   ],
-
   "landfills": [
     {
       "name": "The Mega Complex",
@@ -46,8 +42,8 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
-  },
-  {
+    },
+    {
       "name": "Flat Shoals",
       "street": "470 Flat Shoals Ave",
       "city": "Atlanta",
@@ -58,8 +54,8 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
-  },
-  {
+    },
+    {
       "name": "The Mega Complex",
       "street": "219 Evans Street",
       "city": "San Diego",
@@ -70,8 +66,17 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
-  }
+    }
+  ],
+  "drivers": [
+    {
+      "id": "61ccc318cbff2a178094a3c9",
+      "name": "Sarah Mclellon",
+      "phone_number": "404-684-7598",
+      "email": "sarah.mclellon@gmail.com",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }
   ]
- 
 }
-

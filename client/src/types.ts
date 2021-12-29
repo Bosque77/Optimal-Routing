@@ -16,6 +16,16 @@ export interface Landfill {
     active: boolean;
 }
 
+export interface Driver {
+    id: string;
+    name: string;
+    phone_number: string;
+    email: string;
+    active: boolean;
+    user_id: string;
+    region_id:string;
+}
+
 
 export interface Region {
     id: string;
@@ -62,6 +72,14 @@ export interface NewRegion {
 export interface User {
     username: string;
     password: string;
+}
+
+export interface NewDriver {
+    name: string;
+    phone_number: string;
+    email: string;
+    user_id: string;
+    region_id:string;
 }
 
 export interface LoginInfo {

@@ -5,8 +5,8 @@ import logger from './utils/logger'
 import User from './models/user'
 import Region from './models/region'
 import Landfill from './models/landfill'
-// import bcrypt from 'bcrypt'
-import { NewLandfill } from './types'
+import Driver from './models/driver'
+import { NewLandfill, NewDriver } from './types'
 
 
 
@@ -97,8 +97,37 @@ const landfills: NewLandfill[] = [
 
 ]
 
+const drivers: NewDriver[] = [
+    {
+        'name': 'Forest Schwartz',
+        'phone_number': '404-617-9402',
+        'email': 'forestschwrtz@gmail.com',
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
 
-const initUsers = async () => {
+    },
+    {
+        'name': 'Ralph McGrew',
+        'phone_number': '404-861-4598',
+        'email': 'rgMcgrew@gmail.com',
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'name': 'Sarah Mclellon',
+        'phone_number': '404-684-7598',
+        'email': 'sarah.mclellon@gmail.com',
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    }
+
+]
+
+
+const connectMongoose = async () => {
     if (config.MONGODB_URI) {
         await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
             .then(() => {
@@ -108,70 +137,51 @@ const initUsers = async () => {
                 logger.error('error connection to MongoDB:', error.message)
             })
     }
+}
 
+
+const initUsers = async () => {
     await User.deleteMany({})
-
     const user_objects = users.map(user => new User({ _id: user._id, username: user.username, passwordHash: user.passwordHash }))
     const promise_array = user_objects.map(user => user.save())
     await Promise.all(promise_array)
-
-
-    mongoose.disconnect()
-
 }
 
 
 const initRegions = async () => {
-    if (config.MONGODB_URI) {
-        await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-            .then(() => {
-                logger.info('connected to MongoDB')
-            })
-            .catch((error) => {
-                logger.error('error connection to MongoDB:', error.message)
-            })
-    }
-
     await Region.deleteMany({})
-
     const region_objects = regions.map(region => new Region({ ...region }))
     const promise_array = region_objects.map(region => region.save())
     await Promise.all(promise_array)
-
-    mongoose.disconnect()
 }
 
 
 const initLandfills = async () => {
-
-    try {
-
-
-        if (config.MONGODB_URI) {
-            await mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-                .then(() => {
-                    logger.info('connected to MongoDB')
-                })
-                .catch((error) => {
-                    logger.error('error connection to MongoDB:', error.message)
-                })
-        }
-
-        console.log('started deleting landfills')
-        await Landfill.deleteMany({})
-        console.log('finished deleting landfills')
-        const landfill_objects = landfills.map(landfill => new Landfill({ ...landfill }))
-        const promise_array = landfill_objects.map(landfill => landfill.save())
-        await Promise.all(promise_array)
-
-        mongoose.disconnect()
-    } catch (error) {
-        console.log(error)
-    }
+    await Landfill.deleteMany({})
+    const landfill_objects = landfills.map(landfill => new Landfill({ ...landfill }))
+    const promise_array = landfill_objects.map(landfill => landfill.save())
+    await Promise.all(promise_array)
 }
 
 
+const initDrivers = async () => {
+    await Driver.deleteMany({})
+    const driver_objects = drivers.map(driver => new Driver({ ...driver }))
+    const promise_array = driver_objects.map(driver => driver.save())
+    await Promise.all(promise_array)
+}
 
-initUsers()
-initRegions()
-initLandfills()
+
+const runInit = async () => {
+    await connectMongoose()
+    await initUsers()
+    await initRegions()
+    await initLandfills()
+    await initDrivers()
+    mongoose.disconnect()
+    console.log('finished writing data to database')
+}
+
+
+runInit()
+

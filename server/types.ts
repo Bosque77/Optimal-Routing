@@ -15,3 +15,13 @@ export interface NewLandfill{
     user_id: string,
     region_id: string,
 }
+
+
+export interface NewDriver {
+    name: string;
+    phone_number: string;
+    email: string;
+    active: boolean;
+    user_id: string;
+    region_id: string;
+}
