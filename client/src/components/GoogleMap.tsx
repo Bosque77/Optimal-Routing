@@ -49,22 +49,6 @@ const GoogleMap = ({ landfills }: MyProps) => {
 
 
 
-    // const createLandfillMarkers = () => {
-    //     const 
-    //     if (landfills) {
-    //         for (let i = 0; i < landfills.length; i++) {
-    //             const current_landfill = landfills[i]
-    //             const latitude = current_landfill.latitude
-    //             const longitude = current_landfill.longitude
-    //             const lat_lng = { lat: latitude, lng: longitude }
-
-    //         }
-    //     }
-
-    // }
-
-
-
     const onClick = (e: google.maps.MapMouseEvent) => {
         console.log(e.latLng!)
         // avoid directly mutating state
@@ -79,11 +63,13 @@ const GoogleMap = ({ landfills }: MyProps) => {
     }
     // [END maps_react_map_component_app_state]
 
-    // const landfill_icon = '../static/images/landscape_icon.png'
-    // const landfill_icon =
-    // 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+ 
 
     // [START maps_react_map_component_app_return]
+
+
+   
+
     return (
         <div >
             <TopSpacing>
@@ -97,12 +83,12 @@ const GoogleMap = ({ landfills }: MyProps) => {
                     >
                         {landfills && landfills.map((landfill) => {
                             const latlng = { lat: landfill.latitude, lng: landfill.longitude }
-                            if(landfill.active){
-                                return(< Marker key = { landfill.id } position = { latlng } icon={landfill_icon} />)
-                            }else{
+                            if (landfill.active) {
+                                return (< Marker key={landfill.id} position={latlng} icon={landfill_icon} title={landfill.name}  />)
+                            } else {
                                 return
                             }
-                            
+
                         })}
                     </Map>
                 </Wrapper>
@@ -200,6 +186,8 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
             marker.setOptions(options)
         }
     }, [marker, options])
+
+
 
     return null
 }
