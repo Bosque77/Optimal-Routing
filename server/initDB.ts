@@ -28,7 +28,7 @@ const users = [
 const regions = [
     {
 
-        'name': 'Default',
+        'name': 'Default   ',
         'user_id': '61c7483607e4533869b9ec08',
         '_id': '61ca3cb19e9ade7351418e30'
     },
@@ -47,41 +47,54 @@ const regions = [
 
 const landfills: NewLandfill[] = [
     {
-        'name': 'The Mega Complex',
-        'street': '4703 Cambridge Dr.',
-        'city': 'Sandy Springs',
-        'state': 'Georgia',
-        'zipcode': 30338,
-        'latitude': 33.935,
-        'longitude': -84.318,
-        'active': true,
-        'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30',
-    },
-    {
-        'name': 'Flat Shoals',
-        'street': '470 Flat Shoals Ave',
+        'name': 'Doraville Transfer Station',
+        'street': '2784 Woodwin Rd,',
         'city': 'Atlanta',
         'state': 'Georgia',
-        'zipcode': 30316,
-        'latitude': 33.741,
-        'longitude': -84.346,
+        'zipcode': 30360,
+        'latitude': 33.918,
+        'longitude': -84.275,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
     },
     {
-        'name': 'The Mega Complex',
-        'street': '219 Evans Street',
-        'city': 'San Diego',
-        'state': 'California',
-        'zipcode': 92102,
-        'latitude': 32.708,
-        'longitude': -117.135,
+        'name': 'Cobb County Landfill',
+        'street': '1775 County Services Pkwy SW',
+        'city': 'Marietta',
+        'state': 'Georgia',
+        'zipcode': 30008,
+        'latitude': 33.907,
+        'longitude': -84.581,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
-    }
+    },
+    {
+        'name': 'Republic Services of Atlanta',
+        'street': '3045 Donald Lee Hollowell Parkway Northwest',
+        'city': 'Woodstock',
+        'state': 'Georgia',
+        'zipcode': 30318,
+        'latitude': 33.784,
+        'longitude': -84.487,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
+    },
+    {
+        'name': 'Waste Management - Atlanta West Hauling',
+        'street': '3001 S Pioneer Dr SE',
+        'city': 'Smyrna',
+        'state': 'Georgia',
+        'zipcode': 30082,
+        'latitude': 33.823,
+        'longitude': -84.496,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
+    },
+
 ]
 
 

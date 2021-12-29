@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './SignInForm.css'
 import logo from './images/logo.svg'
 import {
-    Link
+    Link, useNavigate
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,6 +14,7 @@ import { LoginInfo } from '../../types'
 const SignInForm = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { loginUser} = bindActionCreators(actionCreators, dispatch)
 
     const [email, setEmail] = useState<string>('')
@@ -28,6 +29,7 @@ const SignInForm = () => {
         // eslint-disable-next-line no-debugger
         try{
             const response = await loginUser(login_info)
+            navigate('/')
             console.log('logging the login response')
             console.log(response)
         } catch(error){
