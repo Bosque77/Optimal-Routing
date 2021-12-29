@@ -8,14 +8,17 @@ import { Route, Routes } from 'react-router-dom'
 const HomePage = () => {
     return (<div>
         <SideNav />
-        <div className="container">
-            <RegionSelector />
-            <Routes>
-                <Route path="/landfill" element={<LandfillPage />} />
-                <Route path="/" element={<LandfillPage />} />
-            </Routes>
+        <main>
+            <div className="container">
+                <RegionSelector />
+                <Routes>
+                    <Route path="/landfill" element={<LandfillPage />} />
+                    <Route path="/" element={<LandfillPage />} />
+                </Routes>
 
-        </div>
+            </div>
+        </main>
+
 
     </div>)
 }

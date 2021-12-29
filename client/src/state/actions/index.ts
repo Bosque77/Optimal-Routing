@@ -35,7 +35,7 @@ interface DELETE_REGION {
 
 interface SET_USER_TOKEN {
     type: ActionType.SET_USER_TOKEN;
-    data: UserToken
+    data: (UserToken | null)
 }
 
 

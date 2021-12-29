@@ -13,31 +13,54 @@
       "id": 2
     }
   ],
+
+    "regions" : [
+    {
+
+        "name": "Default",
+        "user_id": "61c7483607e4533869b9ec08",
+        "id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+
+        "name": "Atlanta",
+        "user_id": "61c7483607e4533869b9ec08",
+        "id": "61ca3cb19e9ade7351418e31"
+    },
+    {
+        "name": "Woodstock",
+        "user_id": "61c7483607e4533869b9ec08",
+        "id": "61ca3cb19e9ade7351418e32"
+    }
+  ],
+
   "landfills": [
     {
-      "name": "test",
+      "name": "The Mega Complex",
       "street": "4703 Cambridge Dr.",
-      "city": "Atlanta",
+      "city": "Sandy Springs",
       "state": "Georgia",
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false,
-      "id": 8
-    },
-    {
-      "name": "Jungle",
-      "street": "4703 Cambridge Dr.",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+  },
+  {
+      "name": "Flat Shoals",
+      "street": "470 Flat Shoals Ave",
       "city": "Atlanta",
       "state": "Georgia",
-      "zipcode": 30338,
-      "latitude": 33.935,
-      "longitude": -84.318,
-      "active": false,
-      "id": 9
-    },
-    {
-      "name": "SD Complex",
+      "zipcode": 30316,
+      "latitude": 33.741,
+      "longitude": -84.346,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+  },
+  {
+      "name": "The Mega Complex",
       "street": "219 Evans Street",
       "city": "San Diego",
       "state": "California",
@@ -45,7 +68,10 @@
       "latitude": 32.708,
       "longitude": -117.135,
       "active": true,
-      "id": 10
-    }
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+  }
   ]
+ 
 }
+

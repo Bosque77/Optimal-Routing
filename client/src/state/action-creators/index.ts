@@ -106,7 +106,7 @@ export const loginUser = (login_info: LoginInfo) => {
 }
 
 
-export const setUserToken = (user_token: UserToken) => {
+export const setUserToken = (user_token: UserToken | null) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.SET_USER_TOKEN,

@@ -8,7 +8,7 @@ import { actionCreators, State } from './state'
 import { useDispatch, useSelector } from 'react-redux'
 import HomePage from './components/HomePage/HomePage'
 import { bindActionCreators } from 'redux'
-import {setToken} from './services/config'
+import { setToken } from './services/config'
 import { UserToken } from './types'
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
         if (user_token) {
-            const parsed_user_token:UserToken = JSON.parse(user_token)
+            const parsed_user_token: UserToken = JSON.parse(user_token)
             setUserToken(parsed_user_token)
             setToken(parsed_user_token.token)
         }
@@ -30,12 +30,14 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <main>
-                    <Routes>
-                        {!user_token && <Route path="/*" element={<Login />} />}
-                        {user_token && <Route path="/*" element={<HomePage />} />}
-                    </Routes>
-                </main>
+
+                <Routes>
+                    {!user_token && <Route path="/*" element={<Login />} />}
+
+                    {user_token && <Route path="/*" element={<HomePage />} />}
+
+                </Routes>
+
             </div>
         </Router>
     )
