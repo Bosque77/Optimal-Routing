@@ -75,7 +75,7 @@
       "city": "Cumming",
       "state": "Georgia",
       "zipcode": 30040,
-      "latitude": 34.250,
+      "latitude": 34.25,
       "longitude": -84.111,
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
@@ -87,7 +87,7 @@
       "city": "Atlanta",
       "state": "Georgia",
       "zipcode": 30309,
-      "latitude": 33.790,
+      "latitude": 33.79,
       "longitude": -84.389,
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
@@ -96,12 +96,12 @@
   ],
   "drivers": [
     {
-      "name": "forest",
+      "id": "ouuuDte",
+      "name": "test",
       "phone_number": "404-617-9402",
       "email": "forestschwrtz@gmail.com",
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "ouuuDte",
-      "active": true
+      "active": true,
+      "region_id": "61ca3cb19e9ade7351418e30"
     }
   ]
 }

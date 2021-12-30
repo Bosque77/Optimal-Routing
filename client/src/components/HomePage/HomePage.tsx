@@ -5,6 +5,7 @@ import TruckDriverPage from '../TruckDriverPage/TruckDriverPage'
 import './HomePage.css'
 import RegionSelector from '../RegionSelector'
 import { Route, Routes } from 'react-router-dom'
+import DepotPage from '../DepotPage/DepotPage'
 
 const HomePage = () => {
     return (<div>
@@ -13,7 +14,8 @@ const HomePage = () => {
             <div className="container">
                 <RegionSelector />
                 <Routes>
-                    <Route path="/driver" element={<TruckDriverPage />}/>
+                    <Route path="/depot" element={<DepotPage />} />
+                    <Route path="/driver" element={<TruckDriverPage />} />
                     <Route path="/landfill" element={<LandfillPage />} />
                     <Route path="/" element={<LandfillPage />} />
                 </Routes>

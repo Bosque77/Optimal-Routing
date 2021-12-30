@@ -4,10 +4,16 @@ import landfillService from '../../services/landfills'
 import loginService from '../../services/login'
 import regionService from '../../services/regions'
 import driverService from '../../services/driver'
+import depotService from '../../services/depots'
 import { Dispatch } from 'redux'
-import { Driver, Landfill, LoginInfo, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
+import { Depot, Driver, Landfill, LoginInfo, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
 
-
+export const setRegion = (region: Region) => {
+    return {
+        type: ActionType.SET_REGION,
+        data: region
+    }
+}
 
 
 export const initializeRegions = () => {
@@ -22,17 +28,8 @@ export const initializeRegions = () => {
 
 
 
-export const setRegion = (region: Region) => {
-    return {
-        type: ActionType.SET_REGION,
-        data: region
-    }
-}
-
-
 export const initializeLandfills = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {
-        // const landfills = await landfillService.getAll()
         const landfills = await landfillService.getByRegion(region)
         dispatch({
             type: ActionType.INIT_LANDFILLS,
@@ -44,11 +41,22 @@ export const initializeLandfills = (region:Region) => {
 
 export const initializeDrivers = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {
-        // const drivers = await driverService.getAll()
         const drivers = await driverService.getByRegion(region)
         dispatch({
             type: ActionType.INIT_DRIVERS,
             data: drivers
+        })
+    }
+}
+
+
+
+export const initializeDepots = (region:Region) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const depots = await depotService.getByRegion(region)
+        dispatch({
+            type: ActionType.INIT_DEPOTS,
+            data: depots
         })
     }
 }
@@ -110,6 +118,18 @@ export const updateDriver = (updated_driver: Driver) => {
     }
 }
 
+
+export const updateDepot = (updated_depot: Depot) => {
+
+    return async (dispatch: Dispatch<Action>) => {
+        const depot = await depotService.put(updated_depot)
+        dispatch({
+            type: ActionType.UPDATE_DEPOT,
+            data: depot
+        })
+    }
+}
+
 export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
         await landfillService.deleteLandfill(landfill)  
@@ -130,6 +150,15 @@ export const deleteDriver = (driver: Driver) => {
     }
 }
 
+export const deleteDepot = (depot: Depot) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await depotService.deleteDepot(depot)  
+        dispatch({
+            type: ActionType.DELETE_DEPOT,
+            data: depot
+        })
+    }
+}
 
 export const deleteRegion = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {

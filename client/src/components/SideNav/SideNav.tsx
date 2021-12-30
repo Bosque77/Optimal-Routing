@@ -38,7 +38,7 @@ const SideNav = () => {
                 <li><div className="divider"></div></li>
                 <li><Link to="/landfill">Landfills</Link></li>
                 <li><Link to="/driver">Truck Drivers</Link></li>
-                <li><Link to="/vehicle">Depots</Link></li>
+                <li><Link to="/depot">Depots</Link></li>
                 <li><Link to="/vehicle">Vehicles</Link></li>
                 <li><Link to="/order">Orders</Link></li>
                 <li><Link to="/route">Routes</Link></li>

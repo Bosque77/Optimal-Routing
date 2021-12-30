@@ -1,7 +1,15 @@
-import { Landfill, UserToken, Region, Driver } from '../../types'
+import { Landfill, UserToken, Region, Driver, Depot } from '../../types'
 import { ActionType } from '../action-types'
 
+interface SET_USER_TOKEN {
+    type: ActionType.SET_USER_TOKEN;
+    data: (UserToken | null)
+}
 
+interface SET_REGION {
+    type:ActionType.SET_REGION,
+    data: Region
+}
 
 interface ADD_LANDFILL {
     type: ActionType.ADD_LANDFILL;
@@ -13,9 +21,24 @@ interface ADD_REGION {
     data: Region
 }
 
+interface ADD_DEPOT {
+    type:ActionType.ADD_DEPOT;
+    data: Depot
+}
+
 interface UPDATE_LANDFILL {
     type: ActionType.UPDATE_LANDFILL;
     data: Landfill
+}
+
+interface UPDATE_DRIVER {
+    type: ActionType.UPDATE_DRIVER,
+    data:Driver
+}
+
+interface UPDATE_DEPOT {
+    type: ActionType.UPDATE_DEPOT;
+    data: Depot
 }
 
 interface INIT_LANDFILLS {
@@ -33,9 +56,26 @@ interface DELETE_REGION {
     data: Region
 }
 
-interface SET_USER_TOKEN {
-    type: ActionType.SET_USER_TOKEN;
-    data: (UserToken | null)
+interface DELETE_DRIVER {
+    type: ActionType.DELETE_DRIVER,
+    data:Driver
+}
+
+interface DELETE_DEPOT {
+    type: ActionType.DELETE_DEPOT,
+    data:Depot
+}
+
+
+interface ADD_DRIVER {
+    type:ActionType.ADD_DRIVER,
+    data:Driver
+}
+
+
+interface ADD_DEPOT {
+    type:ActionType.ADD_DEPOT,
+    data: Depot
 }
 
 
@@ -44,33 +84,18 @@ interface INIT_REGIONS {
     data: Region[]
 }
 
-
-interface SET_REGION {
-    type:ActionType.SET_REGION,
-    data: Region
-}
-
-interface ADD_DRIVER {
-    type:ActionType.ADD_DRIVER,
-    data:Driver
-}
-
-interface UPDATE_DRIVER {
-    type: ActionType.UPDATE_DRIVER,
-    data:Driver
-}
-
-interface DELETE_DRIVER {
-    type: ActionType.DELETE_DRIVER,
-    data:Driver
-}
-
 interface INIT_DRIVERS {
     type: ActionType.INIT_DRIVERS,
     data:Driver[]
 }
 
+interface INIT_DEPOTS {
+    type: ActionType.INIT_DEPOTS,
+    data: Depot[]
+}
+
 
 export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS |
  DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION | DELETE_REGION |
- ADD_DRIVER | UPDATE_DRIVER | DELETE_DRIVER | INIT_DRIVERS
+ ADD_DRIVER | UPDATE_DRIVER | DELETE_DRIVER | INIT_DRIVERS | INIT_DEPOTS |
+ ADD_DEPOT | UPDATE_DEPOT | INIT_DEPOTS | DELETE_DEPOT

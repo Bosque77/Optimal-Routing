@@ -82,7 +82,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
     const submit = () => {
         console.log('inside on submit')
         const id = landfill.id
-        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active }
+        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': landfill.user_id, 'region_id': landfill.region_id }
         updateLandfill(new_landfill)
         setActive(false)
     }

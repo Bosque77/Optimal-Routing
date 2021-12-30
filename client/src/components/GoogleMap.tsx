@@ -20,14 +20,39 @@
 import * as React from 'react'
 import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { createCustomEqual } from 'fast-equals'
-import { isLatLngLiteral } from '@googlemaps/typescript-guards'
+import { isLatLngLiteral, } from '@googlemaps/typescript-guards'
 import styled from 'styled-components'
-import { Landfill } from '../types'
-import landfill_icon from '../static/images/map-pin.svg'
+import { Depot, Landfill } from '../types'
+
+
 
 const TopSpacing = styled.div`
   margin-top: 2em;
 `
+
+// const landfill_label = {
+//     text: '\ue88a', 
+//     fontFamily: 'Material Icons',
+//     color: 'black',
+//     fontSize: '18px',
+// }
+
+
+// const depot_label = {
+//     text: '\ue872', 
+//     fontFamily: 'Material Icons',
+//     color: 'black',
+//     fontSize: '18px',
+// }
+
+
+const landfill_icon = {
+    url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+}
+
+const depot_icon = {
+    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+}
 
 const render = (status: Status) => {
     return <h1>{status}</h1>
@@ -35,9 +60,10 @@ const render = (status: Status) => {
 
 interface MyProps {
     landfills?: Landfill[];
+    depots?: Depot[];
 }
 
-const GoogleMap = ({ landfills }: MyProps) => {
+const GoogleMap = ({ landfills, depots }: MyProps) => {
     // [START maps_react_map_component_app_state]
     // const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
     const [zoom, setZoom] = React.useState(4) // initial zoom
@@ -63,12 +89,41 @@ const GoogleMap = ({ landfills }: MyProps) => {
     }
     // [END maps_react_map_component_app_state]
 
- 
+
 
     // [START maps_react_map_component_app_return]
 
 
-   
+    const insertLandfillMarkers = () => {
+        return (
+            landfills && landfills.map((landfill) => {
+                const latlng = { lat: landfill.latitude, lng: landfill.longitude }
+                if (landfill.active) {
+                    return (< Marker key={landfill.id} position={latlng} icon={landfill_icon}  title={landfill.name} />)
+                } else {
+                    return
+                }
+
+            })
+        )
+
+    }
+
+
+    const insertDepotMarkers = () => {
+        return (
+            depots && depots.map((depot) => {
+                const latlng = { lat: depot.latitude, lng: depot.longitude }
+                if (depot.active) {
+                    return (< Marker key={depot.id} position={latlng} icon={depot_icon} title={depot.name} />)
+                } else {
+                    return
+                }
+
+            })
+        )
+
+    }
 
     return (
         <div >
@@ -81,15 +136,9 @@ const GoogleMap = ({ landfills }: MyProps) => {
                         zoom={zoom}
                         style={{ flexGrow: '1', height: '50vh' }}
                     >
-                        {landfills && landfills.map((landfill) => {
-                            const latlng = { lat: landfill.latitude, lng: landfill.longitude }
-                            if (landfill.active) {
-                                return (< Marker key={landfill.id} position={latlng} icon={landfill_icon} title={landfill.name}  />)
-                            } else {
-                                return
-                            }
+                        {insertLandfillMarkers()}
+                        {insertDepotMarkers()}
 
-                        })}
                     </Map>
                 </Wrapper>
             </TopSpacing>

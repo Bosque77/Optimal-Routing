@@ -14,6 +14,22 @@ export interface Landfill {
     latitude: number;
     longitude: number;
     active: boolean;
+    user_id: string;
+    region_id:string;
+}
+
+export interface Depot {
+    id: string;
+    name: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: number;
+    latitude: number;
+    longitude: number;
+    active: boolean;
+    user_id: string;
+    region_id:string;
 }
 
 export interface Driver {
@@ -54,6 +70,18 @@ export interface HttpResponse {
 
 
 export interface NewLandfill {
+    name: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: number;
+    latitude: number;
+    longitude: number;
+    active: boolean;
+    region_id:string;
+}
+
+export interface NewDepot {
     name: string;
     street: string;
     city: string;

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import DepotList from '../DepotList'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 import GoogleMap from '../GoogleMap'
@@ -9,7 +9,7 @@ import GoogleMap from '../GoogleMap'
 
 
 const DepotPage = () => {
-    console.log('inside landfill page')
+    console.log('inside depot page')
 
     const dispatch = useDispatch()
     const { initializeDepots } = bindActionCreators(actionCreators, dispatch)
