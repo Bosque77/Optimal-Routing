@@ -13,9 +13,26 @@
       "id": 2
     }
   ],
+  "regions": [
+    {
+      "name": "Default",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "name": "Atlanta",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e31"
+    },
+    {
+      "name": "Woodstock",
+      "user_id": "61c7483607e4533869b9ec08",
+      "id": "61ca3cb19e9ade7351418e32"
+    }
+  ],
   "landfills": [
     {
-      "id": 1,
+      "id": "61ccc318cbff2a178094a3c1",
       "name": "The Mega Complex",
       "street": "4703 Cambridge Dr.",
       "city": "Sandy Springs",
@@ -23,10 +40,12 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": true
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
     },
     {
-      "id": 2,
+      "id": "61ccc318cbff2a178094a3c3",
       "name": "Flat Shoals",
       "street": "470 Flat Shoals Ave",
       "city": "Atlanta",
@@ -34,10 +53,12 @@
       "zipcode": 30316,
       "latitude": 33.741,
       "longitude": -84.346,
-      "active": true
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
     },
     {
-      "id": 3,
+      "id": "61ccc318cbff2a178094a3c2",
       "name": "The Mega Complex",
       "street": "219 Evans Street",
       "city": "San Diego",
@@ -45,7 +66,90 @@
       "zipcode": 92102,
       "latitude": 32.708,
       "longitude": -117.135,
-      "active": true
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
     }
+  ],
+  "depots": [
+    {
+      "id": "61cdeb3f291ff09681e49c09",
+      "name": "Depot Test",
+      "street": "2021, Dahlonega Highway",
+      "city": "Cumming",
+      "state": "Georgia",
+      "zipcode": 30040,
+      "latitude": 34.25,
+      "longitude": -84.111,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "id": "61cdeb3f291ff09681e49c08",
+      "name": "Depot 2",
+      "street": "1280 Peachtree St NE",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30309,
+      "latitude": 33.79,
+      "longitude": -84.389,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }
+  ],
+  "drivers": [
+    {
+      "id": "61ccc318cbff2a178094a3ca",
+      "name": "Ralph McGrew",
+      "phone_number": "404-861-4598",
+      "email": "rgMcgrew@gmail.com",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "id": "61ccc318cbff2a178094a3cb",
+      "name": "Sarah Mclellon",
+      "phone_number": "404-684-7598",
+      "email": "sarah.mclellon@gmail.com",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "id": "61ccc318cbff2a178094a3c9",
+      "name": "Forest Schwartz",
+      "phone_number": "404-617-9402",
+      "email": "forestschwrtz@gmail.com",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }
+  ],
+  "vehicles": [{
+    "id": "61ce05d92c1a7ab07c1f30b7",
+    "license_number": "AJXEJE",
+    "size": 50,
+    "start_depot" : {
+      "id": "61cdeb3f291ff09681e49c09",
+      "name": "Depot Test",
+      "street": "2021, Dahlonega Highway",
+      "city": "Cumming",
+      "state": "Georgia",
+      "zipcode": 30040,
+      "latitude": 34.25,
+      "longitude": -84.111,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    "stop_depot" : null,
+    "user_id": "61c7483607e4533869b9ec08",
+    "region_id": "61ca3cb19e9ade7351418e30"
+  }
+    
+
   ]
 }

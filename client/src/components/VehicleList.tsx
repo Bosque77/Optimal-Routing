@@ -112,8 +112,8 @@ const VehicleList = () => {
                 </table>
             </TopSpacing>
             {editFormActive && <EditVehicleForm vehicle={vehicle} setActive={setEditFormActive}  />}
-            {/* {createFormActive && <CreateVehicleForm setActive={setCreateFormActive} />}
-            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} vehicle={vehicle} />} */}
+            {/* {createFormActive && <CreateVehicleForm setActive={setCreateFormActive} />} */}
+            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} vehicle={vehicle} />}
 
         </div>
     )
