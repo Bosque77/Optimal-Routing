@@ -5,8 +5,9 @@ import loginService from '../../services/login'
 import regionService from '../../services/regions'
 import driverService from '../../services/driver'
 import depotService from '../../services/depots'
+import vehicleService from '../../services/vehicle'
 import { Dispatch } from 'redux'
-import { Depot, Driver, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
+import { Depot, Driver, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewRegion, NewVehicle, Region, UserToken, Vehicle } from '../../types'
 
 export const setRegion = (region: Region) => {
     return {
@@ -61,6 +62,16 @@ export const initializeDepots = (region:Region) => {
     }
 }
 
+export const initializeVehicles = (region:Region) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const vehicles = await vehicleService.getByRegion(region)
+        dispatch({
+            type: ActionType.INIT_VEHICLES,
+            data: vehicles
+        })
+    }
+}
+
 
 export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
@@ -89,6 +100,16 @@ export const createDriver = (driver: NewDriver) => {
         dispatch({
             type: ActionType.ADD_DRIVER,
             data: new_driver,
+        })
+    }
+}
+
+export const createVehicle = (vehicle: NewVehicle) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_vehicle = await vehicleService.createNew(vehicle)
+        dispatch({
+            type: ActionType.ADD_VEHICLE,
+            data: new_vehicle,
         })
     }
 }
@@ -126,6 +147,17 @@ export const updateDriver = (updated_driver: Driver) => {
     }
 }
 
+export const updateVehicle = (updated_vehicle: Vehicle) => {
+
+    return async (dispatch: Dispatch<Action>) => {
+        const vehicle = await vehicleService.put(updated_vehicle)
+        dispatch({
+            type: ActionType.UPDATE_VEHICLE,
+            data: vehicle
+        })
+    }
+}
+
 
 export const updateDepot = (updated_depot: Depot) => {
 
@@ -154,6 +186,16 @@ export const deleteDriver = (driver: Driver) => {
         dispatch({
             type: ActionType.DELETE_DRIVER,
             data: driver
+        })
+    }
+}
+
+export const deleteVehicle = (vehicle: Vehicle) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await vehicleService.deleteVehicle(vehicle)  
+        dispatch({
+            type: ActionType.DELETE_VEHICLE,
+            data: vehicle
         })
     }
 }

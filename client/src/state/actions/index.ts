@@ -1,4 +1,4 @@
-import { Landfill, UserToken, Region, Driver, Depot } from '../../types'
+import { Landfill, UserToken, Region, Driver, Depot, Vehicle } from '../../types'
 import { ActionType } from '../action-types'
 
 interface SET_USER_TOKEN {
@@ -26,6 +26,16 @@ interface ADD_DEPOT {
     data: Depot
 }
 
+interface ADD_DRIVER {
+    type:ActionType.ADD_DRIVER,
+    data:Driver
+}
+
+interface ADD_VEHICLE {
+    type: ActionType.ADD_VEHICLE;
+    data: Vehicle
+}
+
 interface UPDATE_LANDFILL {
     type: ActionType.UPDATE_LANDFILL;
     data: Landfill
@@ -41,10 +51,11 @@ interface UPDATE_DEPOT {
     data: Depot
 }
 
-interface INIT_LANDFILLS {
-    type: ActionType.INIT_LANDFILLS;
-    data: Landfill[]
+interface UPDATE_VEHICLE {
+    type: ActionType.UPDATE_VEHICLE;
+    data: Vehicle
 }
+
 
 interface DELETE_LANDFILL {
     type: ActionType.DELETE_LANDFILL;
@@ -66,18 +77,16 @@ interface DELETE_DEPOT {
     data:Depot
 }
 
-
-interface ADD_DRIVER {
-    type:ActionType.ADD_DRIVER,
-    data:Driver
+interface DELETE_VEHICLE {
+    type: ActionType.DELETE_VEHICLE,
+    data:Vehicle
 }
 
 
-interface ADD_DEPOT {
-    type:ActionType.ADD_DEPOT,
-    data: Depot
+interface INIT_LANDFILLS {
+    type: ActionType.INIT_LANDFILLS;
+    data: Landfill[]
 }
-
 
 interface INIT_REGIONS {
     type:ActionType.INIT_REGIONS,
@@ -94,8 +103,14 @@ interface INIT_DEPOTS {
     data: Depot[]
 }
 
+interface INIT_VEHICLES {
+    type: ActionType.INIT_VEHICLES,
+    data: Vehicle[]
+}
+
 
 export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS |
  DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION | DELETE_REGION |
  ADD_DRIVER | UPDATE_DRIVER | DELETE_DRIVER | INIT_DRIVERS | INIT_DEPOTS |
- ADD_DEPOT | UPDATE_DEPOT | INIT_DEPOTS | DELETE_DEPOT
+ ADD_DEPOT | UPDATE_DEPOT | INIT_DEPOTS | DELETE_DEPOT |
+ ADD_VEHICLE | UPDATE_VEHICLE | DELETE_VEHICLE | INIT_VEHICLES

@@ -40,7 +40,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "active": false,
+      "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
     },
@@ -123,6 +123,42 @@
       "name": "Forest Schwartz",
       "phone_number": "404-617-9402",
       "email": "forestschwrtz@gmail.com",
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "61ce05d92c1a7ab07c1f30b7",
+      "license_number": "AJXIJ",
+      "size": 50,
+      "start_depot": {
+        "id": "61cdeb3f291ff09681e49c08",
+        "name": "Depot 2",
+        "street": "1280 Peachtree St NE",
+        "city": "Atlanta",
+        "state": "Georgia",
+        "zipcode": 30309,
+        "latitude": 33.79,
+        "longitude": -84.389,
+        "active": true,
+        "user_id": "61c7483607e4533869b9ec08",
+        "region_id": "61ca3cb19e9ade7351418e30"
+      },
+      "end_depot": {
+        "id": "61cdeb3f291ff09681e49c08",
+        "name": "Depot 2",
+        "street": "1280 Peachtree St NE",
+        "city": "Atlanta",
+        "state": "Georgia",
+        "zipcode": 30309,
+        "latitude": 33.79,
+        "longitude": -84.389,
+        "active": true,
+        "user_id": "61c7483607e4533869b9ec08",
+        "region_id": "61ca3cb19e9ade7351418e30"
+      },
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"

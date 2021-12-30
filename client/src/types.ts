@@ -42,6 +42,17 @@ export interface Driver {
     region_id:string;
 }
 
+export interface Vehicle {
+    id: string;
+    start_depot: Depot;
+    end_depot?: Depot;
+    license_number: string;
+    size: number;
+    active: boolean;
+    user_id: string;
+    region_id: string;
+}
+
 
 export interface Region {
     id: string;
@@ -91,6 +102,15 @@ export interface NewDepot {
     longitude: number;
     active: boolean;
     region_id:string;
+}
+
+export interface NewVehicle {
+    start_depot: string;
+    end_depot?: string;
+    license_number: string;
+    size: number;
+    active: boolean;
+    region_id: string;
 }
 
 export interface NewRegion {

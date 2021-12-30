@@ -7,7 +7,8 @@ import Region from './models/region'
 import Landfill from './models/landfill'
 import Driver from './models/driver'
 import Depot from './models/depot'
-import { NewLandfill, NewDriver, NewDepot } from './types'
+import Vehicle from './models/vehicle'
+import { NewLandfill, NewDriver } from './types'
 
 
 
@@ -127,8 +128,9 @@ const drivers: NewDriver[] = [
 ]
 
 
-const depots: NewDepot[] = [
+const depots = [
     {
+        '_id': '61cdeb3f291ff09681e49c09',
         'name': 'Depot 1',
         'street': '2021, Dahlonega Highway',
         'city': 'Cumming',
@@ -141,6 +143,7 @@ const depots: NewDepot[] = [
         'region_id': '61ca3cb19e9ade7351418e30'
     },
     {
+        '_id': '61cdeb3f291ff09681e49c08',
         'name': 'Depot 2',
         'street': '1280 Peachtree St NE',
         'city': 'Atlanta',
@@ -148,6 +151,19 @@ const depots: NewDepot[] = [
         'zipcode': 30309,
         'latitude': 33.79,
         'longitude': -84.389,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    }
+]
+
+
+const vehicles = [
+    {
+        'start_depot': '61cdeb3f291ff09681e49c09',
+        'end_depot': null,
+        'license_number': 'AJXIV',
+        'size': 50,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
@@ -207,6 +223,13 @@ const initDepots = async () => {
     await Promise.all(promise_array)
 }
 
+const initVehicles = async () => {
+    await Vehicle.deleteMany({})
+    const vehicle_objects = vehicles.map(vehicle => new Vehicle({ ...vehicle}))
+    const promise_array = vehicle_objects.map(vehicle => vehicle.save())
+    await Promise.all(promise_array)
+}
+
 
 const runInit = async () => {
     await connectMongoose()
@@ -215,6 +238,7 @@ const runInit = async () => {
     await initLandfills()
     await initDrivers()
     await initDepots()
+    await initVehicles()
     mongoose.disconnect()
     console.log('finished writing data to database')
 }

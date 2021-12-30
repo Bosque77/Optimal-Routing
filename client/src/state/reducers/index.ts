@@ -5,6 +5,7 @@ import regionReducer from './regionReducer'
 import setRegionReducer from './setRegionReducer'
 import driverReducer from './driverReducer'
 import depotReducer from './depotReducer'
+import vehicleReducer from './vehicleReducer'
 
 const reducers = combineReducers({
     landfills: landfillReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     regions: regionReducer,
     setRegion: setRegionReducer,
     drivers: driverReducer,
-    depots: depotReducer
+    depots: depotReducer,
+    vehicles: vehicleReducer
 })
 
 export default reducers
