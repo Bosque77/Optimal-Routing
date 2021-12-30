@@ -6,7 +6,8 @@ import User from './models/user'
 import Region from './models/region'
 import Landfill from './models/landfill'
 import Driver from './models/driver'
-import { NewLandfill, NewDriver } from './types'
+import Depot from './models/depot'
+import { NewLandfill, NewDriver, NewDepot } from './types'
 
 
 
@@ -123,7 +124,34 @@ const drivers: NewDriver[] = [
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
     }
+]
 
+
+const depots: NewDepot[] = [
+    {
+        'name': 'Depot 1',
+        'street': '2021, Dahlonega Highway',
+        'city': 'Cumming',
+        'state': 'Georgia',
+        'zipcode': 30040,
+        'latitude': 34.25,
+        'longitude': -84.111,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'name': 'Depot 2',
+        'street': '1280 Peachtree St NE',
+        'city': 'Atlanta',
+        'state': 'Georgia',
+        'zipcode': 30309,
+        'latitude': 33.79,
+        'longitude': -84.389,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    }
 ]
 
 
@@ -172,12 +200,21 @@ const initDrivers = async () => {
 }
 
 
+const initDepots = async () => {
+    await Depot.deleteMany({})
+    const depot_objects = depots.map(depot => new Depot({ ...depot }))
+    const promise_array = depot_objects.map(depot => depot.save())
+    await Promise.all(promise_array)
+}
+
+
 const runInit = async () => {
     await connectMongoose()
     await initUsers()
     await initRegions()
     await initLandfills()
     await initDrivers()
+    await initDepots()
     mongoose.disconnect()
     console.log('finished writing data to database')
 }

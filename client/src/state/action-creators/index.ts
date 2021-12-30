@@ -6,7 +6,7 @@ import regionService from '../../services/regions'
 import driverService from '../../services/driver'
 import depotService from '../../services/depots'
 import { Dispatch } from 'redux'
-import { Depot, Driver, Landfill, LoginInfo, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
+import { Depot, Driver, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
 
 export const setRegion = (region: Region) => {
     return {
@@ -65,11 +65,19 @@ export const initializeDepots = (region:Region) => {
 export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
         const new_landfill = await landfillService.createNew(landfill)
-        console.log('about to dispatch the new landfill')
-        console.log(new_landfill)
         dispatch({
             type: ActionType.ADD_LANDFILL,
             data: new_landfill,
+        })
+    }
+}
+
+export const createDepot = (depot: NewDepot) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_depot = await depotService.createNew(depot)
+        dispatch({
+            type: ActionType.ADD_DEPOT,
+            data: new_depot,
         })
     }
 }

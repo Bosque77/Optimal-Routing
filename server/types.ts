@@ -25,3 +25,16 @@ export interface NewDriver {
     user_id: string;
     region_id: string;
 }
+
+export interface NewDepot {
+    name: string,
+    street: string,
+    city: string,
+    state: string,
+    zipcode: number,
+    latitude: number,
+    longitude: number,
+    active: boolean,
+    user_id: string,
+    region_id: string,
+}

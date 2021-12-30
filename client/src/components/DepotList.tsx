@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-// import EditDepotForm from './EditDepotForm'
-// import CreateDepotForm from './CreateDepotForm'
+import EditDepotForm from './EditDepotForm'
+import CreateDepotForm from './CreateDepotForm'
 import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -114,8 +114,8 @@ const DepotList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {/* {editFormActive && <EditdepotForm depot={depot} setActive={setEditFormActive}  />}
-            {createFormActive && <CreatedepotForm setActive={setCreateFormActive}  />} */}
+            {editFormActive && <EditDepotForm depot={depot} setActive={setEditFormActive}  />}
+            {createFormActive && <CreateDepotForm setActive={setCreateFormActive}  />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} depot={depot} />}
 
         </div>
