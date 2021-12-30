@@ -1,33 +1,29 @@
 import axios from 'axios'
-import { Driver } from '../types'
-// import { Landfill, NewLandfill, Region } from '../types'
-import {token} from './config'
+import { Driver, NewDriver } from '../types'
+import { Region } from '../types'
+import { token } from './config'
 const baseUrl = '/drivers'
 
 
 
 
-// const getByRegion = async (region:Region) => {
-//     const url = baseUrl+`/region/${region.id}`
-//     const config = {
-//         headers: { Authorization: token },
-//     }
-//     const response = await axios.get(url, config)
-//     return response.data
-// }
+const getByRegion = async (region: Region) => {
+    const url = baseUrl + `?region_id=${region.id}`
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.get(url, config)
+    return response.data
+}
 
 
 const getAll = async () => {
-    if(token){
-        const config = {
-            headers: { Authorization: token },
-        }
-        console.log(config)
-        const response = await axios.get(baseUrl, config)
-        return response.data
-    }else{
-        throw('Cannot access landfills until the user token is present')
+    const config = {
+        headers: { Authorization: token },
     }
+    console.log(config)
+    const response = await axios.get(baseUrl, config)
+    return response.data
 }
 
 const put = async (driver: Driver) => {
@@ -51,13 +47,12 @@ const deleteDriver = async (driver: Driver) => {
     return response
 }
 
-// const createNew = async (landfill: NewLandfill) => {
-//     const config = {
-//         headers: { Authorization: token },
-//     }
-//     const response = await axios.post(baseUrl, landfill, config)
-//     console.log(response.data)
-//     return response.data
-// }
+const createNew = async (driver: NewDriver) => {
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.post(baseUrl, driver, config)
+    return response.data
+}
 
-export default { getAll, put, deleteDriver }
+export default { getAll, put, deleteDriver, createNew, getByRegion }

@@ -5,7 +5,7 @@ import loginService from '../../services/login'
 import regionService from '../../services/regions'
 import driverService from '../../services/driver'
 import { Dispatch } from 'redux'
-import { Driver, Landfill, LoginInfo, NewLandfill, NewRegion, Region, UserToken } from '../../types'
+import { Driver, Landfill, LoginInfo, NewDriver, NewLandfill, NewRegion, Region, UserToken } from '../../types'
 
 
 
@@ -32,6 +32,7 @@ export const setRegion = (region: Region) => {
 
 export const initializeLandfills = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {
+        // const landfills = await landfillService.getAll()
         const landfills = await landfillService.getByRegion(region)
         dispatch({
             type: ActionType.INIT_LANDFILLS,
@@ -43,8 +44,8 @@ export const initializeLandfills = (region:Region) => {
 
 export const initializeDrivers = (region:Region) => {
     return async (dispatch: Dispatch<Action>) => {
-        const drivers = await driverService.getAll()
-        // const drivers = await driverService.getByRegion(region)
+        // const drivers = await driverService.getAll()
+        const drivers = await driverService.getByRegion(region)
         dispatch({
             type: ActionType.INIT_DRIVERS,
             data: drivers
@@ -61,6 +62,17 @@ export const createLandfill = (landfill: NewLandfill) => {
         dispatch({
             type: ActionType.ADD_LANDFILL,
             data: new_landfill,
+        })
+    }
+}
+
+
+export const createDriver = (driver: NewDriver) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_driver = await driverService.createNew(driver)
+        dispatch({
+            type: ActionType.ADD_DRIVER,
+            data: new_driver,
         })
     }
 }

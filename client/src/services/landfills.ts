@@ -6,15 +6,24 @@ const baseUrl = '/landfills'
 
 
 
+// const getByRegion = async (region:Region) => {
+//     const url = baseUrl+`/region/${region.id}`
+//     const config = {
+//         headers: { Authorization: token },
+//     }
+//     const response = await axios.get(url, config)
+//     return response.data
+// }
+
+
 const getByRegion = async (region:Region) => {
-    const url = baseUrl+`/region/${region.id}`
+    const url = baseUrl+`?region_id=${region.id}`
     const config = {
         headers: { Authorization: token },
     }
     const response = await axios.get(url, config)
     return response.data
 }
-
 
 const getAll = async () => {
     if(token){

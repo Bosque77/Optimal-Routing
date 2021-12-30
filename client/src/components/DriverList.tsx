@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-// import CreateLandfillForm from './CreateLandfillForm'
+import CreateDriverForm from './CreateDriverForm'
 import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -60,9 +60,9 @@ const DriverList = () => {
 
     }
 
-    // const onCreateLandfill = () => {
-    //     setCreateFormActive(true)
-    // }
+    const onCreateDriver = () => {
+        setCreateFormActive(true)
+    }
 
 
     const insertDrivers = () => {
@@ -88,9 +88,9 @@ const DriverList = () => {
         <div>
             <div className="row ">
                 <br></br>
-                {/* <div className="col offset-s10">
-                    <button className='btn black offset-s10' onClick={() => onCreateLandfill()}>New Landfill</button>
-                </div> */}
+                <div className="col offset-s10">
+                    <button className='btn black offset-s10' onClick={() => onCreateDriver()}>New Driver</button>
+                </div>
 
             </div>
             <TopSpacing>
@@ -110,7 +110,7 @@ const DriverList = () => {
                 </table>
             </TopSpacing>
             {editFormActive && <EditDriverForm driver={driver} setActive={setEditFormActive}  />}
-            {/* {createFormActive && <CreateLandfillForm setActive={setCreateFormActive}  />} */}
+            {createFormActive && <CreateDriverForm setActive={setCreateFormActive} />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} driver={driver} />}
 
         </div>

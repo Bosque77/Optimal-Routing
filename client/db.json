@@ -68,15 +68,40 @@
       "region_id": "61ca3cb19e9ade7351418e30"
     }
   ],
-  "drivers": [
+  "depots": [
     {
-      "id": "61ccc318cbff2a178094a3c9",
-      "name": "Sarah Mclellon",
-      "phone_number": "404-684-7598",
-      "email": "sarah.mclellon@gmail.com",
+      "name": "Depot 1",
+      "street": "2021, Dahlonega Highway",
+      "city": "Cumming",
+      "state": "Georgia",
+      "zipcode": 30040,
+      "latitude": 34.250,
+      "longitude": -84.111,
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "name": "Depot 2",
+      "street": "1280 Peachtree St NE",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30309,
+      "latitude": 33.790,
+      "longitude": -84.389,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }
+  ],
+  "drivers": [
+    {
+      "name": "forest",
+      "phone_number": "404-617-9402",
+      "email": "forestschwrtz@gmail.com",
+      "region_id": "61ca3cb19e9ade7351418e30",
+      "id": "ouuuDte",
+      "active": true
     }
   ]
 }
