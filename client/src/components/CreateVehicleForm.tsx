@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Depot, Vehicle } from '../types'
+import { Depot, NewVehicle} from '../types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 interface prop {
-    vehicle: Vehicle,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 
-const EditVehicleForm = ({ vehicle, setActive }: prop) => {
+const CreateVehicleForm = ({ setActive }: prop) => {
 
+
+    const region = useSelector((state: State) => state.setRegion)
     const depots = useSelector((state: State) => state.depots)
 
-    if (!vehicle || !depots) {
-        return (<div></div>)
+    if(!region || !depots){
+        return(<div></div>)
     }
-
-
 
     useEffect(() => {
 
@@ -28,35 +28,38 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
             const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
             instance.open()
         }
-
         const elems = document.querySelectorAll('select')
         M.FormSelect.init(elems)
-
     }, [])
 
 
-    const [license_number, setLicenseNumber] = useState(vehicle.license_number)
-    const [size, setSize] = useState(vehicle.size)
-    const [start_depot, setStartDepot] = useState(vehicle.start_depot)
-    const [end_depot, setEndDepot] = useState(vehicle.end_depot)
-    const [active, setStatus] = useState(vehicle.active)
-
+    const [license_number, setLicenseNumber] = useState('')
+    const [size, setSize] = useState(0)
+    const [start_depot, setStartDepot] = useState(depots[0])
+    const [end_depot,setEndDepot] = useState<Depot | undefined>(undefined)
+    const [active, setStatus] = useState(true)
+    
 
 
     const dispatch = useDispatch()
-    const { updateVehicle } = bindActionCreators(actionCreators, dispatch)
+    const { createVehicle } = bindActionCreators(actionCreators, dispatch)
 
 
-    const submit = () => {
+    const submit = async () => {
         console.log('inside on submit')
-        const id = vehicle.id
 
-        const new_vehicle: Vehicle = { id, license_number, size, start_depot, end_depot, active, 'user_id': vehicle.user_id, 'region_id': vehicle.region_id }
-
-        console.log(new_vehicle)
-        updateVehicle(new_vehicle)
-        setActive(false)
+        if(license_number ===''){
+            M.toast({html: 'All fields need to be filled out'})
+        }else{
+            const start_depot_id = start_depot.id
+            const end_depot_id = end_depot?.id
+            const new_vehicle: NewVehicle = { license_number, size, 'start_depot': start_depot_id, 'end_depot': end_depot_id, active, 'region_id': region.id }
+            await createVehicle(new_vehicle)
+            M.toast({html: 'Created New Vehicle'})
+            setActive(false)
+        }
     }
+
 
     const insertStartingDepotChoices = () => {
         return (
@@ -120,8 +123,7 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
         }
     }
 
-
-
+  
     return (
         <div className="row">
             <div id="modal1" className="modal">
@@ -169,5 +171,5 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
 
 }
 
-export default EditVehicleForm
+export default CreateVehicleForm
 

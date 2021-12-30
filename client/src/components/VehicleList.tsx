@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-// import CreateVehicleForm from './CreateVehicleForm'
+import CreateVehicleForm from './CreateVehicleForm'
 import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -112,7 +112,7 @@ const VehicleList = () => {
                 </table>
             </TopSpacing>
             {editFormActive && <EditVehicleForm vehicle={vehicle} setActive={setEditFormActive}  />}
-            {/* {createFormActive && <CreateVehicleForm setActive={setCreateFormActive} />} */}
+            {createFormActive && <CreateVehicleForm setActive={setCreateFormActive} />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} vehicle={vehicle} />}
 
         </div>

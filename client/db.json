@@ -162,6 +162,39 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30"
+    },
+    {
+      "id": "ENX8SwN",
+      "license_number": "ADFEFEA",
+      "size": 15,
+      "start_depot": {
+        "id": "61cdeb3f291ff09681e49c08",
+        "name": "Depot 2",
+        "street": "1280 Peachtree St NE",
+        "city": "Atlanta",
+        "state": "Georgia",
+        "zipcode": 30309,
+        "latitude": 33.79,
+        "longitude": -84.389,
+        "active": true,
+        "user_id": "61c7483607e4533869b9ec08",
+        "region_id": "61ca3cb19e9ade7351418e30"
+      },
+      "end_depot": {
+        "id": "61cdeb3f291ff09681e49c09",
+        "name": "Depot Test",
+        "street": "2021, Dahlonega Highway",
+        "city": "Cumming",
+        "state": "Georgia",
+        "zipcode": 30040,
+        "latitude": 34.25,
+        "longitude": -84.111,
+        "active": true,
+        "user_id": "61c7483607e4533869b9ec08",
+        "region_id": "61ca3cb19e9ade7351418e30"
+      },
+      "active": true,
+      "region_id": "61ca3cb19e9ade7351418e30"
     }
   ]
 }
