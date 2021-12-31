@@ -72,6 +72,16 @@ export const initializeVehicles = (region:Region) => {
     }
 }
 
+// export const initializeOrders = (region:Region) => {
+//     return async (dispatch: Dispatch<Action>) => {
+//         const orders = await orderService.getByRegionAndDate(region)
+//         dispatch({
+//             type: ActionType.INIT_ORDERS,
+//             data: orders
+//         })
+//     }
+// }
+
 
 export const createLandfill = (landfill: NewLandfill) => {
     return async (dispatch: Dispatch<Action>) => {
