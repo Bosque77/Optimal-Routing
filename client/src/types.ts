@@ -32,6 +32,65 @@ export interface Depot {
     region_id:string;
 }
 
+
+export interface Time {
+    hour: number;
+    time: number;
+    am_pm: 'AM' | 'PM';
+}
+
+export type Dumpster_Sizes = 10 | 15 | 20 | 30 | 40 | 50
+
+// export interface Date  {
+//     month: number;
+//     day: number;
+//     year: number;
+// }
+
+export interface Order {
+    id: string;
+    name: string;
+    email: string;
+    phone_number: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: number;
+    latitude: number;
+    longitude: number;
+    dumpster_size: Dumpster_Sizes;
+    delivery_date: string;
+    pickup_date: string;
+    delivery_time?: Time;
+    pickup_time?: Time;
+    special_instructions: string;
+    delivery_completed: boolean;
+    pickup_completed: boolean;
+    user_id: string;
+    region_id:string;
+}
+
+export interface NewOrder {
+    name: string;
+    email: string;
+    phone_number: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: number;
+    latitude: number;
+    longitude: number;
+    dumpster_size: Dumpster_Sizes;
+    delivery_date: string;
+    pickup_date: string;
+    delivery_time?: Time;
+    pickup_time?: Time;
+    special_instructions: string;
+    delivery_completed: boolean;
+    pickup_completed: boolean;
+    region_id:string;
+}
+
 export interface Driver {
     id: string;
     name: string;

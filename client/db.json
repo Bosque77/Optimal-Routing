@@ -196,5 +196,34 @@
       "active": true,
       "region_id": "61ca3cb19e9ade7351418e30"
     }
-  ]
+  ],
+  "orders" : [{
+      "name": "Forest Schwartz",
+      "street": "4703 Cambridge Dr.",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30338,
+      "latitude": 34.25,
+      "longitude": -84.111,
+      "dumpster_size": 15,
+      "delivery_date": "12/10/2021",
+      "pickup_date": "12/11/2021",
+      "delivery_time": {
+        "hour": 12,
+        "minute": 35,
+        "am_pm": "AM"
+      },
+      "pickup_time": {
+        "hour": 5,
+        "minute": 45,
+        "am_pm": "PM"
+      },
+      "special_instructions":"Please come early",
+      "delivery_completed": false,
+      "pickup_completed": false,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30"
+    }]
 }
+
+

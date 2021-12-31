@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import OrderList from '../OrderList'
 // import OrderList from '../OrderList'
 // import { bindActionCreators } from 'redux'
 // import { actionCreators, State } from '../../state'
@@ -9,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // import './OrderPage.css'
 
 const OrderPage = () => {
-    console.log('inside order page')
-
     const dispatch = useDispatch()
     // const { initializeOrders } = bindActionCreators(actionCreators, dispatch)
 
@@ -29,7 +28,7 @@ const OrderPage = () => {
         <div>
             Inside the Orders Page
             {/* <GoogleMap orders={orders} /> */}
-            {/* <OrderList /> */}
+            <OrderList />
         </div>
 
     )
