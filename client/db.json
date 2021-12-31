@@ -199,6 +199,8 @@
   ],
   "orders" : [{
       "name": "Forest Schwartz",
+      "email": "forestschwrtz@gmail.com",
+      "phone_number": "404-617-9402",
       "street": "4703 Cambridge Dr.",
       "city": "Atlanta",
       "state": "Georgia",
@@ -206,8 +208,8 @@
       "latitude": 34.25,
       "longitude": -84.111,
       "dumpster_size": 15,
-      "delivery_date": "12/10/2021",
-      "pickup_date": "12/11/2021",
+      "delivery_date": "Thu Dec 30 2021",
+      "pickup_date": "Fri Dec 31 2021",
       "delivery_time": {
         "hour": 12,
         "minute": 35,

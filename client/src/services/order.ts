@@ -16,6 +16,17 @@ const getByRegion = async (region: Region) => {
     return response.data
 }
 
+const getByRegionAndDate = async (region: Region, date: string) => {
+    const url = baseUrl + `?region_id=${region.id}&delivery_date=${date}`
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.get(url, config)
+    console.log(response.data)
+    return response.data
+}
+
+
 
 const getAll = async () => {
     const config = {
@@ -55,4 +66,4 @@ const createNew = async (order: NewOrder) => {
     return response.data
 }
 
-export default { getAll, put, deleteOrder, createNew, getByRegion }
+export default { getAll, put, deleteOrder, createNew, getByRegion, getByRegionAndDate }
