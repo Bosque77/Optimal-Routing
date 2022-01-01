@@ -9,12 +9,15 @@ import landfillService from '../services/landfillService'
 
 const landfillRouter = express.Router()
 
-landfillRouter.get('/:region_id', async(req:any, res) => {
+landfillRouter.get('/', async(req:any, res) => {
     console.log('inside the landfill router')
     try {
         const user = req.user
         const user_id = user._id as string
-        const region_id = req.params.region_id as string
+        const region_id = req.query.region_id
+        // const region_id = req.params.region_id as string
+
+        console.log(region_id)
         
         const landfills = (await landfillService.getEntriesByRegionAndUser(user_id, region_id))
         res.status(200).send(landfills)
