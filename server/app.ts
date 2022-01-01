@@ -11,6 +11,7 @@ import landfillRouter from './controllers/landfills'
 import regionRouter from './controllers/regions'
 import loginRouter from './controllers/login'
 import driverRouter from './controllers/drivers'
+import orderRouter from './controllers/orders'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 
@@ -37,6 +38,7 @@ app.use(middleware.tokenExtractor)
 app.use('/regions', middleware.userExtractor,regionRouter)
 app.use('/landfills', middleware.userExtractor,landfillRouter)
 app.use('/drivers', middleware.userExtractor,driverRouter)
+app.use('/orders', middleware.userExtractor,orderRouter)
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
 

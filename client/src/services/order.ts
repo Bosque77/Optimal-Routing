@@ -16,8 +16,9 @@ const getByRegion = async (region: Region) => {
     return response.data
 }
 
+// Need a specific server url for /orders/date
 const getByRegionAndDate = async (region: Region, date: string) => {
-    const url = baseUrl + `?region_id=${region.id}&delivery_date=${date}`
+    const url = baseUrl + `/date/${region.id}/${date}`
     const config = {
         headers: { Authorization: token },
     }

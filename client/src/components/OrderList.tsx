@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-// import CreateOrderForm from './CreateOrderForm'
+import CreateOrderForm from './CreateOrderForm'
 // import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -70,8 +70,11 @@ const OrderList = () => {
             orders.map(order =>
                 <tr key={order.id}>
                     <td>{order.name}</td>
+                    <td>{order.dumpster_size}</td>
+                    <td>{order.delivery_date}</td>
+                    <td>{order.pickup_date}</td>
                     <td>{order.phone_number}</td>
-                    <td>{order.email}</td>
+        
                     <td> <button className="btn-floating btn waves-light red" onClick={() => editOrder(order)}><i className="material-icons">mode_edit</i></button></td>
                     <td> <button className="btn-floating btn black" onClick={() => onDeleteOrder(order)}><i className="material-icons">delete</i></button></td>
                 </tr>
@@ -95,10 +98,11 @@ const OrderList = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Customer Name</th>
+                            <th>Dumpster Size</th>
+                            <th>Delivery Date</th>
+                            <th>Pickup Date </th>
                             <th>Phone Number</th>
-                            <th>Email</th>
-                            <th>Active</th>
                         </tr>
                     </thead>
 
@@ -107,9 +111,9 @@ const OrderList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {/* {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />}
+            {/* {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />} */}
             {createFormActive && <CreateOrderForm setActive={setCreateFormActive} />}
-            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} order={order} />} */}
+            {/* {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} order={order} />} */}
 
         </div>
     )

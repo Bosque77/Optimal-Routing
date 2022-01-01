@@ -35,7 +35,7 @@ export interface Depot {
 
 export interface Time {
     hour: number;
-    time: number;
+    minute: number;
     am_pm: 'AM' | 'PM';
 }
 

@@ -9,6 +9,7 @@ import Driver from './models/driver'
 import Depot from './models/depot'
 import Vehicle from './models/vehicle'
 import { NewLandfill, NewDriver } from './types'
+import Order from './models/order'
 
 
 
@@ -170,6 +171,67 @@ const vehicles = [
     }
 ]
 
+const orders = [
+    {
+        'name': 'Forest Schwartz',
+        'email': 'forestschwrtz@gmail.com',
+        'phone_number': '404-617-9402',
+        'street': '4703 Cambridge Dr.',
+        'city': 'Atlanta',
+        'state': 'Georgia',
+        'zipcode': 30338,
+        'latitude': 34.25,
+        'longitude': -84.111,
+        'dumpster_size': 15,
+        'delivery_date': 'Thu Dec 30 2021',
+        'pickup_date': 'Fri Dec 31 2021',
+        'delivery_time': {
+            'hour': 12,
+            'minute': 35,
+            'am_pm': 'AM'
+        },
+        'pickup_time': {
+            'hour': 5,
+            'minute': 45,
+            'am_pm': 'PM'
+        },
+        'special_instructions':'Please come early',
+        'delivery_completed': false,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'name': 'Josh Rodriguez',
+        'email': 'jr@gmail.com',
+        'phone_number': '404-585-8945',
+        'street': '225 Baker St NW',
+        'city': 'Atlanta',
+        'state': 'Georgia',
+        'zipcode': 30313,
+        'latitude': 33.764,
+        'longitude': -84.395,
+        'dumpster_size': 15,
+        'delivery_date': 'Fri Jan 07 2022',
+        'pickup_date': 'Sat Jan 08 2022',
+        'delivery_time': {
+            'hour': 12,
+            'minute': 35,
+            'am_pm': 'AM'
+        },
+        'pickup_time': {
+            'hour': 5,
+            'minute': 45,
+            'am_pm': 'PM'
+        },
+        'special_instructions':'Please come early',
+        'delivery_completed': false,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    }
+]
+
 
 const connectMongoose = async () => {
     if (config.MONGODB_URI) {
@@ -230,6 +292,13 @@ const initVehicles = async () => {
     await Promise.all(promise_array)
 }
 
+const initOrders = async () => {
+    await Order.deleteMany({})
+    const order_objects = orders.map(order => new Order({ ...order}))
+    const promise_array = order_objects.map(order => order.save())
+    await Promise.all(promise_array)
+}
+
 
 const runInit = async () => {
     await connectMongoose()
@@ -239,6 +308,7 @@ const runInit = async () => {
     await initDrivers()
     await initDepots()
     await initVehicles()
+    await initOrders()
     mongoose.disconnect()
     console.log('finished writing data to database')
 }

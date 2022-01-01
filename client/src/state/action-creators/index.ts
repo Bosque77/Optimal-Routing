@@ -8,7 +8,7 @@ import depotService from '../../services/depots'
 import vehicleService from '../../services/vehicle'
 import orderService from '../../services/order'
 import { Dispatch } from 'redux'
-import { Depot, Driver, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewRegion, NewVehicle, Region, UserToken, Vehicle } from '../../types'
+import { Depot, Driver, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Region, UserToken, Vehicle } from '../../types'
 
 export const setRegion = (region: Region) => {
     return {
@@ -121,6 +121,16 @@ export const createVehicle = (vehicle: NewVehicle) => {
         dispatch({
             type: ActionType.ADD_VEHICLE,
             data: new_vehicle,
+        })
+    }
+}
+
+export const createOrder = (order: NewOrder) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_order= await orderService.createNew(order)
+        dispatch({
+            type: ActionType.ADD_ORDER,
+            data: new_order,
         })
     }
 }
