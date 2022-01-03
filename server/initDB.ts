@@ -31,7 +31,7 @@ const users = [
 const regions = [
     {
 
-        'name': 'Default   ',
+        'name': 'Default',
         'user_id': '61c7483607e4533869b9ec08',
         '_id': '61ca3cb19e9ade7351418e30'
     },

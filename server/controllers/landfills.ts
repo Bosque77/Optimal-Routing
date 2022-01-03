@@ -15,7 +15,6 @@ landfillRouter.get('/', async(req:any, res) => {
         const user = req.user
         const user_id = user._id as string
         const region_id = req.query.region_id
-        // const region_id = req.params.region_id as string
 
         console.log(region_id)
         
