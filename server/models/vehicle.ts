@@ -9,8 +9,8 @@ const vehicleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Depot'
     },
-    stop_depot: {
-        type: mongoose.Schema.Types.ObjectId,
+    end_depot: {
+        type: mongoose.Schema.Types.ObjectId || undefined,
         ref: 'Depot'
     },
     active: Boolean,

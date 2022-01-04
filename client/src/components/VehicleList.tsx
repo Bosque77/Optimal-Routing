@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Vehicle } from '../types'
+import { EditVehicle, Vehicle } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
@@ -37,13 +37,26 @@ const VehicleList = () => {
 
     const changeVehicleStatus = (vehicle: Vehicle) => {
 
-        const new_vehicle = { ...vehicle }
-        if (vehicle.active) {
-            new_vehicle.active = false
-        } else {
-            new_vehicle.active = true
+
+
+        const updated_vehicle : EditVehicle = {
+            id: vehicle.id,
+            license_number: vehicle.license_number,
+            size: vehicle.size,
+            start_depot: vehicle.start_depot.id,
+            end_depot: vehicle.end_depot?.id,
+            region_id: vehicle.region_id,
+            active: !vehicle.active
+
         }
-        updateVehicle(new_vehicle)
+
+        // const new_vehicle = { ...vehicle }
+        // if (vehicle.active) {
+        //     new_vehicle.active = false
+        // } else {
+        //     new_vehicle.active = true
+        // }
+        updateVehicle(updated_vehicle)
     }
 
 

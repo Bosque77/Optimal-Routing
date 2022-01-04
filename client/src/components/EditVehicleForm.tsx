@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Depot, Vehicle } from '../types'
+import { Depot, EditVehicle, Vehicle } from '../types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -49,11 +49,17 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
 
     const submit = () => {
         console.log('inside on submit')
+        
         const id = vehicle.id
-
-        const new_vehicle: Vehicle = { id, license_number, size, start_depot, end_depot, active, 'user_id': vehicle.user_id, 'region_id': vehicle.region_id }
-
-        console.log(new_vehicle)
+        const start_depot_id = start_depot.id
+        let new_vehicle = {} as EditVehicle
+        if(end_depot){
+            const end_depot_id = end_depot.id
+            new_vehicle = { id, license_number, size, 'start_depot' : start_depot_id, 'end_depot' : end_depot_id, active, 'region_id': vehicle.region_id }
+        }else{
+            new_vehicle = { id, license_number, size, 'start_depot' : start_depot_id, 'end_depot':null, active, 'region_id': vehicle.region_id }
+        }
+    
         updateVehicle(new_vehicle)
         setActive(false)
     }

@@ -163,6 +163,16 @@ export interface NewDepot {
     region_id:string;
 }
 
+export interface EditVehicle {
+    id: string;
+    start_depot: string;
+    end_depot?: string | null;
+    license_number: string;
+    size: number;
+    active: boolean;
+    region_id: string;
+}
+
 export interface NewVehicle {
     start_depot: string;
     end_depot?: string;

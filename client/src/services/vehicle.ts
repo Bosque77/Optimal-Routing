@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { NewVehicle, Vehicle } from '../types'
+import { EditVehicle, NewVehicle, Vehicle } from '../types'
 import { Region } from '../types'
 import { token } from './config'
 const baseUrl = '/vehicles'
@@ -26,14 +26,14 @@ const getAll = async () => {
     return response.data
 }
 
-const put = async (vehicle: Vehicle) => {
+const put = async (vehicle: EditVehicle) => {
     const config = {
         headers: { Authorization: token },
     }
     const id = vehicle.id
     const url = baseUrl + `/${id}`
-    await axios.put(url, vehicle, config)
-    return vehicle
+    const response= await axios.put(url, vehicle, config)
+    return response.data
 }
 
 
