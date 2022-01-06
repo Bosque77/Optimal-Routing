@@ -5,21 +5,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
 import { LatLng, Dumpster_Sizes } from '../types'
-import {TRUCK_SIZES} from '../utils/enums'
+import { TRUCK_SIZES, truck_sizes } from '../utils/enums'
 
 interface prop {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 
-const CreateOrderForm = ({setActive }: prop) => {
+const CreateOrderForm = ({ setActive }: prop) => {
 
     const dispatch = useDispatch()
     const { createOrder } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
 
-    if(!region){
-        return(<div></div>)
+    if (!region) {
+        return (<div></div>)
     }
 
     useEffect(() => {
@@ -35,6 +35,15 @@ const CreateOrderForm = ({setActive }: prop) => {
         if (geo_modal) {
             M.Modal.init(geo_modal)
         }
+        const elems = document.querySelectorAll('select')
+        M.FormSelect.init(elems)
+
+
+        const date_picker = document.getElementById('drop-off-date')
+        if(date_picker){
+            M.Datepicker.init(date_picker, { setDefaultDate: true,  onSelect: (date) => onDropOffDateChange(date) })
+        }
+        
 
     }, [])
 
@@ -53,7 +62,7 @@ const CreateOrderForm = ({setActive }: prop) => {
     const [delivery_date, setDeliverydate] = useState('')
     const [pickup_date, setPickupDate] = useState('')
     const [special_instructions, setInstructions] = useState('')
-    const [ delivery_completed, setDeliveryStatus] = useState(false)
+    const [delivery_completed, setDeliveryStatus] = useState(false)
     const [pickup_completed, setPickupStatus] = useState(false)
 
 
@@ -74,7 +83,7 @@ const CreateOrderForm = ({setActive }: prop) => {
         console.log(response)
         if (response.status === 'ERROR') {
             M.toast({ html: 'Was not able to geolocate this location' })
-        }else{
+        } else {
             const lat_lng = response.data as LatLng
             setCoord(lat_lng)
             const modal_elem = document.getElementById('geoModal')
@@ -86,18 +95,43 @@ const CreateOrderForm = ({setActive }: prop) => {
 
     }
 
+    const insertDumpsterSizeChoices = () => {
+        return (
+            truck_sizes.map(size => {
+                return (
+                    <option value={size} key={size}>{size}</option>
+                )
+
+            })
+        )
+    }
+
+    const onDumpsterSelect = () => {
+        console.log('inside on dumpser select')
+    }
+
+    const onPickupDateChange = (date:Date) => {
+        console.log('inside on pickup date')
+        console.log(date.getDate())
+    }
+
+    const onDropOffDateChange = (date:Date) => {
+        console.log('inside on pickup date')
+        console.log(date.getDate())
+    }
+
 
 
     const submit = async () => {
         console.log('inside on submit')
 
-        if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
-            M.toast({html: 'All fields need to be filled out'})
-        }else{
-            const new_order: NewOrder = { name, street, city, email, phone_number, delivery_date, dumpster_size, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id':region.id }
+        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '') {
+            M.toast({ html: 'All fields need to be filled out' })
+        } else {
+            const new_order: NewOrder = { name, street, city, email, phone_number, delivery_date, dumpster_size, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id }
             console.log(new_order)
             await createOrder(new_order)
-            M.toast({html: 'Created New Order'})
+            M.toast({ html: 'Created New Order' })
             setActive(false)
         }
 
@@ -112,7 +146,6 @@ const CreateOrderForm = ({setActive }: prop) => {
             const instance = M.Modal.getInstance(modal_elem)
             instance.close()
         }
-
     }
 
     return (
@@ -123,8 +156,18 @@ const CreateOrderForm = ({setActive }: prop) => {
                     <form className="col s12" onSubmit={submit}>
                         <div className="row">
                             <div className="input-field col s6">
-                                <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)}/>
+                                <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
                                 <label htmlFor="name" className="active">Name</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="phone-number" type="text" className="validate" value={phone_number} onChange={({ target }) => setPhoneNumber(target.value)} />
+                                <label htmlFor="phone-number" className="active">Phone Number</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="email" type="email" className="validate" value={email} onChange={({ target }) => setEmail(target.value)} />
+                                <label htmlFor="email" className="active">Email</label>
                             </div>
                             <div className="input-field col s6">
                                 <input id="street" type="text" className="validate" value={street} onChange={({ target }) => setStreet(target.value)} />
@@ -158,6 +201,20 @@ const CreateOrderForm = ({setActive }: prop) => {
                         </div>
                         <div className="row right-align">
                             <a className="btn-flat offset-s6" onClick={geoLocate}>Geolocate</a>
+                        </div>
+                        <div className="row">
+                            <div className="col l3">
+
+                                <select id="select1" onChange={() => onDumpsterSelect()}>
+                                    <option value="" disabled selected>Dumpster Size</option>
+                                    {insertDumpsterSizeChoices()}
+                                </select>
+                                <label>Dumpster Size</label>
+                            </div>
+                            <div className="col l3">
+                                <input type="text" className="datepicker" id="drop-off-date" placeholder='Drop Off Date' />
+                            </div>
+
                         </div>
                         <div className="row right-align">
                             <button className="waves-effect waves-teal btn-flat modal-close" type="submit">Submit</button>
