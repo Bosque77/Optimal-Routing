@@ -5,6 +5,7 @@ import OrderList from '../OrderList'
 // import OrderList from '../OrderList'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
+import './OrderPage.css'
 // import GoogleMap from '../GoogleMap'
 
 // import './OrderPage.css'

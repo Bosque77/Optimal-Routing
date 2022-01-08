@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
 import { LatLng, Dumpster_Sizes } from '../types'
 import { TRUCK_SIZES, truck_sizes } from '../utils/enums'
+import './OrderPage/OrderPage.css'
 
 interface prop {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
@@ -40,12 +41,19 @@ const CreateOrderForm = ({ setActive }: prop) => {
 
 
         const date_picker = document.getElementById('drop-off-date')
-        if(date_picker){
-            M.Datepicker.init(date_picker, { setDefaultDate: true,  onSelect: (date) => onDropOffDateChange(date) })
+        if (date_picker) {
+            const elem = document.body
+            console.log(elem)
+            M.Datepicker.init(date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
         }
-        
+
+
+
 
     }, [])
+
+
+
 
 
     const [name, setName] = useState('')
@@ -106,16 +114,26 @@ const CreateOrderForm = ({ setActive }: prop) => {
         )
     }
 
+    // const test = () => {
+    //     document.body.style.backgroundColor = 'yellow'
+    //     const elemDiv = document.getElementById('drop-off-date')
+    //     if(elemDiv){
+    //         elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:#000;'
+    //         document.body.appendChild(elemDiv)
+    //     }
+
+    // }
+
     const onDumpsterSelect = () => {
         console.log('inside on dumpser select')
     }
 
-    const onPickupDateChange = (date:Date) => {
+    const onPickupDateChange = (date: Date) => {
         console.log('inside on pickup date')
         console.log(date.getDate())
     }
 
-    const onDropOffDateChange = (date:Date) => {
+    const onDropOffDateChange = (date: Date) => {
         console.log('inside on pickup date')
         console.log(date.getDate())
     }
@@ -212,7 +230,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
                                 <label>Dumpster Size</label>
                             </div>
                             <div className="col l3">
-                                <input type="text" className="datepicker" id="drop-off-date" placeholder='Drop Off Date' />
+                                <input type="text" className="datepicker" id="drop-off-date" placeholder='Drop Off Date'  />
                             </div>
 
                         </div>
