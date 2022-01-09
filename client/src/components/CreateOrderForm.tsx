@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
 import { LatLng, Dumpster_Sizes } from '../types'
-import { TRUCK_SIZES, truck_sizes } from '../utils/enums'
+import { DUMPSTER_SIZES, dumpster_sizes } from '../utils/enums'
 import './OrderPage/OrderPage.css'
 
 interface prop {
@@ -40,11 +40,21 @@ const CreateOrderForm = ({ setActive }: prop) => {
         M.FormSelect.init(elems)
 
 
-        const date_picker = document.getElementById('drop-off-date')
-        if (date_picker) {
+        // Drop Off Date Picker Initialization
+        const drop_off_date_picker = document.getElementById('drop-off-date')
+        if (drop_off_date_picker) {
             const elem = document.body
             console.log(elem)
-            M.Datepicker.init(date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
+            M.Datepicker.init(drop_off_date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
+        }
+
+
+        // Pickup Date Picker Initialization
+        const pickup_date_picker = document.getElementById('pickup-date')
+        if (pickup_date_picker) {
+            const elem = document.body
+            console.log(elem)
+            M.Datepicker.init(pickup_date_picker, { setDefaultDate: true, onSelect: (date) => onPickupDateChange(date), container: elem })
         }
 
 
@@ -64,10 +74,10 @@ const CreateOrderForm = ({ setActive }: prop) => {
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-    const [dumpster_size, setDumpsterSize] = useState<Dumpster_Sizes>(TRUCK_SIZES.TEN)
+    const [dumpster_size, setDumpsterSize] = useState(DUMPSTER_SIZES.TEN)
     const [email, setEmail] = useState('')
     const [phone_number, setPhoneNumber] = useState('')
-    const [delivery_date, setDeliverydate] = useState('')
+    const [drop_off_date, setDropOffDate] = useState('')
     const [pickup_date, setPickupDate] = useState('')
     const [special_instructions, setInstructions] = useState('')
     const [delivery_completed, setDeliveryStatus] = useState(false)
@@ -105,7 +115,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
 
     const insertDumpsterSizeChoices = () => {
         return (
-            truck_sizes.map(size => {
+            dumpster_sizes.map(size => {
                 return (
                     <option value={size} key={size}>{size}</option>
                 )
@@ -114,28 +124,21 @@ const CreateOrderForm = ({ setActive }: prop) => {
         )
     }
 
-    // const test = () => {
-    //     document.body.style.backgroundColor = 'yellow'
-    //     const elemDiv = document.getElementById('drop-off-date')
-    //     if(elemDiv){
-    //         elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:#000;'
-    //         document.body.appendChild(elemDiv)
-    //     }
 
-    // }
 
-    const onDumpsterSelect = () => {
+    const onDumpsterSelect = (dumpster_size: string) => {
         console.log('inside on dumpser select')
+        console.log(dumpster_size)
+        setDumpsterSize(parseInt(dumpster_size))
+
     }
 
     const onPickupDateChange = (date: Date) => {
-        console.log('inside on pickup date')
-        console.log(date.getDate())
+        setPickupDate(date.toDateString())
     }
 
     const onDropOffDateChange = (date: Date) => {
-        console.log('inside on pickup date')
-        console.log(date.getDate())
+        setDropOffDate(date.toDateString())
     }
 
 
@@ -143,10 +146,10 @@ const CreateOrderForm = ({ setActive }: prop) => {
     const submit = async () => {
         console.log('inside on submit')
 
-        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '') {
+        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
-            const new_order: NewOrder = { name, street, city, email, phone_number, delivery_date, dumpster_size, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id }
+            const new_order: NewOrder = { name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id }
             console.log(new_order)
             await createOrder(new_order)
             M.toast({ html: 'Created New Order' })
@@ -223,19 +226,42 @@ const CreateOrderForm = ({ setActive }: prop) => {
                         <div className="row">
                             <div className="col l3">
 
-                                <select id="select1" onChange={() => onDumpsterSelect()}>
+                                <select id="dumpster_size_selector" onChange={({ target }) => onDumpsterSelect(target.value)}>
                                     <option value="" disabled selected>Dumpster Size</option>
                                     {insertDumpsterSizeChoices()}
                                 </select>
-                                <label>Dumpster Size</label>
+                                <label htmlFor="dumpster_size_selector" className="active">Dumpster Size</label>
                             </div>
                             <div className="col l3">
-                                <input type="text" className="datepicker" id="drop-off-date" placeholder='Drop Off Date'  />
+                                <input type="text" className="datepicker" id="drop-off-date" placeholder='Drop Off Date' />
+                                <label htmlFor="pickup-date" className="active">Drop Off Date</label>
+
+                            </div>
+                            <div className="col l3">
+                                <input type="text" className="datepicker" id="pickup-date" placeholder='Pickup Date' />
+                                <label htmlFor="pickup-date" className="active">Pickup Date</label>
                             </div>
 
                         </div>
+                        <div className="row">
+                            <div className="input-field col l12">
+                                <textarea id="textarea1" className="materialize-textarea" onChange={({ target }) => setInstructions(target.value)}></textarea>
+                                <label htmlFor="textarea1">Special Instructions</label>
+                            </div>
+                        </div>
+                        <div className="row left-align" >
+                            <div className="col">
+                                {(delivery_completed) ? <a className="green btn-small" onClick={() => setDeliveryStatus(!delivery_completed)}>Delivery Completed</a> : <a className="red lighten-1 btn-small" onClick={() => setDeliveryStatus(!delivery_completed)}>Delivery Incomplete</a>}
+                            </div>
+                            <div className="col">
+                                {(pickup_completed) ? <a className="green btn-small" onClick={() => setPickupStatus(!pickup_completed)}>Pickup Completed</a> : <a className="red lighten-1 btn-small" onClick={() => setPickupStatus(!pickup_completed)}>Pickup Incomplete</a>}
+                            </div>
+
+
+                        </div>
+
                         <div className="row right-align">
-                            <button className="waves-effect waves-teal btn-flat modal-close" type="submit">Submit</button>
+                            <a className="waves-effect waves-teal btn-flat" type="submit" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">

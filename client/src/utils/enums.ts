@@ -1,4 +1,4 @@
-export enum TRUCK_SIZES {
+export enum DUMPSTER_SIZES {
     TEN = 10,
     FIFTEEN = 15,
     TWENTY = 20,
@@ -7,11 +7,11 @@ export enum TRUCK_SIZES {
     FIFTY = 50
 }
 
-export const truck_sizes = [
-    TRUCK_SIZES.TEN,
-    TRUCK_SIZES.FIFTEEN,
-    TRUCK_SIZES.TWENTY,
-    TRUCK_SIZES.THIRTY,
-    TRUCK_SIZES.FOURTY,
-    TRUCK_SIZES.FIFTY
+export const dumpster_sizes = [
+    DUMPSTER_SIZES.TEN,
+    DUMPSTER_SIZES.FIFTEEN,
+    DUMPSTER_SIZES.TWENTY,
+    DUMPSTER_SIZES.THIRTY,
+    DUMPSTER_SIZES.FOURTY,
+    DUMPSTER_SIZES.FIFTY
 ]
