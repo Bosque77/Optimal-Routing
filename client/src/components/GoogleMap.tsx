@@ -22,28 +22,13 @@ import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { createCustomEqual } from 'fast-equals'
 import { isLatLngLiteral, } from '@googlemaps/typescript-guards'
 import styled from 'styled-components'
-import { Depot, Landfill } from '../types'
+import { Depot, Landfill, Order } from '../types'
 
 
 
 const TopSpacing = styled.div`
   margin-top: 2em;
 `
-
-// const landfill_label = {
-//     text: '\ue88a', 
-//     fontFamily: 'Material Icons',
-//     color: 'black',
-//     fontSize: '18px',
-// }
-
-
-// const depot_label = {
-//     text: '\ue872', 
-//     fontFamily: 'Material Icons',
-//     color: 'black',
-//     fontSize: '18px',
-// }
 
 
 const landfill_icon = {
@@ -54,6 +39,10 @@ const depot_icon = {
     url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 }
 
+const order_icon = {
+    url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+}
+
 const render = (status: Status) => {
     return <h1>{status}</h1>
 }
@@ -61,9 +50,10 @@ const render = (status: Status) => {
 interface MyProps {
     landfills?: Landfill[];
     depots?: Depot[];
+    orders?: Order[];
 }
 
-const GoogleMap = ({ landfills, depots }: MyProps) => {
+const GoogleMap = ({ landfills, depots, orders }: MyProps) => {
     // [START maps_react_map_component_app_state]
     // const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
     const [zoom, setZoom] = React.useState(4) // initial zoom
@@ -99,7 +89,7 @@ const GoogleMap = ({ landfills, depots }: MyProps) => {
             landfills && landfills.map((landfill) => {
                 const latlng = { lat: landfill.latitude, lng: landfill.longitude }
                 if (landfill.active) {
-                    return (< Marker key={landfill.id} position={latlng} icon={landfill_icon}  title={landfill.name} />)
+                    return (< Marker key={landfill.id} position={latlng} icon={landfill_icon} title={landfill.name} />)
                 } else {
                     return
                 }
@@ -125,6 +115,23 @@ const GoogleMap = ({ landfills, depots }: MyProps) => {
 
     }
 
+    const formatOrderLabel = (order: Order) => {
+        const label = order.name + '\n' + 'Dumpster Size: ' + order.dumpster_size + '\n' + 'Delivery Date: ' + order.delivery_date + '\n' + 'Pickup Date: ' + order.pickup_date
+        return label
+    }
+
+
+    const insertOrderMarkers = () => {
+        return (
+            orders && orders.map((order) => {
+                const latlng = { lat: order.latitude, lng: order.longitude }
+                return (< Marker key={order.id} position={latlng} icon={order_icon} title={formatOrderLabel(order)} />)
+
+            })
+        )
+
+    }
+
     return (
         <div >
             <TopSpacing>
@@ -138,6 +145,7 @@ const GoogleMap = ({ landfills, depots }: MyProps) => {
                     >
                         {insertLandfillMarkers()}
                         {insertDepotMarkers()}
+                        {insertOrderMarkers()}
 
                     </Map>
                 </Wrapper>
