@@ -6,6 +6,7 @@ import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import CreateOrderForm from './CreateOrderForm'
+import OrderInfoForm from './OrderInfoForm'
 // import ConfirmDelete from './ConfirmDelete'
 
 import M from 'materialize-css'
@@ -31,6 +32,7 @@ const OrderList = () => {
     const [order, setOrder] = useState<Order>(orders[0])
     const [editFormActive, setEditFormActive] = useState(false)
     const [createFormActive, setCreateFormActive] = useState(false)
+    const [orderInfoFormActive, setOrderInfoFormActive] = useState(false)
     const [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
 
 
@@ -51,6 +53,11 @@ const OrderList = () => {
     const editOrder = (order: Order) => {
         setOrder(order)
         setEditFormActive(true)
+    }
+
+    const info = (order: Order) => {
+        setOrder(order)
+        setOrderInfoFormActive(true)
     }
 
     const onDeleteOrder = (order: Order) => {
@@ -77,6 +84,7 @@ const OrderList = () => {
         
                     <td> <button className="btn-floating btn waves-light red" onClick={() => editOrder(order)}><i className="material-icons">mode_edit</i></button></td>
                     <td> <button className="btn-floating btn black" onClick={() => onDeleteOrder(order)}><i className="material-icons">delete</i></button></td>
+                    <td> <button className="btn-floating btn green" onClick={() => info(order)}><i className="material-icons">info_outline</i></button></td>
                 </tr>
             )
         )
@@ -113,6 +121,7 @@ const OrderList = () => {
             </TopSpacing>
             {/* {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />} */}
             {createFormActive && <CreateOrderForm setActive={setCreateFormActive} />}
+            {orderInfoFormActive && <OrderInfoForm setActive={setOrderInfoFormActive} order={order}/>}
             {/* {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} order={order} />} */}
 
         </div>
