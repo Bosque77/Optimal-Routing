@@ -2,21 +2,22 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state'
-import { Depot, Driver, Landfill, Vehicle } from '../types'
+import { Depot, Driver, Landfill, Order, Vehicle } from '../types'
 
 interface props {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     landfill?: Landfill,
     driver?: Driver,
     depot?: Depot,
-    vehicle?: Vehicle
+    vehicle?: Vehicle,
+    order?: Order,
 }
 
-const ConfirmDelete = ({ setActive, landfill, driver, depot, vehicle }: props) => {
+const ConfirmDelete = ({ setActive, landfill, driver, depot, vehicle, order }: props) => {
 
     const dispatch = useDispatch()
 
-    const { deleteLandfill, deleteDriver, deleteDepot, deleteVehicle } = bindActionCreators(actionCreators, dispatch)
+    const { deleteLandfill, deleteDriver, deleteDepot, deleteVehicle, deleteOrder } = bindActionCreators(actionCreators, dispatch)
 
 
     React.useEffect(() => {
@@ -38,6 +39,8 @@ const ConfirmDelete = ({ setActive, landfill, driver, depot, vehicle }: props) =
                 deleteDepot(depot)
             }else if(vehicle){
                 deleteVehicle(vehicle)
+            }else if(order){
+                deleteOrder(order)
             }
         }
         setActive(false)

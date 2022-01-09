@@ -8,7 +8,7 @@ import depotService from '../../services/depots'
 import vehicleService from '../../services/vehicle'
 import orderService from '../../services/order'
 import { Dispatch } from 'redux'
-import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Region, UserToken, Vehicle } from '../../types'
+import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Order, Region, UserToken, Vehicle } from '../../types'
 
 export const setRegion = (region: Region) => {
     return {
@@ -193,6 +193,17 @@ export const updateDepot = (updated_depot: Depot) => {
     }
 }
 
+export const updateOrder = (updated_order: Order) => {
+
+    return async (dispatch: Dispatch<Action>) => {
+        const order = await orderService.put(updated_order)
+        dispatch({
+            type: ActionType.UPDATE_ORDER,
+            data: order
+        })
+    }
+}
+
 export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
         await landfillService.deleteLandfill(landfill)  
@@ -239,6 +250,16 @@ export const deleteRegion = (region:Region) => {
         dispatch({
             type: ActionType.DELETE_REGION,
             data: region
+        })
+    }
+}
+
+export const deleteOrder = (order:Order) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await orderService.deleteOrder(order)  
+        dispatch({
+            type: ActionType.DELETE_ORDER,
+            data: order
         })
     }
 }

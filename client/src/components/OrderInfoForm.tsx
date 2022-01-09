@@ -21,24 +21,6 @@ const OrderInfoForm = ({ setActive, order }: prop) => {
     }, [])
 
 
-    // const [name, setName] = useState(order.name)
-    // const [street, setStreet] = useState(order.street)
-    // const [city, setCity] = useState(order.city)
-    // const [state, setState] = useState(order.state)
-    // const [zipcode, setZipcode] = useState(order.zipcode)
-    // const [latitude, setLatitude] = useState(order.latitude)
-    // const [longitude, setLongitude] = useState(order.longitude)
-    // const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-    // const [dumpster_size, setDumpsterSize] = useState(order.dumpster_size)
-    // const [email, setEmail] = useState(order.email)
-    // const [phone_number, setPhoneNumber] = useState(order.phone_number)
-    // const [drop_off_date, setDropOffDate] = useState(order.delivery_date)
-    // const [pickup_date, setPickupDate] = useState(order.pickup_date)
-    // const [special_instructions, setInstructions] = useState(order.special_instructions)
-    // const [delivery_completed, setDeliveryStatus] = useState(order.delivery_completed)
-    // const [pickup_completed, setPickupStatus] = useState(order.pickup_completed)
-
-
 
 
     return (
@@ -113,11 +95,11 @@ const OrderInfoForm = ({ setActive, order }: prop) => {
                 <div className="row">
                     <div className="col l3" >
                         <label >Delivery Status</label>
-                        {(order.delivery_completed) ? <div>Delivery Completed</div> : <div>Delivery Incomplete</div>}
+                        {(order.delivery_completed) ? <div>Completed</div> : <div>Incomplete</div>}
                     </div>
                     <div className="col l3" >
                         <label >Pikcup Status</label>
-                        {(order.pickup_completed) ? <div>Pickup Completed</div> : <div>Pikcup Incomplete</div>}
+                        {(order.pickup_completed) ? <div>Completed</div> : <div>Incomplete</div>}
                     </div>
                 </div>
             </div>

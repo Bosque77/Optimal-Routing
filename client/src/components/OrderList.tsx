@@ -7,10 +7,12 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import CreateOrderForm from './CreateOrderForm'
 import OrderInfoForm from './OrderInfoForm'
-// import ConfirmDelete from './ConfirmDelete'
+
 
 import M from 'materialize-css'
-// import EditOrderForm from './EditOrderForm'
+import EditOrderForm from './EditOrderForm'
+import ConfirmDelete from './ConfirmDelete'
+
 
 const TopSpacing = styled.div`
   margin-top: 2em;
@@ -20,7 +22,7 @@ const OrderList = () => {
 
     const dispatch = useDispatch()
 
-    // const { updateOrder } = bindActionCreators(actionCreators, dispatch)
+ 
 
 
     useEffect(() => {
@@ -119,10 +121,10 @@ const OrderList = () => {
                     </tbody>
                 </table>
             </TopSpacing>
-            {/* {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />} */}
+            {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />}
             {createFormActive && <CreateOrderForm setActive={setCreateFormActive} />}
             {orderInfoFormActive && <OrderInfoForm setActive={setOrderInfoFormActive} order={order}/>}
-            {/* {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} order={order} />} */}
+            {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} order={order} />}
 
         </div>
     )

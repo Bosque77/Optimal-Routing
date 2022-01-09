@@ -58,7 +58,7 @@ export interface Order {
     zipcode: number;
     latitude: number;
     longitude: number;
-    dumpster_size: Dumpster_Sizes;
+    dumpster_size: number;
     delivery_date: string;
     pickup_date: string;
     delivery_time?: Time;
@@ -80,7 +80,7 @@ export interface NewOrder {
     zipcode: number;
     latitude: number;
     longitude: number;
-    dumpster_size: Dumpster_Sizes;
+    dumpster_size: number;
     delivery_date: string;
     pickup_date: string;
     delivery_time?: Time;
