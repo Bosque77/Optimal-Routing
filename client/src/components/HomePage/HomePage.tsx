@@ -10,6 +10,9 @@ import { Route, Routes } from 'react-router-dom'
 import DepotPage from '../DepotPage/DepotPage'
 
 const HomePage = () => {
+
+
+
     return (<div>
         <SideNav />
         <main>

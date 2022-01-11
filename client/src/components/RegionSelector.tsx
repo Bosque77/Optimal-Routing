@@ -17,7 +17,7 @@ const RegionSelector = () => {
     console.log('inside Region Selector Component')
 
     const dispatch = useDispatch()
-    const { initializeRegions, setRegion, createRegion, deleteRegion } = bindActionCreators(actionCreators, dispatch)
+    const { initializeRegions,setRegion, createRegion, deleteRegion } = bindActionCreators(actionCreators, dispatch)
 
 
     const [new_region, setNewRegion] = useState('')

@@ -9,6 +9,7 @@ import './OrderPage.css'
 import GoogleMap from '../GoogleMap'
 import { isRegExp } from 'util'
 import styled from 'styled-components'
+import { Depot, Landfill } from '../../types'
 // import GoogleMap from '../GoogleMap'
 
 // import './OrderPage.css'
@@ -23,10 +24,11 @@ margin-bottom: 50px;
 
 const OrderPage = () => {
     const dispatch = useDispatch()
-    const { initializeOrders } = bindActionCreators(actionCreators, dispatch)
-
-
+    const { initializeOrders, initializeLandfills, initializeDepots } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
+
+    const [show_depots, setDepots] = useState<Depot[] | undefined>(undefined)
+    const [show_landfills, setLandfills] = useState<Landfill[] | undefined>(undefined)
 
     useEffect(() => {
         console.log('inside useEffect')
@@ -35,12 +37,23 @@ const OrderPage = () => {
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
 
+            // const show_landfill_box = document.getElementById('checkbox')
+            // if(show_landfill_box){
+            //     show_landfill_box.checked = false
+            // }
+
             initializeOrders(region, date.toDateString())
+            initializeDepots(region)
+            initializeLandfills(region)
+
         }
 
     }, [region])
 
     const orders = useSelector((state: State) => state.orders)
+    const landfills = useSelector((state: State) => state.landfills)
+    const depots = useSelector((state: State) => state.depots)
+
 
     const onDateChange = async (date: Date) => {
         console.log('on date change')
@@ -54,32 +67,46 @@ const OrderPage = () => {
 
     }
 
+    const displayLandfills = () => {
+        if (!show_landfills) {
+            setLandfills(landfills)
+        }else{
+            setLandfills(undefined)
+        }
+    }
+
+    const displayDepots = () => {
+        if (!show_depots) {
+            setDepots(depots)
+        }else{
+            setDepots(undefined)
+        }
+    }
+
     return (
 
         <div>
             <div className="row">
                 <div className="col l3">
                     <label>
-                        <input type="checkbox" />
+                        <input type="checkbox" id="show-landfill" onChange={() => displayLandfills()} />
                         <span>Display Landfills</span>
                     </label>
                 </div>
                 <div className="col l3">
                     <label>
-                        <input type="checkbox" />
+                        <input type="checkbox" onChange={() => displayDepots()}/>
                         <span>Display Depots</span>
                     </label>
                 </div>
             </div>
-            <GoogleMap orders={orders} />
+            <GoogleMap orders={orders} landfills={show_landfills} depots={show_depots}/>
             <br />
             <Spacing>
                 <div className="row">
                     <div className="col l3">
                         <input type="text" className="datepicker" placeholder='Select Date' />
                     </div>
-
-
                 </div>
             </Spacing>
             <OrderStyle>
