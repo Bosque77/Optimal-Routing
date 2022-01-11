@@ -15,7 +15,7 @@ function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
     const dispatch = useDispatch()
-    const { setUserToken } = bindActionCreators(actionCreators, dispatch)
+    const { setUserToken, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
@@ -23,6 +23,7 @@ function App() {
             const parsed_user_token: UserToken = JSON.parse(user_token)
             setToken(parsed_user_token.token)
             setUserToken(parsed_user_token)
+            // initializeRegions()
             
         }
     }, [])
