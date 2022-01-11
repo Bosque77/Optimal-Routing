@@ -8,6 +8,7 @@ import './HomePage.css'
 import RegionSelector from '../RegionSelector'
 import { Route, Routes } from 'react-router-dom'
 import DepotPage from '../DepotPage/DepotPage'
+import RoutePage from '../RoutePage/RoutePage'
 
 const HomePage = () => {
 
@@ -19,7 +20,8 @@ const HomePage = () => {
             <div className="container">
                 <RegionSelector />
                 <Routes>
-                    <Route path="/order" element = {<OrderPage />}/>
+                    <Route path="/route" element={<RoutePage />} />
+                    <Route path="/order" element={<OrderPage />} />
                     <Route path="/vehicle" element={<VehiclePage />} />
                     <Route path="/depot" element={<DepotPage />} />
                     <Route path="/driver" element={<TruckDriverPage />} />
