@@ -38,8 +38,10 @@ const RegionSelector = () => {
 
         if (user_token) {
             if (regions.length < 1) {
+                console.log('inside initialize regions')
                 initializeRegions()
-            } else {
+            } else if(!set_region){
+                console.log('inside set region')
                 setRegion(regions[0])
             }
 

@@ -11,6 +11,7 @@ import { Dispatch } from 'redux'
 import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Order, Region, UserToken, Vehicle } from '../../types'
 
 export const setRegion = (region: Region) => {
+    window.localStorage.setItem('region', JSON.stringify(region))
     return {
         type: ActionType.SET_REGION,
         data: region

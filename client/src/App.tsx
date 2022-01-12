@@ -9,22 +9,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import HomePage from './components/HomePage/HomePage'
 import { bindActionCreators } from 'redux'
 import { setToken } from './services/config'
-import { UserToken } from './types'
+import { Region, UserToken } from './types'
+
+
 
 function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
     const dispatch = useDispatch()
-    const { setUserToken, initializeRegions } = bindActionCreators(actionCreators, dispatch)
+    const { setUserToken, setRegion } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
+        const region = window.localStorage.getItem('region')
         if (user_token) {
             const parsed_user_token: UserToken = JSON.parse(user_token)
             setToken(parsed_user_token.token)
             setUserToken(parsed_user_token)
-            // initializeRegions()
-            
+            if(region){
+                const parsed_region: Region = JSON.parse(region)
+                setRegion(parsed_region)
+            }
         }
     }, [])
 
