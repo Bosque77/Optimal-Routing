@@ -58,10 +58,12 @@ const RegionSelector = () => {
         )
     }
 
-    const onCreateRegion = () => {
+    const onCreateRegion = async () => {
         console.log('inside createRegion')
         const new_region_object = { name: new_region }
-        createRegion(new_region_object)
+        await createRegion(new_region_object)
+        setNewRegion('')
+        
     }
 
     const openAddRegionModal = () => {
@@ -72,10 +74,11 @@ const RegionSelector = () => {
         }
     }
 
-    const onDeleteRegion = () => {
+    const onDeleteRegion = async () => {
         console.log('inside onDeleteRegion')
         if(set_region){
-            deleteRegion(set_region)
+            await deleteRegion(set_region)
+            setRegion(regions[0])
         }
     }
 
