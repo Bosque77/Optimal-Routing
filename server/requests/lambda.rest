@@ -1,0 +1,14 @@
+
+### Get Request to Lambda
+GET https://ovuu3get4g.execute-api.us-west-2.amazonaws.com/test/getRoutes?route_id=testrouteid
+Content-Type: application/json
+
+
+### Post Request to Lambda
+POST https://ovuu3get4g.execute-api.us-west-2.amazonaws.com/test/postRoutes
+Content-Type: application/json
+
+{
+    "username": "user_1",
+    "password": "incorrect password"
+}

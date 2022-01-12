@@ -162,8 +162,26 @@ const depots = [
 const vehicles = [
     {
         'start_depot': '61cdeb3f291ff09681e49c09',
-        'end_depot': null,
+        'end_depot': '61cdeb3f291ff09681e49c09',
         'license_number': 'AJXIV',
+        'size': 50,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'start_depot': '61cdeb3f291ff09681e49c09',
+        'end_depot': '61cdeb3f291ff09681e49c09',
+        'license_number': 'TTXDVG',
+        'size': 50,
+        'active': true,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'start_depot': '61cdeb3f291ff09681e49c09',
+        'end_depot': '61cdeb3f291ff09681e49c09',
+        'license_number': 'XXDTGE',
         'size': 50,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
@@ -180,8 +198,8 @@ const orders = [
         'city': 'Atlanta',
         'state': 'Georgia',
         'zipcode': 30338,
-        'latitude': 34.25,
-        'longitude': -84.111,
+        'latitude': 33.935,
+        'longitude': -84.318,
         'dumpster_size': 15,
         'delivery_date': 'Thu Dec 30 2021',
         'pickup_date': 'Fri Dec 31 2021',
@@ -212,8 +230,37 @@ const orders = [
         'latitude': 33.764,
         'longitude': -84.395,
         'dumpster_size': 15,
-        'delivery_date': 'Fri Jan 07 2022',
-        'pickup_date': 'Sat Jan 08 2022',
+        'delivery_date': 'Wed Dec 29 2021',
+        'pickup_date': 'Thu Dec 30 2021',
+        'delivery_time': {
+            'hour': 12,
+            'minute': 35,
+            'am_pm': 'AM'
+        },
+        'pickup_time': {
+            'hour': 5,
+            'minute': 45,
+            'am_pm': 'PM'
+        },
+        'special_instructions':'Please come early',
+        'delivery_completed': true,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30'
+    },
+    {
+        'name': 'Daniel Carusi',
+        'email': 'd.carusi@gmail.com',
+        'phone_number': '485-859-8569',
+        'street': '690 Olde Rope Mill Park Rd',
+        'city': 'Woodstock',
+        'state': 'Georgia',
+        'zipcode': 30188,
+        'latitude': 34.131,
+        'longitude': -84.523,
+        'dumpster_size': 30,
+        'delivery_date': 'Thu Dec 30 2021',
+        'pickup_date': 'Wed Jan 05 2022',
         'delivery_time': {
             'hour': 12,
             'minute': 35,
@@ -229,7 +276,8 @@ const orders = [
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
-    }
+    },
+
 ]
 
 

@@ -29,8 +29,10 @@ vehicleRouter.put('/:id', async(req:any, res) => {
             updated_vehicle['end_depot'] = null
         }
         const vehicle_id = req.params.id
-        await Vehicle.findOneAndUpdate(vehicle_id, {...updated_vehicle})
+        await Vehicle.findByIdAndUpdate(vehicle_id, {...updated_vehicle})
         const  populated_vehicle = await Vehicle.findById(vehicle_id).populate('start_depot').populate('end_depot')
+        console.log('inside vehicle put')
+        console.log(populated_vehicle)
         res.status(200).send(populated_vehicle)
 
     }catch(error){
