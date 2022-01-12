@@ -261,7 +261,7 @@ const EditOrderForm = ({ setActive, order }: prop) => {
                         </div>
 
                         <div className="row right-align">
-                            <a className="waves-effect waves-teal btn-flat" type="submit" onClick={() => submit()}>Submit</a>
+                            <a className="waves-effect waves-teal btn-flat modal-close" type="submit" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">
