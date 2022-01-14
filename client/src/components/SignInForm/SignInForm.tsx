@@ -28,7 +28,7 @@ const SignInForm = () => {
         const login_info: LoginInfo = {username: email, password: password}
         // eslint-disable-next-line no-debugger
         try{
-            const response = await loginUser(login_info)
+            await loginUser(login_info)
             navigate('/')
 
         } catch(error){

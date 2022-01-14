@@ -90,6 +90,12 @@ const CreateLandfillForm = ({setActive }: prop) => {
             console.log(new_landfill)
             await createLandfill(new_landfill)
             M.toast({html: 'Created New Landfill'})
+            const modal_elem = document.getElementById('modal1')
+            if(modal_elem){
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
+
             setActive(false)
         }
 
@@ -112,7 +118,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Landfill</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12">
                         <div className="row">
                             <div className="input-field col s6">
                                 <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)}/>
@@ -156,7 +162,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="waves-effect waves-teal btn-flat modal-close" type="submit">Submit</button>
+                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">
