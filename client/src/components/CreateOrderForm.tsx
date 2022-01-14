@@ -146,13 +146,18 @@ const CreateOrderForm = ({ setActive }: prop) => {
     const submit = async () => {
         console.log('inside on submit')
 
-        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
+        if (name === '' || phone_number==='' || email==='' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
             const new_order: NewOrder = { name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id }
             console.log(new_order)
             await createOrder(new_order)
             M.toast({ html: 'Created New Order' })
+            const modal_elem = document.getElementById('modal1')
+            if (modal_elem) {
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
             setActive(false)
         }
 
@@ -174,7 +179,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Order</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12" >
                         <div className="row">
                             <div className="input-field col s6">
                                 <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
@@ -261,7 +266,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
                         </div>
 
                         <div className="row right-align">
-                            <a className="waves-effect waves-teal btn-flat modal-close" type="submit" onClick={() => submit()}>Submit</a>
+                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">
