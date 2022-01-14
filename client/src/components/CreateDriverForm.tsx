@@ -50,6 +50,11 @@ const CreateDriverForm = ({ setActive }: prop) => {
             const new_driver: NewDriver = { name, phone_number, email,  'region_id': region.id }
             await createDriver(new_driver)
             M.toast({html: 'Created New Landfill'})
+            const modal_elem = document.getElementById('modal1')
+            if(modal_elem){
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
             setActive(false)
         }
     }
@@ -60,7 +65,7 @@ const CreateDriverForm = ({ setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Driver</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12" >
                         <div className="row">
                             <div className="input-field col s4">
                                 <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
@@ -80,7 +85,7 @@ const CreateDriverForm = ({ setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <a className=" waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
 
