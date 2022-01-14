@@ -1,4 +1,15 @@
 
+
+export interface RouteQuery {
+    landfills: Landfill[]
+    depots: Depot[]
+    vehicles: Vehicle[]
+    orders: Order[]
+}
+
+
+
+
 export interface LatLng  {
     lat: number,
     lng: number
@@ -41,11 +52,6 @@ export interface Time {
 
 export type Dumpster_Sizes = 10 | 15 | 20 | 30 | 40 | 50
 
-// export interface Date  {
-//     month: number;
-//     day: number;
-//     year: number;
-// }
 
 export interface Order {
     id: string;

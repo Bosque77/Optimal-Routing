@@ -7,12 +7,9 @@ import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 import './OrderPage.css'
 import GoogleMap from '../GoogleMap'
-import { isRegExp } from 'util'
 import styled from 'styled-components'
-import { Depot, Landfill } from '../../types'
-// import GoogleMap from '../GoogleMap'
+import { Depot, Landfill, RouteQuery } from '../../types'
 
-// import './OrderPage.css'
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -24,7 +21,7 @@ margin-bottom: 50px;
 
 const OrderPage = () => {
     const dispatch = useDispatch()
-    const { initializeOrders, initializeLandfills, initializeDepots } = bindActionCreators(actionCreators, dispatch)
+    const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
 
     const [show_depots, setDepots] = useState<Depot[] | undefined>(undefined)
@@ -37,14 +34,10 @@ const OrderPage = () => {
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
 
-            // const show_landfill_box = document.getElementById('checkbox')
-            // if(show_landfill_box){
-            //     show_landfill_box.checked = false
-            // }
-
             initializeOrders(region, date.toDateString())
             initializeDepots(region)
             initializeLandfills(region)
+            initializeVehicles(region)
 
         }
 
@@ -53,7 +46,33 @@ const OrderPage = () => {
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
     const depots = useSelector((state: State) => state.depots)
+    const vehicles = useSelector((state: State) => state.vehicles)
 
+
+
+    const createRoutes = () => {
+        M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
+        const route_query:RouteQuery = {landfills, depots, vehicles, orders}
+        const data = JSON.stringify(route_query, null, 2)
+        console.log(data)
+    }
+
+
+    const displayLandfills = () => {
+        if (!show_landfills) {
+            setLandfills(landfills)
+        } else {
+            setLandfills(undefined)
+        }
+    }
+
+    const displayDepots = () => {
+        if (!show_depots) {
+            setDepots(depots)
+        } else {
+            setDepots(undefined)
+        }
+    }
 
     const onDateChange = async (date: Date) => {
         console.log('on date change')
@@ -65,22 +84,6 @@ const OrderPage = () => {
 
         }
 
-    }
-
-    const displayLandfills = () => {
-        if (!show_landfills) {
-            setLandfills(landfills)
-        }else{
-            setLandfills(undefined)
-        }
-    }
-
-    const displayDepots = () => {
-        if (!show_depots) {
-            setDepots(depots)
-        }else{
-            setDepots(undefined)
-        }
     }
 
     return (
@@ -95,23 +98,28 @@ const OrderPage = () => {
                 </div>
                 <div className="col l3">
                     <label>
-                        <input type="checkbox" onChange={() => displayDepots()}/>
+                        <input type="checkbox" onChange={() => displayDepots()} />
                         <span>Display Depots</span>
                     </label>
                 </div>
             </div>
-            <GoogleMap orders={orders} landfills={show_landfills} depots={show_depots}/>
+            <GoogleMap orders={orders} landfills={show_landfills} depots={show_depots} />
             <br />
             <Spacing>
                 <div className="row">
                     <div className="col l3">
                         <input type="text" className="datepicker" placeholder='Select Date' />
                     </div>
+                    <div className="col l3 offset-l6">
+                        <div className="btn blue lighten-2" onClick={() => createRoutes()}>Create Routes</div>
+                    </div>
+
                 </div>
             </Spacing>
             <OrderStyle>
                 <OrderList />
             </OrderStyle>
+
         </div>
 
     )
