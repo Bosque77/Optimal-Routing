@@ -59,7 +59,10 @@ vehicleRouter.post('/', async (req:any, res)=> {
         const new_vehicle = req.body
         const vehicle_object = new Vehicle({...new_vehicle,'user_id': user_id})
         const returned_data = (await vehicle_object.save())
-        res.status(200).send(returned_data)
+        const vehicle_id = returned_data._id
+        const  populated_vehicle = await Vehicle.findById(vehicle_id).populate('start_depot').populate('end_depot')
+        console.log(populated_vehicle)
+        res.status(200).send(populated_vehicle)
     }catch (error){
         res.status(500).send('Error getting the vehicle entries by user and region')
     }

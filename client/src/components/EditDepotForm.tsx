@@ -7,7 +7,7 @@ import geocode from '../services/geocode'
 import { LatLng } from '../types'
 
 interface prop {
-    depot: Depot ,
+    depot: Depot,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
@@ -15,8 +15,8 @@ interface prop {
 const EditDepotForm = ({ depot, setActive }: prop) => {
 
 
-    if(!depot){
-        return(<div></div>)
+    if (!depot) {
+        return (<div></div>)
     }
 
 
@@ -46,7 +46,7 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
     const [longitude, setLongitude] = useState(depot.longitude.toString())
     const [active, setStatus] = useState(depot.active)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-    
+
 
 
 
@@ -81,10 +81,21 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
 
     const submit = () => {
         console.log('inside on submit')
-        const id = depot.id
-        const new_depot: Depot = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': depot.user_id, 'region_id': depot.region_id }
-        updateDepot(new_depot)
-        setActive(false)
+
+        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '') {
+            M.toast({ html: 'All fields need to be filled out' })
+        } else {
+            const id = depot.id
+            const new_depot: Depot = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': depot.user_id, 'region_id': depot.region_id }
+            updateDepot(new_depot)
+            M.toast({ html: 'Updated Depot' })
+            const modal_elem = document.getElementById('modal1')
+            if (modal_elem) {
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
+            setActive(false)
+        }
     }
 
     const assignLatLng = () => {
@@ -103,7 +114,7 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Depot</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12">
                         <div className="row">
                             <div className="input-field col s6">
                                 <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
@@ -147,7 +158,7 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">

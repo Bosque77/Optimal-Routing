@@ -49,19 +49,28 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
 
     const submit = () => {
         console.log('inside on submit')
-        
-        const id = vehicle.id
-        const start_depot_id = start_depot.id
-        let new_vehicle = {} as EditVehicle
-        if(end_depot){
-            const end_depot_id = end_depot.id
-            new_vehicle = { id, license_number, size, 'start_depot' : start_depot_id, 'end_depot' : end_depot_id, active, 'region_id': vehicle.region_id }
-        }else{
-            new_vehicle = { id, license_number, size, 'start_depot' : start_depot_id, 'end_depot':null, active, 'region_id': vehicle.region_id }
+        if (license_number === '' || size === 0) {
+            M.toast({ html: 'All fields need to be filled out' })
+        } else {
+            const id = vehicle.id
+            const start_depot_id = start_depot.id
+            let new_vehicle = {} as EditVehicle
+            if (end_depot) {
+                const end_depot_id = end_depot.id
+                new_vehicle = { id, license_number, size, 'start_depot': start_depot_id, 'end_depot': end_depot_id, active, 'region_id': vehicle.region_id }
+            } else {
+                new_vehicle = { id, license_number, size, 'start_depot': start_depot_id, 'end_depot': null, active, 'region_id': vehicle.region_id }
+            }
+
+            updateVehicle(new_vehicle)
+            M.toast({html: 'Updated Vehicle'})
+            const modal_elem = document.getElementById('modal1')
+            if (modal_elem) {
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
+            setActive(false)
         }
-    
-        updateVehicle(new_vehicle)
-        setActive(false)
     }
 
     const insertStartingDepotChoices = () => {
@@ -117,11 +126,11 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
         }
     }
 
-    const onSetSize = (input:string) => {
+    const onSetSize = (input: string) => {
 
-        if(input){
+        if (input) {
             setSize(parseInt(input))
-        }else{
+        } else {
             setSize(0)
         }
     }
@@ -133,7 +142,7 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Vehicle</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12" >
                         <div className="row">
                             <div className="input-field col s4">
                                 <input id="name" type="text" className="validate" value={license_number} onChange={({ target }) => setLicenseNumber(target.value)} />
@@ -164,7 +173,7 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <a className=" waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
 

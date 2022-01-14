@@ -48,7 +48,7 @@ const CreateVehicleForm = ({ setActive }: prop) => {
     const submit = async () => {
         console.log('inside on submit')
 
-        if(license_number ===''){
+        if(license_number ==='' || size===0){
             M.toast({html: 'All fields need to be filled out'})
         }else{
             const start_depot_id = start_depot.id
@@ -56,6 +56,11 @@ const CreateVehicleForm = ({ setActive }: prop) => {
             const new_vehicle: NewVehicle = { license_number, size, 'start_depot': start_depot_id, 'end_depot': end_depot_id, active, 'region_id': region.id }
             await createVehicle(new_vehicle)
             M.toast({html: 'Created New Vehicle'})
+            const modal_elem = document.getElementById('modal1')
+            if (modal_elem) {
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
             setActive(false)
         }
     }
@@ -129,7 +134,7 @@ const CreateVehicleForm = ({ setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Vehicle</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12" >
                         <div className="row">
                             <div className="input-field col s4">
                                 <input id="name" type="text" className="validate" value={license_number} onChange={({ target }) => setLicenseNumber(target.value)} />
@@ -160,7 +165,7 @@ const CreateVehicleForm = ({ setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
 
