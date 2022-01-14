@@ -7,7 +7,7 @@ import geocode from '../services/geocode'
 import { LatLng } from '../types'
 
 interface prop {
-    landfill: Landfill ,
+    landfill: Landfill,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
@@ -15,8 +15,8 @@ interface prop {
 const EditLandfillForm = ({ landfill, setActive }: prop) => {
 
 
-    if(!landfill){
-        return(<div></div>)
+    if (!landfill) {
+        return (<div></div>)
     }
 
 
@@ -46,7 +46,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
     const [longitude, setLongitude] = useState(landfill.longitude.toString())
     const [active, setStatus] = useState(landfill.active)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-    
+
 
 
 
@@ -81,10 +81,19 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
 
     const submit = () => {
         console.log('inside on submit')
-        const id = landfill.id
-        const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': landfill.user_id, 'region_id': landfill.region_id }
-        updateLandfill(new_landfill)
-        setActive(false)
+        if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '') {
+            M.toast({ html: 'All fields need to be filled out' })
+        } else {
+            const id = landfill.id
+            const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': landfill.user_id, 'region_id': landfill.region_id }
+            updateLandfill(new_landfill)
+            const modal_elem = document.getElementById('modal1')
+            if(modal_elem){
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
+            }
+            setActive(false)
+        }
     }
 
     const assignLatLng = () => {
@@ -103,7 +112,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
             <div id="modal1" className="modal">
                 <div className="modal-content">
                     <h4>Landfill</h4>
-                    <form className="col s12" onSubmit={submit}>
+                    <form className="col s12">
                         <div className="row">
                             <div className="input-field col s6">
                                 <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)} />
@@ -147,7 +156,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
 
                         </div>
                         <div className="row right-align">
-                            <button className="modal-close waves-effect waves-teal btn-flat" type="submit">Submit</button>
+                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
                         </div>
                     </form>
                     <div id="geoModal" className="modal">
