@@ -36,7 +36,13 @@ const RegionSelector = () => {
             M.Modal.init(add_region_modal)
         }
 
+        console.log('inside useEffect for Region selector')
+        console.log(regions)
+
+
         if (user_token) {
+            console.log(user_token)
+            console.log('regions', regions)
             if (regions.length < 1) {
                 console.log('inside initialize regions')
                 initializeRegions()

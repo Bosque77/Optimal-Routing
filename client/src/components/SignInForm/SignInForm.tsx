@@ -30,15 +30,13 @@ const SignInForm = () => {
         try{
             const response = await loginUser(login_info)
             navigate('/')
-            console.log('logging the login response')
-            console.log(response)
+
         } catch(error){
             console.log(error)
             M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
         }
         
-        // console.log('after user login')
-        // console.log(response)
+
     }
 
 
@@ -47,7 +45,7 @@ const SignInForm = () => {
             <div className="w-form">
                 <div className="placeholder-text-style-embed-code w-embed">
                 </div>
-                <form id="email-form" name="email-form" data-name="Email Form" className="form" autoComplete="off" onSubmit={handleLogin}><input type="text" className="text_field" maxLength={256} name="email" data-name="Email"
+                <form id="email-form" name="email-form" data-name="Email Form" className="form" autoComplete="off" onSubmit={(event) => handleLogin(event)}><input type="text" className="text_field" maxLength={256} name="email" data-name="Email"
                     placeholder="Email Address" id="email" autoCapitalize="off" value={email} onChange={({target})=>setEmail(target.value)}/><input type="password" className="text_field"
                     maxLength={256} name="Password" data-name="Password" placeholder="Password" id="Password" value={password}  onChange={({target})=>setPassword(target.value)}/><input
                     type="submit" value="Sign In" data-wait="Please wait..." className="btn grey darken-1"/></form>

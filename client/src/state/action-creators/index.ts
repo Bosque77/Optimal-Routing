@@ -9,6 +9,8 @@ import vehicleService from '../../services/vehicle'
 import orderService from '../../services/order'
 import { Dispatch } from 'redux'
 import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Order, Region, UserToken, Vehicle } from '../../types'
+import { setToken } from '../../services/config'
+
 
 export const setRegion = (region: Region) => {
     window.localStorage.setItem('region', JSON.stringify(region))
@@ -269,6 +271,7 @@ export const loginUser = (login_info: LoginInfo) => {
     return async (dispatch: Dispatch<Action>) => {
         const user_data: UserToken = await loginService.login(login_info)
         window.localStorage.setItem('user_token', JSON.stringify(user_data))
+        setToken(user_data.token)
         dispatch({
             type: ActionType.SET_USER_TOKEN,
             data: user_data
@@ -278,6 +281,12 @@ export const loginUser = (login_info: LoginInfo) => {
 
 
 export const setUserToken = (user_token: UserToken | null) => {
+    if(user_token){
+        console.log('setting the token for services to use')
+        setToken(user_token.token)
+    }else{
+        setToken(null)
+    }
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.SET_USER_TOKEN,
