@@ -18,14 +18,21 @@ import middleware from './utils/middleware'
 import logger from './utils/logger'
 
 logger.info('connecting to', config.MONGODB_URI)
+console.log('about to configure the mongo db uri')
 
+
+
+console.log(config.MONGODB_URI)
 if (config.MONGODB_URI) {
+    console.log('configuring mongo db uri')
     mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
         .then(() => {
             logger.info('connected to MongoDB')
+            console.log('successfully configured mongo')
         })
         .catch((error) => {
             logger.error('error connection to MongoDB:', error.message)
+            console.log('monogo not configured correctly')
         })
 }
 
