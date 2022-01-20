@@ -3,6 +3,7 @@ import math
 from route_classes import Order, Landfill, Depot, Vehicle
 from datetime import date, datetime
 import random
+import json
 
 
 class OrderType:
@@ -23,7 +24,7 @@ def run(route_query):
 
     num_of_baskets = len(vehicles_dict)
     route_query = createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict)
-    baskets = createBaskets(route_query, num_of_baskets)
+    baskets = createBasketsRandomly(route_query, num_of_baskets)
 
     # todays_date = date.today()
     # NEED TO REPLACE THIS CODE BY FEEDING IN THE ACTUAL DATE THAT I WANT TO ANALYZE FOR THE ROUTES
@@ -41,8 +42,6 @@ def run(route_query):
 
     return best_route
 
-
-
 def calculateBasketDistance(baskets):
 
     dist_var = 0
@@ -55,7 +54,6 @@ def calculateBasketDistance(baskets):
             dist = calculateDistance(coord_1, coord_2)
             dist_var += dist
     return dist_var
-
 
 def calculateDistance(coord_1: Coord, coord_2: Coord):
     # Returns the distance between two coordinates in kilometers
@@ -77,13 +75,17 @@ def calculateDistance(coord_1: Coord, coord_2: Coord):
     d = R*c/1000
     return d
 
-def createBaskets(route_query, num_of_baskets):
+
+def createBasketsRandomly(route_query, num_of_baskets):
+    # Create baskets randomly will take in a route_query and the number of baskets.
+    # It will then randomly assign the
+    # orders from the route_query into the number of baskets.
 
     orders_list = route_query['orders']
     num_of_orders = len(orders_list)
 
     baskets = []
-    for i in range(num_of_orders):
+    for i in range(num_of_baskets):
         baskets.append([])
 
 
@@ -98,6 +100,14 @@ def createBaskets(route_query, num_of_baskets):
         orders_left = orders_left -1
 
     return baskets
+
+def createBasketsEvenly(route_auery, num_of_baskets):
+    orders_list = route_query['orders']
+    num_of_orders = len(orders_list)
+
+    baskets = []
+    for i in range(num_of_baskets):
+        baskets.append([])
 
 def createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict):
 
@@ -130,9 +140,6 @@ def createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict):
 
     return route_query
 
-
-# This is the first version of fill baskets. It just randomly fills the different baskets based on how many vehicles
-# were passed in to the function. I need to create another version that ensures even splitting of the orders.
 def fillBaskets(baskets, landfills, depots, analysis_date):
 
     filled_baskets = []
@@ -176,7 +183,7 @@ def fillBaskets(baskets, landfills, depots, analysis_date):
                 if current_order_type == OrderType.PICKUP and next_order_type == OrderType.PICKUP:
                     landfill_depot = getOptimumLandfillDepot(current_order, next_order, landfills, depots)
                     new_basket += [current_order]
-                    new_basket += [landfill_depot]
+                    new_basket += landfill_depot
                 elif current_order_type == OrderType.PICKUP and next_order_type == OrderType.DELIVERY:
                     if current_order_size == next_order_size:
                         landfill = getOptimumLandfill(current_order, next_order, landfills)
@@ -307,8 +314,7 @@ def getOptimumLandfillDepot(current_order, next_order, landfills, depots):
 
 
 if __name__ =="__main__":
-    coord_1 = Coord(33.93462, -84.318291)
-    coord_2 = Coord(34.09125, -84.33947)
-
-    dist = calculateDistance(coord_1, coord_2)
-    print(dist)
+    file = open('./json_objects/example_route_query.json')
+    route_query = json.load(file)
+    best_routes = run(route_query)
+    print('finished')
