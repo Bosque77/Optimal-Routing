@@ -1,5 +1,5 @@
 import math
-
+import numpy as np
 from route_classes import Order, Landfill, Depot, Vehicle
 from datetime import date, datetime
 import random
@@ -24,23 +24,42 @@ def run(route_query):
 
     num_of_baskets = len(vehicles_dict)
     route_query = createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict)
-    baskets = createBasketsRandomly(route_query, num_of_baskets)
+    randomly_split_baskets = createBasketsRandomly(route_query, num_of_baskets)
+    evenly_split_baskets = createBasketsEvenly(route_query, num_of_baskets)
+
+
+
+
 
     # todays_date = date.today()
     # NEED TO REPLACE THIS CODE BY FEEDING IN THE ACTUAL DATE THAT I WANT TO ANALYZE FOR THE ROUTES
     # analysis_date = todays_date.strftime('%a %b %d %Y')
     analysis_date = 'Thu Dec 30 2021'
 
-    best_route = []
+    best_randomly_split_route = []
     opt_dist = 999999
     for i in range(75):
-        filled_baskets = fillBaskets(baskets, route_query['landfills'], route_query['depots'], analysis_date)
+        filled_baskets = fillBaskets(randomly_split_baskets, route_query['landfills'], route_query['depots'], analysis_date)
         total_dist = calculateBasketDistance(filled_baskets)
         if total_dist < opt_dist:
             opt_dist = total_dist
-            best_route = filled_baskets
+            best_randomly_split_route = filled_baskets
 
-    return best_route
+    best_evenly_split_route = []
+    opt_dist = 999999
+    for i in range(75):
+        filled_baskets = fillBaskets(evenly_split_baskets, route_query['landfills'], route_query['depots'], analysis_date)
+        total_dist = calculateBasketDistance(filled_baskets)
+        if total_dist < opt_dist:
+            opt_dist = total_dist
+            best_evenly_split_route = filled_baskets
+
+
+    route_options = [best_randomly_split_route, best_evenly_split_route]
+
+
+
+    return route_options
 
 def calculateBasketDistance(baskets):
 
@@ -75,13 +94,12 @@ def calculateDistance(coord_1: Coord, coord_2: Coord):
     d = R*c/1000
     return d
 
-
 def createBasketsRandomly(route_query, num_of_baskets):
     # Create baskets randomly will take in a route_query and the number of baskets.
     # It will then randomly assign the
     # orders from the route_query into the number of baskets.
 
-    orders_list = route_query['orders']
+    orders_list = route_query['orders'].copy()
     num_of_orders = len(orders_list)
 
     baskets = []
@@ -101,13 +119,11 @@ def createBasketsRandomly(route_query, num_of_baskets):
 
     return baskets
 
-def createBasketsEvenly(route_auery, num_of_baskets):
-    orders_list = route_query['orders']
-    num_of_orders = len(orders_list)
-
-    baskets = []
-    for i in range(num_of_baskets):
-        baskets.append([])
+def createBasketsEvenly(route_query, num_of_baskets):
+    orders = route_query['orders']
+    random.shuffle(orders)
+    split_orders = np.array_split(orders, num_of_baskets)
+    return split_orders
 
 def createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict):
 
@@ -187,12 +203,12 @@ def fillBaskets(baskets, landfills, depots, analysis_date):
                 elif current_order_type == OrderType.PICKUP and next_order_type == OrderType.DELIVERY:
                     if current_order_size == next_order_size:
                         landfill = getOptimumLandfill(current_order, next_order, landfills)
-                        new_basket += current_order
-                        new_basket += [landfill]
+                        new_basket += [current_order]
+                        new_basket += landfill
                     else:
                         landfill_depot = getOptimumLandfillDepot(current_order, next_order, landfills, depots)
                         new_basket += [current_order]
-                        new_basket += [landfill_depot]
+                        new_basket += landfill_depot
                 elif current_order_type == OrderType.DELIVERY and next_order_type == OrderType.PICKUP:
                     new_basket += [current_order]
                 elif current_order_type == OrderType.DELIVERY and next_order_type == OrderType.DELIVERY:
@@ -307,9 +323,6 @@ def getOptimumLandfillDepot(current_order, next_order, landfills, depots):
     optimum_combo_set = combo_set[min_index]
     landfill_depot_selected = [optimum_combo_set[1], optimum_combo_set[2]]
     return landfill_depot_selected
-
-
-
 
 
 
