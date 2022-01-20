@@ -105,3 +105,4 @@ dist
 
 # Python Virtual Env
 *venv
+.idea
