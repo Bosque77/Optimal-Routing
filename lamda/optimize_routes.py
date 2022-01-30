@@ -1,9 +1,13 @@
 import math
 import numpy as np
-from route_classes import Order, Landfill, Depot, Vehicle
+import requests
+from route_classes import Order, Landfill, Depot, Vehicle, RouteObject, Route, RouteOption
+from config import GOOGLE_API_KEY, DISTANCE_MATRIX_URL
 from datetime import date, datetime
 import random
 import json
+import asyncio
+import google_distance_handler
 
 
 class OrderType:
@@ -21,6 +25,7 @@ def run(route_query):
     depots_dict = route_query['depots']
     orders_dict = route_query['orders']
     vehicles_dict = route_query['vehicles']
+    analysis_date = route_query['date']
 
     num_of_baskets = len(vehicles_dict)
     route_query = createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict)
@@ -28,13 +33,6 @@ def run(route_query):
     evenly_split_baskets = createBasketsEvenly(route_query, num_of_baskets)
 
 
-
-
-
-    # todays_date = date.today()
-    # NEED TO REPLACE THIS CODE BY FEEDING IN THE ACTUAL DATE THAT I WANT TO ANALYZE FOR THE ROUTES
-    # analysis_date = todays_date.strftime('%a %b %d %Y')
-    analysis_date = 'Thu Dec 30 2021'
 
     best_randomly_split_route = []
     opt_dist = 999999
@@ -55,11 +53,23 @@ def run(route_query):
             best_evenly_split_route = filled_baskets
 
 
-    route_options = [best_randomly_split_route, best_evenly_split_route]
+    route_option_1 = RouteOption(best_randomly_split_route)
+    route_option_2 = RouteOption(best_evenly_split_route)
 
+    route_options = [route_option_1, route_option_2]
 
+    distance_array = []
+    for route_option in route_options:
+        distance = route_option.total_distance
+        distance_array.append(distance)
 
-    return route_options
+    min_index = distance_array.index(min(distance_array))
+
+    best_route_option = route_options[min_index]
+
+    json_object = best_route_option.toJson()
+
+    return json_object
 
 def calculateBasketDistance(baskets):
 
@@ -245,7 +255,6 @@ def fillBaskets(baskets, landfills, depots, analysis_date):
 
 
 
-
     return filled_baskets
 
 def getOptimumDepot(current_order, next_order, depots):
@@ -329,5 +338,19 @@ def getOptimumLandfillDepot(current_order, next_order, landfills, depots):
 if __name__ =="__main__":
     file = open('./json_objects/example_route_query.json')
     route_query = json.load(file)
-    best_routes = run(route_query)
+    route_options = run(route_query)
+
+
+    distance_array = []
+    for route_option in route_options:
+        distance = route_option.total_distance
+        distance_array.append(distance)
+
+    min_index = distance_array.index(min(distance_array))
+
+    best_route_option = route_options[min_index]
+
+    json_object = best_route_option.toJson()
+
+
     print('finished')

@@ -5,7 +5,7 @@ GET_RAW_PATH = "/getRoutes"
 CREATE_RAW_PATH = "/createRoutes"
 
 
-def lambda_handler(event, context):
+def lambda_function(event, context):
     print(event)
     if event['rawPath'] == GET_RAW_PATH:
         # GET ROUTE PATH
@@ -17,7 +17,7 @@ def lambda_handler(event, context):
         # CREATE RAW PATH
         print('inside create route')
         body = json.loads(event['body'])
-        optimize_routes.run(body)
-        return {'info': "Inside the post Request"}
+        best_route = optimize_routes.run(body)
+        return best_route
 
 

@@ -106,3 +106,5 @@ dist
 # Python Virtual Env
 *venv
 .idea
+
+my-deployment-package.zip

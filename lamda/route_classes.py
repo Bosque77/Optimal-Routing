@@ -1,7 +1,98 @@
+from typing import List
+from config import DISTANCE_MATRIX_URL, GOOGLE_API_KEY
+import asyncio
+import google_distance_handler
 
 class RouteObject:
     def __init__(self):
         print('created route object')
+
+
+class Route:
+    def __init__(self, route_objects:List[RouteObject]):
+        self.route_objects = route_objects
+        self.distances = []
+        self.durations = []
+        self.total_distance = 0
+        self.total_duration = 0
+
+        urls = []
+        for i in range(len(self.route_objects) - 1):
+            origin_route_object = route_objects[i]
+            dest_route_object = route_objects[i + 1]
+            origin_lat = origin_route_object.latitude
+            origin_lng = origin_route_object.longitude
+            dest_lat = dest_route_object.latitude
+            dest_lng = dest_route_object.longitude
+            url = DISTANCE_MATRIX_URL
+            formatted_url = url.format(origin_lat=origin_lat, origin_lng=origin_lng, dest_lat=dest_lat,
+                                       dest_lng=dest_lng, GOOGLE_API_KEY=GOOGLE_API_KEY)
+            urls.append(formatted_url)
+
+        computed_distances_and_durations = asyncio.run(google_distance_handler.getRouteDistances(urls))
+        for dist_and_dur in computed_distances_and_durations:
+            self.distances.append(dist_and_dur['distance'])
+            self.durations.append(dist_and_dur['duration'])
+
+        for distance in self.distances:
+            self.total_distance += distance
+
+        for duration in self.durations:
+            self.total_duration += duration
+
+    def toJson(self):
+        print('inside route to json')
+
+        json_route_objects = []
+        for route_object in self.route_objects:
+            json_route_object = route_object.toJson()
+            json_route_objects.append(json_route_object)
+
+        json_route_object = {
+            'route_objects': json_route_objects,
+            'distances': self.distances,
+            'durations': self.durations,
+            'total_distance': self.total_distance,
+            'total_duration': self.total_duration
+        }
+
+        return json_route_object
+
+
+class RouteOption:
+    def __init__(self, baskets:List[List[RouteObject]]):
+        self.routes=[]
+        self.total_distance = 0
+        self.total_duration = 0
+        for basket in baskets:
+            route = Route(basket)
+            self.routes.append(route)
+
+        for route in self.routes:
+            self.total_distance += route.total_distance
+            self.total_duration += route.total_duration
+
+    def computeTotalDistance(self):
+
+        for route in self.routes:
+            route_distance = route.computeTotalDistance()
+            route_duration = route.computeTotalDuration()
+
+    def toJson(self):
+        print('inside route option to JSON')
+        json_routes_arr =[]
+        for route in self.routes:
+            route_json = route.toJson()
+            json_routes_arr.append(route_json)
+
+        json_route_option = {
+            'routes': json_routes_arr,
+            'total_distance' : self.total_distance,
+            'total_duration': self.total_duration
+        }
+
+        return json_route_option
+
 
 class Order (RouteObject):
     def __init__(self, order_object):
@@ -26,6 +117,29 @@ class Order (RouteObject):
         self.user_id = order_object['user_id']
         self.region_id = order_object['region_id']
 
+    def toJson(self):
+        json_object = {
+            'id': self.id,
+            'name': self.name,
+            'phone_number': self.phone_number,
+            'street': self.street,
+            'city': self.city,
+            'state': self.state,
+            'zipcode': self.zipcode,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'dumpster_size': self.dumpster_size,
+            'delivery_date': self.delivery_date,
+            'pickup_date': self.pickup_date,
+            'special_instructions': self.special_instructions,
+            'delivery_completed': self.delivery_completed,
+            'pickup_completed': self.pickup_completed,
+            'user_id': self.user_id,
+            'region_id': self.region_id
+        }
+
+        return json_object
+
 class Vehicle(RouteObject):
     def __init__(self, vehicle_object):
         super().__init__()
@@ -37,6 +151,20 @@ class Vehicle(RouteObject):
         self.active = vehicle_object['active']
         self.user_id = vehicle_object['user_id']
         self.region_id = vehicle_object['region_id']
+
+    def toJson(self):
+        json_object = {
+            'id': self.id,
+            'start_depot': self.start_depot,
+            'end_depot': self.end_depot,
+            'license_number': self.license_number,
+            'size': self.size,
+            'active': self.active,
+            'user_id': self.user_id,
+            'region_id': self.region_id
+        }
+        return json_object
+
 
 class Depot(RouteObject):
     def __init__(self, depot_object):
@@ -53,6 +181,23 @@ class Depot(RouteObject):
         self.user_id = depot_object['user_id']
         self.region_id = depot_object['region_id']
 
+    def toJson(self):
+        json_object ={
+            'id': self.id,
+            'name': self.name,
+            'street': self.street,
+            'city': self.city,
+            'state': self.state,
+            'zipcode': self.zipcode,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'active': self.active,
+            'user_id': self.user_id,
+            'region_id': self.region_id
+        }
+
+        return json_object
+
 class Landfill(RouteObject):
     def __init__(self, landfill_object):
         super().__init__()
@@ -67,5 +212,22 @@ class Landfill(RouteObject):
         self.active = landfill_object['active']
         self.user_id = landfill_object['user_id']
         self.region_id = landfill_object['region_id']
+
+    def toJson(self):
+        json_object ={
+            'id': self.id,
+            'name': self.name,
+            'street': self.street,
+            'city': self.city,
+            'state': self.state,
+            'zipcode': self.zipcode,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'active': self.active,
+            'user_id': self.user_id,
+            'region_id': self.region_id
+        }
+
+        return json_object
 
 
