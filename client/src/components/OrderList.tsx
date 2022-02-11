@@ -39,18 +39,6 @@ const OrderList = () => {
 
 
 
-    // const changeOrderStatus = (order: Order) => {
-
-    //     const new_order = { ...order }
-    //     if (order.active) {
-    //         new_order.active = false
-    //     } else {
-    //         new_order.active = true
-    //     }
-    //     updateOrder(new_order)
-    // }
-
-
 
     const editOrder = (order: Order) => {
         setOrder(order)

@@ -1,9 +1,9 @@
 import json
-import lamda_handler
+import lambda_function
 
 test_file_location = '../json_objects/event.json'
 f = open(test_file_location)
 
 event = json.load(f)
 context = '<__main__.LambdaContext object at 0x7f9e431f7ca0>'
-lamda_handler.lambda_handler(event,context)
+lambda_function.lambda_handler(event,context)

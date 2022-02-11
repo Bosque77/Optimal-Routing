@@ -5,6 +5,7 @@ export interface RouteQuery {
     depots: Depot[]
     vehicles: Vehicle[]
     orders: Order[]
+    date: string
 }
 
 

@@ -9,6 +9,7 @@ import './OrderPage.css'
 import GoogleMap from '../GoogleMap'
 import styled from 'styled-components'
 import { Depot, Landfill, RouteQuery } from '../../types'
+import RoutingService from '../../services/route_query'
 
 
 const Spacing = styled.div`
@@ -23,14 +24,16 @@ const OrderPage = () => {
     const dispatch = useDispatch()
     const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
-
     const [show_depots, setDepots] = useState<Depot[] | undefined>(undefined)
     const [show_landfills, setLandfills] = useState<Landfill[] | undefined>(undefined)
+    const [date] = useState<Date>(new Date())
+
+    
 
     useEffect(() => {
         console.log('inside useEffect')
         const elems = document.querySelectorAll('.datepicker')
-        const date = new Date()
+        // const date = new Date()
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
 
@@ -50,11 +53,14 @@ const OrderPage = () => {
 
 
 
-    const createRoutes = () => {
+    const createRoutes = async () => {
         M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
-        const route_query:RouteQuery = {landfills, depots, vehicles, orders}
-        const data = JSON.stringify(route_query, null, 2)
-        console.log(data)
+        const route_query:RouteQuery = {landfills, depots, vehicles, orders, 'date': date.toDateString()}
+        const route_response = await RoutingService.createRoutes(route_query)
+        //const route_response = await RoutingService.getRoutes()
+        console.log(route_response)
+        // const data = JSON.stringify(route_query, null, 2)
+        // console.log(data)
     }
 
 
