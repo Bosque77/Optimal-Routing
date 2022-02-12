@@ -28,6 +28,7 @@ export interface Landfill {
     active: boolean;
     user_id: string;
     region_id:string;
+    type:'Landfill'
 }
 
 export interface Depot {
@@ -42,6 +43,7 @@ export interface Depot {
     active: boolean;
     user_id: string;
     region_id:string;
+    type:'Depot'
 }
 
 
@@ -52,6 +54,9 @@ export interface Time {
 }
 
 export type Dumpster_Sizes = 10 | 15 | 20 | 30 | 40 | 50
+
+
+export type Route_Item = Order | Depot | Landfill
 
 
 export interface Order {
@@ -75,6 +80,8 @@ export interface Order {
     pickup_completed: boolean;
     user_id: string;
     region_id:string;
+    order_type?:string;
+    type:'Order'
 }
 
 export interface NewOrder {

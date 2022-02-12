@@ -13,6 +13,7 @@ const depotSchema = new mongoose.Schema({
     active: Boolean,
     user_id: String,
     region_id: String,
+    type:String
 })
 
 depotSchema.set('toJSON', {

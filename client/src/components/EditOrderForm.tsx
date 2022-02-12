@@ -150,7 +150,7 @@ const EditOrderForm = ({ setActive, order }: prop) => {
         if (name === '' || phone_number==='' || email==='' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
-            const updated_order: Order = {'id': order.id ,name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id, 'user_id': order.user_id }
+            const updated_order: Order = {'id': order.id ,name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id, 'user_id': order.user_id, 'type': 'Order' }
             await updateOrder(updated_order)
             M.toast({ html: 'Updated Order' })
             const modal_elem = document.getElementById('modal1')

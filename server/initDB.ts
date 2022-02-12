@@ -60,6 +60,7 @@ const landfills: NewLandfill[] = [
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Landfill'
     },
     {
         'name': 'Cobb County Landfill',
@@ -72,6 +73,7 @@ const landfills: NewLandfill[] = [
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Landfill'
     },
     {
         'name': 'Republic Services of Atlanta',
@@ -84,6 +86,7 @@ const landfills: NewLandfill[] = [
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Landfill'
     },
     {
         'name': 'Waste Management - Atlanta West Hauling',
@@ -96,6 +99,7 @@ const landfills: NewLandfill[] = [
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Landfill'
     },
 
 ]
@@ -141,7 +145,8 @@ const depots = [
         'longitude': -84.111,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30'
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Depot'
     },
     {
         '_id': '61cdeb3f291ff09681e49c08',
@@ -154,7 +159,8 @@ const depots = [
         'longitude': -84.389,
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30'
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Depot'
     }
 ]
 
@@ -217,7 +223,8 @@ const orders = [
         'delivery_completed': false,
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30'
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Order'
     },
     {
         'name': 'Josh Rodriguez',
@@ -246,7 +253,8 @@ const orders = [
         'delivery_completed': true,
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30'
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type':'Order'
     },
     {
         'name': 'Daniel Carusi',
@@ -275,7 +283,8 @@ const orders = [
         'delivery_completed': false,
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30'
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type': 'Order'
     },
 
 ]

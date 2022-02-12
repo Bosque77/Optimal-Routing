@@ -14,6 +14,7 @@ export interface NewLandfill{
     active: boolean,
     user_id: string,
     region_id: string,
+    type:string
 }
 
 
@@ -37,4 +38,5 @@ export interface NewDepot {
     active: boolean,
     user_id: string,
     region_id: string,
+    type:string
 }

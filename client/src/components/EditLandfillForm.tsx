@@ -85,7 +85,7 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
             const id = landfill.id
-            const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': landfill.user_id, 'region_id': landfill.region_id }
+            const new_landfill: Landfill = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': landfill.user_id, 'region_id': landfill.region_id, 'type':'Landfill' }
             updateLandfill(new_landfill)
             const modal_elem = document.getElementById('modal1')
             if(modal_elem){

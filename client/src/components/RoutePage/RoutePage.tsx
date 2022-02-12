@@ -86,7 +86,7 @@ const RoutePage = () => {
                 </div>
                 <div className='col l8 left-align'>
                     <button className='btn grey darken-3' >Add Route</button>
-                    <RouteList />
+                    <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date}/>
                 </div>
             </div>
 

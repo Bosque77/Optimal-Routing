@@ -86,7 +86,7 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
             const id = depot.id
-            const new_depot: Depot = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': depot.user_id, 'region_id': depot.region_id }
+            const new_depot: Depot = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': depot.user_id, 'region_id': depot.region_id, 'type':'Depot' }
             updateDepot(new_depot)
             M.toast({ html: 'Updated Depot' })
             const modal_elem = document.getElementById('modal1')

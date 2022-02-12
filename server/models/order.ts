@@ -31,6 +31,7 @@ const orderSchema = new mongoose.Schema({
     active: Boolean,
     user_id: String,
     region_id: String,
+    type:String
 })
 
 orderSchema.set('toJSON', {
