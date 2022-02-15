@@ -18,12 +18,13 @@ interface prop {
     orders: Order[],
     landfills: Landfill[],
     depots: Depot[],
-    todays_date: Date
+    todays_date: Date,
+    assignedOrders: Order[],
 
 }
 
 
-const RouteOrderList = ({ orders, landfills, depots, todays_date }: prop) => {
+const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders }: prop) => {
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
@@ -36,23 +37,30 @@ const RouteOrderList = ({ orders, landfills, depots, todays_date }: prop) => {
 
         const orders_info = []
         for (let i = 0; i < orders.length; i++) {
+
             const current_order = orders[i]
-            console.log(current_order)
-            console.log(todays_date)
-            let order_type = ''
-            if (todays_date.toDateString() === current_order.pickup_date) {
-                order_type = 'Pickup'
-            } else {
-                order_type = 'Delivery'
+            const index = assignedOrders.findIndex(order => order.id===current_order.id)
+            if(index===-1){
+                console.log(current_order)
+                console.log(todays_date)
+                let order_type = ''
+                if (todays_date.toDateString() === current_order.pickup_date) {
+                    order_type = 'Pickup'
+                } else {
+                    order_type = 'Delivery'
+                }
+    
+                const data = {
+                    'id': current_order.id,
+                    'customer_name': current_order.name,
+                    'order_type': order_type,
+                    'dumpster_size': current_order.dumpster_size
+                }
+                orders_info.push(data)
             }
 
-            const data = {
-                'id': current_order.id,
-                'customer_name': current_order.name,
-                'order_type': order_type,
-                'dumpster_size': current_order.dumpster_size
-            }
-            orders_info.push(data)
+
+
         }
 
         return (

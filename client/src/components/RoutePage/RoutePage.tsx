@@ -11,6 +11,7 @@ import RouteOrderList from '../RouteOrdersList'
 import styled from 'styled-components'
 import RouteList from '../RouteList'
 import AddRouteItem from '../AddRouteItem'
+import { Order } from '../../types'
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -23,6 +24,7 @@ const RoutePage = () => {
     const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
     const [date, setDate] = useState<Date>(new Date())
+    const [assignedOrders, setAssignedOrders] = useState<Order[]>([])
 
 
     useEffect(() => {
@@ -37,6 +39,7 @@ const RoutePage = () => {
             initializeLandfills(region)
             initializeVehicles(region)
 
+
         }
 
     }, [region])
@@ -45,7 +48,9 @@ const RoutePage = () => {
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
     const depots = useSelector((state: State) => state.depots)
-    const vehicles = useSelector((state: State) => state.vehicles)
+    // const vehicles = useSelector((state: State) => state.vehicles)
+
+
 
 
 
@@ -82,11 +87,11 @@ const RoutePage = () => {
             </div>
             <div className='row'>
                 <div className='col l4'>
-                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} todays_date={date} />
+                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders}/>
                 </div>
                 <div className='col l8 left-align'>
                     <button className='btn grey darken-3' >Add Route</button>
-                    <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date}/>
+                    <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders}/>
                 </div>
             </div>
 

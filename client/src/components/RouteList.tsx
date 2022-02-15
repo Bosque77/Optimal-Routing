@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 import AddRouteItem from './AddRouteItem'
 import M from 'materialize-css'
 import { Order, Landfill, Depot, Route_Item } from '../types'
+import styled from 'styled-components'
+
+
+const Spacing = styled.div`
+  margin-top: 2em;
+`
 
 
 interface prop {
@@ -9,10 +15,12 @@ interface prop {
     landfills: Landfill[],
     depots: Depot[],
     todays_date: Date,
+    assignedOrders: Order[],
+    setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
 
 }
 
-const RouteList = ({ orders, landfills, depots, todays_date }: prop) => {
+const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, setAssignedOrders }: prop) => {
 
     const [addRouteItemActive, setAddRouteItemActive] = useState(false)
     const [routeItemsList, setRouteItemsList] = useState<Route_Item[]>([])
@@ -40,34 +48,44 @@ const RouteList = ({ orders, landfills, depots, todays_date }: prop) => {
     }
 
     const insertRouteItems = () => {
+        return (
+            routeItemsList.map(route_item => getJSXObject(route_item))
+        )
+    }
 
 
-        // let display_data = []
+    const getJSXObject = (route_item: Route_Item) => {
 
-        for (let i = 0; i < routeItemsList.length; i++) {
-            const current_route_item = routeItemsList[i]
-            console.log(current_route_item.type)
-
-            // if (instanceOfOrder(current_route_item)) {
-            //     console.log('Route Item is a Order')
-            // } else if (instanceOfDepot(current_route_item)) {
-            //     console.log('Route Item is a Depot')
-            // } else if (instanceOfLandfill(current_route_item)) {
-            //     console.log('Route Item is a Landfill')
-            // }
-
-
+        if (route_item.type === 'Order') {
+            return (
+                <tr key={route_item.id}>
+                    <td>Order</td>
+                    <td>{route_item.order_type}</td>
+                    <td>{route_item.name}</td>
+                    <td>{route_item.dumpster_size} Yard</td>
+                    <td><button className="btn grey darken-3"><i className="large material-icons">delete</i></button></td>
+                </tr>
+            )
+        } else if (route_item.type === 'Landfill') {
+            return (
+                <tr key={route_item.id}>
+                    <td>Landfill</td>
+                    <td>{route_item.name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            )
+        }else if(route_item.type==='Depot'){
+            return (
+                <tr key={route_item.id}>
+                    <td>Depot</td>
+                    <td>{route_item.name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            )
         }
 
-
-
-
-        return (
-            routeItemsList.map(route_item =>
-                <tr key={route_item.id}>
-                    <td>{route_item.name}</td>
-                </tr>)
-        )
     }
 
     return (
@@ -76,38 +94,22 @@ const RouteList = ({ orders, landfills, depots, todays_date }: prop) => {
                 <li className="center-align">
                     <div className="collapsible-header">Route</div>
                     <div className="collapsible-body">
-                        <table>
-                            <thead>
-                                {/* <tr>
-                                    <div className="row">
-                                        <div className="col l6">
-                                            Total Distance:
-                                        </div>
-                                        <div className=" col l6">
-                                            Total Time:
-                                        </div>
-                                    </div>
-                                </tr> */}
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Dumpster Size</th>
-                                    <th>Order Type</th>
-                                </tr>
-                            </thead>
+                        <table className="striped">
                             <tbody>
 
 
                                 {insertRouteItems()}
 
                                 <tr>
-                                    <a className="waves-effect waves-light red btn" onClick={() => addRouteItem()}>Add Route Item</a>
+                                    <Spacing />
+                                    <a className="red btn" onClick={() => addRouteItem()}>Add Route Item</a>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </li>
             </ul>
-            {addRouteItemActive && <AddRouteItem orders={orders} landfills={landfills} depots={depots} todays_date={todays_date} setActive={setAddRouteItemActive} routeItemsList={routeItemsList} setRouteItemsList={setRouteItemsList} />}
+            {addRouteItemActive && <AddRouteItem orders={orders} landfills={landfills} depots={depots} todays_date={todays_date} setActive={setAddRouteItemActive} routeItemsList={routeItemsList} setRouteItemsList={setRouteItemsList} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />}
         </div>
     )
 

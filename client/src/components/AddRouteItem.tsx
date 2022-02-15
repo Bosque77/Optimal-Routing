@@ -21,9 +21,11 @@ interface prop {
     routeItemsList: Route_Item[],
     setRouteItemsList: React.Dispatch<React.SetStateAction<Route_Item[]>>,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
+    assignedOrders: Order[],
+    setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
 }
 
-const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,setRouteItemsList,setActive }: prop) => {
+const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,assignedOrders,setAssignedOrders, setRouteItemsList,setActive }: prop) => {
 
     console.log('inside add route item')
 
@@ -39,7 +41,6 @@ const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,s
     const insertOrders = () => {
 
 
-
         // const orders_info = []
         for (let i = 0; i < orders.length; i++) {
             const current_order = orders[i]
@@ -53,11 +54,21 @@ const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,s
             current_order['order_type'] = order_type
         }
 
-        console.log('logging the orders inside insertOrders')
-        console.log(orders)
+
+
+
+        const unassigned_orders = []
+        for (let i=0;i<orders.length;i++){
+            const current_order = orders[i]
+            const index = assignedOrders.findIndex(order => order.id===current_order.id)
+            if(index===-1){
+                unassigned_orders.push(current_order)
+            }
+
+        }
 
         return (
-            orders.map(order =>
+            unassigned_orders.map(order =>
                 < tr key={order.id} >
                     <td>{order.name}</td>
                     <td>{order.dumpster_size}</td>
@@ -96,12 +107,19 @@ const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,s
         )
     }
 
-    const selectRouteItem = (route_item: Route_Item | undefined) => {
+    const selectRouteItem = (route_item: Route_Item) => {
         console.log('inside select route item')
         const new_route_items_list =[...routeItemsList]
         if(route_item){
             new_route_items_list.push(route_item)
         }
+
+        const new_assigned_orders = [...assignedOrders]
+        if(route_item.type==='Order'){
+            new_assigned_orders.push(route_item)
+            setAssignedOrders(new_assigned_orders)
+        }
+
         const modal_elem = document.getElementById('modal1')
         if(modal_elem){
             const instance = M.Modal.getInstance(modal_elem)
