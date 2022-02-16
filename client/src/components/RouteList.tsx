@@ -26,9 +26,11 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
     const [routeItemsList, setRouteItemsList] = useState<Route_Item[]>([])
 
 
-    // useEffect(() => {
-    // }
-    // )
+    useEffect(() => {
+        const elems = document.querySelectorAll('.collapsible')
+        M.Collapsible.init(elems, {})
+    }
+    )
 
     const addRouteItem = () => {
         console.log('setting the route item to active')
@@ -53,6 +55,16 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
         )
     }
 
+    const deleteRouteItem = (route_item: Route_Item) => {
+        console.log('inside delete route item')
+        const new_route_item_list = routeItemsList.filter(current_route_item => current_route_item.id != route_item.id)
+        setRouteItemsList(new_route_item_list)
+        if (route_item.type === 'Order') {
+            const new_assigned_orders = assignedOrders.filter(order => order.id != route_item.id)
+            setAssignedOrders(new_assigned_orders)
+        }
+    }
+
 
     const getJSXObject = (route_item: Route_Item) => {
 
@@ -63,7 +75,7 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
                     <td>{route_item.order_type}</td>
                     <td>{route_item.name}</td>
                     <td>{route_item.dumpster_size} Yard</td>
-                    <td><button className="btn grey darken-3"><i className="large material-icons">delete</i></button></td>
+                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item)}><i className="large material-icons">delete</i></button></td>
                 </tr>
             )
         } else if (route_item.type === 'Landfill') {
@@ -73,15 +85,17 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
                     <td>{route_item.name}</td>
                     <td></td>
                     <td></td>
+                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item)}><i className="large material-icons">delete</i></button></td>
                 </tr>
             )
-        }else if(route_item.type==='Depot'){
+        } else if (route_item.type === 'Depot') {
             return (
                 <tr key={route_item.id}>
                     <td>Depot</td>
                     <td>{route_item.name}</td>
                     <td></td>
                     <td></td>
+                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item)}><i className="large material-icons">delete</i></button></td>
                 </tr>
             )
         }
@@ -100,11 +114,12 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
 
                                 {insertRouteItems()}
 
-                                <tr>
-                                    <Spacing />
-                                    <a className="red btn" onClick={() => addRouteItem()}>Add Route Item</a>
-                                </tr>
+
+
+
                             </tbody>
+                            <Spacing />
+                            <a className="red btn" onClick={() => addRouteItem()}>Add Route Item</a>
                         </table>
                     </div>
                 </li>

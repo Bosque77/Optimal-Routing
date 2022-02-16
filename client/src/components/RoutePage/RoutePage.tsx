@@ -7,11 +7,12 @@ import { actionCreators, State } from '../../state'
 import { initializeDepots, initializeLandfills, initializeOrders, initializeVehicles } from '../../state/action-creators'
 import GoogleMap from '../GoogleMap'
 import VehicleList from '../VehicleList'
-import RouteOrderList from '../RouteOrdersList'
+import RouteOrderList from '../RouteItemSummaryList'
 import styled from 'styled-components'
 import RouteList from '../RouteList'
 import AddRouteItem from '../AddRouteItem'
 import { Order } from '../../types'
+import ReactDOM from 'react-dom'
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -72,6 +73,28 @@ const RoutePage = () => {
 
     }
 
+    const addRouteList = () => {
+        console.log('inside add route list')
+        const element = document.getElementById('route-list')
+        element?.append()
+        const id = Math.random().toString() //or some such identifier 
+        const d = document.createElement('div')
+        d.id = id
+        element?.appendChild(d)
+        ReactDOM.render(<div className="row">
+            <div className="col l10">
+                <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+            </div>
+            <div className="col l2">
+                <button className="btn black" onClick={() => deleteRouteList()}><i className="large material-icons">delete</i></button>
+            </div>
+        </div>, document.getElementById(id))
+    }
+
+    const deleteRouteList = () => {
+        console.log('inside delete route list')
+    }
+
 
 
 
@@ -87,11 +110,19 @@ const RoutePage = () => {
             </div>
             <div className='row'>
                 <div className='col l4'>
-                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders}/>
+                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} />
                 </div>
-                <div className='col l8 left-align'>
-                    <button className='btn grey darken-3' >Add Route</button>
-                    <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders}/>
+                <div className='col l8 left-align' id='route-list'>
+                    <button className='btn grey darken-3' onClick={() => addRouteList()} >Add Route</button>
+                    <div className="row">
+                        <div className="col l10">
+                            <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                        </div>
+                        <div className="col l2">
+                            <button className="btn black" onClick={() => deleteRouteList()}><i className="large material-icons">delete</i></button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

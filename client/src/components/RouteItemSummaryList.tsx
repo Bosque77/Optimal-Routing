@@ -24,7 +24,7 @@ interface prop {
 }
 
 
-const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders }: prop) => {
+const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedOrders }: prop) => {
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
@@ -39,8 +39,8 @@ const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders
         for (let i = 0; i < orders.length; i++) {
 
             const current_order = orders[i]
-            const index = assignedOrders.findIndex(order => order.id===current_order.id)
-            if(index===-1){
+            const index = assignedOrders.findIndex(order => order.id === current_order.id)
+            if (index === -1) {
                 console.log(current_order)
                 console.log(todays_date)
                 let order_type = ''
@@ -49,7 +49,7 @@ const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders
                 } else {
                     order_type = 'Delivery'
                 }
-    
+
                 const data = {
                     'id': current_order.id,
                     'customer_name': current_order.name,
@@ -138,7 +138,11 @@ const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders
                             <tbody>
                                 {insertOrders()}
                                 <Spacing />
+                                <div className="input-field">
+                                    <input placeholder="Number of Routes" id="first_name" type="number" className="validate" />
+                                </div>
                                 <button className='btn black offset-s10' >Compute Routes</button>
+
                             </tbody>
                         </table>
                     </div>
@@ -172,4 +176,4 @@ const RouteOrderList = ({ orders, landfills, depots, todays_date, assignedOrders
 }
 
 
-export default RouteOrderList
+export default RouteItemSummaryList
