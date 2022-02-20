@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import VehicleList from '../VehicleList'
 import { bindActionCreators } from 'redux'
@@ -26,6 +26,7 @@ const RoutePage = () => {
     const region = useSelector((state: State) => state.setRegion)
     const [date, setDate] = useState<Date>(new Date())
     const [assignedOrders, setAssignedOrders] = useState<Order[]>([])
+    const [route_list_ids, setRouteListIds] = useState(['original-route-list'])
 
 
     useEffect(() => {
@@ -39,12 +40,31 @@ const RoutePage = () => {
             initializeDepots(region)
             initializeLandfills(region)
             initializeVehicles(region)
-
-
         }
 
     }, [region])
 
+
+    useEffect(() => {
+
+        route_list_ids.forEach((id) => {
+            const element = document.getElementById(id)
+            if (element) {
+                ReactDOM.render(<div className="row">
+                    <div className="col l10">
+                        <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                    </div>
+                    <div className="col l2">
+                        <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
+                    </div>
+                </div>, element)
+            }
+        })
+
+
+
+
+    })
 
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
@@ -76,7 +96,7 @@ const RoutePage = () => {
     const addRouteList = () => {
         console.log('inside add route list')
         const element = document.getElementById('route-list')
-        element?.append()
+        // element?.append()
         const id = Math.random().toString() //or some such identifier 
         const d = document.createElement('div')
         d.id = id
@@ -86,14 +106,27 @@ const RoutePage = () => {
                 <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
             </div>
             <div className="col l2">
-                <button className="btn black" onClick={() => deleteRouteList()}><i className="large material-icons">delete</i></button>
+                <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
             </div>
         </div>, document.getElementById(id))
+
+        const updated_route_list_ids = [...route_list_ids]
+        updated_route_list_ids.push(id)
+        setRouteListIds(updated_route_list_ids)
     }
 
-    const deleteRouteList = () => {
+    const deleteRouteList = (html_id: string) => {
         console.log('inside delete route list')
+        const element = document.getElementById(html_id)
+        if (element) {
+            ReactDOM.unmountComponentAtNode(element)
+            const new_route_list_ids = route_list_ids.filter( id => id != html_id)
+            setRouteListIds(new_route_list_ids)
+        }
+
     }
+
+
 
 
 
@@ -114,14 +147,16 @@ const RoutePage = () => {
                 </div>
                 <div className='col l8 left-align' id='route-list'>
                     <button className='btn grey darken-3' onClick={() => addRouteList()} >Add Route</button>
-                    <div className="row">
+
+                    <div className="row" id='original-route-list'>
                         <div className="col l10">
                             <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
                         </div>
                         <div className="col l2">
-                            <button className="btn black" onClick={() => deleteRouteList()}><i className="large material-icons">delete</i></button>
+                            <button className="btn black" onClick={() => deleteRouteList('original-route-list')}><i className="large material-icons">delete</i></button>
                         </div>
                     </div>
+
 
                 </div>
             </div>
