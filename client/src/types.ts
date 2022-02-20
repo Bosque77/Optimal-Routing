@@ -3,9 +3,9 @@
 export interface RouteQuery {
     landfills: Landfill[]
     depots: Depot[]
-    vehicles: Vehicle[]
     orders: Order[]
     date: string
+    num_of_routes: number
 }
 
 

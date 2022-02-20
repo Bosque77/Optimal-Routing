@@ -1,19 +1,6 @@
 {
   "landfills": [
     {
-      "name": "Republic Services of Atlanta",
-      "street": "3045 Donald Lee Hollowell Parkway Northwest",
-      "city": "Woodstock",
-      "state": "Georgia",
-      "zipcode": null,
-      "latitude": 33.784,
-      "longitude": -84.487,
-      "active": true,
-      "user_id": "61c7483607e4533869b9ec08",
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe6ce6ef8453ff05525"
-    },
-    {
       "name": "Doraville Transfer Station",
       "street": "2784 Woodwin Rd,",
       "city": "Atlanta",
@@ -24,25 +11,41 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe6ce6ef8453ff05523"
+      "type": "Landfill",
+      "id": "62081eca372c3b1526d69df7"
     },
     {
       "name": "Cobb County Landfill",
       "street": "1775 County Services Pkwy SW",
       "city": "Marietta",
       "state": "Georgia",
-      "zipcode": 30338,
+      "zipcode": 30008,
       "latitude": 33.907,
       "longitude": -84.581,
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe6ce6ef8453ff05524"
+      "type": "Landfill",
+      "id": "62081eca372c3b1526d69df8"
+    },
+    {
+      "name": "Waste Management - Atlanta West Hauling",
+      "street": "3001 S Pioneer Dr SE",
+      "city": "Smyrna",
+      "state": "Georgia",
+      "zipcode": 30082,
+      "latitude": 33.823,
+      "longitude": -84.496,
+      "active": true,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30",
+      "type": "Landfill",
+      "id": "62081eca372c3b1526d69dfa"
     }
   ],
   "depots": [
     {
-      "name": "Depot 2",
+      "name": "Depot 1",
       "street": "2021, Dahlonega Highway",
       "city": "Cumming",
       "state": "Georgia",
@@ -52,6 +55,7 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
+      "type": "Depot",
       "id": "61cdeb3f291ff09681e49c09"
     },
     {
@@ -65,65 +69,8 @@
       "active": true,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
+      "type": "Depot",
       "id": "61cdeb3f291ff09681e49c08"
-    }
-  ],
-  "vehicles": [
-    {
-      "start_depot": {
-        "name": "Depot 2",
-        "street": "2021, Dahlonega Highway",
-        "city": "Cumming",
-        "state": "Georgia",
-        "zipcode": 30040,
-        "latitude": 34.25,
-        "longitude": -84.111,
-        "active": true,
-        "user_id": "61c7483607e4533869b9ec08",
-        "region_id": "61ca3cb19e9ade7351418e30",
-        "id": "61cdeb3f291ff09681e49c09"
-      },
-      "end_depot": {
-        "name": "Depot 2",
-        "street": "1280 Peachtree St NE",
-        "city": "Atlanta",
-        "state": "Georgia",
-        "zipcode": 30309,
-        "latitude": 33.79,
-        "longitude": -84.389,
-        "active": true,
-        "user_id": "61c7483607e4533869b9ec08",
-        "region_id": "61ca3cb19e9ade7351418e30",
-        "id": "61cdeb3f291ff09681e49c08"
-      },
-      "license_number": "TTXDVG",
-      "size": 50,
-      "active": true,
-      "user_id": "61c7483607e4533869b9ec08",
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe6ce6ef8453ff05539"
-    },
-    {
-      "license_number": "XDFD",
-      "size": 50,
-      "start_depot": {
-        "name": "Depot 2",
-        "street": "2021, Dahlonega Highway",
-        "city": "Cumming",
-        "state": "Georgia",
-        "zipcode": 30040,
-        "latitude": 34.25,
-        "longitude": -84.111,
-        "active": true,
-        "user_id": "61c7483607e4533869b9ec08",
-        "region_id": "61ca3cb19e9ade7351418e30",
-        "id": "61cdeb3f291ff09681e49c09"
-      },
-      "active": true,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "end_depot": null,
-      "id": "61df227eb1db6c4691ac632e"
     }
   ],
   "orders": [
@@ -138,7 +85,7 @@
         "minute": 45,
         "am_pm": "PM"
       },
-      "name": "John",
+      "name": "Forest Schwartz",
       "email": "forestschwrtz@gmail.com",
       "phone_number": "404-617-9402",
       "street": "4703 Cambridge Dr.",
@@ -147,7 +94,7 @@
       "zipcode": 30338,
       "latitude": 33.935,
       "longitude": -84.318,
-      "dumpster_size": 30,
+      "dumpster_size": 15,
       "delivery_date": "Thu Dec 30 2021",
       "pickup_date": "Fri Dec 31 2021",
       "special_instructions": "Please come early",
@@ -155,7 +102,39 @@
       "pickup_completed": false,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe7ce6ef8453ff0553f"
+      "type": "Order",
+      "id": "62081ecb372c3b1526d69e13"
+    },
+    {
+      "delivery_time": {
+        "hour": 12,
+        "minute": 35,
+        "am_pm": "AM"
+      },
+      "pickup_time": {
+        "hour": 5,
+        "minute": 45,
+        "am_pm": "PM"
+      },
+      "name": "Josh Rodriguez",
+      "email": "jr@gmail.com",
+      "phone_number": "404-585-8945",
+      "street": "225 Baker St NW",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "zipcode": 30313,
+      "latitude": 33.764,
+      "longitude": -84.395,
+      "dumpster_size": 15,
+      "delivery_date": "Wed Dec 29 2021",
+      "pickup_date": "Thu Dec 30 2021",
+      "special_instructions": "Please come early",
+      "delivery_completed": true,
+      "pickup_completed": false,
+      "user_id": "61c7483607e4533869b9ec08",
+      "region_id": "61ca3cb19e9ade7351418e30",
+      "type": "Order",
+      "id": "62081ecb372c3b1526d69e14"
     },
     {
       "delivery_time": {
@@ -185,108 +164,10 @@
       "pickup_completed": false,
       "user_id": "61c7483607e4533869b9ec08",
       "region_id": "61ca3cb19e9ade7351418e30",
-      "id": "61df1fe7ce6ef8453ff05541"
-    },
-    {
-      "name": "Jack Harlow",
-      "street": "239 Cedar Ln , ",
-      "city": "Covington",
-      "email": "jack.harlow@gmail.com",
-      "phone_number": "404-586-9856",
-      "dumpster_size": 10,
-      "delivery_date": "Thu Dec 30 2021",
-      "pickup_date": "Sat Jan 01 2022",
-      "state": "GA ",
-      "special_instructions": "",
-      "delivery_completed": false,
-      "pickup_completed": false,
-      "zipcode": 30014,
-      "latitude": 33.607,
-      "longitude": -83.759,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "id": "61df2dd965670e4acd9cd14f"
-    },
-    {
-      "name": "Test",
-      "street": "2100 Riverside Pkwy",
-      "city": "Lawrenceville",
-      "email": "forestschwrtz@gmail.com",
-      "phone_number": "404-617-9402",
-      "dumpster_size": 40,
-      "delivery_date": "Tue Dec 28 2021",
-      "pickup_date": "Thu Dec 30 2021",
-      "state": "GA",
-      "special_instructions": "",
-      "delivery_completed": true,
-      "pickup_completed": false,
-      "zipcode": 30043,
-      "latitude": 33.965,
-      "longitude": -84.034,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "id": "61e7851d778a2a001dffdac0"
-    },
-    {
-      "name": "Test",
-      "street": "1062 Richard D Sailors Pkwy",
-      "city": "Powder Springs,",
-      "email": "forestschwrtz@gmail.com",
-      "phone_number": "404-617-9402",
-      "dumpster_size": 40,
-      "delivery_date": "Thu Dec 30 2021",
-      "pickup_date": "Fri Jan 07 2022",
-      "state": "GA",
-      "special_instructions": "",
-      "delivery_completed": false,
-      "pickup_completed": false,
-      "zipcode": 30127,
-      "latitude": 33.865,
-      "longitude": -84.678,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "id": "61e7858c778a2a001dffdac3"
-    },
-    {
-      "name": "Test",
-      "street": "1407 Marlow Rd",
-      "city": "Maysville",
-      "email": "forestschwrtz@gmail.com",
-      "phone_number": "404-617-9402",
-      "dumpster_size": 20,
-      "delivery_date": "Thu Dec 30 2021",
-      "pickup_date": "Fri Dec 31 2021",
-      "state": "GA",
-      "special_instructions": "",
-      "delivery_completed": false,
-      "pickup_completed": false,
-      "zipcode": 30558,
-      "latitude": 34.238,
-      "longitude": -83.617,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "id": "61e78607778a2a001dffdac6"
-    },
-    {
-      "name": "Test",
-      "street": "1524 Hwy 16 West",
-      "city": "Griffin",
-      "email": "forestschwrtz@gmail.com",
-      "phone_number": "404-617-9402",
-      "dumpster_size": 40,
-      "delivery_date": "Tue Dec 28 2021",
-      "pickup_date": "Thu Dec 30 2021",
-      "state": "GA ",
-      "special_instructions": "",
-      "delivery_completed": true,
-      "pickup_completed": false,
-      "zipcode": 30223,
-      "latitude": 33.247,
-      "longitude": -84.294,
-      "region_id": "61ca3cb19e9ade7351418e30",
-      "user_id": "61c7483607e4533869b9ec08",
-      "id": "61e786d0778a2a001dffdafb"
+      "type": "Order",
+      "id": "62081ecb372c3b1526d69e15"
     }
   ],
-  "date": "Thu Dec 30 2021"
+  "date": "Thu Dec 30 2021",
+  "num_of_routes": 2
 }

@@ -53,15 +53,6 @@ const OrderPage = () => {
 
 
 
-    const createRoutes = async () => {
-        M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
-        const route_query:RouteQuery = {landfills, depots, vehicles, orders, 'date': date.toDateString()}
-        const route_response = await RoutingService.createRoutes(route_query)
-        //const route_response = await RoutingService.getRoutes()
-        console.log(route_response)
-        // const data = JSON.stringify(route_query, null, 2)
-        // console.log(data)
-    }
 
 
     const displayLandfills = () => {
@@ -115,9 +106,6 @@ const OrderPage = () => {
                 <div className="row">
                     <div className="col l3">
                         <input type="text" className="datepicker" placeholder='Select Date' />
-                    </div>
-                    <div className="col l3 offset-l6">
-                        <div className="btn blue lighten-2" onClick={() => createRoutes()}>Create Routes</div>
                     </div>
 
                 </div>

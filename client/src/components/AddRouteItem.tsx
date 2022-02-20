@@ -17,7 +17,7 @@ interface prop {
     orders: Order[],
     landfills: Landfill[],
     depots: Depot[],
-    todays_date: Date,
+    date: Date,
     routeItemsList: Route_Item[],
     setRouteItemsList: React.Dispatch<React.SetStateAction<Route_Item[]>>,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
@@ -25,7 +25,7 @@ interface prop {
     setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
 }
 
-const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,assignedOrders,setAssignedOrders, setRouteItemsList,setActive }: prop) => {
+const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assignedOrders,setAssignedOrders, setRouteItemsList,setActive }: prop) => {
 
     console.log('inside add route item')
 
@@ -45,7 +45,7 @@ const AddRouteItem = ({ orders, landfills, depots, todays_date, routeItemsList,a
         for (let i = 0; i < orders.length; i++) {
             const current_order = orders[i]
             let order_type = ''
-            if (todays_date.toDateString() === current_order.pickup_date) {
+            if (date.toDateString() === current_order.pickup_date) {
                 order_type = 'Pickup'
             } else {
                 order_type = 'Delivery'

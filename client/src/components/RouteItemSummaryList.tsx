@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Depot, Landfill, Order } from '../types'
+import { Depot, Landfill, Order, RouteQuery } from '../types'
 import DepotList from './DepotList'
+import RoutingService from '../services/route_query'
+import order from '../services/order'
+
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -18,13 +21,16 @@ interface prop {
     orders: Order[],
     landfills: Landfill[],
     depots: Depot[],
-    todays_date: Date,
+    date: Date,
     assignedOrders: Order[],
 
 }
 
 
-const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedOrders }: prop) => {
+const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }: prop) => {
+
+
+    const [num_of_routes,setNumberOfRoutes] = useState(1)
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
@@ -41,10 +47,8 @@ const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedO
             const current_order = orders[i]
             const index = assignedOrders.findIndex(order => order.id === current_order.id)
             if (index === -1) {
-                console.log(current_order)
-                console.log(todays_date)
                 let order_type = ''
-                if (todays_date.toDateString() === current_order.pickup_date) {
+                if (date.toDateString() === current_order.pickup_date) {
                     order_type = 'Pickup'
                 } else {
                     order_type = 'Delivery'
@@ -72,7 +76,7 @@ const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedO
                         </div>
                         <div className="col l2">
                             <label>
-                                <input type="checkbox" id="show-landfill" />
+                                <input type="checkbox" className="checkbox" id = {order_info.id} />
                                 <span></span>
                             </label>
                         </div>
@@ -128,6 +132,36 @@ const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedO
     }
 
 
+    const computeRoutes = async () => {
+
+        const elements = document.getElementsByClassName('checkbox')
+
+        const orders_to_analyze = [] as Array<Order>
+
+        for (let i=0; i< elements.length;i++){
+            const current_element = elements[i] as HTMLInputElement
+            if (current_element.checked == true){
+                const order_id = current_element.id
+                const order_to_analyze = orders.find( order => order.id === order_id )
+                if(order_to_analyze){
+                    orders_to_analyze.push(order_to_analyze)
+                }
+                
+            }
+        }
+
+
+
+
+
+        M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
+        const route_query:RouteQuery = {landfills, depots, orders:orders_to_analyze, 'date': date.toDateString(),num_of_routes}
+        console.log(JSON.stringify(route_query,null,2))
+        const route_response = await RoutingService.createRoutes(route_query)
+        console.log(route_response)
+    }
+
+
     return (
         <div>
             <ul className="collapsible">
@@ -139,9 +173,9 @@ const RouteItemSummaryList= ({ orders, landfills, depots, todays_date, assignedO
                                 {insertOrders()}
                                 <Spacing />
                                 <div className="input-field">
-                                    <input placeholder="Number of Routes" id="first_name" type="number" className="validate" />
+                                    <input placeholder="Number of Routes" id="first_name" type="number" className="validate" onChange={({ target }) => setNumberOfRoutes(parseInt(target.value))}/>
                                 </div>
-                                <button className='btn black offset-s10' >Compute Routes</button>
+                                <button className='btn black offset-s10' onClick={() => computeRoutes()} >Compute Routes</button>
 
                             </tbody>
                         </table>

@@ -24,11 +24,11 @@ def run(route_query):
     landfills_dict = route_query['landfills']
     depots_dict = route_query['depots']
     orders_dict = route_query['orders']
-    vehicles_dict = route_query['vehicles']
     analysis_date = route_query['date']
+    num_of_routes = route_query['num_of_routes']
 
-    num_of_baskets = len(vehicles_dict)
-    route_query = createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict)
+    num_of_baskets = num_of_routes
+    route_query = createClasses(landfills_dict, depots_dict, orders_dict)
     randomly_split_baskets = createBasketsRandomly(route_query, num_of_baskets)
     evenly_split_baskets = createBasketsEvenly(route_query, num_of_baskets)
 
@@ -120,7 +120,10 @@ def createBasketsRandomly(route_query, num_of_baskets):
     orders_left = num_of_orders
     while orders_left > 0:
         order_index = random.randint(0,orders_left-1)
-        basket_index = random.randint(0,num_of_baskets-1)
+        if num_of_baskets >1:
+            basket_index = random.randint(0,num_of_baskets-1)
+        else:
+            basket_index=0
 
         order = orders_list[order_index]
         baskets[basket_index].append(order)
@@ -135,7 +138,7 @@ def createBasketsEvenly(route_query, num_of_baskets):
     split_orders = np.array_split(orders, num_of_baskets)
     return split_orders
 
-def createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict):
+def createClasses(landfills_dict, depots_dict, orders_dict):
 
     orders = []
     for order in orders_dict:
@@ -152,16 +155,11 @@ def createClasses(landfills_dict, depots_dict, orders_dict, vehicles_dict):
         new_depot = Depot(depot)
         depots.append(new_depot)
 
-    vehicles = []
-    for vehicle in vehicles_dict:
-        new_vehicle = Vehicle(vehicle)
-        vehicles.append(new_vehicle)
 
     route_query = {
         'orders': orders,
         'landfills': landfills,
         'depots': depots,
-        'vehicles': vehicles
     }
 
     return route_query
@@ -338,19 +336,10 @@ def getOptimumLandfillDepot(current_order, next_order, landfills, depots):
 if __name__ =="__main__":
     file = open('./json_objects/example_route_query.json')
     route_query = json.load(file)
-    route_options = run(route_query)
+    best_routes = run(route_query)
 
 
-    distance_array = []
-    for route_option in route_options:
-        distance = route_option.total_distance
-        distance_array.append(distance)
 
-    min_index = distance_array.index(min(distance_array))
-
-    best_route_option = route_options[min_index]
-
-    json_object = best_route_option.toJson()
 
 
     print('finished')

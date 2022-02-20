@@ -52,7 +52,7 @@ const RoutePage = () => {
             if (element) {
                 ReactDOM.render(<div className="row">
                     <div className="col l10">
-                        <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                        <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
                     </div>
                     <div className="col l2">
                         <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
@@ -103,7 +103,7 @@ const RoutePage = () => {
         element?.appendChild(d)
         ReactDOM.render(<div className="row">
             <div className="col l10">
-                <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
             </div>
             <div className="col l2">
                 <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
@@ -143,14 +143,14 @@ const RoutePage = () => {
             </div>
             <div className='row'>
                 <div className='col l4'>
-                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} />
+                    <RouteOrderList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} />
                 </div>
                 <div className='col l8 left-align' id='route-list'>
                     <button className='btn grey darken-3' onClick={() => addRouteList()} >Add Route</button>
 
                     <div className="row" id='original-route-list'>
                         <div className="col l10">
-                            <RouteList orders={orders} depots={depots} landfills={landfills} todays_date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                            <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
                         </div>
                         <div className="col l2">
                             <button className="btn black" onClick={() => deleteRouteList('original-route-list')}><i className="large material-icons">delete</i></button>

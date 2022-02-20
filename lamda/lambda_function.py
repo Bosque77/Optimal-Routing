@@ -22,7 +22,7 @@ def lambda_handler(event, context):
         # CREATE RAW PATH
         print('inside create route')
         body = json.loads(event['body'])
-        best_route = optimize_routes.run(body)
+        best_routes = optimize_routes.run(body)
         return {
             'statusCode': 200,
             'headers': {
@@ -30,7 +30,7 @@ def lambda_handler(event, context):
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             },
-            'body': json.dumps('Hello from Lambda!')
+            'body': json.dumps(best_routes)
         }
 
 

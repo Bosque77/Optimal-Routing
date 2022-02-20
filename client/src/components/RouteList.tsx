@@ -14,13 +14,13 @@ interface prop {
     orders: Order[],
     landfills: Landfill[],
     depots: Depot[],
-    todays_date: Date,
+    date: Date,
     assignedOrders: Order[],
     setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
 
 }
 
-const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, setAssignedOrders }: prop) => {
+const RouteList = ({ orders, landfills, depots, date, assignedOrders, setAssignedOrders }: prop) => {
 
     const [addRouteItemActive, setAddRouteItemActive] = useState(false)
     const [routeItemsList, setRouteItemsList] = useState<Route_Item[]>([])
@@ -124,7 +124,7 @@ const RouteList = ({ orders, landfills, depots, todays_date, assignedOrders, set
                     </div>
                 </li>
             </ul>
-            {addRouteItemActive && <AddRouteItem orders={orders} landfills={landfills} depots={depots} todays_date={todays_date} setActive={setAddRouteItemActive} routeItemsList={routeItemsList} setRouteItemsList={setRouteItemsList} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />}
+            {addRouteItemActive && <AddRouteItem orders={orders} landfills={landfills} depots={depots} date={date} setActive={setAddRouteItemActive} routeItemsList={routeItemsList} setRouteItemsList={setRouteItemsList} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />}
         </div>
     )
 
