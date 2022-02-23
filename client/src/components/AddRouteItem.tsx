@@ -26,7 +26,7 @@ interface prop {
     routeListId: string
 }
 
-const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,assignedOrders,setAssignedOrders, setRouteItemsDictionary,setActive, routeListId }: prop) => {
+const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary, assignedOrders, setAssignedOrders, setRouteItemsDictionary, setActive, routeListId }: prop) => {
 
     console.log('inside add route item')
 
@@ -59,10 +59,10 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,as
 
 
         const unassigned_orders = []
-        for (let i=0;i<orders.length;i++){
+        for (let i = 0; i < orders.length; i++) {
             const current_order = orders[i]
-            const index = assignedOrders.findIndex(order => order.id===current_order.id)
-            if(index===-1){
+            const index = assignedOrders.findIndex(order => order.id === current_order.id)
+            if (index === -1) {
                 unassigned_orders.push(current_order)
             }
 
@@ -87,13 +87,19 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,as
 
 
         return (
-            depots.map(depot =>
-                <tr key={depot.id}>
-                    <td>{depot.name}</td>
-                    <td>{depot.street}</td>
-                    <td>{depot.city}</td>
-                    <td><button className="btn blue darken-4" onClick={() => selectRouteItem(depot)}><i className="large material-icons">add</i></button></td>
-                </tr>)
+            depots.map(depot => {
+                if (depot.active) {
+                    return (
+                        <tr key={depot.id}>
+                            <td>{depot.name}</td>
+                            <td>{depot.street}</td>
+                            <td>{depot.city}</td>
+                            <td><button className="btn blue darken-4" onClick={() => selectRouteItem(depot)}><i className="large material-icons">add</i></button></td>
+                        </tr>
+                    )
+                }
+            }
+            )
         )
     }
 
@@ -103,19 +109,25 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,as
 
 
         return (
-            landfills.map(landfill =>
-                <tr key={landfill.id}>
-                    <td>{landfill.name}</td>
-                    <td>{landfill.street}</td>
-                    <td>{landfill.city}</td>
-                    <td><button className="btn blue darken-4" onClick={() => selectRouteItem(landfill)}><i className="large material-icons">add</i></button></td>
-                </tr>)
+            landfills.map(landfill => {
+                if (landfill.active) {
+                    return (
+                        <tr key={landfill.id}>
+                            <td>{landfill.name}</td>
+                            <td>{landfill.street}</td>
+                            <td>{landfill.city}</td>
+                            <td><button className="btn blue darken-4" onClick={() => selectRouteItem(landfill)}><i className="large material-icons">add</i></button></td>
+                        </tr>
+                    )
+                }
+            }
+            )
         )
     }
 
     const selectRouteItem = (route_item: Route_Item) => {
         console.log('inside select route item')
-        const new_route_items_dictionary ={...routeItemsDictionary}
+        const new_route_items_dictionary = { ...routeItemsDictionary }
 
         new_route_items_dictionary[routeListId].push(route_item)
         // if(route_item){
@@ -123,7 +135,7 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,as
         // }
 
         const new_assigned_orders = [...assignedOrders]
-        if(route_item.type==='Order'){
+        if (route_item.type === 'Order') {
             console.log('about to set assigned orders to new assign orders')
             new_assigned_orders.push(route_item)
             console.log(new_assigned_orders)
@@ -131,13 +143,13 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,as
         }
 
         const modal_elem = document.getElementById('modal1')
-        if(modal_elem){
+        if (modal_elem) {
             const instance = M.Modal.getInstance(modal_elem)
             instance.close()
         }
         setRouteItemsDictionary(new_route_items_dictionary)
         setActive(false)
-      
+
     }
 
 

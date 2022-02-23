@@ -27,10 +27,10 @@ interface prop {
 }
 
 
-const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }: prop) => {
+const RouteItemSummaryList = ({ orders, landfills, depots, date, assignedOrders }: prop) => {
 
 
-    const [num_of_routes,setNumberOfRoutes] = useState(1)
+    const [num_of_routes, setNumberOfRoutes] = useState(1)
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
@@ -80,7 +80,7 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
                         </div>
                         <div className="col l2">
                             <label>
-                                <input type="checkbox" className="checkbox" id = {order_info.id} />
+                                <input type="checkbox" className="checkbox" id={order_info.id} />
                                 <span></span>
                             </label>
                         </div>
@@ -95,43 +95,61 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
     }
 
     const insertDepots = () => {
+        console.log(depots)
         return (
-            depots.map(depot =>
-                <tr key={depot.id}>
-                    <td>
-                        <div className="row">
-                            <DataHeader>
-                                {depot.name}
-                            </DataHeader>
-                        </div>
-                        <div className="row">
-                            {depot.street} {depot.city}
-                        </div>
-                        <br />
-                    </td>
+            depots.map(depot => {
 
-                </tr>)
+                if (depot.active) {
+                    return (
+                        <tr key={depot.id}>
+                            <td>
+                                <div className="row">
+                                    <DataHeader>
+                                        {depot.name}
+                                    </DataHeader>
+                                </div>
+                                <div className="row">
+                                    {depot.street} {depot.city}
+                                </div>
+                                <br />
+                            </td>
+
+                        </tr>
+                    )
+                } else {
+                    return
+                }
+            }
+            )
         )
     }
 
 
     const insertLandfills = () => {
         return (
-            landfills.map(landfill =>
-                <tr key={landfill.id}>
-                    <td>
-                        <div className="row">
-                            <DataHeader>
-                                {landfill.name}
-                            </DataHeader>
-                        </div>
-                        <div className="row">
-                            {landfill.street} {landfill.city}
-                        </div>
-                        <br />
-                    </td>
+            landfills.map(landfill => {
+                if (landfill.active) {
+                    return (
+                        <tr key={landfill.id}>
+                            <td>
+                                <div className="row">
+                                    <DataHeader>
+                                        {landfill.name}
+                                    </DataHeader>
+                                </div>
+                                <div className="row">
+                                    {landfill.street} {landfill.city}
+                                </div>
+                                <br />
+                            </td>
 
-                </tr>)
+                        </tr>
+                    )
+                } else {
+                    return
+                }
+            }
+            )
         )
     }
 
@@ -142,15 +160,15 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
 
         const orders_to_analyze = [] as Array<Order>
 
-        for (let i=0; i< elements.length;i++){
+        for (let i = 0; i < elements.length; i++) {
             const current_element = elements[i] as HTMLInputElement
-            if (current_element.checked == true){
+            if (current_element.checked == true) {
                 const order_id = current_element.id
-                const order_to_analyze = orders.find( order => order.id === order_id )
-                if(order_to_analyze){
+                const order_to_analyze = orders.find(order => order.id === order_id)
+                if (order_to_analyze) {
                     orders_to_analyze.push(order_to_analyze)
                 }
-                
+
             }
         }
 
@@ -159,8 +177,8 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
 
 
         M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
-        const route_query:RouteQuery = {landfills, depots, orders:orders_to_analyze, 'date': date.toDateString(),num_of_routes}
-        console.log(JSON.stringify(route_query,null,2))
+        const route_query: RouteQuery = { landfills, depots, orders: orders_to_analyze, 'date': date.toDateString(), num_of_routes }
+        console.log(JSON.stringify(route_query, null, 2))
         const route_response = await RoutingService.createRoutes(route_query)
         console.log(route_response)
     }
@@ -177,7 +195,7 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
                                 {insertOrders()}
                                 <Spacing />
                                 <div className="input-field">
-                                    <input placeholder="Number of Routes" id="first_name" type="number" className="validate" onChange={({ target }) => setNumberOfRoutes(parseInt(target.value))}/>
+                                    <input placeholder="Number of Routes" id="first_name" type="number" className="validate" onChange={({ target }) => setNumberOfRoutes(parseInt(target.value))} />
                                 </div>
                                 <button className='btn black offset-s10' onClick={() => computeRoutes()} >Compute Routes</button>
 

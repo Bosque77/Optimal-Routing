@@ -9,7 +9,6 @@ import GoogleMap from '../GoogleMap'
 import VehicleList from '../VehicleList'
 import RouteItemSummaryList from '../RouteItemSummaryList'
 import styled from 'styled-components'
-import RouteList from '../RouteList'
 import AddRouteItem from '../AddRouteItem'
 import { Order } from '../../types'
 import ReactDOM from 'react-dom'
@@ -46,26 +45,7 @@ const RoutePage = () => {
     }, [region])
 
 
-    useEffect(() => {
 
-        route_list_ids.forEach((id) => {
-            const element = document.getElementById(id)
-            if (element) {
-                ReactDOM.render(<div className="row">
-                    <div className="col l10">
-                        <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
-                    </div>
-                    <div className="col l2">
-                        <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
-                    </div>
-                </div>, element)
-            }
-        })
-
-
-
-
-    })
 
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
@@ -94,41 +74,6 @@ const RoutePage = () => {
 
     }
 
-    const addRouteList = () => {
-        console.log('inside add route list')
-        const element = document.getElementById('route-list')
-        // element?.append()
-        const id = Math.random().toString() //or some such identifier 
-        const d = document.createElement('div')
-        d.id = id
-        element?.appendChild(d)
-        ReactDOM.render(<div className="row">
-            <div className="col l10">
-                <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
-            </div>
-            <div className="col l2">
-                <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
-            </div>
-        </div>, document.getElementById(id))
-
-        const updated_route_list_ids = [...route_list_ids]
-        updated_route_list_ids.push(id)
-        setRouteListIds(updated_route_list_ids)
-    }
-
-    const deleteRouteList = (html_id: string) => {
-        console.log('inside delete route list')
-        console.log(html_id)
-        const element = document.getElementById(html_id)
-        if (element) {
-            ReactDOM.unmountComponentAtNode(element)
-            const new_route_list_ids = route_list_ids.filter(id => id != html_id)
-            setRouteListIds(new_route_list_ids)
-        }
-
-    }
-
-
 
 
 
@@ -149,19 +94,6 @@ const RoutePage = () => {
                 </div>
                 <div className='col l8 left-align' id='route-list'>
                     <RouteLists orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
-
-                    {/* <button className='btn grey darken-3' onClick={() => addRouteList()} >Add Route</button> */}
-                    {/* 
-                    <div className="row" id='original-route-list'>
-                        <div className="col l10">
-                            <RouteList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
-                        </div>
-                        <div className="col l2">
-                            <button className="btn black" onClick={() => deleteRouteList('original-route-list')}><i className="large material-icons">delete</i></button>
-                        </div>
-                    </div>
- */}
-
                 </div>
             </div>
 
