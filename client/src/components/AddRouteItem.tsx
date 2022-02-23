@@ -18,14 +18,15 @@ interface prop {
     landfills: Landfill[],
     depots: Depot[],
     date: Date,
-    routeItemsList: Route_Item[],
-    setRouteItemsList: React.Dispatch<React.SetStateAction<Route_Item[]>>,
+    routeItemsDictionary: { [id: string]: Route_Item[] },
+    setRouteItemsDictionary: React.Dispatch<React.SetStateAction<{ [id: string]: Route_Item[] }>>,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     assignedOrders: Order[],
     setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
+    routeListId: string
 }
 
-const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assignedOrders,setAssignedOrders, setRouteItemsList,setActive }: prop) => {
+const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary,assignedOrders,setAssignedOrders, setRouteItemsDictionary,setActive, routeListId }: prop) => {
 
     console.log('inside add route item')
 
@@ -83,6 +84,8 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assigned
     }
 
     const insertDepots = () => {
+
+
         return (
             depots.map(depot =>
                 <tr key={depot.id}>
@@ -96,6 +99,9 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assigned
 
 
     const insertLandfills = () => {
+
+
+
         return (
             landfills.map(landfill =>
                 <tr key={landfill.id}>
@@ -109,14 +115,18 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assigned
 
     const selectRouteItem = (route_item: Route_Item) => {
         console.log('inside select route item')
-        const new_route_items_list =[...routeItemsList]
-        if(route_item){
-            new_route_items_list.push(route_item)
-        }
+        const new_route_items_dictionary ={...routeItemsDictionary}
+
+        new_route_items_dictionary[routeListId].push(route_item)
+        // if(route_item){
+        //     new_route_items_list.push(route_item)
+        // }
 
         const new_assigned_orders = [...assignedOrders]
         if(route_item.type==='Order'){
+            console.log('about to set assigned orders to new assign orders')
             new_assigned_orders.push(route_item)
+            console.log(new_assigned_orders)
             setAssignedOrders(new_assigned_orders)
         }
 
@@ -125,7 +135,7 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsList,assigned
             const instance = M.Modal.getInstance(modal_elem)
             instance.close()
         }
-        setRouteItemsList(new_route_items_list)
+        setRouteItemsDictionary(new_route_items_dictionary)
         setActive(false)
       
     }

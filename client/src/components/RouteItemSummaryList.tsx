@@ -41,11 +41,15 @@ const RouteItemSummaryList= ({ orders, landfills, depots, date, assignedOrders }
 
     const insertOrders = () => {
 
+
+
         const orders_info = []
         for (let i = 0; i < orders.length; i++) {
 
             const current_order = orders[i]
             const index = assignedOrders.findIndex(order => order.id === current_order.id)
+
+
             if (index === -1) {
                 let order_type = ''
                 if (date.toDateString() === current_order.pickup_date) {
