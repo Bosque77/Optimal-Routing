@@ -129,18 +129,25 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary, a
         console.log('inside select route item')
         const new_route_items_dictionary = { ...routeItemsDictionary }
 
-        new_route_items_dictionary[routeListId].push(route_item)
+        
         // if(route_item){
         //     new_route_items_list.push(route_item)
         // }
 
+        const updated_route_item = {...route_item}
+
         const new_assigned_orders = [...assignedOrders]
         if (route_item.type === 'Order') {
-            console.log('about to set assigned orders to new assign orders')
             new_assigned_orders.push(route_item)
-            console.log(new_assigned_orders)
             setAssignedOrders(new_assigned_orders)
+        }else{
+            updated_route_item.id = route_item.id+Math.random().toString()
         }
+
+
+
+        new_route_items_dictionary[routeListId].push(updated_route_item)
+        console.log(new_route_items_dictionary)
 
         const modal_elem = document.getElementById('modal1')
         if (modal_elem) {
