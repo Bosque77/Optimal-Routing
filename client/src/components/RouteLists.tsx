@@ -3,13 +3,25 @@ import AddRouteItem from './AddRouteItem'
 import M from 'materialize-css'
 import { Order, Landfill, Depot, Route_Item } from '../types'
 import styled from 'styled-components'
-import { cleanup } from '@testing-library/react'
 import RouteService from '../services/route_query'
 
 
 const Spacing = styled.div`
   margin-top: 2em;
 `
+
+interface Route_Data {
+    distances : number[]
+    durations: number[]
+    total_distance: number
+    total_duration: number
+}
+
+interface Returning_Route_Data {
+    distance: number,
+    duration: number
+}
+
 
 
 interface prop {
@@ -26,6 +38,7 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
 
     const [addRouteItemActive, setAddRouteItemActive] = useState(false)
     const [routeItemsDictionary, setRouteItemsDictionary] = useState<{ [id: string]: Route_Item[] }>({ 'original-route-list': [] })
+    const [routeDataDictionary, setRouteDataDictionary] = useState<{ [id: string]: Route_Data }>({ 'original-route-list': {distances : [], durations : [], total_distance : 0.0, total_duration : 0.0} })
     const [routeListIds, setRouteListIds] = useState(['original-route-list'])
     const [routeListId, setRouteListId] = useState('')
 
@@ -100,8 +113,66 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
 
     const analyzeRouteItems = async (list_id:string) => {
         const route_items = routeItemsDictionary[list_id]
-        const route_data = await RouteService.analyzeRoute(route_items)
+        const route_data = await RouteService.analyzeRoute(route_items) as Returning_Route_Data[]
 
+        const distances = []
+        const durations = []
+        let total_distance = 0.0
+        let total_duration = 0.0
+
+        for(let i=0;i<route_data.length;i++){
+            const current_route_data = route_data[i]
+            distances.push(current_route_data.distance)
+            durations.push(current_route_data.duration)
+            total_distance += current_route_data.distance
+            total_duration += current_route_data.duration
+        }
+
+        const compiled_route_data: Route_Data = {
+            distances: distances,
+            durations: durations,
+            total_distance: total_distance,
+            total_duration: total_duration
+        }
+
+        const updated_route_data_dict = {...routeDataDictionary}
+        updated_route_data_dict[list_id] = compiled_route_data
+        setRouteDataDictionary(updated_route_data_dict)
+
+    }
+
+
+    const insertRouteData = (list_id: string) => {
+
+        const route_data = routeDataDictionary[list_id]
+
+        const hours = Math.floor(route_data.total_duration / 3600)
+        const remainder_seconds = route_data.total_duration % 3600
+        const minutes = Math.floor(remainder_seconds / 60)
+
+        let minute_str = ''
+        if (minutes < 10){
+            minute_str = '0'+minutes.toString()
+        }else{
+            minute_str = minutes.toString()
+        }
+          
+
+        const miles = (route_data.total_distance * 0.000621371).toFixed(2)
+        
+
+        return(
+            <div className="row">
+                <div className="col l6">
+                    Total Duration: {`${hours}:${minute_str}`}
+                </div>
+                <div className="col l6">
+                    Total Distance: {`${miles} miles`}
+
+                </div>
+            </div>
+
+        )
     }
 
     const insertRouteLists = () => {
@@ -115,6 +186,8 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
                                 <li className="center-align">
                                     <div className="collapsible-header">Route</div>
                                     <div className="collapsible-body">
+
+                                        {routeDataDictionary[id].durations.length > 0 ? insertRouteData(id) : <div></div>}
                                         <table className="striped">
                                             <tbody>
                                                 {insertRouteItems(id)}
@@ -183,6 +256,11 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
 
         const new_route_items_dictionary = { ...routeItemsDictionary }
         new_route_items_dictionary[list_id] = []
+
+        const new_route_data_dictionary = {...routeDataDictionary}
+        new_route_data_dictionary[list_id] = {distances : [], durations : [], total_distance : 0.0, total_duration : 0.0}
+
+        setRouteDataDictionary(new_route_data_dictionary)
         setRouteItemsDictionary(new_route_items_dictionary)
         setRouteListIds(new_route_list_ids)
     }

@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import VehicleList from '../VehicleList'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
-import { initializeDepots, initializeLandfills, initializeOrders, initializeVehicles } from '../../state/action-creators'
+
 import GoogleMap from '../GoogleMap'
-import VehicleList from '../VehicleList'
+
 import RouteItemSummaryList from '../RouteItemSummaryList'
 import styled from 'styled-components'
-import AddRouteItem from '../AddRouteItem'
+
 import { Order } from '../../types'
-import ReactDOM from 'react-dom'
+
 import RouteLists from '../RouteLists'
 
 const Spacing = styled.div`
@@ -26,7 +26,7 @@ const RoutePage = () => {
     const region = useSelector((state: State) => state.setRegion)
     const [date, setDate] = useState<Date>(new Date())
     const [assignedOrders, setAssignedOrders] = useState<Order[]>([])
-    const [route_list_ids, setRouteListIds] = useState(['original-route-list'])
+
 
 
     useEffect(() => {
@@ -50,16 +50,8 @@ const RoutePage = () => {
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
     const depots = useSelector((state: State) => state.depots)
-    // const vehicles = useSelector((state: State) => state.vehicles)
 
 
-
-
-
-
-    const computeRoutes = () => {
-        console.log('inside compute routes')
-    }
 
     const onDateChange = async (date: Date) => {
         console.log('on date change')

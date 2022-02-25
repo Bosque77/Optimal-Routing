@@ -24,31 +24,6 @@ const analyzeRoute = async (route_items: Route_Item[]) => {
     return response.data
 
 
-    //// This function calls the google apps service to figure out distances on the front end. 
-    // const service = new google.maps.DistanceMatrixService()
-    // for (let i = 0; i < route_items.length - 1; i++) {
-    //     const current_route_item = route_items[i]
-    //     const next_route_item = route_items[i + 1]
-
-    //     const origin = { lat: current_route_item.latitude, lng: current_route_item.longitude }
-    //     const destination = { lat: next_route_item.latitude, lng: next_route_item.longitude }
-
-    //     const request = {
-    //         origins: [origin],
-    //         destinations: [destination],
-    //         travelMode: google.maps.TravelMode.DRIVING,
-    //         unitSystem: google.maps.UnitSystem.METRIC,
-    //         avoidHighways: false,
-    //         avoidTolls: false,
-    //     }
-
-    //     service.getDistanceMatrix(request, (response) => console.log(response))
-
-    // }
-
-
-
-
 }
 
 
