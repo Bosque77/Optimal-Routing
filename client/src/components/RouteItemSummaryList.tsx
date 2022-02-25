@@ -180,6 +180,12 @@ const RouteItemSummaryList = ({ orders, landfills, depots, date, assignedOrders 
         const route_query: RouteQuery = { landfills, depots, orders: orders_to_analyze, 'date': date.toDateString(), num_of_routes }
         console.log(JSON.stringify(route_query, null, 2))
         const route_response = await RoutingService.createRoutes(route_query)
+
+
+
+
+        
+
         console.log(route_response)
     }
 

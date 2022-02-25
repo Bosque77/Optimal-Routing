@@ -24,4 +24,8 @@ export enum ActionType {
     INIT_ORDERS = 'init_orders',
     SET_USER_TOKEN = 'set_user_token',
     SET_REGION = 'set_region',
+    ADD_TRUCK_ROUTE = 'ADD_TRUCK_ROUTE',
+    UPDATE_TRUCK_ROUTE = 'UPDATE_TRUCK_ROUTE',
+    DELETE_TRUCK_ROUTE = 'DELETE_TRUCK_ROUTE',
+    INIT_TRUCK_ROUTES = 'INIT_TRUCK_ROUTES'
 }

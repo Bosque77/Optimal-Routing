@@ -7,6 +7,7 @@ import driverService from '../../services/driver'
 import depotService from '../../services/depots'
 import vehicleService from '../../services/vehicle'
 import orderService from '../../services/order'
+import routeService from '../../services/route'
 import { Dispatch } from 'redux'
 import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Order, Region, UserToken, Vehicle } from '../../types'
 import { setToken } from '../../services/config'
@@ -82,6 +83,17 @@ export const initializeOrders = (region:Region, date: string) => {
         dispatch({
             type: ActionType.INIT_ORDERS,
             data: orders
+        })
+    }
+}
+
+
+export const initializeTruckRoutes = (region:Region, date: string) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const truck_routes = await routeService.getByRegionAndDate(region, date)
+        dispatch({
+            type: ActionType.INIT_TRUCK_ROUTES,
+            data: truck_routes
         })
     }
 }

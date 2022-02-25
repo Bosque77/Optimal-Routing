@@ -1,5 +1,24 @@
 
 
+export interface NewTruckRoute {
+    route_items: Route_Item[]
+    distances: number[]
+    durations: number[]
+    total_distance: number
+    total_duration: number
+}
+
+
+export interface TruckRoute {
+    id: string
+    route_items: Route_Item[]
+    distances: number[]
+    durations: number[]
+    total_distance: number
+    total_duration: number
+}
+
+
 export interface RouteQuery {
     landfills: Landfill[]
     depots: Depot[]

@@ -4,6 +4,8 @@ import M from 'materialize-css'
 import { Order, Landfill, Depot, Route_Item } from '../types'
 import styled from 'styled-components'
 import RouteService from '../services/route_query'
+import { ObjectId } from 'mongodb'
+
 
 
 const Spacing = styled.div`
@@ -249,10 +251,13 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
     }
 
     const addRouteList = () => {
-        const list_id = 'list-id-' + (routeListIds.length + 1).toString()
+
+        const list_id = new ObjectId().toString()
         const new_route_list_ids = [...routeListIds]
+
         new_route_list_ids.push(list_id)
 
+        console.log(new_route_list_ids)
 
         const new_route_items_dictionary = { ...routeItemsDictionary }
         new_route_items_dictionary[list_id] = []
