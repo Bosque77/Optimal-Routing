@@ -1,8 +1,5 @@
 import asyncio
-import ssl
-
 import aiohttp
-import time
 
 
 async def get_distance(session,url):
@@ -11,7 +8,6 @@ async def get_distance(session,url):
         return distance
 
 async def getRouteDistances(urls):
-    start_time = time.time()
     conn = aiohttp.TCPConnector(ssl=False, enable_cleanup_closed=True)
     async with aiohttp.ClientSession(connector=conn) as session:
 
@@ -21,8 +17,7 @@ async def getRouteDistances(urls):
 
 
         api_response_distances = await asyncio.gather(*tasks)
-        print("--- %s seconds ---" % (time.time() - start_time))
-
+  
         distances_and_durations = []
         for response_object in api_response_distances:
             distance = response_object['rows'][0]['elements'][0]['distance']['value']
@@ -34,8 +29,13 @@ async def getRouteDistances(urls):
         return distances_and_durations
 
 
+def formatURL(origin_lat, origin_lng, dest_lat, dest_lng):
+
+    base_url = f'https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin_lat}%2C{origin_lng}&destinations={dest_lat}%2C{dest_lng}&key=AIzaSyDBWA8Gu8uc_uOL6Sp2ZIFsRI53PKbAjkw'
+    url = base_url.format(origin_lat = origin_lat, origin_lng = origin_lng, dest_lat = dest_lat, dest_lng = dest_lng)
+    return url
+
 if __name__ =="__main__":
-    print('running code')
 
     url_1 = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=34.25%2C-84.111&destinations=34.131%2C-84.523&key=AIzaSyDBWA8Gu8uc_uOL6Sp2ZIFsRI53PKbAjkw'
     url_2 = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=34.131%2C-84.523&destinations=33.247%2C-84.294&key=AIzaSyDBWA8Gu8uc_uOL6Sp2ZIFsRI53PKbAjkw'

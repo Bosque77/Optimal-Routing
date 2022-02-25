@@ -300,3 +300,8 @@ Content-Type: application/json
   ],
   "date": "Thu Dec 30 2021"
 }
+
+
+### Post Request to Lambda
+POST https://ldryzqul7l.execute-api.us-west-1.amazonaws.com/analyzeRoutes
+Content-Type: application/json

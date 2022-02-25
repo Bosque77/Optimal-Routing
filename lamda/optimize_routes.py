@@ -1,13 +1,9 @@
 import math
 import numpy as np
-import requests
 from route_classes import Order, Landfill, Depot, Vehicle, RouteObject, Route, RouteOption
-from config import GOOGLE_API_KEY, DISTANCE_MATRIX_URL
-from datetime import date, datetime
 import random
 import json
-import asyncio
-import google_distance_handler
+
 
 
 class OrderType:
@@ -337,9 +333,5 @@ if __name__ =="__main__":
     file = open('./json_objects/example_route_query.json')
     route_query = json.load(file)
     best_routes = run(route_query)
-
-
-
-
 
     print('finished')

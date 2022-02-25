@@ -4,6 +4,7 @@ import M from 'materialize-css'
 import { Order, Landfill, Depot, Route_Item } from '../types'
 import styled from 'styled-components'
 import { cleanup } from '@testing-library/react'
+import RouteService from '../services/route_query'
 
 
 const Spacing = styled.div`
@@ -69,7 +70,7 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
                     <td>{route_item.order_type}</td>
                     <td>{route_item.name}</td>
                     <td>{route_item.dumpster_size} Yard</td>
-                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="large material-icons">delete</i></button></td>
+                    <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="material-icons">remove</i></button></td>
                 </tr>
             )
         } else if (route_item.type === 'Landfill') {
@@ -79,7 +80,7 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
                     <td>{route_item.name}</td>
                     <td></td>
                     <td></td>
-                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="large material-icons">delete</i></button></td>
+                    <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="material-icons">remove</i></button></td>
                 </tr>
             )
         } else if (route_item.type === 'Depot') {
@@ -89,13 +90,19 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
                     <td>{route_item.name}</td>
                     <td></td>
                     <td></td>
-                    <td><button className="btn black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="large material-icons">delete</i></button></td>
+                    <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, list_id)}><i className="material-icons">remove</i></button></td>
                 </tr>
             )
         }
 
     }
 
+
+    const analyzeRouteItems = async (list_id:string) => {
+        const route_items = routeItemsDictionary[list_id]
+        const route_data = await RouteService.analyzeRoute(route_items)
+
+    }
 
     const insertRouteLists = () => {
         return (
@@ -111,17 +118,32 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
                                         <table className="striped">
                                             <tbody>
                                                 {insertRouteItems(id)}
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td> <a className="red btn-floating" onClick={() => addRouteItem(id)}><i className="material-icons">add</i></a>                                                 </td>
+                                                </tr>
                                             </tbody>
-                                            <Spacing />
-                                            <a className="red btn" onClick={() => addRouteItem(id)}>Add Route Item</a>
+
                                         </table>
+                                        <Spacing />
+                                        <div className="row">
+
+                                            <div className="col l4">
+                                                <a className="btn blue lighten-3" onClick={() => analyzeRouteItems(id)}>Analyze Route</a>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </li>
                             </ul>
                         </div>
 
                         <div className="col l2">
-                            <button className="btn black" onClick={() => deleteRouteList(id)}><i className="large material-icons">delete</i></button>
+                            <button className="btn black" onClick={() => deleteRouteList(id)}><i className="material-icons">delete</i></button>
                         </div>
                     </div>
                 </div>
@@ -139,7 +161,7 @@ const RouteLists = ({ orders, landfills, depots, date, assignedOrders, setAssign
         let new_assigned_orders = [...assignedOrders]
 
         route_items_for_this_list.forEach(route_item => {
-            if(route_item.type==='Order'){
+            if (route_item.type === 'Order') {
                 new_assigned_orders = new_assigned_orders.filter(assignedOrder => assignedOrder.id != route_item.id)
             }
         })
