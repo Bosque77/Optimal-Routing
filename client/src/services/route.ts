@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { NewOrder, NewTruckRoute, Order, TruckRoute } from '../types'
+import { NewTruckRoute, TruckRoute } from '../types'
 import { Region } from '../types'
 import { token } from './config'
 const baseUrl = '/routes'
@@ -59,7 +59,7 @@ const deleteOrder = async (truck_route: TruckRoute) => {
     return response
 }
 
-const createNew = async (truck_route: TruckRoute) => {
+const createNew = async (truck_route: NewTruckRoute) => {
     const config = {
         headers: { Authorization: token },
     }

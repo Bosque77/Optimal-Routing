@@ -1,4 +1,4 @@
-import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute } from '../../types'
+import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute, NewTruckRoute } from '../../types'
 import { ActionType } from '../action-types'
 
 interface SET_USER_TOKEN {
@@ -85,7 +85,7 @@ interface DELETE_LANDFILL {
 
 interface DELETE_TRUCK_ROUTE {
     type: ActionType.DELETE_TRUCK_ROUTE;
-    data: Landfill
+    data: TruckRoute
 }
 
 interface DELETE_REGION {

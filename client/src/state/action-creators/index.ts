@@ -9,7 +9,7 @@ import vehicleService from '../../services/vehicle'
 import orderService from '../../services/order'
 import routeService from '../../services/route'
 import { Dispatch } from 'redux'
-import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewVehicle, Order, Region, UserToken, Vehicle } from '../../types'
+import { DbReturnedTruckRoute, Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewTruckRoute, NewVehicle, Order, Region, Route_Item, TruckRoute, UserToken, Vehicle } from '../../types'
 import { setToken } from '../../services/config'
 
 
@@ -150,6 +150,46 @@ export const createOrder = (order: NewOrder) => {
     }
 }
 
+export const createTruckRoute = (input_truck_route: NewTruckRoute) => {
+    return async (dispatch: Dispatch<Action>) => {
+        const new_truck_route= await routeService.createNew(input_truck_route) as DbReturnedTruckRoute
+        const route_items_strings = new_truck_route.route_items
+        const route_item_orders = new_truck_route.orders
+        const route_item_depots = new_truck_route.depots
+        const route_item_landfills = new_truck_route.landfills
+
+
+
+        const route_items_populated = route_items_strings.map(route_item_id => {
+            const order = route_item_orders.find(order => order.id === route_item_id)
+            const depot = route_item_depots.find(depot => depot.id === route_item_id)
+            const landfill = route_item_landfills.find(landfill => landfill.id === route_item_id)
+            if(order){
+                return order
+            }else if(depot){
+                return depot
+            }else if(landfill){
+                return landfill
+            }
+        })
+
+
+        const truck_route: TruckRoute = {
+            id: new_truck_route.id,
+            route_items: route_items_populated as Route_Item[],
+            distances : new_truck_route.distances,
+            durations: new_truck_route.durations,
+            total_distance: new_truck_route.total_distance,
+            total_duration: new_truck_route.total_duration,
+        }
+
+        dispatch({
+            type: ActionType.ADD_TRUCK_ROUTE,
+            data: truck_route,
+        })
+    }
+}
+
 export const createRegion = (region:NewRegion) => {
     return async (dispatch: Dispatch<Action>) => {
         const new_region = await regionService.createNew(region)
@@ -219,6 +259,18 @@ export const updateOrder = (updated_order: Order) => {
     }
 }
 
+
+export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
+
+    return async (dispatch: Dispatch<Action>) => {
+        const truck_route = await routeService.put(updated_truck_route)
+        dispatch({
+            type: ActionType.UPDATE_TRUCK_ROUTE,
+            data: truck_route
+        })
+    }
+}
+
 export const deleteLandfill = (landfill: Landfill) => {
     return async (dispatch: Dispatch<Action>) => {
         await landfillService.deleteLandfill(landfill)  
@@ -275,6 +327,16 @@ export const deleteOrder = (order:Order) => {
         dispatch({
             type: ActionType.DELETE_ORDER,
             data: order
+        })
+    }
+}
+
+export const deleteTruckRoute = (truck_route:TruckRoute) => {
+    return async (dispatch: Dispatch<Action>) => {
+        await routeService.deleteOrder(truck_route)  
+        dispatch({
+            type: ActionType.DELETE_TRUCK_ROUTE,
+            data: truck_route
         })
     }
 }
