@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { State } from '../state'
 import { Order, Landfill, Depot, Route_Item } from '../types'
 
 const Spacing = styled.div`
@@ -14,9 +16,6 @@ const DataHeader = styled.div`
 
 
 interface prop {
-    orders: Order[],
-    landfills: Landfill[],
-    depots: Depot[],
     date: Date,
     routeItemsDictionary: { [id: string]: Route_Item[] },
     setRouteItemsDictionary: React.Dispatch<React.SetStateAction<{ [id: string]: Route_Item[] }>>,
@@ -26,9 +25,11 @@ interface prop {
     routeListId: string
 }
 
-const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary, assignedOrders, setAssignedOrders, setRouteItemsDictionary, setActive, routeListId }: prop) => {
+const AddRouteItem = ({ date, routeItemsDictionary, assignedOrders, setAssignedOrders, setRouteItemsDictionary, setActive, routeListId }: prop) => {
 
-    console.log('inside add route item')
+    const orders:Order[] = useSelector((state: State) => state.orders)
+    const landfills:Landfill[] = useSelector((state: State) => state.landfills)
+    const depots:Depot[] = useSelector((state: State) => state.depots)
 
     useEffect(() => {
         const modal_1 = document.querySelector('#modal1')
@@ -141,7 +142,8 @@ const AddRouteItem = ({ orders, landfills, depots, date, routeItemsDictionary, a
             new_assigned_orders.push(route_item)
             setAssignedOrders(new_assigned_orders)
         }else{
-            updated_route_item.id = route_item.id+Math.random().toString()
+            updated_route_item.id = route_item.id
+            // updated_route_item.id = route_item.id+Math.random().toString()
         }
 
 

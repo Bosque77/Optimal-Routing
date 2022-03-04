@@ -3,21 +3,15 @@
 import mongoose from 'mongoose'
 
 const routeSchema = new mongoose.Schema({
-    orders: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order'
-    },
-    depots: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Depot'
-    },
-    landfills: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Landfill'
-    },
+    route_types: [String],
     route_items: [String],
+    distances: [Number],
+    durations: [Number],
+    total_distance: Number,
+    total_duration: Number,
     user_id: String,
     region_id: String,
+    date: String
 })
 
 routeSchema.set('toJSON', {

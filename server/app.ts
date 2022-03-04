@@ -14,6 +14,7 @@ import driverRouter from './controllers/drivers'
 import orderRouter from './controllers/orders'
 import depotRouter from './controllers/depots'
 import vehicleRouter from './controllers/vehicles'
+import routeRouter from './controllers/routes'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 
@@ -48,6 +49,7 @@ app.use('/regions', middleware.userExtractor,regionRouter)
 app.use('/landfills', middleware.userExtractor,landfillRouter)
 app.use('/drivers', middleware.userExtractor,driverRouter)
 app.use('/orders', middleware.userExtractor,orderRouter)
+app.use('/routes', middleware.userExtractor,routeRouter)
 app.use('/depots', middleware.userExtractor,depotRouter)
 app.use('/vehicles', middleware.userExtractor,vehicleRouter)
 app.use('/users', usersRouter)

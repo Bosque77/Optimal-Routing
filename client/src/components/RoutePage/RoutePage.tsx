@@ -10,9 +10,10 @@ import GoogleMap from '../GoogleMap'
 import RouteItemSummaryList from '../RouteItemSummaryList'
 import styled from 'styled-components'
 
-import { Order } from '../../types'
+import { Order, TruckRoute } from '../../types'
 
 import RouteLists from '../RouteLists'
+import orderReducer from '../../state/reducers/orderReducer'
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -22,8 +23,16 @@ const Spacing = styled.div`
 const RoutePage = () => {
 
     const dispatch = useDispatch()
-    const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles } = bindActionCreators(actionCreators, dispatch)
+
+    
+
+
+
+
+    const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles, initializeTruckRoutes } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
+    const truck_routes:TruckRoute[] = useSelector((state: State) => state.routes)
+    const orders:Order[] = useSelector((state: State) => state.orders)
     const [date, setDate] = useState<Date>(new Date())
     const [assignedOrders, setAssignedOrders] = useState<Order[]>([])
 
@@ -37,31 +46,43 @@ const RoutePage = () => {
         if (region) {
 
             initializeOrders(region, date.toDateString())
-            initializeDepots(region)
+            initializeTruckRoutes(region, date.toDateString())
+            initializeDepots(region)   
             initializeLandfills(region)
             initializeVehicles(region)
+
+
         }
+        
 
     }, [region])
 
 
-
-
-    const orders = useSelector((state: State) => state.orders)
-    const landfills = useSelector((state: State) => state.landfills)
-    const depots = useSelector((state: State) => state.depots)
-
+    useEffect(() => {
+        console.log('logging truck routes under the second effect hook')
+        console.log(truck_routes)
+        // const temp_assigned_orders = []
+        // for(let i=0;i< truck_routes.length;i++){
+        //     const truck_route = truck_routes[i]
+        //     const route_item_ids = truck_route.route_items
+        //     for( let j=0;j<route_item_ids.length;j++){
+        //         const route_item_id = route_item_ids[j]
+        //         const assigned_order = orders.find(order => order.id === route_item_id)
+        //         if(assigned_order){
+        //             temp_assigned_orders.push(assigned_order)
+        //         }
+        //     }
+        // }
+        // setAssignedOrders(temp_assigned_orders)
+    }, [truck_routes])
 
 
     const onDateChange = async (date: Date) => {
-        console.log('on date change')
         const date_string = date.toDateString()
-
-        console.log(date_string)
         if (region) {
             await initializeOrders(region, date_string)
+            await initializeTruckRoutes(region, date_string)
         }
-
         setDate(date)
 
     }
@@ -82,10 +103,10 @@ const RoutePage = () => {
             </div>
             <div className='row'>
                 <div className='col l4'>
-                    <RouteItemSummaryList orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} />
+                    <RouteItemSummaryList  date={date} assignedOrders={assignedOrders} />
                 </div>
                 <div className='col l8 left-align' id='route-list'>
-                    <RouteLists orders={orders} depots={depots} landfills={landfills} date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
+                    <RouteLists  date={date} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} />
                 </div>
             </div>
 

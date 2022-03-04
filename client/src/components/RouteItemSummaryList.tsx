@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Depot, Landfill, Order, RouteQuery } from '../types'
-import DepotList from './DepotList'
 import RoutingService from '../services/route_query'
-import order from '../services/order'
+import { useSelector } from 'react-redux'
+import { State } from '../state'
 
 
 const Spacing = styled.div`
@@ -18,24 +18,27 @@ const DataHeader = styled.div`
 
 
 interface prop {
-    orders: Order[],
-    landfills: Landfill[],
-    depots: Depot[],
     date: Date,
     assignedOrders: Order[],
 
 }
 
 
-const RouteItemSummaryList = ({ orders, landfills, depots, date, assignedOrders }: prop) => {
+const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
+
+
+    const orders:Order[] = useSelector((state: State) => state.orders)
+    const landfills:Landfill[] = useSelector((state: State) => state.landfills)
+    const depots:Depot[] = useSelector((state: State) => state.depots)
 
 
     const [num_of_routes, setNumberOfRoutes] = useState(1)
 
+
+
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
-        const instances = M.Collapsible.init(elems, {})
-
+        M.Collapsible.init(elems, {})
         M.AutoInit()
     }, [])
 
@@ -95,7 +98,6 @@ const RouteItemSummaryList = ({ orders, landfills, depots, date, assignedOrders 
     }
 
     const insertDepots = () => {
-        console.log(depots)
         return (
             depots.map(depot => {
 

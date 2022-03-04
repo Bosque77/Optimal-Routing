@@ -3,38 +3,27 @@
 
 export interface TruckRoute {
     id: string
-    route_items: Route_Item[]
+    route_types: string[]
+    route_items: string[]
     distances: number[]
     durations: number[]
     total_distance: number
     total_duration: number
+    date: string
+    region_id: string
 }
 
 export interface NewTruckRoute {
-    id: string
-    order: string[]
-    depots: string[]
-    landfills: string[]
+    route_types: string[]
     route_items: string[]
     distances: number[]
     durations: number[]
     total_distance: number
     total_duration: number
-}
-
-export interface DbReturnedTruckRoute {
-    id: string
-    orders: Order[]
-    depots: Depot[]
-    landfills: Landfill[]
-    route_items: string[]
-    distances: number[]
-    durations: number[]
-    total_distance: number
-    total_duration: number
-    user_id: string,
+    date: string
     region_id: string
 }
+
 
 
 export interface RouteQuery {
