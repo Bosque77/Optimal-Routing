@@ -59,21 +59,19 @@ const RoutePage = () => {
 
 
     useEffect(() => {
-        console.log('logging truck routes under the second effect hook')
-        console.log(truck_routes)
-        // const temp_assigned_orders = []
-        // for(let i=0;i< truck_routes.length;i++){
-        //     const truck_route = truck_routes[i]
-        //     const route_item_ids = truck_route.route_items
-        //     for( let j=0;j<route_item_ids.length;j++){
-        //         const route_item_id = route_item_ids[j]
-        //         const assigned_order = orders.find(order => order.id === route_item_id)
-        //         if(assigned_order){
-        //             temp_assigned_orders.push(assigned_order)
-        //         }
-        //     }
-        // }
-        // setAssignedOrders(temp_assigned_orders)
+        const temp_assigned_orders = []
+        for(let i=0;i< truck_routes.length;i++){
+            const truck_route = truck_routes[i]
+            const route_item_ids = truck_route.route_items
+            for( let j=0;j<route_item_ids.length;j++){
+                const route_item_id = route_item_ids[j]
+                const assigned_order = orders.find(order => order.id === route_item_id)
+                if(assigned_order){
+                    temp_assigned_orders.push(assigned_order)
+                }
+            }
+        }
+        setAssignedOrders(temp_assigned_orders)
     }, [truck_routes])
 
 

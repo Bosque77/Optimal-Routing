@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
-import { State } from '../state'
-import { updateTruckRoute } from '../state/action-creators'
+import { actionCreators, State } from '../state'
 import { Order, Landfill, Depot, Route_Item, TruckRoute } from '../types'
 
 const Spacing = styled.div`
@@ -26,6 +26,9 @@ interface prop {
 
 const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, truckRoute }: prop) => {
 
+
+    const dispatch = useDispatch()
+    const { updateTruckRoute} = bindActionCreators(actionCreators, dispatch)
     const orders:Order[] = useSelector((state: State) => state.orders)
     const landfills:Landfill[] = useSelector((state: State) => state.landfills)
     const depots:Depot[] = useSelector((state: State) => state.depots)
@@ -125,7 +128,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
     }
 
     const selectRouteItem = async (route_item: Route_Item) => {
-        console.log('inside select route item')
         const updated_truck_route = {...truckRoute}
 
         const new_assigned_orders = [...assignedOrders]
@@ -146,7 +148,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
             instance.close()
         }
 
-        console.log('closed the modal')
 
         setActive(false)
 

@@ -135,11 +135,13 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
 
 
-    const deleteRouteItem = async (route_item: Route_Item, route_list_id: string) => {
+    const deleteRouteItem = async (index:number, route_list_id: string) => {
 
         const truck_route = truck_routes.find(truck_route => truck_route.id === route_list_id)
         if(truck_route){
-            truck_route.route_items = truck_route.route_items.filter(route_item_id => route_item_id != route_item.id)
+            // truck_route.route_items = truck_route.route_items.filter(route_item_id => route_item_id != route_item.id)
+            delete truck_route.route_items[index]
+            delete truck_route.route_types[index]
             await updateTruckRoute(truck_route)
         }
 
@@ -147,7 +149,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
     }
 
 
-    const getJSXObject = (route_item_id: string, route_item_type: string, truck_route_id: string) => {
+    const getJSXObject = (route_item_id: string, route_item_type: string, truck_route_id: string, index:number) => {
 
         const new_id = route_item_id + Math.random().toString()
 
@@ -161,7 +163,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                         <td>{route_item.order_type}</td>
                         <td>{route_item.name}</td>
                         <td>{route_item.dumpster_size} Yard</td>
-                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, truck_route_id)}><i className="material-icons">remove</i></button></td>
+                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
                     </tr>
                 )
             }
@@ -176,7 +178,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                         <td>{route_item.name}</td>
                         <td></td>
                         <td></td>
-                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, truck_route_id)}><i className="material-icons">remove</i></button></td>
+                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
                     </tr>
                 )
             }
@@ -191,7 +193,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                         <td>{route_item.name}</td>
                         <td></td>
                         <td></td>
-                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(route_item, truck_route_id)}><i className="material-icons">remove</i></button></td>
+                        <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
                     </tr>
                 )
             }
@@ -207,7 +209,8 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
         const jsx_list = []
         for (let i = 0; i < route_items.length; i++) {
-            const jsx_object = getJSXObject(route_items[i], route_types[i], truck_route.id)
+
+            const jsx_object = getJSXObject(route_items[i], route_types[i], truck_route.id, i)
             jsx_list.push(jsx_object)
         }
         return jsx_list
@@ -304,7 +307,6 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
         <div>
             <button className='btn grey darken-3' onClick={() => addTruckRoute()} >Add Route</button>
             {insertRouteLists()}
-            {/* {addRouteItemActive && <AddRouteItem date={date} setActive={setAddRouteItemActive} routeItemsDictionary={routeItemsDictionary} setRouteItemsDictionary={setRouteItemsDictionary} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} routeListId={routeListId} />} */}
             {addRouteItemActive && truckRoute && <AddRouteItem date={date} setActive={setAddRouteItemActive} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} truckRoute={truckRoute}/>}
         </div>
     )
