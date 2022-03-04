@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Depot, Landfill, Order, RouteQuery } from '../types'
+import { DbResponse, Depot, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../types'
 import RoutingService from '../services/route_query'
-import { useSelector } from 'react-redux'
-import { State } from '../state'
+import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators, State } from '../state'
+import { bindActionCreators } from 'redux'
+import route from '../services/route'
 
 
 const Spacing = styled.div`
@@ -26,11 +28,18 @@ interface prop {
 
 const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
 
+    const dispatch = useDispatch()
+    const { createTruckRoute} = bindActionCreators(actionCreators, dispatch)
 
     const orders:Order[] = useSelector((state: State) => state.orders)
     const landfills:Landfill[] = useSelector((state: State) => state.landfills)
     const depots:Depot[] = useSelector((state: State) => state.depots)
+    const region:Region | null = useSelector((state: State) => state.setRegion)
 
+
+    if(!region){
+        return <div></div>
+    }
 
     const [num_of_routes, setNumberOfRoutes] = useState(1)
 
@@ -180,15 +189,42 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
 
         M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
         const route_query: RouteQuery = { landfills, depots, orders: orders_to_analyze, 'date': date.toDateString(), num_of_routes }
-        console.log(JSON.stringify(route_query, null, 2))
-        const route_response = await RoutingService.createRoutes(route_query)
+        const route_response = await RoutingService.createRoutes(route_query) as DbResponse
 
-
-
-
-        
-
+        console.log('logging the route_response')
         console.log(route_response)
+
+        const routes = route_response.routes
+
+        for(let i=0;i<num_of_routes;i++){
+            const current_route = routes[i]
+
+            const route_objects = current_route.route_objects
+
+            const route_types = [] as string[]
+            const route_object_ids = [] as string []
+            route_objects.forEach(route_object => {
+                route_types.push(route_object.type)
+                route_object_ids.push(route_object.id)
+            })
+
+            const new_truck_route: NewTruckRoute = {
+                route_types: route_types,
+                route_items: route_object_ids,
+                distances: current_route.distances,
+                durations: current_route.durations,
+                total_distance: current_route.total_distance,
+                total_duration: current_route.total_duration,
+                date: date.toDateString(),
+                region_id: region.id
+
+            }
+            console.log('about to create a new truck route')
+            console.log(new_truck_route)
+            
+            await createTruckRoute(new_truck_route)
+        }
+
     }
 
 

@@ -107,9 +107,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
 
 
     const insertLandfills = () => {
-
-
-
         return (
             landfills.map(landfill => {
                 if (landfill.active) {

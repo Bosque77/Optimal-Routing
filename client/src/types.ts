@@ -1,4 +1,18 @@
 
+export interface DbReturnedRouteData {
+    distances: number[]
+    durations: number[]
+    route_objects: Route_Item[]
+    total_distance: number
+    total_duration: number
+}
+
+export interface DbResponse {
+    routes: DbReturnedRouteData[]
+    total_distance: number
+    total_duration:number
+}
+
 
 
 export interface TruckRoute {

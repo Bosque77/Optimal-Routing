@@ -114,6 +114,7 @@ class Order (RouteObject):
         self.special_instructions = order_object['special_instructions']
         self.delivery_completed = order_object['delivery_completed']
         self.pickup_completed = order_object['pickup_completed']
+        self.type = order_object['type']
         self.user_id = order_object['user_id']
         self.region_id = order_object['region_id']
 
@@ -134,6 +135,7 @@ class Order (RouteObject):
             'special_instructions': self.special_instructions,
             'delivery_completed': self.delivery_completed,
             'pickup_completed': self.pickup_completed,
+            'type': self.type,
             'user_id': self.user_id,
             'region_id': self.region_id
         }
@@ -178,6 +180,7 @@ class Depot(RouteObject):
         self.latitude = depot_object['latitude']
         self.longitude = depot_object['longitude']
         self.active = depot_object['active']
+        self.type = depot_object['type']
         self.user_id = depot_object['user_id']
         self.region_id = depot_object['region_id']
 
@@ -192,6 +195,7 @@ class Depot(RouteObject):
             'latitude': self.latitude,
             'longitude': self.longitude,
             'active': self.active,
+            'type': self.type,
             'user_id': self.user_id,
             'region_id': self.region_id
         }
@@ -210,6 +214,7 @@ class Landfill(RouteObject):
         self.latitude = landfill_object['latitude']
         self.longitude = landfill_object['longitude']
         self.active = landfill_object['active']
+        self.type = landfill_object['type']
         self.user_id = landfill_object['user_id']
         self.region_id = landfill_object['region_id']
 
@@ -224,6 +229,7 @@ class Landfill(RouteObject):
             'latitude': self.latitude,
             'longitude': self.longitude,
             'active': self.active,
+            'type': self.type,
             'user_id': self.user_id,
             'region_id': self.region_id
         }

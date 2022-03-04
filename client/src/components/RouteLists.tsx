@@ -139,7 +139,6 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
         const truck_route = truck_routes.find(truck_route => truck_route.id === route_list_id)
         if(truck_route){
-            // truck_route.route_items = truck_route.route_items.filter(route_item_id => route_item_id != route_item.id)
             delete truck_route.route_items[index]
             delete truck_route.route_types[index]
             await updateTruckRoute(truck_route)
@@ -155,16 +154,29 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
         if (route_item_type === 'Order') {
 
+
+
             const route_item = orders.find(order => order.id === route_item_id)
+
+            
             if (route_item) {
+
+                let order_type = ''
+                if (date.toDateString() === route_item.pickup_date) {
+                    order_type = 'Pickup'
+                } else {
+                    order_type = 'Delivery'
+                }
+
+
                 return (
                     <tr key={new_id}>
-                        <td>Order</td>
-                        <td>{route_item.order_type}</td>
-                        <td>{route_item.name}</td>
-                        <td>{route_item.dumpster_size} Yard</td>
+                        <td>{order_type}</td>
+                        <td>{route_item.dumpster_size} Yard </td>
+                        <td>{route_item.street}</td>
+                      
                         <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
-                    </tr>
+                    </tr> 
                 )
             }
 
@@ -176,8 +188,8 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                     <tr key={new_id}>
                         <td>Landfill</td>
                         <td>{route_item.name}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{route_item.street}</td>
+                      
                         <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
                     </tr>
                 )
@@ -191,8 +203,8 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                     <tr key={new_id}>
                         <td>Depot</td>
                         <td>{route_item.name}</td>
-                        <td></td>
-                        <td></td>
+                        <td><td>{route_item.street}</td></td>
+                      
                         <td><button className="btn-floating black" onClick={() => deleteRouteItem(index, truck_route_id)}><i className="material-icons">remove</i></button></td>
                     </tr>
                 )
@@ -257,7 +269,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
             truck_routes.map(truck_route =>
                 <div key={truck_route.id}>
                     <div className="row">
-                        <div className="col l10">
+                        <div className="col l11">
                             <ul className="collapsible">
 
                                 <li className="center-align">
@@ -291,7 +303,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                             </ul>
                         </div>
 
-                        <div className="col l2">
+                        <div className="col l1">
                             <button className="btn black" onClick={() => deleteTruckRoute(truck_route)}><i className="material-icons">delete</i></button>
                         </div>
                     </div>
