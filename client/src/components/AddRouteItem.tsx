@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { State } from '../state'
-import { Order, Landfill, Depot, Route_Item } from '../types'
+import { updateTruckRoute } from '../state/action-creators'
+import { Order, Landfill, Depot, Route_Item, TruckRoute } from '../types'
 
 const Spacing = styled.div`
   margin-top: 2em;
@@ -17,15 +18,13 @@ const DataHeader = styled.div`
 
 interface prop {
     date: Date,
-    routeItemsDictionary: { [id: string]: Route_Item[] },
-    setRouteItemsDictionary: React.Dispatch<React.SetStateAction<{ [id: string]: Route_Item[] }>>,
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     assignedOrders: Order[],
     setAssignedOrders: React.Dispatch<React.SetStateAction<Order[]>>
-    routeListId: string
+    truckRoute: TruckRoute
 }
 
-const AddRouteItem = ({ date, routeItemsDictionary, assignedOrders, setAssignedOrders, setRouteItemsDictionary, setActive, routeListId }: prop) => {
+const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, truckRoute }: prop) => {
 
     const orders:Order[] = useSelector((state: State) => state.orders)
     const landfills:Landfill[] = useSelector((state: State) => state.landfills)
@@ -37,8 +36,7 @@ const AddRouteItem = ({ date, routeItemsDictionary, assignedOrders, setAssignedO
             const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
             instance.open()
         }
-    }
-    )
+    },[])
 
     const insertOrders = () => {
 
@@ -126,37 +124,30 @@ const AddRouteItem = ({ date, routeItemsDictionary, assignedOrders, setAssignedO
         )
     }
 
-    const selectRouteItem = (route_item: Route_Item) => {
+    const selectRouteItem = async (route_item: Route_Item) => {
         console.log('inside select route item')
-        const new_route_items_dictionary = { ...routeItemsDictionary }
-
-        
-        // if(route_item){
-        //     new_route_items_list.push(route_item)
-        // }
-
-        const updated_route_item = {...route_item}
+        const updated_truck_route = {...truckRoute}
 
         const new_assigned_orders = [...assignedOrders]
         if (route_item.type === 'Order') {
             new_assigned_orders.push(route_item)
             setAssignedOrders(new_assigned_orders)
-        }else{
-            updated_route_item.id = route_item.id
-            // updated_route_item.id = route_item.id+Math.random().toString()
         }
 
 
+        updated_truck_route.route_types.push(route_item.type)
+        updated_truck_route.route_items.push(route_item.id)
 
-        new_route_items_dictionary[routeListId].push(updated_route_item)
-        console.log(new_route_items_dictionary)
+        await updateTruckRoute(updated_truck_route)
 
         const modal_elem = document.getElementById('modal1')
         if (modal_elem) {
             const instance = M.Modal.getInstance(modal_elem)
             instance.close()
         }
-        setRouteItemsDictionary(new_route_items_dictionary)
+
+        console.log('closed the modal')
+
         setActive(false)
 
     }
