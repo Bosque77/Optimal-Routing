@@ -2,7 +2,6 @@
 import config from './utils/config'
 import express from 'express'
 import mongoose from 'mongoose'
-const app = express()
 require('express-async-errors')
 import cors from 'cors'
 
@@ -20,6 +19,8 @@ import logger from './utils/logger'
 
 logger.info('connecting to', config.MONGODB_URI)
 console.log('about to configure the mongo db uri')
+
+const app = express()
 
 
 

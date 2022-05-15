@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NewDriver} from '../types'
+import { NewDriver } from '../types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,8 +14,8 @@ const CreateDriverForm = ({ setActive }: prop) => {
 
     const region = useSelector((state: State) => state.setRegion)
 
-    if(!region){
-        return(<div></div>)
+    if (!region) {
+        return (<div></div>)
     }
 
     useEffect(() => {
@@ -33,8 +33,9 @@ const CreateDriverForm = ({ setActive }: prop) => {
     const [name, setName] = useState('')
     const [phone_number, setPhoneNumber] = useState('')
     const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [active, setStatus] = useState(true)
-    
+
 
 
     const dispatch = useDispatch()
@@ -44,14 +45,14 @@ const CreateDriverForm = ({ setActive }: prop) => {
     const submit = async () => {
         console.log('inside on submit')
 
-        if(name==='' || phone_number==='' || email==='' ){
-            M.toast({html: 'All fields need to be filled out'})
-        }else{
-            const new_driver: NewDriver = { name, phone_number, email,  'region_id': region.id }
+        if (name === '' || phone_number === '' || email === '' || password === '') {
+            M.toast({ html: 'All fields need to be filled out' })
+        } else {
+            const new_driver: NewDriver = { name, phone_number, email, password, 'region_id': region.id }
             await createDriver(new_driver)
-            M.toast({html: 'Created New Landfill'})
+            M.toast({ html: 'Created New Landfill' })
             const modal_elem = document.getElementById('modal1')
-            if(modal_elem){
+            if (modal_elem) {
                 const instance = M.Modal.getInstance(modal_elem)
                 instance.close()
             }
@@ -72,12 +73,16 @@ const CreateDriverForm = ({ setActive }: prop) => {
                                 <label htmlFor="name" className="active">Name</label>
                             </div>
                             <div className="input-field col s4">
-                                <input id="street" type="text" className="validate" value={phone_number} onChange={({ target }) => setPhoneNumber(target.value)} />
-                                <label htmlFor="street" className="active">Phone Number</label>
+                                <input id="phone-number" type="text" className="validate" value={phone_number} onChange={({ target }) => setPhoneNumber(target.value)} />
+                                <label htmlFor="phone-number" className="active">Phone Number</label>
                             </div>
                             <div className="input-field col s4">
-                                <input id="street" type="text" className="validate" value={email} onChange={({ target }) => setEmail(target.value)} />
-                                <label htmlFor="street" className="active">Email</label>
+                                <input id="email" type="text" className="validate" value={email} onChange={({ target }) => setEmail(target.value)} />
+                                <label htmlFor="email" className="active">Email</label>
+                            </div>
+                            <div className="input-field col s4">
+                                <input id="password" type="text" className="validate" value={password} onChange={({ target }) => setPassword(target.value)} />
+                                <label htmlFor="password" className="active">Password</label>
                             </div>
                         </div>
                         <div className="row left-align" >

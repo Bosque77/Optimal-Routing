@@ -86,7 +86,7 @@ const CreateDepotForm = ({setActive }: prop) => {
         if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
             M.toast({html: 'All fields need to be filled out'})
         }else{
-            const new_depot: NewDepot = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id }
+            const new_depot: NewDepot = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id, 'type': 'Depot' }
             console.log(new_depot)
             await createDepot(new_depot)
             M.toast({html: 'Created New Depot'})

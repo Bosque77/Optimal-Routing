@@ -139,6 +139,7 @@ export interface NewOrder {
     pickup_date: string;
     delivery_time?: Time;
     pickup_time?: Time;
+    type:'Order';
     special_instructions: string;
     delivery_completed: boolean;
     pickup_completed: boolean;
@@ -201,6 +202,7 @@ export interface NewLandfill {
     zipcode: number;
     latitude: number;
     longitude: number;
+    type:'Landfill';
     active: boolean;
     region_id:string;
 }
@@ -213,6 +215,7 @@ export interface NewDepot {
     zipcode: number;
     latitude: number;
     longitude: number;
+    type:'Depot';
     active: boolean;
     region_id:string;
 }
@@ -249,6 +252,7 @@ export interface NewDriver {
     name: string;
     phone_number: string;
     email: string;
+    password: string;
     region_id:string;
 }
 

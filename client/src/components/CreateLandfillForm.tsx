@@ -86,7 +86,7 @@ const CreateLandfillForm = ({setActive }: prop) => {
         if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
             M.toast({html: 'All fields need to be filled out'})
         }else{
-            const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id }
+            const new_landfill: NewLandfill = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id, 'type': 'Landfill' }
             console.log(new_landfill)
             await createLandfill(new_landfill)
             M.toast({html: 'Created New Landfill'})

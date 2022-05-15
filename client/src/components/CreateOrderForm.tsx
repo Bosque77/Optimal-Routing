@@ -149,7 +149,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
         if (name === '' || phone_number==='' || email==='' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
             M.toast({ html: 'All fields need to be filled out' })
         } else {
-            const new_order: NewOrder = { name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id }
+            const new_order: NewOrder = { name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id, 'type':'Order' }
             console.log(new_order)
             await createOrder(new_order)
             M.toast({ html: 'Created New Order' })

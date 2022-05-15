@@ -154,6 +154,8 @@ const GoogleMap = ({ landfills, depots, orders }: MyProps) => {
     )
     // [END maps_react_map_component_app_return]
 }
+
+
 interface MapProps extends google.maps.MapOptions {
     style: { [key: string]: string };
     onClick?: (e: google.maps.MapMouseEvent) => void;

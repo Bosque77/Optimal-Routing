@@ -5,7 +5,11 @@ import mongoose from 'mongoose'
 const driverSchema = new mongoose.Schema({
     name: String,
     phone_number: String,
-    email:String,
+    email: {
+        type: String,
+        unique: true
+    },
+    password_hash: String,
     active: Boolean,
     user_id: String,
     region_id: String,

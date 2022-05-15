@@ -5,6 +5,9 @@
 import express from 'express'
 import driverService from '../services/driverService'
 import Driver from '../models/driver'
+import config from '../utils/config'
+import bcrypt from 'bcrypt'
+
 
 const driverRouter = express.Router()
 
@@ -46,10 +49,21 @@ driverRouter.delete('/:id', async(req:any, res) => {
 
 driverRouter.post('/', async (req:any, res)=> {
     try {
+        console.log('inside the driver post request')
         const user = req.user
         const user_id = user._id as string
         const new_driver = req.body
-        const driver_object = new Driver({...new_driver,'user_id': user_id})
+
+
+        const password = new_driver.password
+
+        const salt_rounds = parseInt(config.SALT_ROUNDS as string) 
+        const password_hash = await bcrypt.hash(password, salt_rounds)
+
+        delete new_driver.password
+        const driver_object = new Driver({...new_driver,password_hash,'user_id': user_id})
+
+
         const returned_data = (await driver_object.save())
         res.status(200).send(returned_data)
     }catch (error){
