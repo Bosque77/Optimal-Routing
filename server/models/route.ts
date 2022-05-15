@@ -9,6 +9,7 @@ const routeSchema = new mongoose.Schema({
     durations: [Number],
     total_distance: Number,
     total_duration: Number,
+    driver_id: String,
     user_id: String,
     region_id: String,
     date: String

@@ -7,6 +7,7 @@ import RouteService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'
 import { bindActionCreators } from 'redux'
+import AssignDriver from './AssignDriver'
 
 
 const Spacing = styled.div`
@@ -48,6 +49,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
     const [addRouteItemActive, setAddRouteItemActive] = useState(false)
     const [truckRoute, setTruckRoute] = useState<TruckRoute>()
+    const [assignDriversActive, setAssignDriversActive] = useState(false)
 
 
 
@@ -130,6 +132,12 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
         await updateTruckRoute(truck_route)
 
+    }
+
+
+    const assignDriver = async (truck_route:TruckRoute) => {
+        console.log('inside assign driver')
+        setAssignDriversActive(true)
     }
 
 
@@ -296,6 +304,9 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                                             <div className="col l4">
                                                 <a className="btn blue lighten-3" onClick={() => analyzeRouteItems(truck_route)}>Analyze Route</a>
                                             </div>
+                                            <div className="col l4">
+                                                <a className="btn orange lighten-2" onClick={() => assignDriver(truck_route)}>Assign Driver</a>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -307,6 +318,8 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                             <button className="btn black" onClick={() => deleteTruckRoute(truck_route)}><i className="material-icons">delete</i></button>
                         </div>
                     </div>
+
+
                 </div>
             )
         )
@@ -320,6 +333,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
             <button className='btn grey darken-3' onClick={() => addTruckRoute()} >Add Route</button>
             {insertRouteLists()}
             {addRouteItemActive && truckRoute && <AddRouteItem date={date} setActive={setAddRouteItemActive} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} truckRoute={truckRoute}/>}
+            {assignDriversActive && <AssignDriver setActive={setAssignDriversActive}/>}
         </div>
     )
 
