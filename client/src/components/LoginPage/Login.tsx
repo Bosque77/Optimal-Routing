@@ -13,19 +13,17 @@ const Login = () => {
     return (
         <div className="body">
             <div className="row">
-                <div className="col l6">
+                <div className="col l4">
                     <img src={background_image} id='background-image'/>
 
                 </div>
-                <div className="col l1"></div>
-                <div className="col l5 sign-in">
+                <div className="col l6 sign-in">
                     <Routes>
                         <Route path="/" element={<SignInForm />} />
                         <Route path="/SignUp" element={<SignUpForm />} />
                         <Route path="SignIn" element={<SignInForm />} />
                     </Routes>
                 </div>
-                <div className="col l1"></div>
 
             </div>
 
