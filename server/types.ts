@@ -22,6 +22,7 @@ export interface NewDriver {
     name: string;
     phone_number: string;
     email: string;
+    password: string;
     active: boolean;
     user_id: string;
     region_id: string;

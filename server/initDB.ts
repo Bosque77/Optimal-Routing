@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import bcrypt from 'bcrypt'
+const salt_rounds = 10
+
+
 import mongoose from 'mongoose'
 import config from './utils/config'
 import logger from './utils/logger'
@@ -8,7 +12,7 @@ import Landfill from './models/landfill'
 import Driver from './models/driver'
 import Depot from './models/depot'
 import Vehicle from './models/vehicle'
-import { NewLandfill, NewDriver } from './types'
+import { NewLandfill} from './types'
 import Order from './models/order'
 
 
@@ -104,11 +108,12 @@ const landfills: NewLandfill[] = [
 
 ]
 
-const drivers: NewDriver[] = [
+const drivers = [
     {
         'name': 'Forest Schwartz',
         'phone_number': '404-617-9402',
         'email': 'forestschwrtz@gmail.com',
+        'password': 'test123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
@@ -118,6 +123,7 @@ const drivers: NewDriver[] = [
         'name': 'Ralph McGrew',
         'phone_number': '404-861-4598',
         'email': 'rgMcgrew@gmail.com',
+        'password': 'test123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
@@ -126,6 +132,7 @@ const drivers: NewDriver[] = [
         'name': 'Sarah Mclellon',
         'phone_number': '404-684-7598',
         'email': 'sarah.mclellon@gmail.com',
+        'password': 'test123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
@@ -329,7 +336,12 @@ const initLandfills = async () => {
 
 const initDrivers = async () => {
     await Driver.deleteMany({})
-    const driver_objects = drivers.map(driver => new Driver({ ...driver }))
+    const drivers_w_passwordHash = await Promise.all(drivers.map( async (driver) => {
+        const password_hash = await bcrypt.hash(driver.password, salt_rounds) 
+        const updated_driver = {name:driver.name, phone_number: driver.phone_number, email: driver.email, active: driver.active, user_id: driver.user_id, region_id: driver.region_id, password_hash}
+        return (updated_driver)
+    }))
+    const driver_objects = drivers_w_passwordHash.map(driver => new Driver({ ...driver }))
     const promise_array = driver_objects.map(driver => driver.save())
     await Promise.all(promise_array)
 }
