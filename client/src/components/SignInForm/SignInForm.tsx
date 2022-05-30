@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React, { useState } from 'react'
 import './SignInForm.css'
-import logo from './images/logo.svg'
+import front_page_logo from '../../static/images/front_page_logo.png'
 import {
     Link, useNavigate
 } from 'react-router-dom'
@@ -48,11 +48,13 @@ const SignInForm = () => {
             <body >
                 <div className="section"></div>
                 <main>
-                    <h1 className="header">Route Optimization Services</h1>
+                    <h1 className="header black-text">Route Optimization Services</h1>
                     {/* <img className="responsive-img" style={{width: 250}} src="https://i.imgur.com/ax0NCsK.gif" /> */}
-                    <div className="section"></div>
+                    <div >
+                        <img src={front_page_logo} className="image-logo" />
+                    </div>
 
-                    <h5 className="grey-text lighten-4">Please, login into your account</h5>
+                    <h5 className="grey-text lighten-4 under-logo-text">Please, login into your account</h5>
                     <div className="section"></div>
 
                     <div className="container">

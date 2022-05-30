@@ -9,24 +9,10 @@ import RegionSelector from '../RegionSelector'
 import { Route, Routes } from 'react-router-dom'
 import DepotPage from '../DepotPage/DepotPage'
 import RoutePage from '../RoutePage/RoutePage'
-// import { actionCreators, State } from '../../state'
-// import { bindActionCreators } from 'redux'
-// import { useDispatch, useSelector } from 'react-redux'
+
 
 const HomePage = () => {
 
-    // const dispatch = useDispatch()
-    // const { initializeRegions, setRegion } = bindActionCreators(actionCreators, dispatch)
-    // const regions = useSelector((state: State) => state.regions)
-    // const set_region = useSelector((state: State) => state.setRegion)
-
-    // useEffect(() => {
-    //     initializeRegions()
-    //     if(!set_region){
-    //         setRegion(regions[0])
-    //     }
-       
-    // },[regions])
 
     return (<div>
         <SideNav />

@@ -138,6 +138,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
     const assignDriver = async (truck_route:TruckRoute) => {
         console.log('inside assign driver')
         setAssignDriversActive(true)
+        setTruckRoute(truck_route)
     }
 
 
@@ -302,10 +303,10 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                                         <div className="row">
 
                                             <div className="col l4">
-                                                <a className="btn blue lighten-3" onClick={() => analyzeRouteItems(truck_route)}>Analyze Route</a>
+                                                <a className="btn light-blue darken-2" onClick={() => analyzeRouteItems(truck_route)}>Analyze Route</a>
                                             </div>
                                             <div className="col l4">
-                                                <a className="btn orange lighten-2" onClick={() => assignDriver(truck_route)}>Assign Driver</a>
+                                                <a className="btn light-green" onClick={() => assignDriver(truck_route)}>Assign Driver</a>
                                             </div>
                                         </div>
 
@@ -333,7 +334,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
             <button className='btn grey darken-3' onClick={() => addTruckRoute()} >Add Route</button>
             {insertRouteLists()}
             {addRouteItemActive && truckRoute && <AddRouteItem date={date} setActive={setAddRouteItemActive} assignedOrders={assignedOrders} setAssignedOrders={setAssignedOrders} truckRoute={truckRoute}/>}
-            {assignDriversActive && <AssignDriver setActive={setAssignDriversActive}/>}
+            {assignDriversActive && truckRoute && <AssignDriver setActive={setAssignDriversActive} truckRoute={truckRoute}/>}
         </div>
     )
 

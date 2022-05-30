@@ -5,7 +5,8 @@ import { Box, Button, Container, Image, Text, Divider, View, Icon } from 'native
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import {AiOutlineGoogle} from 'react-icons/ai'
+import { AiOutlineGoogle } from 'react-icons/ai'
+import { StyleSheet } from 'react-native';
 
 
 
@@ -14,9 +15,13 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required'),
 });
 
-// const styles = StyleSheet.create({
+const styles = StyleSheet.create({
+  image_style: {
+    height: 100,
+    marginBottom: 10
+  }
 
-// });
+});
 
 
 
@@ -62,10 +67,10 @@ const SignIn = () => {
             return (
               <>
                 <Box alignItems="center" shadow={2} p="12">
-                  <Image source={require('../../assets/icon.png')} alt="Alternate Text" size="xl" />
+                  <Image source={require('../../assets/logo.png')} alt="Alternate Text" size="xl" style={styles.image_style} />
 
-                  <FormikTextInput name="username" placeholder="Username" />
-                  <FormikTextInput name="password" placeholder="Password" />
+                  <FormikTextInput name="username" placeholder="Username" show={true}/>
+                  <FormikTextInput name="password" placeholder="Password" show={false}/>
                   <Text mt="1" fontSize="xs" opacity="50%">Forgot Password?</Text>
                   <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} w="100%" colorScheme="secondary">Login</Button>
                   <Text flexDir="row" fontSize="xs" opacity="50%" mt="3">or sign in with</Text>

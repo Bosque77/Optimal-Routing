@@ -1,12 +1,13 @@
 
 .sign-in{
-  margin-top: 10vh;
+  /* margin-top: 1vh; */
   /* margin-right: 5%; */
 }
 
 
 
 #background-image {
+  margin-top: 9vh;
   height: 65vh;
   width: auto;
 }

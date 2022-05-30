@@ -25,6 +25,8 @@ export interface TruckRoute {
     total_duration: number
     date: string
     region_id: string
+    driver?: Driver 
+    driver_id?: string
 }
 
 export interface NewTruckRoute {

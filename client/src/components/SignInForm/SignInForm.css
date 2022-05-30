@@ -2,7 +2,16 @@
 
 .header {
     font-size: 42px;
-    font-style: italic;
+    font-weight:400
+    /* font-style: bold; */
 
 }
 
+.image-logo {
+    height: 175px;
+    width: auto
+}
+
+.under-logo-text {
+    font-size: 18px
+}
