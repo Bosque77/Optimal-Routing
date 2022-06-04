@@ -35,11 +35,12 @@ const SignIn = () => {
 
 
   const dispatch = useDispatch()
-  const {loginUser} = bindActionCreators(actionCreators, dispatch) as any
+  // const {loginUser} = bindActionCreators(actionCreators, dispatch)
 
 
   const onSubmit = async (login_info: LoginInfo) => {
     try {
+      console.log('inside login')
       // await loginUser(login_info)
       // loginAlert()
 

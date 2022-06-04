@@ -1,14 +1,14 @@
 
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
-import { UserToken } from '../../types'
+import { DriverToken } from '../../types'
 
 
 
 
 const initialState = null
 
-export const userTokenReducer = (state: UserToken | null = initialState, action: Action): UserToken | null => {
+export const userTokenReducer = (state: DriverToken | null = initialState, action: Action): DriverToken | null => {
     switch (action.type) {
     case ActionType.SET_USER_TOKEN:
         return action.data
