@@ -1,18 +1,15 @@
 // Formik x React Native example
-import React, { useEffect } from 'react';
+import React, { Dispatch, useEffect } from 'react';
 import { Formik } from 'formik';
 import { Box, Button, Container, Image, Text, Divider, View, Icon, VStack, HStack, IconButton, CloseIcon } from 'native-base'
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { StyleSheet } from 'react-native';
-import loginService from '../services/login';
-import { LoginInfo, DriverToken } from '../types';
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { actionCreators } from '../state'
-import { Alert } from "native-base";
+import { LoginInfo} from '../types';
+import { loginUser } from '../state/action-creators'
+import { useAppDispatch } from '../state/hooks/hooks'
+
 
 
 const validationSchema = yup.object().shape({
@@ -34,40 +31,15 @@ const styles = StyleSheet.create({
 const SignIn = () => {
 
 
-  const dispatch = useDispatch()
-  // const {loginUser} = bindActionCreators(actionCreators, dispatch)
-
-
+  const dispatch:Dispatch<any> = useAppDispatch()
   const onSubmit = async (login_info: LoginInfo) => {
     try {
-      console.log('inside login')
-      // await loginUser(login_info)
-      // loginAlert()
+      dispatch(loginUser(login_info))
 
     } catch (error) {
       console.log(error)
     }
   }
-
-  // const loginAlert = () => {
-  //   return <Alert w="100%" status={"success"}>
-  //     <VStack space={2} flexShrink={1} w="100%">
-  //       <HStack flexShrink={1} space={2} justifyContent="space-between">
-  //         <HStack space={2} flexShrink={1}>
-  //           <Alert.Icon mt="1" />
-  //           <Text fontSize="md" color="coolGray.800">
-  //             {"test alert"}
-  //           </Text>
-  //         </HStack>
-  //         <IconButton variant="unstyled" _focus={{
-  //           borderWidth: 0
-  //         }} icon={<CloseIcon size="3" color="coolGray.600" />} />
-  //       </HStack>
-  //     </VStack>
-  //   </Alert>;
-  // }
-
-
 
 
   return (

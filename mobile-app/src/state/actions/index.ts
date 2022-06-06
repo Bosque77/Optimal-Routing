@@ -1,10 +1,10 @@
-import { DriverToken } from "../../types";
+import { UserToken } from "../../types";
 import { ActionType } from "../action-types";
 
-interface SET_DRIVER_TOKEN {
+interface SET_USER_TOKEN {
     type: ActionType.SET_USER_TOKEN;
-    data: (DriverToken | null)
+    data: (UserToken | null)
 }
 
 
-export type Action = SET_DRIVER_TOKEN
+export type Action = SET_USER_TOKEN

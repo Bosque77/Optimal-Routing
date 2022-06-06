@@ -3,7 +3,7 @@ export interface LoginInfo {
     password: string;
 }
 
-export interface DriverToken {
+export interface UserToken {
     token: string;
     email: string;
 }
