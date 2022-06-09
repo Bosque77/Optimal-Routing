@@ -2,7 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import mongoose from 'mongoose'
 
-const driverSchema = new mongoose.Schema({
+
+interface IDriver {
+    name: string, 
+    phone_number: string,
+    email: string,
+    password_hash: string,
+    active: boolean,
+    user_id: string,
+    region_id: string
+}
+
+const driverSchema = new mongoose.Schema<IDriver>({
     name: String,
     phone_number: String,
     email: {
@@ -24,6 +35,6 @@ driverSchema.set('toJSON', {
     }
 })
 
-const Driver = mongoose.model('Driver', driverSchema)
+const Driver = mongoose.model<IDriver>('Driver', driverSchema)
 
 export default Driver

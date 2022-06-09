@@ -6,6 +6,11 @@ import { store } from './src/state/store'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './src/components/Home';
+
+
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +22,8 @@ export default function App() {
           {/* <SignIn /> */}
           <Stack.Navigator>
             <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="Home" component={Home}   options={{ title: 'Route Optimization Services' }} />
+
           </Stack.Navigator>
         </NativeBaseProvider>
       </Provider>

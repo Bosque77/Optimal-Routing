@@ -9,6 +9,15 @@ import { StyleSheet } from 'react-native';
 import { LoginInfo } from '../types';
 import { loginUser } from '../state/action-creators'
 import { useAppDispatch } from '../state/hooks/hooks'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  Home: undefined;
+  Profile: { userId: string };
+  Feed: { sort: 'latest' | 'top' } | undefined;
+};
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
 
 
@@ -33,13 +42,19 @@ const styles = StyleSheet.create({
 
 
 
-const SignIn = () => {
+
+
+
+
+const SignIn = ({ route, navigation }: Props) => {
 
 
   const dispatch: Dispatch<any> = useAppDispatch()
+
   const onSubmit = async (login_info: LoginInfo) => {
     try {
       dispatch(loginUser(login_info))
+      // navigation.navigate('Home')
 
     } catch (error) {
       console.log(error)

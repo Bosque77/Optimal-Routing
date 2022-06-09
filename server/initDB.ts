@@ -113,7 +113,7 @@ const drivers = [
         'name': 'Forest Schwartz',
         'phone_number': '404-617-9402',
         'email': 'forestschwrtz@gmail.com',
-        'password': 'test123',
+        'password': 'password123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
@@ -123,7 +123,7 @@ const drivers = [
         'name': 'Ralph McGrew',
         'phone_number': '404-861-4598',
         'email': 'rgMcgrew@gmail.com',
-        'password': 'test123',
+        'password': 'password123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
@@ -132,7 +132,7 @@ const drivers = [
         'name': 'Sarah Mclellon',
         'phone_number': '404-684-7598',
         'email': 'sarah.mclellon@gmail.com',
-        'password': 'test123',
+        'password': 'password123',
         'active': true,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30'
