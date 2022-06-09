@@ -1,6 +1,6 @@
 
 ### Correct Sign On
-POST http://localhost:3003/api/login/
+POST http://localhost:3003/login/
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Incorrect Password
-POST http://localhost:3003/api/login/
+POST http://localhost:3003/login/
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Incorrect Username
-POST http://localhost:3003/api/login/
+POST http://localhost:3003/login/
 Content-Type: application/json
 
 {
@@ -27,10 +27,19 @@ Content-Type: application/json
 }
 
 ### Driver Login
-POST http://localhost:3001/ap3/driver-login/
+POST http://localhost:3003/login-driver/
 Content-Type: application/json
 
 {
     "email": "forestschwrtz@gmail.com",
     "password": "password123"
+}
+
+### Incorrect Driver Login
+POST http://localhost:3003/login-driver/
+Content-Type: application/json
+
+{
+    "email": "forestschwrtz@gmail.com",
+    "password": "password12"
 }

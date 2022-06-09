@@ -18,7 +18,7 @@ driverLoginRouter.post('/', async (req, res) => {
     const driver = await Driver.findOne({ email: body.email })
     const passwordCorrect = driver === null
         ? false
-        : await bcrypt.compare(body.password, body.passwordHash)
+        : await bcrypt.compare(body.password, driver.password_hash)
 
     if (!(driver && passwordCorrect)) {
         res.status(401).json({

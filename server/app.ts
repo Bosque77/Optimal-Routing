@@ -16,6 +16,7 @@ import vehicleRouter from './controllers/vehicles'
 import routeRouter from './controllers/routes'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
+import driverLoginRouter from './controllers/driver-login'
 
 logger.info('connecting to', config.MONGODB_URI)
 console.log('about to configure the mongo db uri')
@@ -55,6 +56,7 @@ app.use('/depots', middleware.userExtractor,depotRouter)
 app.use('/vehicles', middleware.userExtractor,vehicleRouter)
 app.use('/users', usersRouter)
 app.use('/login', loginRouter)
+app.use('/login-driver', driverLoginRouter)
 
 // if (process.env.NODE_ENV === 'test') {
 //   const testingRouter = require('./controllers/testing')
