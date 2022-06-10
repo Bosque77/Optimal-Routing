@@ -15,11 +15,17 @@ driverLoginRouter.post('/', async (req, res) => {
     console.log('inside user post')
     const body = req.body
 
+    console.log('looking for driver')
     const driver = await Driver.findOne({ email: body.email })
+    console.log(driver)
     const passwordCorrect = driver === null
         ? false
         : await bcrypt.compare(body.password, driver.password_hash)
 
+    console.log(passwordCorrect)
+
+
+        
     if (!(driver && passwordCorrect)) {
         res.status(401).json({
             error: 'invalid username or password'

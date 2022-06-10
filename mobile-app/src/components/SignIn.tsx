@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { StyleSheet } from 'react-native';
-import { LoginInfo } from '../types';
+import { ErrorResponse, LoginInfo } from '../types';
 import { loginUser } from '../state/action-creators'
 import { useAppDispatch } from '../state/hooks/hooks'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -53,11 +53,13 @@ const SignIn = ({ route, navigation }: Props) => {
 
   const onSubmit = async (login_info: LoginInfo) => {
     try {
-      dispatch(loginUser(login_info))
-      // navigation.navigate('Home')
+      console.log('sending dispatch login_info')
+      const info = await dispatch(loginUser(login_info))
+      navigation.navigate('Home')
 
     } catch (error) {
-      console.log(error)
+      const error_obj = error as ErrorResponse
+      console.log(error_obj.error_message)
     }
   }
 
