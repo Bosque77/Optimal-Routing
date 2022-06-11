@@ -6,7 +6,7 @@ import {LoginResponse} from '../types'
 
 
 
-
+console.log('test')
 
 
 const login = async (login_info:LoginInfo): Promise<LoginResponse> => {
