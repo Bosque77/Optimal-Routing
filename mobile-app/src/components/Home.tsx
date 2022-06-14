@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
         height: 150,
         marginBottom: 10
     },
+    date_picker: {
+        height: 750,
+        width: 300
+    }
 })
 
 
@@ -47,7 +51,12 @@ const Home = () => {
 
     const showMode = (currentMode: React.SetStateAction<string>) => {
         console.log(show)
-        setShow(true);
+        if (show) {
+            setShow(false)
+        } else {
+            setShow(true);
+        }
+
         setMode(currentMode);
     };
 
@@ -56,9 +65,6 @@ const Home = () => {
         showMode('date');
     };
 
-    const showTimepicker = () => {
-        showMode('time');
-    };
 
 
     return (
@@ -67,13 +73,19 @@ const Home = () => {
             <View>
                 <Button onPress={() => showDatepicker()} title="Show date picker!" >Show Date Picker</Button>
             </View>
-            {show && <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                is24Hour={true}
-                mode='date'
-                onChange={onChange}
-            />}
+            <View style={styles.date_picker}>
+                {/* {show && <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    display={"calendar"}
+                    mode='date'
+                    onChange={onChange}
+                />} */}
+                {show && <DateTimePicker
+                    value={date}
+                />}
+            </View>
+
             {/* <Text> Test</Text> */}
 
         </View>
