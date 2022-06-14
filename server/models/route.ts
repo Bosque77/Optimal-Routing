@@ -1,8 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 
-const routeSchema = new mongoose.Schema({
+
+interface IRoute {
+    route_types: [string],
+    route_items: [string],
+    distances: [number],
+    durations: [number],
+    total_distance: number,
+    total_duration: number,
+    driver_id: string,
+    user_id: string,
+    region_id: string,
+    date: string
+}
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string
+}
+
+
+const routeSchema = new mongoose.Schema<IRoute>({
     route_types: [String],
     route_items: [String],
     distances: [Number],
@@ -16,14 +35,14 @@ const routeSchema = new mongoose.Schema({
 })
 
 routeSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 
     }
 })
 
-const Route = mongoose.model('Route', routeSchema)
+const Route = mongoose.model<IRoute>('Route', routeSchema)
 
 export default Route

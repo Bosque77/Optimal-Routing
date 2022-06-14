@@ -1,8 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
 
-const depotSchema = new mongoose.Schema({
+import mongoose, { ObjectId } from 'mongoose'
+
+
+
+interface IDepot {
+    name: string,
+    street: string,
+    city: string,
+    state: string,
+    zipcode: number,
+    latitude: number,
+    longitude: number,
+    active: boolean,
+    user_id: string,
+    region_id: string,
+    type: string
+}
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string
+}
+
+
+const depotSchema = new mongoose.Schema<IDepot>({
     name: String,
     street: String,
     city: String,
@@ -16,15 +38,16 @@ const depotSchema = new mongoose.Schema({
     type:String
 })
 
+
 depotSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 
     }
 })
 
-const Depot = mongoose.model('Depot', depotSchema)
+const Depot = mongoose.model<IDepot>('Depot', depotSchema)
 
 export default Depot

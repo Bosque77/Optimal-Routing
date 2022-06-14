@@ -1,8 +1,47 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 
-const orderSchema = new mongoose.Schema({
+
+interface IOrder {
+    name: string,
+    email: string,
+    phone_number: string,
+    street: string,
+    city: string,
+    state: string,
+    zipcode: number,
+    latitude: number,
+    longitude: number,
+    dumpster_size: number,
+    delivery_date: string,
+    pickup_date: string,
+    delivery_time: {
+        hour: number,
+        minute: number,
+        am_pm: string,
+    },
+    pickup_time: {
+        hour: number,
+        minute: number,
+        am_pm: string,
+    },
+    special_instructions: string,
+    delivery_completed: boolean,
+    pickup_completed: boolean,
+    active: boolean,
+    user_id: string,
+    region_id: string,
+    type: string
+}
+
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string
+}
+
+
+const orderSchema = new mongoose.Schema<IOrder>({
     name: String,
     email: String,
     phone_number: String,
@@ -35,14 +74,14 @@ const orderSchema = new mongoose.Schema({
 })
 
 orderSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 
     }
 })
 
-const Order = mongoose.model('Order', orderSchema)
+const Order = mongoose.model<IOrder>('Order', orderSchema)
 
 export default Order

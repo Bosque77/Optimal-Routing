@@ -1,8 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 
-const landfillSchema = new mongoose.Schema({
+
+interface ILandfill {
+    name: string,
+    street: string,
+    city: string,
+    state: string,
+    zipcode: number,
+    latitude: number,
+    longitude: number,
+    active: boolean,
+    user_id: string,
+    region_id: string, 
+    type: string
+}
+
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string
+}
+
+
+const landfillSchema = new mongoose.Schema<ILandfill>({
     name: String,
     street: String,
     city: String,
@@ -17,14 +38,14 @@ const landfillSchema = new mongoose.Schema({
 })
 
 landfillSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 
     }
 })
 
-const Landfill = mongoose.model('Landfill', landfillSchema)
+const Landfill = mongoose.model<ILandfill>('Landfill', landfillSchema)
 
 export default Landfill

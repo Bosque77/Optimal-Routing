@@ -1,8 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 
-const vehicleSchema = new mongoose.Schema({
+interface IVehicle {
+    license_number: string,
+    size: number,
+    start_depot: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Depot'
+    },
+    end_depot?: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Depot'
+    },
+    active: boolean,
+    user_id: string,
+    region_id: string
+}
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string,
+    passwordHash?: string
+}
+
+const vehicleSchema = new mongoose.Schema<IVehicle>({
     license_number: String,
     size: Number,
     start_depot: {
@@ -19,14 +40,14 @@ const vehicleSchema = new mongoose.Schema({
 })
 
 vehicleSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 
     }
 })
 
-const Vehicle = mongoose.model('Vehicle', vehicleSchema)
+const Vehicle = mongoose.model<IVehicle>('Vehicle', vehicleSchema)
 
 export default Vehicle

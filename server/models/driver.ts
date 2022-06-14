@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 
 
 interface IDriver {
@@ -12,6 +10,14 @@ interface IDriver {
     user_id: string,
     region_id: string
 }
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string
+}
+
+
 
 const driverSchema = new mongoose.Schema<IDriver>({
     name: String,
@@ -27,8 +33,8 @@ const driverSchema = new mongoose.Schema<IDriver>({
 })
 
 driverSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
 

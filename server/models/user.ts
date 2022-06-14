@@ -1,9 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import mongoose from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
+import mongoose, { ObjectId } from 'mongoose'
+// import uniqueValidator from 'mongoose-unique-validator'
 
-const userSchema = new mongoose.Schema({
+
+interface IUser{
+    username: {
+        type: string,
+        unique: true
+    },
+    passwordHash: string
+}
+
+interface ReturnedObject {
+    id?: string,
+    _id?: ObjectId,
+    __v?: string,
+    passwordHash?: string
+}
+
+const userSchema = new mongoose.Schema<IUser>({
     username: {
         type: String,
         unique: true,
@@ -11,18 +25,19 @@ const userSchema = new mongoose.Schema({
     passwordHash: String,
 })
 
-userSchema.plugin(uniqueValidator)
+// FOREST UNCOMMENT THIS CODE IF THE UNIQUE VALIDATOR NO LONGER WORKS
+// userSchema.plugin(uniqueValidator)
 
 userSchema.set('toJSON', {
-    transform: (_document: any, returnedObject: any) => {
-        returnedObject.id = returnedObject._id.toString()
+    transform: (_document, returnedObject: ReturnedObject) => {
+        returnedObject.id = returnedObject._id?.toString()
         delete returnedObject._id
         delete returnedObject.__v
         delete returnedObject.passwordHash
     }
 })
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model<IUser>('User', userSchema)
 
 export default User
 
