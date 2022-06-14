@@ -10,7 +10,7 @@ const Main = () => {
         <>
             <NativeBaseProvider >
                 <View style={styles.container}>
-                    <SignIn />
+                    {/* <SignIn /> */}
                     <StatusBar style="auto" />
                 </View>
             </NativeBaseProvider>

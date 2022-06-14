@@ -21,7 +21,7 @@ export default function App() {
         <NativeBaseProvider >
           {/* <SignIn /> */}
           <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home}   options={{ title: 'Route Optimization Services' }} />
+            <Stack.Screen name="Home" component={Home} options={{ title: 'Route Optimization Services' }} />
 
             {/* <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="Home" component={Home}   options={{ title: 'Route Optimization Services' }} /> */}
