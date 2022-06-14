@@ -3,6 +3,7 @@ import { Text } from 'native-base'
 import { StyleSheet } from "react-native"
 import { Image, View, Button } from 'native-base'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 
 const styles = StyleSheet.create({
@@ -17,8 +18,13 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     date_picker: {
-        height: 750,
-        width: 300
+        // alignSelf: 'flex-start',
+        // flex:1,
+        // flexDirection: 'row',
+        // flexWrap: 'wrap',
+        // justifyContent: 'center',
+        // flex: 1,
+        width: 300,
     }
 })
 
@@ -39,56 +45,33 @@ Home component is the front screen for the driver.
 
 const Home = () => {
 
-    const [date, setDate] = useState(new Date(1598051730000))
-    const [mode, setMode] = useState('date')
-    const [show, setShow] = useState(false)
+    const [date, setDate] = useState(new Date())
+
 
     const onChange = (_event: any, selectedDate: any) => {
         const currentDate = selectedDate;
-        setShow(false);
         setDate(currentDate);
-    };
-
-    const showMode = (currentMode: React.SetStateAction<string>) => {
-        console.log(show)
-        if (show) {
-            setShow(false)
-        } else {
-            setShow(true);
-        }
-
-        setMode(currentMode);
-    };
-
-    const showDatepicker = () => {
-        console.log('trying to show the date')
-        showMode('date');
     };
 
 
 
     return (
-        <View style={styles.container}>
-            <Image source={require('../../assets/main_page_logo.png')} alt="Alternate Text" size="xl" style={styles.image_style} />
-            <View>
-                <Button onPress={() => showDatepicker()} title="Show date picker!" >Show Date Picker</Button>
-            </View>
-            <View style={styles.date_picker}>
-                {/* {show && <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    display={"calendar"}
-                    mode='date'
-                    onChange={onChange}
-                />} */}
-                {show && <DateTimePicker
-                    value={date}
-                />}
+        <>
+            <View style={styles.container}>
+
+                <Image source={require('../../assets/main_page_logo.png')} alt="Alternate Text" size="xl" style={styles.image_style} />
+
+
+                <View style={styles.date_picker}>
+                    <DateTimePicker value={date} onChange={onChange} />
+
+                </View>
+
+
             </View>
 
-            {/* <Text> Test</Text> */}
+        </>
 
-        </View>
 
     )
 }
