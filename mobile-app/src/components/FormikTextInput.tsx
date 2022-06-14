@@ -18,7 +18,7 @@ const FormikTextInput = ({ name, show, placeholder }: prop) => {
   return (
     <>
       <FormControl isInvalid={showError} w="100%">
-        <Input colorScheme="secondary" mt="1" type={show ? "text" : "password"} 
+        <Input colorScheme="secondary" mt="3" type={show ? "text" : "password"} 
           onChangeText={value => helpers.setValue(value)}
           onBlur={() => helpers.setTouched(true)}
           value={field.value}

@@ -3,7 +3,6 @@ import { Text } from 'native-base'
 import { StyleSheet } from "react-native"
 import { Image, View, Button } from 'native-base'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 
 const styles = StyleSheet.create({
@@ -64,7 +63,6 @@ const Home = () => {
 
                 <View style={styles.date_picker}>
                     <DateTimePicker value={date} onChange={onChange} />
-
                 </View>
 
 

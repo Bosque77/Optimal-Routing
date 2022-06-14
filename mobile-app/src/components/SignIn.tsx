@@ -35,8 +35,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
+  formik_inputs: {
+    marginTop: 15,
+    width: 200
+  }
 
 });
 
@@ -83,16 +86,18 @@ const SignIn = ({ route, navigation }: Props) => {
                 <>
                   <Box alignItems="center" shadow={2} p="12">
                     <Image source={require('../../assets/logo.png')} alt="Alternate Text" size="xl" style={styles.image_style} />
+                    <View style={styles.formik_inputs}>
+                      <FormikTextInput name="email" placeholder="Email" show={true} />
+                      <FormikTextInput name="password" placeholder="Password" show={false} />
+                    </View>
 
-                    <FormikTextInput name="email" placeholder="Email" show={true} />
-                    <FormikTextInput name="password" placeholder="Password" show={false} />
                     <Text mt="1" fontSize="xs" opacity="50%">Forgot Password?</Text>
-                    <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} w="100%" colorScheme="secondary">Login</Button>
-                    <Text flexDir="row" fontSize="xs" opacity="50%" mt="3">or sign in with</Text>
+                    <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} px="10"  size={'lg'} colorScheme="secondary">Login</Button>
+                    {/* <Text flexDir="row" fontSize="xs" opacity="50%" mt="3">or sign in with</Text>
                     <Divider my={2} />
                     <Button startIcon={<Icon as={AiOutlineGoogle} name="google-icon" color="coolGray.800" _dark={{
                       color: "warmGray.50"
-                    }} />} w="100%" variant="outline">Sign in with Google</Button>
+                    }} />} w="100%" variant="outline">Sign in with Google</Button> */}
                   </Box>
                 </>
               )
