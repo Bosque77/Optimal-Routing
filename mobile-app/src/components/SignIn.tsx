@@ -58,6 +58,8 @@ const SignIn = ({ route, navigation }: Props) => {
     try {
       console.log('sending dispatch login_info')
       const info = await dispatch(loginUser(login_info))
+      console.log('successful login')
+      console.log('about to switch screens')
       navigation.navigate('Home')
 
     } catch (error) {

@@ -15,11 +15,13 @@ export const loginUser =
 
         try{
             const login_response: LoginResponse = await loginService.login(login_info)
+            console.log('logging the login response')
+            console.log(login_response)
             if(login_response.status == 'SUCCESS'){
 
                 const user_token = login_response.payload as UserToken
                 setToken(user_token.token)
-                window.localStorage.setItem('user_token', JSON.stringify(user_token))
+                // window.localStorage.setItem('user_token', JSON.stringify(user_token))
             
                 dispatch({
                     type: ActionType.SET_USER_TOKEN,
