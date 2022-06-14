@@ -1,7 +1,7 @@
 // Formik x React Native example
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { Formik } from 'formik';
-import { Box, Button, Container, Image, Text, Divider, View, Icon, VStack, HStack, IconButton, CloseIcon } from 'native-base'
+import { Box, Button, Container, Image, Text, Divider, View, Icon, VStack, HStack, IconButton, CloseIcon, AlertDialog, Center } from 'native-base'
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
 import { AiOutlineGoogle } from 'react-icons/ai'
@@ -52,7 +52,14 @@ const styles = StyleSheet.create({
 const SignIn = ({ route, navigation }: Props) => {
 
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [error_msg, setErrorMsg] = useState('')
+
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef(null);
   const dispatch: Dispatch<any> = useAppDispatch()
+
+
 
   const onSubmit = async (login_info: LoginInfo) => {
     try {
@@ -65,6 +72,8 @@ const SignIn = ({ route, navigation }: Props) => {
     } catch (error) {
       const error_obj = error as ErrorResponse
       console.log(error_obj.error_message)
+      setErrorMsg(error_obj.error_message!)
+      setIsOpen(true)
     }
   }
 
@@ -94,7 +103,7 @@ const SignIn = ({ route, navigation }: Props) => {
                     </View>
 
                     <Text mt="1" fontSize="xs" opacity="50%">Forgot Password?</Text>
-                    <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} px="10"  size={'lg'} colorScheme="secondary">Login</Button>
+                    <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} px="10" size={'lg'} colorScheme="secondary">Login</Button>
                     {/* <Text flexDir="row" fontSize="xs" opacity="50%" mt="3">or sign in with</Text>
                     <Divider my={2} />
                     <Button startIcon={<Icon as={AiOutlineGoogle} name="google-icon" color="coolGray.800" _dark={{
@@ -107,6 +116,25 @@ const SignIn = ({ route, navigation }: Props) => {
             }}
 
           </Formik>
+
+          <Center>
+            <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+              <AlertDialog.Content>
+                <AlertDialog.CloseButton />
+                {/* <AlertDialog.Header>Delete Customer</AlertDialog.Header> */}
+                <AlertDialog.Body>
+                  {error_msg}
+                </AlertDialog.Body>
+                <AlertDialog.Footer>
+                  <Button.Group space={2}>
+                    <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
+                      Ok
+                    </Button>
+                  </Button.Group>
+                </AlertDialog.Footer>
+              </AlertDialog.Content>
+            </AlertDialog>
+          </Center>;
         </Container>
       </View>
 

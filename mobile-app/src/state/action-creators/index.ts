@@ -21,7 +21,6 @@ export const loginUser =
 
                 const user_token = login_response.payload as UserToken
                 setToken(user_token.token)
-                // window.localStorage.setItem('user_token', JSON.stringify(user_token))
             
                 dispatch({
                     type: ActionType.SET_USER_TOKEN,
