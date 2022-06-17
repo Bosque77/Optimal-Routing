@@ -3,6 +3,7 @@ import { Text } from 'native-base'
 import { StyleSheet } from "react-native"
 import { Image, View, Button } from 'native-base'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import OrderList from "./OrderList";
 
 
 const styles = StyleSheet.create({
@@ -17,29 +18,12 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     date_picker: {
-        // alignSelf: 'flex-start',
-        // flex:1,
-        // flexDirection: 'row',
-        // flexWrap: 'wrap',
-        // justifyContent: 'center',
-        // flex: 1,
         width: 300,
     }
 })
 
 
 
-/*  
-Home component is the front screen for the driver.
-
--- Select Date
--- Orders
-
-
-
-
-
-*/
 
 
 const Home = () => {
@@ -64,6 +48,8 @@ const Home = () => {
                 <View style={styles.date_picker}>
                     <DateTimePicker value={date} onChange={onChange} />
                 </View>
+
+                <OrderList />
 
 
             </View>

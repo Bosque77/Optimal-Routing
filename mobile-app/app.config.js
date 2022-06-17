@@ -19,6 +19,7 @@ export default {
     assetBundlePatterns: [
       "**/*"
     ],
+    assets:['./assets/fonts/'],
     ios: {
       supportsTablet: true
     },
