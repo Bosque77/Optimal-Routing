@@ -1,6 +1,5 @@
 import React from "react"
-// import { Text } from "native-base"
-import { StyleSheet, View, Text, Image } from "react-native"
+import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native"
 import {
     Roboto_100Thin,
     Roboto_100Thin_Italic,
@@ -19,103 +18,12 @@ import {
 import { useFonts } from 'expo-font'
 import AppLoading from 'expo-app-loading'
 import AddressIcon from '../../assets/address_icon.svg'
+import { orders } from '../local_db'
+import { Order } from "../types"
 
 
-const orders = [
-    {
-        'name': 'Forest Schwartz',
-        'email': 'forestschwrtz@gmail.com',
-        'phone_number': '404-617-9402',
-        'street': '4703 Cambridge Dr.',
-        'city': 'Atlanta',
-        'state': 'Georgia',
-        'zipcode': 30338,
-        'latitude': 33.935,
-        'longitude': -84.318,
-        'dumpster_size': 15,
-        'delivery_date': 'Thu Dec 30 2021',
-        'pickup_date': 'Fri Dec 31 2021',
-        'delivery_time': {
-            'hour': 12,
-            'minute': 35,
-            'am_pm': 'AM'
-        },
-        'pickup_time': {
-            'hour': 5,
-            'minute': 45,
-            'am_pm': 'PM'
-        },
-        'special_instructions': 'Please come early',
-        'delivery_completed': false,
-        'pickup_completed': false,
-        'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30',
-        'type': 'Order'
-    },
-    {
-        'name': 'Josh Rodriguez',
-        'email': 'jr@gmail.com',
-        'phone_number': '404-585-8945',
-        'street': '225 Baker St NW',
-        'city': 'Atlanta',
-        'state': 'Georgia',
-        'zipcode': 30313,
-        'latitude': 33.764,
-        'longitude': -84.395,
-        'dumpster_size': 15,
-        'delivery_date': 'Wed Dec 29 2021',
-        'pickup_date': 'Thu Dec 30 2021',
-        'delivery_time': {
-            'hour': 12,
-            'minute': 35,
-            'am_pm': 'AM'
-        },
-        'pickup_time': {
-            'hour': 5,
-            'minute': 45,
-            'am_pm': 'PM'
-        },
-        'special_instructions': 'Please come early',
-        'delivery_completed': true,
-        'pickup_completed': false,
-        'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30',
-        'type': 'Order'
-    },
-    {
-        'name': 'Daniel Carusi',
-        'email': 'd.carusi@gmail.com',
-        'phone_number': '485-859-8569',
-        'street': '690 Olde Rope Mill Park Rd',
-        'city': 'Woodstock',
-        'state': 'Georgia',
-        'zipcode': 30188,
-        'latitude': 34.131,
-        'longitude': -84.523,
-        'dumpster_size': 30,
-        'delivery_date': 'Thu Dec 30 2021',
-        'pickup_date': 'Wed Jan 05 2022',
-        'delivery_time': {
-            'hour': 12,
-            'minute': 35,
-            'am_pm': 'AM'
-        },
-        'pickup_time': {
-            'hour': 5,
-            'minute': 45,
-            'am_pm': 'PM'
-        },
-        'special_instructions': 'Please come early',
-        'delivery_completed': false,
-        'pickup_completed': false,
-        'user_id': '61c7483607e4533869b9ec08',
-        'region_id': '61ca3cb19e9ade7351418e30',
-        'type': 'Order'
-    },
 
-]
-
-const OrderListComponent = () => {
+const OrderListComponent = (order: Order) => {
 
     let [fontsLoaded, error] = useFonts({
         Roboto_100Thin,
@@ -179,29 +87,33 @@ const OrderListComponent = () => {
             flexGrow: 1
         },
         address_icon: {
-            width:15,
+            width: 15,
             height: 14,
             marginRight: 5
 
 
-        }
+        },
+
 
     })
 
     return (
         <>
+
             <View style={styles.main_layout}>
                 <View>
-                    <Text style={styles.header_text}> The Kitchen - Quinao</Text>
+                    <Text style={styles.header_text}> {order.name}</Text>
                     <View style={styles.address_display}>
-                        <AddressIcon style={styles.address_icon}/>
-                        <Text style={styles.normal_text}>4703 Cambridge Dr.</Text>
+                        <AddressIcon style={styles.address_icon} />
+                        <Text style={styles.normal_text}>{order.street} , {order.city} , {order.state}</Text>
                     </View>
 
-                    <Text style={styles.normal_text}>Dumpster Size 20 Yards</Text>
-                    <Text style={styles.normal_text}>Type: Delivery</Text>
+                    <Text style={styles.normal_text}>Dumpster Size {order.dumpster_size} Yards</Text>
+                    <Text style={styles.normal_text}>Type: {order.type}</Text>
                 </View>
             </View>
+
+
         </>
     )
 
@@ -240,7 +152,8 @@ const OrderList = () => {
             alignContent: 'flex-start',
             backgroundColor: '#F9F9F9',
             padding: 15,
-            marginTop: 10
+            marginTop: 10,
+
         },
         title_view: {
             // width: '100%',
@@ -252,20 +165,57 @@ const OrderList = () => {
             fontSize: 28,
             fontFamily: 'Roboto_500Medium',
             flex: 1,
+        },
+        scroll_view: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignContent: 'flex-start',
+            backgroundColor: '#F9F9F9',
+            padding: 15,
+            marginTop: 10,
+
+        },
+        scroll_view_break: {
+            height: 15
         }
     }
     )
 
+    const insertOrders = () => {
+
+
+        return (
+            orders.map(order => {
+                return (
+                    <OrderListComponent {...order} key={order.id} />
+                )
+
+            })
+        )
+    }
+
 
     return (
         <>
-            <View style={styles.list_layout}>
+
+
+
+            <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.title_view}><Text style={styles.title_text}> Order List</Text></View>
+                <ScrollView style={styles.scroll_view} >
+                    {insertOrders()}
 
-                <OrderListComponent />
-                <OrderListComponent />
+                    <View style={styles.scroll_view_break}></View>
 
-            </View>
+                </ScrollView>
+            </SafeAreaView>
+
+
+
+
+
+
+
 
 
 
