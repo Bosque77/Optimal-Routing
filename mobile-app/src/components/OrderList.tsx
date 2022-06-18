@@ -1,5 +1,5 @@
-import React from "react"
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native"
+import React, { useState } from "react"
+import { StyleSheet, View, Text, ScrollView, SafeAreaView, Button } from "react-native"
 import {
     Roboto_100Thin,
     Roboto_100Thin_Italic,
@@ -20,6 +20,8 @@ import AppLoading from 'expo-app-loading'
 import AddressIcon from '../../assets/address_icon.svg'
 import { orders } from '../local_db'
 import { Order } from "../types"
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { flexbox } from "native-base/lib/typescript/theme/styled-system"
 
 
 
@@ -126,6 +128,8 @@ const OrderListComponent = (order: Order) => {
 
 const OrderList = () => {
 
+    const [date, setDate] = useState(new Date())
+    const [show_date_picker, setDatePickerActive] = useState(false)
     let [fontsLoaded, error] = useFonts({
         Roboto_100Thin,
         Roboto_100Thin_Italic,
@@ -177,9 +181,32 @@ const OrderList = () => {
         },
         scroll_view_break: {
             height: 15
+        },
+        date_picker: {
+            width: 300,
+            // flex:1
+
+        },
+        date_container: {
+            flexDirection: 'column',
+            marginTop: 15,
+            marginBottom: 15,
+            justifyContent: 'flex-end',
+            alignItems: 'center'
         }
     }
     )
+
+
+
+
+    const onChange = (_event: any, selectedDate: any) => {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+    };
+
+
+
 
     const insertOrders = () => {
 
@@ -194,6 +221,10 @@ const OrderList = () => {
         )
     }
 
+    const showDatePicker = () => {
+        setDatePickerActive(!show_date_picker)
+    }
+
 
     return (
         <>
@@ -202,6 +233,10 @@ const OrderList = () => {
 
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.title_view}><Text style={styles.title_text}> Order List</Text></View>
+                <View style={styles.date_container}>
+                    <Button onPress={showDatePicker} title="Show date picker!" />
+                    { show_date_picker && <DateTimePicker value={date} display='calendar' mode='date' onChange={onChange} style={styles.date_picker} /> }
+                </View>
                 <ScrollView style={styles.scroll_view} >
                     {insertOrders()}
 

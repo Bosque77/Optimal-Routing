@@ -28,31 +28,11 @@ const styles = StyleSheet.create({
 
 const Home = () => {
 
-    const [date, setDate] = useState(new Date())
-
-
-    const onChange = (_event: any, selectedDate: any) => {
-        const currentDate = selectedDate;
-        setDate(currentDate);
-    };
-
-
 
     return (
         <>
             <View style={styles.container}>
-
-                <Image source={require('../../assets/main_page_logo.png')} alt="Alternate Text" size="xl" style={styles.image_style} />
-
-
-                <View style={styles.date_picker}>
-                    <DateTimePicker value={date} onChange={onChange} />
-                </View>
-
-
                 <OrderList />
-
-
             </View>
 
         </>
