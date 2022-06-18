@@ -20,8 +20,8 @@ import AppLoading from 'expo-app-loading'
 import AddressIcon from '../../assets/address_icon.svg'
 import { orders } from '../local_db'
 import { Order } from "../types"
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { flexbox } from "native-base/lib/typescript/theme/styled-system"
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 
@@ -129,7 +129,8 @@ const OrderListComponent = (order: Order) => {
 const OrderList = () => {
 
     const [date, setDate] = useState(new Date())
-    const [show_date_picker, setDatePickerActive] = useState(false)
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
     let [fontsLoaded, error] = useFonts({
         Roboto_100Thin,
         Roboto_100Thin_Italic,
@@ -206,8 +207,6 @@ const OrderList = () => {
     };
 
 
-
-
     const insertOrders = () => {
 
 
@@ -221,9 +220,22 @@ const OrderList = () => {
         )
     }
 
+
+
+    
+
     const showDatePicker = () => {
-        setDatePickerActive(!show_date_picker)
-    }
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+  
+    const handleConfirm = (date:Date) => {
+      setDate(date)
+      hideDatePicker();
+    };
 
 
     return (
@@ -231,11 +243,16 @@ const OrderList = () => {
 
 
 
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1, marginTop:15 }}>
                 <View style={styles.title_view}><Text style={styles.title_text}> Order List</Text></View>
                 <View style={styles.date_container}>
-                    <Button onPress={showDatePicker} title="Show date picker!" />
-                    { show_date_picker && <DateTimePicker value={date} display='calendar' mode='date' onChange={onChange} style={styles.date_picker} /> }
+                    <Button onPress={showDatePicker} title={date.toDateString()} />
+                    <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="date"
+                        date={date}
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker} />
                 </View>
                 <ScrollView style={styles.scroll_view} >
                     {insertOrders()}

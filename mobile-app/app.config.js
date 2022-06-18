@@ -31,6 +31,9 @@ export default {
     web: {
       favicon: "./assets/favicon.png"
     },
+    expo: {
+      userInterfaceStyle: "automatic"
+    },
     extra: {
       env: process.env.ENV,
       SERVER_URI: process.env.SERVER_URI
