@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { StyleSheet, View, Text, ScrollView, SafeAreaView, Button } from "react-native"
+// import { Badge, Box, Flex, HStack, Pressable, Spacer,Text } from "native-base"
+import { StyleSheet, View, ScrollView, SafeAreaView, Button, Text, Pressable } from "react-native"
 import {
     Roboto_100Thin,
     Roboto_100Thin_Italic,
@@ -22,10 +23,20 @@ import { orders } from '../local_db'
 import { Order } from "../types"
 import { flexbox } from "native-base/lib/typescript/theme/styled-system"
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+
+
+type RootStackParamList = {
+    OrderDetails: undefined;
+    Profile: { userId: string };
+    Feed: { sort: 'latest' | 'top' } | undefined;
+};
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
 
 
-const OrderListComponent = (order: Order) => {
+const OrderListComponent = (order: Order, { navigation }: Props) => {
 
     let [fontsLoaded, error] = useFonts({
         Roboto_100Thin,
@@ -92,28 +103,71 @@ const OrderListComponent = (order: Order) => {
             width: 15,
             height: 14,
             marginRight: 5
-
-
         },
-
-
     })
+
+    const showOrderDetails = () => {
+        console.log('inside show order details')
+        // navigation.navigate('OrderDetails')
+    }
 
     return (
         <>
+            <Pressable onPress={showOrderDetails}>
+                <View style={styles.main_layout}>
+                    <View>
+                        <Text style={styles.header_text}> {order.name}</Text>
+                        <View style={styles.address_display}>
+                            <AddressIcon style={styles.address_icon} />
+                            <Text style={styles.normal_text}>{order.street} , {order.city} , {order.state}</Text>
+                        </View>
 
-            <View style={styles.main_layout}>
-                <View>
-                    <Text style={styles.header_text}> {order.name}</Text>
-                    <View style={styles.address_display}>
-                        <AddressIcon style={styles.address_icon} />
-                        <Text style={styles.normal_text}>{order.street} , {order.city} , {order.state}</Text>
+                        <Text style={styles.normal_text}>Dumpster Size {order.dumpster_size} Yards</Text>
+                        <Text style={styles.normal_text}>Type: {order.type}</Text>
                     </View>
-
-                    <Text style={styles.normal_text}>Dumpster Size {order.dumpster_size} Yards</Text>
-                    <Text style={styles.normal_text}>Type: {order.type}</Text>
                 </View>
-            </View>
+            </Pressable>
+
+            {/* <Pressable>
+      {({
+      isHovered,
+      isFocused,
+      isPressed
+    }) => {
+      return <Box maxW="96" borderWidth="1" borderColor="coolGray.300" shadow="3" bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} p="5" rounded="8" style={{
+        transform: [{
+          scale: isPressed ? 0.96 : 1
+        }]
+      }}>
+            <HStack alignItems="center">
+              <Badge colorScheme="darkBlue" _text={{
+            color: "white"
+          }} variant="solid" rounded="4">
+                Business
+              </Badge>
+              <Spacer />
+              <Text fontSize={10} color="coolGray.800">
+                1 month ago
+              </Text>
+            </HStack>
+            <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
+              Marketing License
+            </Text>
+            <Text mt="2" fontSize="sm" color="coolGray.700">
+              Unlock powerfull time-saving tools for creating email delivery and
+              collecting marketing data
+            </Text>
+            <Flex>
+              {isFocused ? <Text mt="2" fontSize={12} fontWeight="medium" textDecorationLine="underline" color="darkBlue.600" alignSelf="flex-start">
+                  Read More
+                </Text> : <Text mt="2" fontSize={12} fontWeight="medium" color="darkBlue.600">
+                  Read More
+                </Text>}
+            </Flex>
+          </Box>;
+    }}
+    </Pressable>; */}
+
 
 
         </>
@@ -198,15 +252,6 @@ const OrderList = () => {
     }
     )
 
-
-
-
-    const onChange = (_event: any, selectedDate: any) => {
-        const currentDate = selectedDate;
-        setDate(currentDate);
-    };
-
-
     const insertOrders = () => {
 
 
@@ -222,19 +267,19 @@ const OrderList = () => {
 
 
 
-    
+
 
     const showDatePicker = () => {
-      setDatePickerVisibility(true);
+        setDatePickerVisibility(true);
     };
-  
+
     const hideDatePicker = () => {
-      setDatePickerVisibility(false);
+        setDatePickerVisibility(false);
     };
-  
-    const handleConfirm = (date:Date) => {
-      setDate(date)
-      hideDatePicker();
+
+    const handleConfirm = (date: Date) => {
+        setDate(date)
+        hideDatePicker();
     };
 
 
@@ -243,7 +288,7 @@ const OrderList = () => {
 
 
 
-            <SafeAreaView style={{ flex: 1, marginTop:15 }}>
+            <SafeAreaView style={{ flex: 1, marginTop: 15 }}>
                 <View style={styles.title_view}><Text style={styles.title_text}> Order List</Text></View>
                 <View style={styles.date_container}>
                     <Button onPress={showDatePicker} title={date.toDateString()} />

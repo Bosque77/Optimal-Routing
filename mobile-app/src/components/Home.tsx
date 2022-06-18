@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native"
 import { Image, View, Button } from 'native-base'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import OrderList from "./OrderList";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
 const styles = StyleSheet.create({

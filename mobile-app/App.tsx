@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/components/Home';
+import OrderDetails from './src/components/OrderDetails';
 
 
 
@@ -24,6 +25,7 @@ export default function App() {
 
             {/* <Stack.Screen name="SignIn" component={SignIn} options={{title: 'Sign In'}}/> */}
             <Stack.Screen name="Home" component={Home} options={{ title: 'Route Optimization Services' }} />
+            <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ title: 'Order Details' }} />
 
           </Stack.Navigator>
         </NativeBaseProvider>
