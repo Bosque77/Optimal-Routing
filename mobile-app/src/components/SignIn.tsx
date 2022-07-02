@@ -104,11 +104,6 @@ const SignIn = ({ route, navigation }: Props) => {
 
                     <Text mt="1" fontSize="xs" opacity="50%">Forgot Password?</Text>
                     <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} px="10" size={'lg'} colorScheme="secondary">Login</Button>
-                    {/* <Text flexDir="row" fontSize="xs" opacity="50%" mt="3">or sign in with</Text>
-                    <Divider my={2} />
-                    <Button startIcon={<Icon as={AiOutlineGoogle} name="google-icon" color="coolGray.800" _dark={{
-                      color: "warmGray.50"
-                    }} />} w="100%" variant="outline">Sign in with Google</Button> */}
                   </Box>
                 </>
               )
