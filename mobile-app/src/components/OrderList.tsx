@@ -24,19 +24,26 @@ import { Order } from "../types"
 import { flexbox } from "native-base/lib/typescript/theme/styled-system"
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeStackNavigationConfig, NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types"
 
 
 type RootStackParamList = {
-    OrderDetails: undefined;
+    Home: undefined;
+    OrderDetails:undefined
     Profile: { userId: string };
     Feed: { sort: 'latest' | 'top' } | undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
+interface prop {
+    order: Order
+    navigation:NativeStackNavigationProp<RootStackParamList,'Profile'>
+}
 
-
-const OrderListComponent = (order: Order, { navigation }: Props) => {
+const OrderListComponent = ({order, navigation}:prop) => {
 
     let [fontsLoaded, error] = useFonts({
         Roboto_100Thin,
@@ -113,7 +120,7 @@ const OrderListComponent = (order: Order, { navigation }: Props) => {
 
     return (
         <>
-            <Pressable onPress={showOrderDetails} style={({ pressed }) => [
+            <Pressable onPress={()=>showOrderDetails()} style={({ pressed }) => [
           {
             backgroundColor: pressed
               ? 'rgb(210, 230, 255)'
@@ -144,10 +151,13 @@ const OrderListComponent = (order: Order, { navigation }: Props) => {
 
 }
 
+interface prop_2 {
+    navigation:NativeStackNavigationProp<RootStackParamList,'Profile'>
+}
 
 
 
-const OrderList = () => {
+const OrderList = ({ navigation }: prop_2) => {
 
     const [date, setDate] = useState(new Date())
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -225,7 +235,7 @@ const OrderList = () => {
         return (
             orders.map(order => {
                 return (
-                    <OrderListComponent {...order} key={order.id} />
+                    <OrderListComponent order={order} key={order.id} navigation={navigation} />
                 )
 
             })

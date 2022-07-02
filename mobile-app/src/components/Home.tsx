@@ -23,17 +23,25 @@ const styles = StyleSheet.create({
     }
 })
 
+type RootStackParamList = {
+    Home:undefined
+    OrderDetails: undefined;
+    Profile: { userId: string };
+    Feed: { sort: 'latest' | 'top' } | undefined;
+};
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
 
 
 
-const Home = () => {
+const Home = ({ route, navigation }: Props) => {
 
 
     return (
         <>
             <View style={styles.container}>
-                <OrderList />
+                <OrderList navigation={navigation}  />
             </View>
 
         </>

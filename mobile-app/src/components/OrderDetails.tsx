@@ -1,12 +1,17 @@
 import React from "react"
+import { View, Text } from "react-native"
 
 
 
 const OrderDetails = () => {
     return (
-    <>
-    order info goes here
-    </>
+        <>
+            <View>
+                <Text>   order info goes here</Text>
+            </View>
+
+
+        </>
     )
 }
 
