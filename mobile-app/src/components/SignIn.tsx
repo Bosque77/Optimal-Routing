@@ -102,7 +102,7 @@ const SignIn = ({ route, navigation }: Props) => {
                       <FormikTextInput name="password" placeholder="Password" show={false} />
                     </View>
 
-                    <Text mt="1" fontSize="xs" opacity="50%">Forgot Password?</Text>
+                    <Text mt="1" fontSize="xs" opacity="50">Forgot Password?</Text>
                     <Button style={{ marginTop: 15 }} onPress={() => handleSubmit()} px="10" size={'lg'} colorScheme="secondary">Login</Button>
                   </Box>
                 </>

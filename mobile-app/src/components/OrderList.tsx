@@ -28,7 +28,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeStackNavigationConfig, NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types"
 
-
 type RootStackParamList = {
     Home: undefined;
     OrderDetails:undefined
@@ -115,7 +114,8 @@ const OrderListComponent = ({order, navigation}:prop) => {
 
     const showOrderDetails = () => {
         console.log('inside show order details')
-        navigation.navigate('OrderDetails')
+        // console.log(Constants.manifest.extra)
+        // navigation.navigate('OrderDetails')
     }
 
     return (
