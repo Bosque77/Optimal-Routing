@@ -1,23 +1,13 @@
 // Formik x React Native example
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { Formik } from 'formik';
 import { Box, Button, Container, Image, Text, Divider, View, Icon, VStack, HStack, IconButton, CloseIcon, AlertDialog, Center } from 'native-base'
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
-import { AiOutlineGoogle } from 'react-icons/ai'
 import { StyleSheet } from 'react-native';
-import { ErrorResponse, LoginInfo } from '../types';
+import { ErrorResponse, LoginInfo, Navigation } from '../types';
 import { loginUser } from '../state/action-creators'
 import { useAppDispatch } from '../state/hooks/hooks'
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Home: undefined;
-  Profile: { userId: string };
-  Feed: { sort: 'latest' | 'top' } | undefined;
-};
-
-type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
 
 
@@ -45,11 +35,7 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-
-const SignIn = ({ route, navigation }: Props) => {
+const SignIn = ( navigation:Navigation) => {
 
 
   const [isOpen, setIsOpen] = useState(false);

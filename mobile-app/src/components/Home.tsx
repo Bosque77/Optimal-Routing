@@ -1,10 +1,8 @@
-import React, { useState } from "react"
-import { Text } from 'native-base'
+import React from "react"
 import { StyleSheet } from "react-native"
-import { Image, View, Button } from 'native-base'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import {View} from 'native-base'
 import OrderList from "./OrderList";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Navigation } from "../types";
 
 
 const styles = StyleSheet.create({
@@ -23,25 +21,16 @@ const styles = StyleSheet.create({
     }
 })
 
-type RootStackParamList = {
-    Home:undefined
-    OrderDetails: undefined;
-    Profile: { userId: string };
-    Feed: { sort: 'latest' | 'top' } | undefined;
-};
+interface prop {
+    navigation: Navigation
+}
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
-
-
-
-
-const Home = ({ route, navigation }: Props) => {
-
+const Home = ( {navigation}:prop) => {
 
     return (
         <>
             <View style={styles.container}>
-                <OrderList navigation={navigation}  />
+                <OrderList navigation = {navigation} />
             </View>
 
         </>

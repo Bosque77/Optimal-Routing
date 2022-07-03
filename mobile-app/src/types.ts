@@ -1,3 +1,5 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
+
 export interface LoginInfo {
     email: string;
     password: string;
@@ -51,3 +53,14 @@ export type ServerResponse<PayloadType> =  {
 export type ErrorResponse = ServerResponse<{}>
 
 export type LoginResponse  = ServerResponse<UserToken | {}>
+
+
+export type RootStackParamList = {
+    Home: undefined;
+    OrderDetails:undefined
+    Profile: { userId: string };
+    Feed: { sort: 'latest' | 'top' } | undefined;
+};
+
+export type Navigation = NativeStackNavigationProp<RootStackParamList,'Profile'>
+
