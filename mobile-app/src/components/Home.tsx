@@ -8,8 +8,8 @@ import { Navigation } from "../types";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
+        backgroundColor: 'white',
+        alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
     image_style: {

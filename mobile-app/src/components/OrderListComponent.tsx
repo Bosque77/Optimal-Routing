@@ -104,7 +104,7 @@ const OrderListComponent = ({order, navigation}:prop) => {
           {
             backgroundColor: pressed
               ? 'rgb(210, 230, 255)'
-              : 'white'
+              : '#f5f5f5'
           },
         ]}>
                 <View style={styles.main_layout}>

@@ -73,12 +73,6 @@ const OrderList = ( {navigation}: prop) => {
             flex: 1,
         },
         scroll_view: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignContent: 'flex-start',
-            backgroundColor: '#F9F9F9',
-            padding: 15,
-            marginTop: 10,
 
         },
         scroll_view_break: {
@@ -135,7 +129,7 @@ const OrderList = ( {navigation}: prop) => {
 
 
 
-            <SafeAreaView style={{ flex: 1, marginTop: 15 }}>
+            <SafeAreaView style={{ marginTop: 15 }}>
                 <View style={styles.title_view}><Text style={styles.title_text}> Order List</Text></View>
                 <View style={styles.date_container}>
                     <Button onPress={showDatePicker} title={date.toDateString()} />
