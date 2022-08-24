@@ -2,7 +2,7 @@ import { Button } from "native-base"
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 
-import {orders} from "../local_db"
+import { orders } from "../local_db"
 import { Order } from "../types"
 
 const order = orders[0]
@@ -22,20 +22,20 @@ const styles = StyleSheet.create({
     },
     label: {
         justifyContent: 'flex-start',
-        flex:1,
+        flex: 1,
         color: '#9e9e9e',
         fontSize: 16,
         fontWeight: '500'
 
     },
-    info:{
+    info: {
         justifyContent: 'flex-end',
-        flex:0,
+        flex: 0,
         fontSize: 16,
         fontWeight: '500'
 
     },
-    completed_button:{
+    completed_button: {
         marginTop: 15,
 
     }
@@ -45,7 +45,7 @@ const OrderDetails = () => {
     return (
         <>
             <View style={styles.main_container}>
-            <View style={styles.data_row}>
+                <View style={styles.data_row}>
                     <Text style={styles.label}>   Name</Text>
                     <Text style={styles.info}>   {order.name} </Text>
                 </View>
@@ -93,7 +93,13 @@ const OrderDetails = () => {
                     <Text style={styles.label}>   Pickup Time (Optional)</Text>
                     <Text style={styles.info}>   {order.pickup_time?.hour} {order.pickup_time?.am_pm} </Text>
                 </View>
-                <Button style={styles.completed_button}>Completed</Button>
+                <Button style={styles.completed_button} bgColor={"#ff9800"} _pressed={{
+                    // below props will only be applied on button is pressed
+                    bg: "yellow.600",
+                    _text: {
+                        color: "warmGray.50"
+                    }
+                }}>Completed</Button>
 
             </View>
 
