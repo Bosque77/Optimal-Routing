@@ -43,3 +43,13 @@ Content-Type: application/json
     "email": "forestschwrtz@gmail.com",
     "password": "password12"
 }
+
+
+### Correct Sign On
+POST http://routeoptimization-env.eba-chpd6puw.us-west-1.elasticbeanstalk.com/login/
+Content-Type: application/json
+
+{
+    "username": "user_1",
+    "password": "password123"
+}

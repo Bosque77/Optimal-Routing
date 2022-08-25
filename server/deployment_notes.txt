@@ -1,0 +1,22 @@
+
+
+You can deploy the server directly on AWS using elastic beanstalk.  
+
+1) Create the following file under the server folder
+
+Procfile  (name of file)
+web: npm start  (command)
+
+2) Make sure to specify the version of node.js you are using 
+in your pacakge.json otherwise you will get an error
+
+3) Zip all the code inside the server file and then upload to elastic beanstalk when you 
+create a new environment. Make sure to include hidden folders as well if you have keys set
+in your .env .
+
+4) Now upload your code to the elastic beanstalk environment and your done!
+
+
+
+
+
