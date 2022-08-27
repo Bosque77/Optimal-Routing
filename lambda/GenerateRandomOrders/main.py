@@ -13,34 +13,23 @@ import requests, json
 
 # enter your api key here
 api_key = 'AIzaSyDBWA8Gu8uc_uOL6Sp2ZIFsRI53PKbAjkw'
-
 # url variable store url
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+# a generator that provides zipcodes
 
 
-def example():
-    # The text string on which to search
-    query = input('Search query: ')
+def generate_zipcodes():
+    zipcodes = []
+    file_name = 'zipcodes.txt'
+    with open(file_name) as in_file:
+        for line in in_file:
+            data = in_file.readline()
 
-    # get method of requests module
-    # return response object
-    r = requests.get(url + 'query=' + query +
-                     '&key=' + api_key)
+            if len(data) != 0:
+                zipcodes.append(int(data))
 
-    # json method of response object convert
-    #  json format data into python format data
-    x = r.json()
-
-    # now x contains list of nested dictionaries
-    # we know dictionary contain key value pair
-    # store the value of result key in variable y
-    y = x['results']
-
-    # keep looping upto length of y
-    for i in range(len(y)):
-        # Print value corresponding to the
-        # 'name' key at the ith index of y
-        print(y[i]['name'])
+    zip_generator = (zipcode for zipcode in zipcodes)
+    return zip_generator
 
 
 
@@ -50,29 +39,22 @@ def generate_places():
     I will get a list of lat, lngs in georgia and then determine addresses
     :return:
     """
+    zipcodes = generate_zipcodes()
 
-    list_of_restaurants = []
-    city = 'atlanta'
-    query = f'{"mexican restaurants in " + city}'
-    r = requests.get(url + 'query=' + query +
-                     '&key=' + api_key)
+    zipcode = next(zipcodes)
+    print(zipcode)
+    query = f"'businesses in {zipcode} '"
 
+    url = f'{base_url}?query={query}&key={api_key}'
 
+    print(url)
 
-    # json method of response object convert
-    #  json format data into python format data
-    x = r.json()
-
-    # now x contains list of nested dictionaries
-    # we know dictionary contain key value pair
-    # store the value of result key in variable y
-    y = x['results']
-
-    # keep looping upto length of y
-    for i in range(len(y)):
-        # Print value corresponding to the
-        # 'name' key at the ith index of y
-        print(y[i]['name'])
+    response = requests.get(url)
+    response_as_json = response.json()
+    results = response_as_json['results']
+    lat = results['geometry']['location']['lat']
+    lng = results['geometry']['location']['lat']
+    print(json.dumps(response_as_json, indent=4, sort_keys=True))
 
 
 if __name__ == "__main__":
