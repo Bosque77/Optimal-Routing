@@ -108,4 +108,7 @@ dist
 *venv
 .idea
 
+
+**/requests
+
 my-deployment-package.zip

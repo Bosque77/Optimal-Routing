@@ -8,7 +8,6 @@ import { actionCreators, State } from './state'
 import { useDispatch, useSelector } from 'react-redux'
 import HomePage from './components/HomePage/HomePage'
 import { bindActionCreators } from 'redux'
-import { setToken } from './services/config'
 import { Region, UserToken } from './types'
 
 
