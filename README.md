@@ -18,4 +18,4 @@ or dropped off at the depot.
 
 **Software Program**
 
-<img src="Project_Video.mp4" alt="Running screenfetch">
+<img src="Quick_Overview.gif" alt="Running screenfetch">
