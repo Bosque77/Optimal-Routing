@@ -16,6 +16,15 @@ or dropped off at the depot.
 * The trucks that service the dumpsters must leave and return to the same depot.
 * There may be various depots or various landfills in the area.
 
-**Software Program**
+**Demo Video**
 
 <img src="Quick_Overview.gif" alt="Running screenfetch">
+
+**Login Credentials**
+http://optimalrouting.com/
+Username: user_1
+Password: password123
+
+
+
+
