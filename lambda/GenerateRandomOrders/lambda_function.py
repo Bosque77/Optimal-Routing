@@ -1,6 +1,5 @@
 import json
-import requests
-from dotenv import load_dotenv   # Delete this on the production build
+
 
 
 

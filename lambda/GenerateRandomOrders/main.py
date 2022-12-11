@@ -19,12 +19,11 @@ from botocore.exceptions import ClientError
 
 
 # STATUS
-DEBUG = True
+DEBUG = False
 
 
 # url variable store url
 base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
-
 
 
 def get_google_api_key_secret():
@@ -81,7 +80,6 @@ def get_google_api_key_secret():
         else:
             decoded_binary_secret = base64.b64decode(
                 get_secret_value_response['SecretBinary'])
-
 
 
 def generate_zipcodes():
@@ -173,7 +171,7 @@ def generate_random_businesses(num_of_businesses):
     business_list = []
 
     if DEBUG != True:
-        api_key = get_secret()
+        api_key = get_google_api_key_secret()
     else:
         config = dotenv_values(".env")
         api_key = config["GOOGLE_API_KEY"]
@@ -224,9 +222,9 @@ def generate_random_businesses(num_of_businesses):
                 if len(business_list) > num_of_businesses:
                     break
 
-    # dumps the business_list into a json file
-    with open('business_list.json', 'w') as outfile:  # just 'w' since it's a text file
-        json.dump(business_list, outfile)
+    # # dumps the business_list into a json file
+    # with open('business_list.json', 'w') as outfile:  # just 'w' since it's a text file
+    #     json.dump(business_list, outfile)
 
     return business_list
 
@@ -317,7 +315,6 @@ def create_test_orders(business_list):
         orders.append(order)
 
     return orders
-
 
 
 if __name__ == "__main__":
