@@ -6,23 +6,82 @@
 
 # MODULES
 import datetime
+from typing import List
 import requests
 import json
 import random
 from dotenv import dotenv_values
 
 from my_types import Order
+import boto3
+import base64
+from botocore.exceptions import ClientError
 
 
 # STATUS
 DEBUG = True
 
-# REST END POINTS
+
+# url variable store url
 base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 
 
-def get_secret():
-    pass
+
+def get_google_api_key_secret():
+    """
+    gets the google api key stored in AWS secret manager
+    returns: google api key
+    """
+
+    secret_name = "Google_API_Key"
+    region_name = "us-west-1"
+
+    # Create a Secrets Manager client
+    session = boto3.session.Session()
+    client = session.client(
+        service_name='secretsmanager',
+        region_name=region_name
+    )
+
+    # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
+    # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+    # We rethrow the exception by default.
+
+    try:
+        get_secret_value_response = client.get_secret_value(
+            SecretId=secret_name
+        )
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'DecryptionFailureException':
+            # Secrets Manager can't decrypt the protected secret text using the provided KMS key.
+            # Deal with the exception here, and/or rethrow at your discretion.
+            raise e
+        elif e.response['Error']['Code'] == 'InternalServiceErrorException':
+            # An error occurred on the server side.
+            # Deal with the exception here, and/or rethrow at your discretion.
+            raise e
+        elif e.response['Error']['Code'] == 'InvalidParameterException':
+            # You provided an invalid value for a parameter.
+            # Deal with the exception here, and/or rethrow at your discretion.
+            raise e
+        elif e.response['Error']['Code'] == 'InvalidRequestException':
+            # You provided a parameter value that is not valid for the current state of the resource.
+            # Deal with the exception here, and/or rethrow at your discretion.
+            raise e
+        elif e.response['Error']['Code'] == 'ResourceNotFoundException':
+            # We can't find the resource that you asked for.
+            # Deal with the exception here, and/or rethrow at your discretion.
+            raise e
+    else:
+        # Decrypts secret using the associated KMS key.
+        # Depending on whether the secret is a string or binary, one of these fields will be populated.
+        if 'SecretString' in get_secret_value_response:
+            secret = get_secret_value_response['SecretString']
+            return secret
+        else:
+            decoded_binary_secret = base64.b64decode(
+                get_secret_value_response['SecretBinary'])
+
 
 
 def generate_zipcodes():
@@ -38,22 +97,17 @@ def generate_zipcodes():
     return zipcodes
 
 
-def generate_random_lat_lng_list(num_of_coordinates):
+def generate_random_lat_lng_list(num_of_coordinates: int) -> List[tuple]:
     """
     creates a list of coordinates equal to the length num_of_coordinates
 
-    Parameters
-    ----------
-    num_of_coordinates
-
-    Returns
-    -------
-    lat_lng_list  :  this is a list of tuples that contain a latitude and longitude
+    param_1: num_of_coordinates
+    returns: lat_lng_list  :  this is a list of tuples that contain a latitude and longitude
     """
     lat_lng_list = []
 
     if DEBUG != True:
-        api_key = get_secret()
+        api_key = get_google_api_key_secret()
     else:
         config = dotenv_values(".env")
         api_key = config["GOOGLE_API_KEY"]
@@ -263,6 +317,7 @@ def create_test_orders(business_list):
         orders.append(order)
 
     return orders
+
 
 
 if __name__ == "__main__":
