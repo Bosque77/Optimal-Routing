@@ -16,11 +16,13 @@ from my_types import Order
 import boto3
 import base64
 from botocore.exceptions import ClientError
+from pymongo import MongoClient
 
 
 # STATUS
-DEBUG = False
-
+DEBUG = True
+if DEBUG == True:
+     config = dotenv_values(".env")
 
 # url variable store url
 base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
@@ -107,7 +109,6 @@ def generate_random_lat_lng_list(num_of_coordinates: int) -> List[tuple]:
     if DEBUG != True:
         api_key = get_google_api_key_secret()
     else:
-        config = dotenv_values(".env")
         api_key = config["GOOGLE_API_KEY"]
     zipcodes = generate_zipcodes()
     num_of_zipcodes = len(zipcodes)
@@ -173,7 +174,6 @@ def generate_random_businesses(num_of_businesses):
     if DEBUG != True:
         api_key = get_google_api_key_secret()
     else:
-        config = dotenv_values(".env")
         api_key = config["GOOGLE_API_KEY"]
     zipcodes = generate_zipcodes()
     num_of_zipcodes = len(zipcodes)
@@ -304,7 +304,7 @@ def create_test_orders(business_list):
             'delivery_date': delivery_date,
             'pickup_date': pickup_date,
             'delivery_time': delivery_time,
-            'pikcup_time': pickup_time,
+            'pickup_time': pickup_time,
             'special_instructions': special_instructions,
             'delivery_completed': delivery_completed,
             'pickup_completed': pickup_completed,
@@ -317,8 +317,23 @@ def create_test_orders(business_list):
     return orders
 
 
+def add_orders_to_mongo_db(orders):
+    """
+    This function takes in a list of orders and adds them to the mongo db
+    """
+    connection_string = config['MONGO_DB_CONNECTION_STRING']
+    client = MongoClient(connection_string)
+    db = client['routeoptimization']
+    orders_collection = db['orders']
+
+    for order in orders:
+        orders_collection.insert_one(order)
+
+    client.close()
+
 if __name__ == "__main__":
     # lat_lng_list = generate_random_lat_lng_list(10)
     businesses = generate_random_businesses(10)
     orders = create_test_orders(businesses)
+    add_orders_to_mongo_db(orders)
     print('pause here')
