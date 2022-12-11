@@ -6,6 +6,17 @@ This software program is used to automate the route determination process for du
 A dispatcher is typically responsible for determining the best routes taken by a dumpster delivery service each day. The routes must follow 
 the set or rules listed below. 
 
+
+**Demo Video**
+
+<img src="Quick_Overview.gif" alt="Running screenfetch">
+
+
+**Login Credentials**
+* http://optimalrouting.com/
+* Username: user_1
+* Password: password123
+
 **Rules**
 
 * A customer can request dumpsters of the following sizes (15 Yard, 20 Yard, 30 Yard) 
@@ -16,6 +27,9 @@ or dropped off at the depot.
 * The trucks that service the dumpsters must leave and return to the same depot.
 * There may be various depots or various landfills in the area.
 
-**Software Program**
 
-<img src="Project_Video.mp4" alt="Running screenfetch">
+
+
+
+
+
