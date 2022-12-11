@@ -4,20 +4,26 @@
 # Description: This module contains functions to generate a random set of orders for each day
 
 
-# importing required modules
-import requests, json, random
+# MODULES
+import datetime
+import requests
+import json
+import random
 from dotenv import dotenv_values
+
+from my_types import Order
+
 
 # STATUS
 DEBUG = True
 
-# url variable store url
+# REST END POINTS
 base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
-
 
 
 def get_secret():
     pass
+
 
 def generate_zipcodes():
     zipcodes = []
@@ -30,6 +36,7 @@ def generate_zipcodes():
                 zipcodes.append(int(data))
 
     return zipcodes
+
 
 def generate_random_lat_lng_list(num_of_coordinates):
     """
@@ -45,7 +52,6 @@ def generate_random_lat_lng_list(num_of_coordinates):
     """
     lat_lng_list = []
 
-
     if DEBUG != True:
         api_key = get_secret()
     else:
@@ -54,14 +60,11 @@ def generate_random_lat_lng_list(num_of_coordinates):
     zipcodes = generate_zipcodes()
     num_of_zipcodes = len(zipcodes)
 
-
-
     while len(lat_lng_list) < num_of_coordinates:
 
         # getting a random zipcode from the zipcodes list
-        rand_num = random.randrange(0,num_of_zipcodes)
+        rand_num = random.randrange(0, num_of_zipcodes)
         zipcode = zipcodes[rand_num]
-
 
         # looking up businesses in that region
         query = f"'businesses in {zipcode} '"
@@ -69,8 +72,6 @@ def generate_random_lat_lng_list(num_of_coordinates):
         response = requests.get(url)
         response_as_json = response.json()
         results = response_as_json['results']
-
-
 
         # selecting an arbitrary number of businesses from that region
         num_of_results = len(results)
@@ -96,12 +97,12 @@ def generate_random_lat_lng_list(num_of_coordinates):
             lat_lng = (lat, lng)
             lat_lng_list.append(lat_lng)
 
-
     # this is temporary so i dont over use my google requests
     with open('lat_lng_list.json', 'w') as outfile:  # just 'w' since it's a text file
         json.dump(lat_lng_list, outfile)
 
     return lat_lng_list
+
 
 def generate_random_businesses(num_of_businesses):
     """
@@ -117,7 +118,6 @@ def generate_random_businesses(num_of_businesses):
     """
     business_list = []
 
-
     if DEBUG != True:
         api_key = get_secret()
     else:
@@ -126,14 +126,11 @@ def generate_random_businesses(num_of_businesses):
     zipcodes = generate_zipcodes()
     num_of_zipcodes = len(zipcodes)
 
-
-
     while len(business_list) < num_of_businesses:
 
         # getting a random zipcode from the zipcodes list
-        rand_num = random.randrange(0,num_of_zipcodes)
+        rand_num = random.randrange(0, num_of_zipcodes)
         zipcode = zipcodes[rand_num]
-
 
         # looking up businesses in that region
         query = f"'businesses in {zipcode} '"
@@ -141,8 +138,6 @@ def generate_random_businesses(num_of_businesses):
         response = requests.get(url)
         response_as_json = response.json()
         results = response_as_json['results']
-
-
 
         # selecting an arbitrary number of businesses from that region
         num_of_results = len(results)
@@ -154,7 +149,7 @@ def generate_random_businesses(num_of_businesses):
                 business = results[random_result]
 
                 lat = business['geometry']['location']['lat']
-                lng = business['geometry']['location']['lat']
+                lng = business['geometry']['location']['lng']
                 name = business['name']
                 address = business['formatted_address']
                 split_address = address.split(',')
@@ -182,90 +177,96 @@ def generate_random_businesses(num_of_businesses):
     return business_list
 
 
+def get_random_dumpster_size():
+    """
+    This function generates a random dumpster size of either 10, 20, 30, or 40
+    """
+    dumpster_sizes = [10, 20, 30, 40]
+    random_dumpster_size = random.choice(dumpster_sizes)
+    return random_dumpster_size
+
+
+def get_todays_date():
+    """
+    This function gets the current date and returns it in the format of mm/dd/yyyy
+    """
+    today = datetime.date.today()
+    today = today.strftime("%m/%d/%Y")
+    return today
+
+
+def get_pickup_date():
+    """
+    This function returns a random date at least 3 days from today and at most 10 days from today
+    """
+    today = datetime.date.today()
+    random_number = random.randrange(3, 10)
+    pickup_date = today + datetime.timedelta(days=random_number)
+    pickup_date = pickup_date.strftime("%m/%d/%Y")
+    return pickup_date
+
 
 def create_test_orders(business_list):
     """
     This function takes in a list of businesses in the area and generates a random order from
     the business info provided
-    ----------
-    business_list
 
-    Returns
-    -------
     orders : a random list of orders generated from the provided businesses
+    param_1: business_list
+    return: orders
     """
 
-class Order:
-    """
-    This class defines a order
-    """
+    orders = []
 
-    def __init__(self, name:str, email: str, phone_number: str, street:str, city:str, state: str, zipcode:int, latitude:float, longitude:float,
-                 dumpster_size: int, delivery_date, pickup_date, delivery_time=None, pickup_time=None, special_instructions=None,
-                 delivery_completed=False, pickup_completed=False, active=True):
-        self._name = name
-        self._email = email
-        self._phone_number = phone_number
-        self._street = street
-        self._city = city
-        self._state = state
-        self._zipcode = zipcode
-        self._latitude = latitude
-        self._longitude = longitude
-        self._dumpster_size = dumpster_size
-        self._delivery_date = delivery_date
-        self._pickup_date = pickup_date
-        self._delivery_time = delivery_time
-        self._pickup_time = pickup_time
-        self._special_instructions = special_instructions
-        self._delivery_completed = delivery_completed
-        self._pickup_completed = pickup_completed
-        self._active = active
-        self._user_id = '61c7483607e4533869b9ec08'
-        self._region = '61ca3cb19e9ade7351418e30'
-        self.type= str
+    for business in business_list:
+        name = business['name']
+        email = business['name'] + '@gmail.com'
+        phone_number = '555-555-5555'
+        street = business['street']
+        city = business['city']
+        state = business['state']
+        zipcode = 30004
+        latitude = business['lat']
+        longitude = business['lng']
+        dumpster_size = get_random_dumpster_size()
+        delivery_date = get_todays_date()
+        pickup_date = get_pickup_date()
+        delivery_time = None
+        pickup_time = None
+        special_instructions = None
+        delivery_completed = False
+        pickup_completed = False
+        active = True
 
+        order: Order = {
+            'name': name,
+            'email': email,
+            'phone_number': phone_number,
+            'street': street,
+            'city': city,
+            'state': state,
+            'zipcode': zipcode,
+            'latitude': latitude,
+            'longitude': longitude,
+            'dumpster_size': dumpster_size,
+            'delivery_date': delivery_date,
+            'pickup_date': pickup_date,
+            'delivery_time': delivery_time,
+            'pikcup_time': pickup_time,
+            'special_instructions': special_instructions,
+            'delivery_completed': delivery_completed,
+            'pickup_completed': pickup_completed,
+            'active': active,
+            'user_id': '61c7483607e4533869b9ec08',
+            'region': '61ca3cb19e9ade7351418e30'
+        }
+        orders.append(order)
 
-
-
-
+    return orders
 
 
 if __name__ == "__main__":
     # lat_lng_list = generate_random_lat_lng_list(10)
-    businesses = generate_random_businesses(5)
+    businesses = generate_random_businesses(10)
+    orders = create_test_orders(businesses)
     print('pause here')
-
-
-
-
-
-    # name: String,
-    # email: String,
-    # phone_number: String,
-    # street: String,
-    # city: String,
-    # state: String,
-    # zipcode: Number,
-    # latitude: Number,
-    # longitude: Number,
-    # dumpster_size: Number,
-    # delivery_date: String,
-    # pickup_date: String,
-    # delivery_time: {
-    #     hour: Number,
-    #     minute: Number,
-    #     am_pm: String,
-    # },
-    # pickup_time: {
-    #     hour: Number,
-    #     minute: Number,
-    #     am_pm: String,
-    # },
-    # special_instructions: String,
-    # delivery_completed: Boolean,
-    # pickup_completed: Boolean,
-    # active: Boolean,
-    # user_id: String,
-    # region_id: String,
-    # type:String
