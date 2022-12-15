@@ -23,7 +23,7 @@ Order = TypedDict('Order',
                       'pickup_completed': bool,
                       'active': bool,
                       'user_id': str,
-                      'region': str,
+                      'region_id': str,
                       'type': str
                   }
                   )

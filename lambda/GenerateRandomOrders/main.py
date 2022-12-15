@@ -310,7 +310,7 @@ def create_test_orders(business_list):
             'pickup_completed': pickup_completed,
             'active': active,
             'user_id': '61c7483607e4533869b9ec08',
-            'region': '61ca3cb19e9ade7351418e30'
+            'region_id': '61ca3cb19e9ade7351418e30'
         }
         orders.append(order)
 

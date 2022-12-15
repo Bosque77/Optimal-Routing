@@ -18,9 +18,10 @@ const getByRegion = async (region: Region) => {
 
 // Need a specific server url for /orders/date
 const getByRegionAndDate = async (region: Region, date: string) => {
-    const url = baseUrl + `/date/${region.id}/${date}`
+    const url = baseUrl + '/date'
     const config = {
         headers: { Authorization: token },
+        params: { date: date, region: region.id }
     }
     const response = await axios.get(url, config)
     console.log(response.data)

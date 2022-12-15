@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import express from 'express'
+import express, {Request, Response} from 'express'
 import Order from '../models/order'
 import orderService from '../services/orderService'
 
@@ -10,21 +10,24 @@ import orderService from '../services/orderService'
 const orderRouter = express.Router()
 
 
-orderRouter.get('/date/:region_id/:date', async(req:any, res) => {
-    console.log('inside the order router')
+orderRouter.get('/date', async(req: Request, res: Response) => {
+    // Extract the user_id, region_id, and date from the request
+    const user = req.user 
+    const user_id = user._id as string
+    const region_id = req.query.region as string
+    const date = req.query.date as string
+  
     try {
-      
-        const user = req.user
-        const user_id = user._id as string
-        const region_id = req.params.region_id as string
-        const date = req.params.date as string
-        
-        const orders = (await orderService.getEntriesByRegionAndDate(user_id, region_id, date))
-        res.status(200).send(orders)
-    }catch (error){
-        res.status(500).send('Error getting the order entries by user and region')
+      // Get the orders for the specified user, region, and date
+      const orders = (await orderService.getEntriesByRegionAndDate(user_id, region_id, date))
+  
+      // Send the orders in the response
+      res.status(200).send(orders)
+    } catch (error) {
+      // Handle any errors that occurred while getting the orders
+      res.status(500).send('Error getting the order entries by user and region')
     }
-})
+  })
 
 orderRouter.put('/:id', async(req:any, res) => {
     console.log('inside order put request')
@@ -32,14 +35,10 @@ orderRouter.put('/:id', async(req:any, res) => {
         
         
         const updated_order = req.body
-        console.log('the updated order i am about to put in')
-        console.log(updated_order)
         const order_id = req.params.id
         const order = await Order.findByIdAndUpdate(order_id, {...updated_order})
-        console.log(order)
         res.status(200).send(order)
     }catch(error){
-        console.log('error occured')
         res.status(500).send('Error saving the order')
     }
 })
@@ -51,12 +50,9 @@ orderRouter.delete('/:id', async(req:any, res) => {
         await Order.findByIdAndDelete(order_id)
         res.status(200).send('order deleted successfully')
     }catch(error){
-        console.log('error occured')
         res.status(500).send('Error deleting the order')
     }
 })
-
-
 
 
 orderRouter.post('/', async (req:any, res)=> {

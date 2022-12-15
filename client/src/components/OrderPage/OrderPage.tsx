@@ -8,8 +8,8 @@ import { actionCreators, State } from '../../state'
 import './OrderPage.css'
 import GoogleMap from '../GoogleMap'
 import styled from 'styled-components'
-import { Depot, Landfill, RouteQuery } from '../../types'
-import RoutingService from '../../services/route_query'
+import { Depot, Landfill } from '../../types'
+
 
 
 const Spacing = styled.div`
@@ -33,11 +33,17 @@ const OrderPage = () => {
     useEffect(() => {
         console.log('inside useEffect')
         const elems = document.querySelectorAll('.datepicker')
-        // const date = new Date()
+
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
 
-            initializeOrders(region, date.toDateString())
+
+            const month = date.getMonth() + 1
+            const day = date.getDate()
+            const year = date.getFullYear()
+            const date_string = `${month}/${day}/${year}`
+
+            initializeOrders(region, date_string)
             initializeDepots(region)
             initializeLandfills(region)
             initializeVehicles(region)
@@ -49,7 +55,7 @@ const OrderPage = () => {
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
     const depots = useSelector((state: State) => state.depots)
-    const vehicles = useSelector((state: State) => state.vehicles)
+
 
 
 
@@ -73,7 +79,12 @@ const OrderPage = () => {
 
     const onDateChange = async (date: Date) => {
         console.log('on date change')
-        const date_string = date.toDateString()
+
+        const month = date.getMonth() + 1
+        const day = date.getDate()
+        const year = date.getFullYear()
+        const date_string = `${month}/${day}/${year}`
+
 
         console.log(date_string)
         if (region) {

@@ -1,2 +1,5 @@
 .eslintrc.js
 tsconfig.json
+initDB.ts
+clear_db.ts
+initDB.sh
