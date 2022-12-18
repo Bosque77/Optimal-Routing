@@ -1,74 +1,121 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+import express, { Request, Response } from "express";
+import * as t from "io-ts";
+import orderService from "../services/orderService";
+import { UserType } from "../types";
+import asyncHandler from "express-async-handler";
+import { ERROR_CODES } from "../utils/errors";
+import * as z from "zod";
 
-import express, {Request, Response} from 'express'
-import Order from '../models/order'
-import orderService from '../services/orderService'
+const orderRouter = express.Router();
+
+const UserType = t.type({
+  // Declare the properties and methods that the req.user object should have
+  _id: t.string,
+});
 
 
-const orderRouter = express.Router()
+const orderSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  phone_number: z.string(),
+  street: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zipcode: z.number(),
+  latitude: z.number(),
+  longitude: z.number(),
+  dumpster_size: z.number(),
+  delivery_date: z.string(),
+  pickup_date: z.string(),
+  special_instructions: z.string(),
+  delivery_completed: z.boolean(),
+  pickup_completed: z.boolean(),
+  active: z.boolean(),
+  user_id: z.string(),
+});
 
 
-orderRouter.get('/date', async(req: Request, res: Response) => {
-    // Extract the user_id, region_id, and date from the request
-    const user = req.user 
-    const user_id = user._id as string
-    const region_id = req.query.region as string
-    const date = req.query.date as string
-  
-    try {
-      // Get the orders for the specified user, region, and date
-      const orders = (await orderService.getEntriesByRegionAndDate(user_id, region_id, date))
-  
-      // Send the orders in the response
-      res.status(200).send(orders)
-    } catch (error) {
-      // Handle any errors that occurred while getting the orders
-      res.status(500).send('Error getting the order entries by user and region')
+// get orders by region and date
+orderRouter.get(
+  "/date",
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user as UserType;
+    if (!user) {
+      // throw error if user does not exist
+      throw {
+        code: ERROR_CODES.USER_NOT_FOUND,
+        message: "user not found",
+      };
+    } else {
+      const user_id = user._id;
+      const region_id = req.query.region as string;
+      const date = req.query.date as string;
+      const orders = await orderService.getEntriesByRegionAndDate(
+        user_id,
+        region_id,
+        date
+      );
+      res.status(200).send(orders);
     }
   })
+);
 
-orderRouter.put('/:id', async(req:any, res) => {
-    console.log('inside order put request')
-    try{
-        
-        
-        const updated_order = req.body
-        const order_id = req.params.id
-        const order = await Order.findByIdAndUpdate(order_id, {...updated_order})
-        res.status(200).send(order)
-    }catch(error){
-        res.status(500).send('Error saving the order')
+// change order
+orderRouter.put(
+  "/:id",
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user as UserType;
+    if (!user) {
+      // throw error if user does not exist
+      throw {
+        code: ERROR_CODES.USER_NOT_FOUND,
+        message: "user not found",
+      };
+    } else {
+      const updated_order = req.body;
+      const order_id = req.params.id;
+      const order = await orderService.updateOrder(order_id, {
+        ...updated_order,
+      });
+      res.status(200).send(order);
     }
-})
+  })
+);
 
-orderRouter.delete('/:id', async(req:any, res) => {
-    console.log('inside order delete request')
-    try{
-        const order_id = req.params.id
-        await Order.findByIdAndDelete(order_id)
-        res.status(200).send('order deleted successfully')
-    }catch(error){
-        res.status(500).send('Error deleting the order')
+// delete order
+orderRouter.delete(
+  "/:id",
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user as UserType;
+    if (!user) {
+      // throw error if user does not exist
+      throw {
+        code: ERROR_CODES.USER_NOT_FOUND,
+        message: "user not found",
+      };
+    } else {
+      const order_id = req.params.id;
+      await orderService.deleteOrder(order_id);
+      res.status(204);
     }
-})
+  })
+);
 
-
-orderRouter.post('/', async (req:any, res)=> {
-    try {
-        const user = req.user
-        const user_id = user._id as string
-        const new_order = req.body
-        const order_object = new Order({...new_order,'user_id': user_id})
-        
-        
-        const returned_data = (await order_object.save())
-        res.status(200).send(returned_data)
-    }catch (error){
-        res.status(500).send('Error getting the order entries by user and region')
+// create order
+orderRouter.post("/", asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user as UserType;
+    if (!user) {
+      // throw error if user does not exist
+      throw {
+        code: ERROR_CODES.USER_NOT_FOUND,
+        message: "user not found",
+      };
+    } else {
+        const user_id = user._id as string;
+        const new_order = orderSchema.parse(req.body);
+        const order_object = await orderService.createOrder(new_order, user_id);
+        res.status(200).send(order_object);
     }
-})
+}));
 
-
-export default orderRouter
+export default orderRouter;

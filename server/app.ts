@@ -2,9 +2,8 @@
 import config from './utils/config'
 import express from 'express'
 import mongoose from 'mongoose'
-require('express-async-errors')
 import cors from 'cors'
-
+import {UserType} from './types'
 import usersRouter from './controllers/users'
 import landfillRouter from './controllers/landfills'
 import regionRouter from './controllers/regions'
@@ -17,6 +16,15 @@ import routeRouter from './controllers/routes'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 import driverLoginRouter from './controllers/driver-login'
+
+
+declare global {
+    namespace Express {
+      interface Request {
+        user?: UserType
+      }
+    }
+  }
 
 logger.info('connecting to', config.MONGODB_URI)
 console.log('about to configure the mongo db uri')
