@@ -1,12 +1,33 @@
 import User from "../models/user";
+import config from "../utils/config";
+import bcrypt from 'bcrypt'
 
+// returns all users
+const getAllUsers = async () => {
+    const user_query = await User.find({});
+    const users = user_query.map(user => user.toJSON())
+    return users;
+}
 
-
-
-const getUser = async (user_id: string) => {
+// returns a user by id
+const getUserById = async (user_id: string) => {
     const user = await User.findById(user_id);
-    return user;
+    return user?.toJSON();
+}
+
+// creates a new user
+const createUser = async (username: string, password: string) => {
+    const salt_rounds = Number(config.SALT_ROUNDS)
+    const passwordHash = await bcrypt.hash(password, salt_rounds)
+    const user = new User({
+        username,
+        passwordHash,
+    })
+
+    const savedUser = await user.save()
+    return savedUser.toJSON()
+
 }
 
 
-export default { getUser}
+export default { getUserById, getAllUsers, createUser}

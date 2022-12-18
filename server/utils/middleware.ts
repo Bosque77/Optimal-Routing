@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import config from "../utils/config";
 import asyncHandler from "express-async-handler";
 
-
 const requestLogger = (
   req: Request,
   _res: Response,
@@ -38,9 +37,13 @@ const errorHandler = (
     return response.status(401).json({
       error: "invalid token",
     });
-} else if (error.name === "UserError") {
+  } else if (error.name === "UserError") {
     return response.status(401).json({
-      error: error.message,
+      error: "user must be logged in to perform this operation",
+    });
+  } else if (error.name == "UserNotFound") {
+    return response.status(404).json({
+      error: "user not found",
     });
   } else {
     return next(error);
@@ -55,22 +58,20 @@ const tokenExtractor = (request: any, _response: any, next: any) => {
   next();
 };
 
-
-const userExtractor = asyncHandler(async (request: any, _response: any, next: any) => {
-  const token = request.query.token as string;
-  const jwt_secret = config.SECRET as string;
-  const decodedToken = jwt.verify(token, jwt_secret) as any;
-  if (!token || !decodedToken.id) {
-    throw new Error("token missing or invalid");
-  } else {
-    const user = await userService.getUser(decodedToken.id);
-    request["user"] = user;
+const userExtractor = asyncHandler(
+  async (request: any, _response: any, next: any) => {
+    const token = request.query.token as string;
+    const jwt_secret = config.SECRET as string;
+    const decodedToken = jwt.verify(token, jwt_secret) as any;
+    if (!token || !decodedToken.id) {
+      throw new Error("token missing or invalid");
+    } else {
+      const user = await userService.getUser(decodedToken.id);
+      request["user"] = user;
+    }
+    next();
   }
-  next();
-});
-
-
-
+);
 
 export default {
   requestLogger,

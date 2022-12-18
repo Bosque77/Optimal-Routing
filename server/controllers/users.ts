@@ -1,35 +1,36 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import bcrypt from 'bcrypt'
+
 import express from 'express'
-import User from '../models/user'
+import {Request, Response} from 'express'
+import userService from '../services/userService'
+import asyncHandler from 'express-async-handler'
+
 
 const usersRouter = express.Router()
 
-usersRouter.get('/', async (_request, response) => {
-    console.log('inside get users')
-    const Users = await User.find({})
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    response.json(Users.map((User: { toJSON: () => any; }) => User.toJSON()))
-})
+// returns all users
+usersRouter.get('/', asyncHandler(async (_request: Request, response:Response) => {
+    const users = await  userService.getAllUsers()
+    response.json(users)
+}))
 
-usersRouter.get('/:id', async (request, response) => {
-    const the_user = await User.findById(request.params.id)
+// returns a user by id
+usersRouter.get('/:id', asyncHandler(async (request:Request, response:Response) => {
+    const the_user = await userService.getUserById(request.params.id)
     if (the_user) {
-        response.json(the_user.toJSON())
+        response.json(the_user)
     } else {
-        response.status(404).end()
+        throw {
+            name: 'UserNotFound'
+        }
     }
-})
+}))
 
-usersRouter.post('/', async (request, response) => {
+
+// creates a new user
+usersRouter.post('/', async (request:Request, response:Response) => {
     const user_data = request.body
     const username = user_data.username
     const password = user_data.password
-
-  
 
     if (!(username && password)) {
         response.status(401).json({
@@ -41,26 +42,8 @@ usersRouter.post('/', async (request, response) => {
         })
     }
     else {
-        console.log('before the salt rounds')
-        const salt_rounds = 10
-        const passwordHash = await bcrypt.hash(password, salt_rounds)
-        console.log('before declaration of user')
-        const user = new User({
-            username,
-            passwordHash,
-        })
-        console.log(user)
-
-
-        const savedUser = await user.save()
-        
-
-        console.log('logging the saved user')
-        console.log(savedUser)
-
+        const savedUser = await userService.createUser(username, password)
         response.json(savedUser)
-
-
     }
 
 })
