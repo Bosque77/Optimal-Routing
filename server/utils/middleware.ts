@@ -4,6 +4,7 @@ import userService from "../services/userService";
 import jwt from "jsonwebtoken";
 import config from "../utils/config";
 import asyncHandler from "express-async-handler";
+import * as z from 'zod'
 
 const requestLogger = (
   req: Request,
@@ -45,6 +46,11 @@ const errorHandler = (
     return response.status(404).json({
       error: "user not found",
     });
+  } else if (error instanceof z.ZodError) 
+  {
+    return response.status(403).json({
+      error: error.message,
+    });
   } else {
     return next(error);
   }
@@ -66,7 +72,7 @@ const userExtractor = asyncHandler(
     if (!token || !decodedToken.id) {
       throw new Error("token missing or invalid");
     } else {
-      const user = await userService.getUser(decodedToken.id);
+      const user = await userService.getUserById(decodedToken.id);
       request["user"] = user;
     }
     next();

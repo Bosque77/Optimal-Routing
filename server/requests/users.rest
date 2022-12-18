@@ -4,6 +4,16 @@ GET http://localhost:3003/users
 Content-Type: application/json
 
 
+### Incorrect User Schema
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "username": "user_23",
+    "password": "gotcha :p"
+}
+
+
 ### Incorrect Password
 POST http://localhost:3001/api/login/
 Content-Type: application/json

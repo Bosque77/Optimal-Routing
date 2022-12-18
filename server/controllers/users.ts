@@ -3,9 +3,16 @@ import express from 'express'
 import {Request, Response} from 'express'
 import userService from '../services/userService'
 import asyncHandler from 'express-async-handler'
+import * as z from 'zod'
 
 
 const usersRouter = express.Router()
+
+
+const userSchema = z.object({
+    username: z.string(),
+    password: z.string(),
+})
 
 // returns all users
 usersRouter.get('/', asyncHandler(async (_request: Request, response:Response) => {
@@ -27,8 +34,8 @@ usersRouter.get('/:id', asyncHandler(async (request:Request, response:Response) 
 
 
 // creates a new user
-usersRouter.post('/', async (request:Request, response:Response) => {
-    const user_data = request.body
+usersRouter.post('/', asyncHandler(async (request:Request, response:Response) => {
+    const user_data = userSchema.parse(request.body)
     const username = user_data.username
     const password = user_data.password
 
@@ -46,7 +53,7 @@ usersRouter.post('/', async (request:Request, response:Response) => {
         response.json(savedUser)
     }
 
-})
+}))
 
 
 export default usersRouter
