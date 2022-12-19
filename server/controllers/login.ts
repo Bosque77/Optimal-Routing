@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express'
-import User from '../models/user'
 import config from '../utils/config'
+import userService from '../services/userService'
+import * as z from 'zod'
+import asyncHandler from 'express-async-handler'
 
 interface NewUser {
   _id: string,
@@ -12,26 +13,33 @@ interface NewUser {
   passwordHash: string
 }
 
+const userSchema = z.object({
+    username: z.string(),
+    password: z.string(),
+})
 
 const loginRouter = express.Router()
 
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-loginRouter.post('/', async (req, res) => {
-    console.log('inside user post')
-    const body = req.body
+// login for the user
+loginRouter.get('/', asyncHandler(async (request: Request, response: Response) => {
 
-    const user = await User.findOne({ username: body.username }) as unknown as NewUser
-    console.log('found user')
-    console.log(user)
+
+    const user_data = userSchema.parse(request.body)
+    const username = user_data.username
+    const password = user_data.password
+
+
+    const user = await userService.getUserByUsername(username)
+
     const passwordCorrect = user === null
         ? false
-        : await bcrypt.compare(body.password, user.passwordHash)
+        : await bcrypt.compare(password, user.passwordHash)
 
     if (!(user && passwordCorrect)) {
-        res.status(401).json({
-            error: 'invalid username or password'
-        })
+      throw {
+        name: 'LoginError',
+      }
     }
 
     const userForToken = {
@@ -39,16 +47,12 @@ loginRouter.post('/', async (req, res) => {
         id: user._id,
     }
 
-
     if (config.SECRET) {
         const token = jwt.sign(userForToken, config.SECRET)
-        res
-            .status(200)
-            .send({ token, username: user.username})
-
+        response.status(200).send({ token, username: user.username})
     }
 
-})
+}))
 
 
 

@@ -3,10 +3,7 @@ import mongoose, { ObjectId } from 'mongoose'
 
 
 interface IUser{
-    username: {
-        type: string,
-        unique: true
-    },
+    username: string,
     passwordHash: string
 }
 

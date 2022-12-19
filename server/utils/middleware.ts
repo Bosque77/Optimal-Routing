@@ -22,6 +22,7 @@ const unknownEndpoint = (_req: Request, res: Response) => {
   res.status(404).send({ error: "unknown endpoint" });
 };
 
+// handles errors for application
 const errorHandler = (
   error: Error,
   _request: Request,
@@ -42,6 +43,10 @@ const errorHandler = (
     return response.status(401).json({
       error: "user must be logged in to perform this operation",
     });
+  } else if (error.name === "LoginError") {
+    return response.status(401).json({
+      error: "invalid username or password",
+    });
   } else if (error.name == "UserNotFound") {
     return response.status(404).json({
       error: "user not found",
@@ -56,6 +61,7 @@ const errorHandler = (
   }
 };
 
+// extracts the token from the request
 const tokenExtractor = (request: any, _response: any, next: any) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
@@ -64,6 +70,7 @@ const tokenExtractor = (request: any, _response: any, next: any) => {
   next();
 };
 
+// gets the user from the token
 const userExtractor = asyncHandler(
   async (request: any, _response: any, next: any) => {
     const token = request.query.token as string;

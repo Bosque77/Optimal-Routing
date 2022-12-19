@@ -2,12 +2,22 @@ import User from "../models/user";
 import config from "../utils/config";
 import bcrypt from 'bcrypt'
 
+
+
+
 // returns all users
 const getAllUsers = async () => {
     const user_query = await User.find({});
     const users = user_query.map(user => user.toJSON())
     return users;
 }
+
+// gets a user by the username
+const getUserByUsername = async (this_username: string) => {
+    const user = await User.findOne( {username: this_username} ).exec(); 
+    return user
+
+}  
 
 // returns a user by id
 const getUserById = async (user_id: string) => {
@@ -30,4 +40,4 @@ const createUser = async (username: string, password: string) => {
 }
 
 
-export default { getUserById, getAllUsers, createUser}
+export default { getUserById, getAllUsers, createUser, getUserByUsername}
