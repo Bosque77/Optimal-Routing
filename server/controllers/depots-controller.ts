@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import Depot from '../models/depot'
+import Depot from '../models/depot-model'
 import * as mongoDB from 'mongodb'
 
 

@@ -1,5 +1,5 @@
 
-import Landfill from '../models/landfill'
+import Landfill from '../models/landfill-model'
 import * as mongoDB from 'mongodb'
 
 const getEntriesByRegionAndUser = async (user_id: string, region_id: string) => {

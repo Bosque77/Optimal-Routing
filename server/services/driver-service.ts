@@ -1,5 +1,5 @@
 
-import Driver from '../models/driver'
+import Driver from '../models/driver-model'
 import * as mongoDB from 'mongodb'
 
 const getEntriesByRegionAndUser = async (user_id: string, region_id: string) => {

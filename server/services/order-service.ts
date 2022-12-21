@@ -1,4 +1,4 @@
-import Order from '../models/order'
+import Order from '../models/order-model'
 import * as mongoDB from 'mongodb'
 
 const getEntriesByRegionAndDate = async (user_id: string, region_id: string, date: string) => {

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import logger from "./logger";
-import userService from "../services/userService";
+import userService from "../services/user-service";
 import jwt from "jsonwebtoken";
 import config from "../utils/config";
 import asyncHandler from "express-async-handler";

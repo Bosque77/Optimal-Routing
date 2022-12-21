@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import orderService from "../services/orderService";
+import orderService from "../services/order-service";
 import { UserType } from "../types";
 import asyncHandler from "express-async-handler";
 import * as z from "zod";

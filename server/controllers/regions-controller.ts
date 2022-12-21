@@ -1,5 +1,5 @@
 import express from 'express'
-import regionService from '../services/regionService'
+import regionService from '../services/region-service'
 import asyncHandler from 'express-async-handler'
 
 const regionRouter = express.Router()

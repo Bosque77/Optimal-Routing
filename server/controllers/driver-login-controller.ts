@@ -3,7 +3,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express'
-import Driver from '../models/driver'
+import Driver from '../models/driver-model'
 import config from '../utils/config'
 
 const driverLoginRouter = express.Router()

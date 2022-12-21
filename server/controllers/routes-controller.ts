@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import Route from '../models/route'
-import routeService from '../services/routeService'
+import Route from '../models/route-model'
+import routeService from '../services/route-service'
 
 
 const routeRouter = express.Router()

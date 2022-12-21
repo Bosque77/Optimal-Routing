@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import driverService from '../services/driverService'
-import Driver from '../models/driver'
+import driverService from '../services/driver-service'
+import Driver from '../models/driver-model'
 import config from '../utils/config'
 import bcrypt from 'bcrypt'
 

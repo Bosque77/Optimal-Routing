@@ -1,7 +1,7 @@
 
 import express from 'express'
 import {Request, Response} from 'express'
-import userService from '../services/userService'
+import userService from '../services/user-service'
 import asyncHandler from 'express-async-handler'
 import * as z from 'zod'
 import { ERROR_CODES } from '../utils/errors'

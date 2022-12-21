@@ -1,5 +1,5 @@
 
-import Route from '../models/route'
+import Route from '../models/route-model'
 import * as mongoDB from 'mongodb'
 
 const getEntriesByRegionAndDate = async (user_id: string, region_id: string, date: string) => {

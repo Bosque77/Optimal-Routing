@@ -4,7 +4,7 @@ import helper from './test_helper'
 import app from '../app'
 const api = supertest(app)
 import bcrypt from 'bcrypt'
-import User from '../models/user'
+import User from '../models/user-model'
 
 
 describe('when there is initially one user at db', () => {

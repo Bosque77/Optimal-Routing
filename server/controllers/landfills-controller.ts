@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import Landfill from '../models/landfill'
-import landfillService from '../services/landfillService'
+import Landfill from '../models/landfill-model'
+import landfillService from '../services/landfill-service'
 
 
 const landfillRouter = express.Router()

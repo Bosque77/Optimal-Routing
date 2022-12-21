@@ -1,5 +1,4 @@
 import { Request } from "express";
-import mongoose from 'mongoose'
 
 // export interface NewUser {
 //     username: string,

@@ -1,5 +1,5 @@
 
-import Region from '../models/region'
+import Region from '../models/region-model'
 import * as mongoDB from 'mongodb'
 
 

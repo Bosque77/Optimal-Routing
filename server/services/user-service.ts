@@ -1,4 +1,4 @@
-import User from "../models/user";
+import User from "../models/user-model";
 import config from "../utils/config";
 import bcrypt from 'bcrypt'
 
