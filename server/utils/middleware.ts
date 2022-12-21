@@ -4,7 +4,9 @@ import userService from "../services/userService";
 import jwt from "jsonwebtoken";
 import config from "../utils/config";
 import asyncHandler from "express-async-handler";
-import * as z from 'zod'
+import { ERROR_CODES } from "../utils/errors";
+import { UserType } from "../types";
+import { NOTFOUND } from "dns";
 
 const requestLogger = (
   req: Request,
@@ -31,38 +33,38 @@ const errorHandler = (
 ) => {
   logger.error(error.message);
 
-  if (error.name === "CastError") {
-    return response.status(400).send({ error: "malformatted id" });
-  } else if (error.name === "ValidationError") {
-    return response.status(400).json({ error: error.message });
-  } else if (error.name === "JsonWebTokenError") {
-    return response.status(401).json({
-      error: "invalid token",
-    });
-  } else if (error.name === "UserError") {
-    return response.status(401).json({
-      error: "user must be logged in to perform this operation",
-    });
-  } else if (error.name === "LoginError") {
-    return response.status(401).json({
-      error: "invalid username or password",
-    });
-  } else if (error.name == "UserNotFound") {
-    return response.status(404).json({
-      error: "user not found",
-    });
-  } else if (error instanceof z.ZodError) 
-  {
-    return response.status(403).json({
-      error: error.message,
-    });
-  } else {
-    return next(error);
+  switch (error.name) {
+    case "CastError":
+      return response.status(400).send({ error: "malformatted id" });
+    case "ValidationError":
+      return response.status(400).json({ error: "validation error" });
+    case "JsonWebTokenError":
+      return response.status(401).json({ error: "invalid token" });
+    case ERROR_CODES.NOT_AUTHENTICATED:
+      return response
+        .status(401)
+        .json({ error: "user must be logged in to perform this operation" });
+    case ERROR_CODES.USER_CREATION_ERROR:
+      return response.status(400).json({ error: error.message });
+    case ERROR_CODES.LOGIN_ERROR:
+      return response
+        .status(401)
+        .json({ error: "invalid username or password" });
+    case ERROR_CODES.USER_NOT_FOUND:
+      return response.status(404).json({ error: "user not found" });
+    case ERROR_CODES.TOKEN_NOT_FOUND:
+      return response.status(401).json({ error: "token not found" });
+    default:
+      return next(error);
   }
 };
 
 // extracts the token from the request
-const tokenExtractor = (request: any, _response: any, next: any) => {
+const tokenExtractor = (
+  request: any,
+  _response: any,
+  next: (error?: unknown) => void
+) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     request["token"] = authorization.substring(7);
@@ -72,17 +74,30 @@ const tokenExtractor = (request: any, _response: any, next: any) => {
 
 // gets the user from the token
 const userExtractor = asyncHandler(
-  async (request: any, _response: any, next: any) => {
+  async (
+    request: Request,
+    _response: Response,
+    next: (error?: unknown) => void
+  ) => {
     const token = request.query.token as string;
     const jwt_secret = config.SECRET as string;
     const decodedToken = jwt.verify(token, jwt_secret) as any;
     if (!token || !decodedToken.id) {
-      throw new Error("token missing or invalid");
+      throw {
+        name: ERROR_CODES.TOKEN_NOT_FOUND,
+      };
     } else {
       const user = await userService.getUserById(decodedToken.id);
-      request["user"] = user;
+      if (!user) {
+        throw {
+          name: ERROR_CODES.USER_NOT_FOUND,
+        };
+      } else {
+        const formatted_user: UserType = { _id: user._id };
+        request.user = formatted_user;
+      }
+      next();
     }
-    next();
   }
 );
 

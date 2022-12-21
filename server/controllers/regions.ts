@@ -1,54 +1,39 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
 import express from 'express'
-import Region from '../models/region'
 import regionService from '../services/regionService'
-
+import asyncHandler from 'express-async-handler'
 
 const regionRouter = express.Router()
 
-regionRouter.get('/', async(req:any, res) => {
-    try {
-        const user = req.user
-        const user_id = user._id as string
-        
-        const regions = (await regionService.getEntries(user_id))
-        res.status(200).send(regions)
-    }catch (error){
-        res.status(500).send('Error getting the region entries')
-    }
-
-})
 
 
-regionRouter.post('/', async(req:any, res) => {
-    try {
+// create new region
+regionRouter.post('/', asyncHandler(async(req:any, res) => {
         const user = req.user
         const user_id = user._id as string
         const new_region = req.body 
-        const new_region_object = new Region({...new_region,user_id:user_id})
-        const response = await new_region_object.save()
-        console.log(response)
+        const response = await regionService.createRegion(new_region, user_id)
         res.status(200).send(response)
-    }catch (error){
-        res.status(500).send('Error adding this region entry')
-    }
+}))
 
-})
+// get all the regions
+regionRouter.get('/', asyncHandler(async(req:any, res) => {
+        const user = req.user
+        const user_id = user._id as string
+        const regions = (await regionService.getRegions(user_id))
+        res.status(200).send(regions)
+}))
 
 
-regionRouter.delete('/:id', async(req:any, res) => {
-    console.log('inside region delete request')
-    try{
+
+// delete region
+regionRouter.delete('/:id', asyncHandler(async(req:any, res) => {
         const region_id = req.params.id
-        await Region.findByIdAndDelete(region_id)
-        res.status(200).send('landfill deleted successfully')
-    }catch(error){
-        console.log('error occured')
-        res.status(500).send('Error deleting the landfill')
-    }
-})
+        const deleted_region = await regionService.deleteRegion(region_id)
+        if(deleted_region){
+            res.status(204)
+        }else{
+            res.status(404).send({error: 'region not found'})
+        }
+}))
 
 export default regionRouter

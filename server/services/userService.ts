@@ -22,7 +22,7 @@ const getUserByUsername = async (this_username: string) => {
 // returns a user by id
 const getUserById = async (user_id: string) => {
     const user = await User.findById(user_id);
-    return user?.toJSON();
+    return user;
 }
 
 // creates a new user

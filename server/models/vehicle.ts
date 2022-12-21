@@ -1,6 +1,8 @@
-import mongoose, { ObjectId } from 'mongoose'
+import mongoose, {ObjectId} from 'mongoose'
 
-interface IVehicle {
+
+
+export interface IVehicle {
     license_number: string,
     size: number,
     start_depot: {
@@ -15,6 +17,8 @@ interface IVehicle {
     user_id: string,
     region_id: string
 }
+
+
 
 interface ReturnedObject {
     id?: string,

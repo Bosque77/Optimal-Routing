@@ -4,6 +4,7 @@ import {Request, Response} from 'express'
 import userService from '../services/userService'
 import asyncHandler from 'express-async-handler'
 import * as z from 'zod'
+import { ERROR_CODES } from '../utils/errors'
 
 
 const usersRouter = express.Router()
@@ -40,13 +41,15 @@ usersRouter.post('/', asyncHandler(async (request:Request, response:Response) =>
     const password = user_data.password
 
     if (!(username && password)) {
-        response.status(401).json({
-            error: 'make sure you entered a username, name, and password'
-        })
+        throw{
+            name: ERROR_CODES.USER_CREATION_ERROR,
+            message: 'Username and password are required'
+        }
     } else if (password.length < 3 || username.length < 3) {
-        response.status(401).json({
-            error: 'password and username must be greater than 3 characters'
-        })
+        throw{
+            name: ERROR_CODES.USER_CREATION_ERROR,
+            message: 'Username and password must be at least 3 characters long'
+        }
     }
     else {
         const savedUser = await userService.createUser(username, password)

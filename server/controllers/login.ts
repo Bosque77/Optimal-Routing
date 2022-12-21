@@ -6,12 +6,8 @@ import config from '../utils/config'
 import userService from '../services/userService'
 import * as z from 'zod'
 import asyncHandler from 'express-async-handler'
+import { ERROR_CODES } from '../utils/errors'
 
-interface NewUser {
-  _id: string,
-  username: string,
-  passwordHash: string
-}
 
 const userSchema = z.object({
     username: z.string(),
@@ -38,7 +34,7 @@ loginRouter.get('/', asyncHandler(async (request: Request, response: Response) =
 
     if (!(user && passwordCorrect)) {
       throw {
-        name: 'LoginError',
+        name: ERROR_CODES.LOGIN_ERROR,
       }
     }
 
