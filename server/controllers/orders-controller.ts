@@ -26,6 +26,19 @@ const orderSchema = z.object({
   user_id: z.string(),
 });
 
+
+// create order
+orderRouter.post(
+  "/",
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user as UserType;
+    const user_id = user._id as string;
+    const new_order = orderSchema.parse(req.body);
+    const order_object = await orderService.createOrder(new_order, user_id);
+    res.status(200).send(order_object);
+  })
+);
+
 // get orders by region and date
 orderRouter.get(
   "/date",
@@ -66,16 +79,6 @@ orderRouter.delete(
   })
 );
 
-// create order
-orderRouter.post(
-  "/",
-  asyncHandler(async (req: Request, res: Response) => {
-    const user = req.user as UserType;
-    const user_id = user._id as string;
-    const new_order = orderSchema.parse(req.body);
-    const order_object = await orderService.createOrder(new_order, user_id);
-    res.status(200).send(order_object);
-  })
-);
+
 
 export default orderRouter;

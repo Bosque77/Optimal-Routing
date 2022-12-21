@@ -1,6 +1,13 @@
 import express from 'express'
 import regionService from '../services/region-service'
 import asyncHandler from 'express-async-handler'
+import * as z from 'zod'
+
+
+const regionSchema = z.object({
+        name: z.string()
+})
+
 
 const regionRouter = express.Router()
 
@@ -10,7 +17,7 @@ const regionRouter = express.Router()
 regionRouter.post('/', asyncHandler(async(req:any, res) => {
         const user = req.user
         const user_id = user._id as string
-        const new_region = req.body 
+        const new_region = regionSchema.parse(req.body) 
         const response = await regionService.createRegion(new_region, user_id)
         res.status(200).send(response)
 }))
