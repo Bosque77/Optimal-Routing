@@ -36,20 +36,20 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
     const depots:Depot[] = useSelector((state: State) => state.depots)
     const region:Region | null = useSelector((state: State) => state.setRegion)
 
-
-    if(!region){
-        return <div></div>
-    }
-
-    const [num_of_routes, setNumberOfRoutes] = useState(1)
-
-
-
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
         M.Collapsible.init(elems, {})
         M.AutoInit()
     }, [])
+
+    const [num_of_routes, setNumberOfRoutes] = useState(1)
+
+
+    if(!region){
+        return <div></div>
+    }
+
+    
 
     const insertOrders = () => {
 

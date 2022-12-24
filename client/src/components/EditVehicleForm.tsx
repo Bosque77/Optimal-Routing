@@ -11,12 +11,10 @@ interface prop {
 
 const EditVehicleForm = ({ vehicle, setActive }: prop) => {
 
+
+    const dispatch = useDispatch()
+    const { updateVehicle } = bindActionCreators(actionCreators, dispatch)
     const depots = useSelector((state: State) => state.depots)
-
-    if (!vehicle || !depots) {
-        return (<div></div>)
-    }
-
 
 
     useEffect(() => {
@@ -41,10 +39,10 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
     const [end_depot, setEndDepot] = useState(vehicle.end_depot)
     const [active, setStatus] = useState(vehicle.active)
 
+    if (!vehicle || !depots) {
+        return (<div></div>)
+    }
 
-
-    const dispatch = useDispatch()
-    const { updateVehicle } = bindActionCreators(actionCreators, dispatch)
 
 
     const submit = () => {

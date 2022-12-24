@@ -25,6 +25,7 @@ export const setRegion = (region: Region) => {
 export const initializeRegions = () => {
     return async (dispatch: Dispatch<Action>) => {
         const regions = await regionService.getAll()
+        setRegion(regions[0])
         dispatch({
             type: ActionType.INIT_REGIONS,
             data: regions

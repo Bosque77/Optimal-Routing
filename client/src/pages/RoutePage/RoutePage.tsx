@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 
-import GoogleMap from '../GoogleMap'
+import GoogleMap from '../../components/GoogleMap'
 
-import RouteItemSummaryList from '../RouteItemSummaryList'
+import RouteItemSummaryList from '../../components/RouteItemSummaryList'
 import styled from 'styled-components'
 
 import { Order, TruckRoute } from '../../types'
 
-import RouteLists from '../RouteLists'
+import RouteLists from '../../components/RouteLists'
 import orderReducer from '../../state/reducers/orderReducer'
 
 const Spacing = styled.div`
@@ -24,12 +24,7 @@ const RoutePage = () => {
 
     const dispatch = useDispatch()
 
-    
-
-
-
-
-    const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles, initializeTruckRoutes } = bindActionCreators(actionCreators, dispatch)
+    const { initializeOrders, initializeTruckRoutes } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
     const truck_routes:TruckRoute[] = useSelector((state: State) => state.routes)
     const orders:Order[] = useSelector((state: State) => state.orders)
@@ -39,19 +34,11 @@ const RoutePage = () => {
 
 
     useEffect(() => {
-        console.log('inside useEffect')
         const elems = document.querySelectorAll('.datepicker')
-        // const date = new Date()
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
-
             initializeOrders(region, date.toDateString())
             initializeTruckRoutes(region, date.toDateString())
-            initializeDepots(region)   
-            initializeLandfills(region)
-            initializeVehicles(region)
-
-
         }
         
 

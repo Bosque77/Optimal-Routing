@@ -6,7 +6,6 @@ import config from "../utils/config";
 import asyncHandler from "express-async-handler";
 import { ERROR_CODES } from "../utils/errors";
 import { UserType } from "../types";
-import { NOTFOUND } from "dns";
 
 const requestLogger = (
   req: Request,
@@ -79,7 +78,7 @@ const userExtractor = asyncHandler(
     _response: Response,
     next: (error?: unknown) => void
   ) => {
-    const token = request.query.token as string;
+    const token = request.token as string;
     const jwt_secret = config.SECRET as string;
     const decodedToken = jwt.verify(token, jwt_secret) as any;
     if (!token || !decodedToken.id) {
@@ -93,7 +92,7 @@ const userExtractor = asyncHandler(
           name: ERROR_CODES.USER_NOT_FOUND,
         };
       } else {
-        const formatted_user: UserType = { _id: user._id };
+        const formatted_user: UserType = { _id: user.id };
         request.user = formatted_user;
       }
       next();

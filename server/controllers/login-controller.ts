@@ -18,7 +18,7 @@ const loginRouter = express.Router()
 
 
 // login for the user
-loginRouter.get('/', asyncHandler(async (request: Request, response: Response) => {
+loginRouter.post('/', asyncHandler(async (request: Request, response: Response) => {
 
 
     const user_data = userSchema.parse(request.body)

@@ -42,22 +42,22 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
     const landfills: Landfill[] = useSelector((state: State) => state.landfills)
     const depots: Depot[] = useSelector((state: State) => state.depots)
 
+    useEffect(() => {
+        const elems = document.querySelectorAll('.collapsible')
+        M.Collapsible.init(elems, {})
 
-    if (!region) {
-        return (<div></div>)
-    }
+    })
 
     const [addRouteItemActive, setAddRouteItemActive] = useState(false)
     const [truckRoute, setTruckRoute] = useState<TruckRoute>()
     const [assignDriversActive, setAssignDriversActive] = useState(false)
 
 
+    if (!region) {
+        return (<div></div>)
+    }
 
-    useEffect(() => {
-        const elems = document.querySelectorAll('.collapsible')
-        M.Collapsible.init(elems, {})
 
-    })
 
 
     const addRouteItem = (truck_route:TruckRoute) => {

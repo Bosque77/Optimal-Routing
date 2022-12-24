@@ -14,11 +14,8 @@ interface prop {
 
 const EditLandfillForm = ({ landfill, setActive }: prop) => {
 
-
-    if (!landfill) {
-        return (<div></div>)
-    }
-
+    const dispatch = useDispatch()
+    const { updateLandfill } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
 
@@ -48,12 +45,12 @@ const EditLandfillForm = ({ landfill, setActive }: prop) => {
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
 
 
+    if (!landfill) {
+        return (<div></div>)
+    }
 
 
 
-
-    const dispatch = useDispatch()
-    const { updateLandfill } = bindActionCreators(actionCreators, dispatch)
 
     const geoLocate = async () => {
         console.log('inside geoLocate')

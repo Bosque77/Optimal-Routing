@@ -4,9 +4,8 @@ import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import geocode from '../services/geocode'
-import { LatLng, Dumpster_Sizes } from '../types'
+import { LatLng } from '../types'
 import { DUMPSTER_SIZES, dumpster_sizes } from '../utils/enums'
-import './OrderPage/OrderPage.css'
 
 interface prop {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
@@ -19,9 +18,6 @@ const CreateOrderForm = ({ setActive }: prop) => {
     const { createOrder } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
 
-    if (!region) {
-        return (<div></div>)
-    }
 
     useEffect(() => {
 
@@ -82,6 +78,12 @@ const CreateOrderForm = ({ setActive }: prop) => {
     const [special_instructions, setInstructions] = useState('')
     const [delivery_completed, setDeliveryStatus] = useState(false)
     const [pickup_completed, setPickupStatus] = useState(false)
+
+    if (!region) {
+        return (<div></div>)
+    }
+
+
 
 
 

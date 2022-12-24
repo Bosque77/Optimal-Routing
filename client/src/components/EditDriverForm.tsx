@@ -12,10 +12,8 @@ interface prop {
 const EditDriverForm = ({ driver, setActive }: prop) => {
 
 
-    if (!driver) {
-        return (<div></div>)
-    }
-
+    const dispatch = useDispatch()
+    const { updateDriver } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
 
@@ -35,9 +33,10 @@ const EditDriverForm = ({ driver, setActive }: prop) => {
     const [active, setStatus] = useState(driver.active)
 
 
+    if (!driver) {
+        return (<div></div>)
+    }
 
-    const dispatch = useDispatch()
-    const { updateDriver } = bindActionCreators(actionCreators, dispatch)
 
 
     const submit = () => {

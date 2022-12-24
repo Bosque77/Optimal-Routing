@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import './App.css'
-import Login from './components/LoginPage/Login'
+import Login from './pages/LoginPage/Login'
 import {
     BrowserRouter as Router, Route, Routes
 } from 'react-router-dom'
 import { actionCreators, State } from './state'
 import { useDispatch, useSelector } from 'react-redux'
-import HomePage from './components/HomePage/HomePage'
+import HomePage from './pages/HomePage/HomePage'
 import { bindActionCreators } from 'redux'
 import { Region, UserToken } from './types'
 

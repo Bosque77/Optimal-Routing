@@ -14,10 +14,6 @@ const CreateDriverForm = ({ setActive }: prop) => {
 
     const region = useSelector((state: State) => state.setRegion)
 
-    if (!region) {
-        return (<div></div>)
-    }
-
     useEffect(() => {
 
         // M.AutoInit()
@@ -40,6 +36,12 @@ const CreateDriverForm = ({ setActive }: prop) => {
 
     const dispatch = useDispatch()
     const { createDriver } = bindActionCreators(actionCreators, dispatch)
+
+    if (!region) {
+        return (<div></div>)
+    }
+
+
 
 
     const submit = async () => {

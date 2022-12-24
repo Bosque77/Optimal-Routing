@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import OrderList from '../OrderList'
-// import OrderList from '../OrderList'
+import OrderList from '../../components/OrderList'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
-import './OrderPage.css'
-import GoogleMap from '../GoogleMap'
+import GoogleMap from '../../components/GoogleMap'
 import styled from 'styled-components'
 import { Depot, Landfill } from '../../types'
 
@@ -21,8 +19,12 @@ margin-bottom: 50px;
 `
 
 const OrderPage = () => {
+
+
     const dispatch = useDispatch()
-    const { initializeOrders, initializeLandfills, initializeDepots, initializeVehicles } = bindActionCreators(actionCreators, dispatch)
+    const { initializeOrders } = bindActionCreators(actionCreators, dispatch)
+
+
     const region = useSelector((state: State) => state.setRegion)
     const [show_depots, setDepots] = useState<Depot[] | undefined>(undefined)
     const [show_landfills, setLandfills] = useState<Landfill[] | undefined>(undefined)
@@ -31,22 +33,11 @@ const OrderPage = () => {
     
 
     useEffect(() => {
-        console.log('inside useEffect')
-        const elems = document.querySelectorAll('.datepicker')
 
+        const elems = document.querySelectorAll('.datepicker')
         M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
-
-
-            const month = date.getMonth() + 1
-            const day = date.getDate()
-            const year = date.getFullYear()
-            const date_string = `${month}/${day}/${year}`
-
-            initializeOrders(region, date_string)
-            initializeDepots(region)
-            initializeLandfills(region)
-            initializeVehicles(region)
+            initializeOrders(region, date.toString())
 
         }
 
@@ -55,9 +46,6 @@ const OrderPage = () => {
     const orders = useSelector((state: State) => state.orders)
     const landfills = useSelector((state: State) => state.landfills)
     const depots = useSelector((state: State) => state.depots)
-
-
-
 
 
 

@@ -17,9 +17,6 @@ const CreateLandfillForm = ({setActive }: prop) => {
     const { createLandfill } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
 
-    if(!region){
-        return(<div></div>)
-    }
 
     useEffect(() => {
 
@@ -47,6 +44,12 @@ const CreateLandfillForm = ({setActive }: prop) => {
     const [longitude, setLongitude] = useState('')
     const [active, setStatus] = useState(false)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
+
+    if(!region){
+        return(<div></div>)
+    }
+
+
 
 
 

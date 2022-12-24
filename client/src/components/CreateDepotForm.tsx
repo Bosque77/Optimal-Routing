@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { NewDepot, Address } from '../types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,14 +17,10 @@ const CreateDepotForm = ({setActive }: prop) => {
     const { createDepot } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
 
-    if(!region){
-        return(<div></div>)
-    }
 
-    useEffect(() => {
+    componentDidMount(() => {
 
-        // M.AutoInit()
-        console.log('inside useEffect')
+
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
             const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
@@ -48,10 +44,9 @@ const CreateDepotForm = ({setActive }: prop) => {
     const [active, setStatus] = useState(false)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
 
-
-
-
-
+    if(!region){
+        return(<div></div>)
+    }
 
 
     const geoLocate = async () => {
@@ -189,4 +184,8 @@ const CreateDepotForm = ({setActive }: prop) => {
 }
 
 export default CreateDepotForm
+
+function componentDidMount(arg0: () => void, arg1: never[]) {
+    throw new Error('Function not implemented.')
+}
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Login.css'
-import SignUpForm from '../SignUpForm/SignUpForm'
-import SignInForm from '../SignInForm/SignInForm'
+import SignUpForm from '../../components/SignUpForm/SignUpForm'
+import SignInForm from '../../components/SignInForm/SignInForm'
 import background_image from './images/login_background.png'
 
 

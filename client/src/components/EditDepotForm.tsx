@@ -14,12 +14,8 @@ interface prop {
 
 const EditDepotForm = ({ depot, setActive }: prop) => {
 
-
-    if (!depot) {
-        return (<div></div>)
-    }
-
-
+    const dispatch = useDispatch()
+    const { updateDepot } = bindActionCreators(actionCreators, dispatch)
     useEffect(() => {
 
         // M.AutoInit()
@@ -47,13 +43,12 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
     const [active, setStatus] = useState(depot.active)
     const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
 
+    if (!depot) {
+        return (<div></div>)
+    }
 
 
 
-
-
-    const dispatch = useDispatch()
-    const { updateDepot } = bindActionCreators(actionCreators, dispatch)
 
     const geoLocate = async () => {
         console.log('inside geoLocate')

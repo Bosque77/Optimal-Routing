@@ -11,13 +11,12 @@ interface prop {
 
 const CreateVehicleForm = ({ setActive }: prop) => {
 
-
+    const dispatch = useDispatch()
+    const { createVehicle } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
     const depots = useSelector((state: State) => state.depots)
 
-    if(!region || !depots){
-        return(<div></div>)
-    }
+
 
     useEffect(() => {
 
@@ -41,8 +40,12 @@ const CreateVehicleForm = ({ setActive }: prop) => {
     
 
 
-    const dispatch = useDispatch()
-    const { createVehicle } = bindActionCreators(actionCreators, dispatch)
+
+
+    if(!region || !depots){
+        return(<div></div>)
+    }
+
 
 
     const submit = async () => {
