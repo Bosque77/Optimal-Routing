@@ -4,16 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
-import styled from 'styled-components'
 import EditLandfillForm from './EditLandfillForm'
 import CreateLandfillForm from './CreateLandfillForm'
 import ConfirmDelete from './ConfirmDelete'
 
-import M from 'materialize-css'
 
-const TopSpacing = styled.div`
-  margin-top: 2em;
-`
+
 
 const LandfillList = () => {
 
@@ -23,7 +19,7 @@ const LandfillList = () => {
 
 
     useEffect(() => {
-        M.AutoInit()
+        // M.AutoInit()
 
     }, [])
     
@@ -95,7 +91,6 @@ const LandfillList = () => {
                 </div>
 
             </div>
-            <TopSpacing>
                 <table>
                     <thead>
                         <tr>
@@ -113,7 +108,6 @@ const LandfillList = () => {
                         {insertLandfills()}
                     </tbody>
                 </table>
-            </TopSpacing>
             {editFormActive && <EditLandfillForm landfill={landfill} setActive={setEditFormActive}  />}
             {createFormActive && <CreateLandfillForm setActive={setCreateFormActive}  />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill} />}

@@ -22,12 +22,12 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
         const geo_modal = document.querySelector('#geoModal')
         if (geo_modal) {
-            M.Modal.init(geo_modal)
+            // M.Modal.init(geo_modal)
         }
 
     }, [])
@@ -61,14 +61,14 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
         const response = await geocode.get(address)
         console.log(response)
         if (response.status === 'ERROR') {
-            M.toast({ html: `${response.message}` })
+            // M.toast({ html: `${response.message}` })
         }
         const lat_lng = response.data as LatLng
         setCoord(lat_lng)
         const modal_elem = document.getElementById('geoModal')
         if (modal_elem) {
-            const instance = M.Modal.getInstance(modal_elem)
-            instance.open()
+            // const instance = M.Modal.getInstance(modal_elem)
+            // instance.open()
         }
     }
 
@@ -78,16 +78,16 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
         console.log('inside on submit')
 
         if (name === '' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '') {
-            M.toast({ html: 'All fields need to be filled out' })
+            // M.toast({ html: 'All fields need to be filled out' })
         } else {
             const id = depot.id
             const new_depot: Depot = { id, name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'user_id': depot.user_id, 'region_id': depot.region_id, 'type':'Depot' }
             updateDepot(new_depot)
-            M.toast({ html: 'Updated Depot' })
+            // M.toast({ html: 'Updated Depot' })
             const modal_elem = document.getElementById('modal1')
             if (modal_elem) {
-                const instance = M.Modal.getInstance(modal_elem)
-                instance.close()
+                // const instance = M.Modal.getInstance(modal_elem)
+                // instance.close()
             }
             setActive(false)
         }
@@ -98,8 +98,8 @@ const EditDepotForm = ({ depot, setActive }: prop) => {
         setLongitude(lat_lng.lng.toFixed(3))
         const modal_elem = document.getElementById('geoModal')
         if (modal_elem) {
-            const instance = M.Modal.getInstance(modal_elem)
-            instance.close()
+            // const instance = M.Modal.getInstance(modal_elem)
+            // instance.close()
         }
 
     }

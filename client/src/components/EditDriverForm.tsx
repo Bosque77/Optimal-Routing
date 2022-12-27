@@ -21,8 +21,8 @@ const EditDriverForm = ({ driver, setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
     }, [])
 
@@ -42,16 +42,16 @@ const EditDriverForm = ({ driver, setActive }: prop) => {
     const submit = () => {
         console.log('inside on submit')
         if (name === '' || phone_number === '' || email === '') {
-            M.toast({ html: 'All fields need to be filled out' })
+            // M.toast({ html: 'All fields need to be filled out' })
         } else {
             const id = driver.id
             const new_driver: Driver = { id, name, phone_number, email, active, 'user_id': driver.user_id, 'region_id': driver.region_id }
             updateDriver(new_driver)
             const modal_elem = document.getElementById('modal1')
-            M.toast({html: 'Driver was updated'})
+            // M.toast({html: 'Driver was updated'})
             if(modal_elem){
-                const instance = M.Modal.getInstance(modal_elem)
-                instance.close()
+                // const instance = M.Modal.getInstance(modal_elem)
+                // instance.close()
             }
             setActive(false)
         }

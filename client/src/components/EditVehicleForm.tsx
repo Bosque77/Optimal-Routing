@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Depot, EditVehicle, Vehicle } from '../types'
+import { EditVehicle, Vehicle } from '../types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -23,12 +23,12 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
 
         const elems = document.querySelectorAll('select')
-        M.FormSelect.init(elems)
+        // M.FormSelect.init(elems)
 
     }, [])
 
@@ -48,7 +48,7 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
     const submit = () => {
         console.log('inside on submit')
         if (license_number === '' || size === 0) {
-            M.toast({ html: 'All fields need to be filled out' })
+            // M.toast({ html: 'All fields need to be filled out' })
         } else {
             const id = vehicle.id
             const start_depot_id = start_depot.id
@@ -61,11 +61,11 @@ const EditVehicleForm = ({ vehicle, setActive }: prop) => {
             }
 
             updateVehicle(new_vehicle)
-            M.toast({html: 'Updated Vehicle'})
+            // M.toast({html: 'Updated Vehicle'})
             const modal_elem = document.getElementById('modal1')
             if (modal_elem) {
-                const instance = M.Modal.getInstance(modal_elem)
-                instance.close()
+                // const instance = M.Modal.getInstance(modal_elem)
+                // instance.close()
             }
             setActive(false)
         }

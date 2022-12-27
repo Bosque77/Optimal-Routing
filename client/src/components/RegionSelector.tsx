@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styled from 'styled-components'
 import { actionCreators, State } from '../state'
 import './RegionSelector.css'
-
-const TopSpacing = styled.div`
-  margin-top: 2em;
-`
-
 
 
 
@@ -29,11 +23,11 @@ const RegionSelector = () => {
     useEffect(() => {
         // M.AutoInit()
         const elems = document.querySelectorAll('.dropdown-trigger')
-        M.Dropdown.init(elems, { constrainWidth: false })
+        // M.Dropdown.init(elems, { constrainWidth: false })
 
         const add_region_modal = document.querySelector('#addRegionModal')
         if (add_region_modal) {
-            M.Modal.init(add_region_modal)
+            // M.Modal.init(add_region_modal)
         }
 
         console.log('inside useEffect for Region selector')
@@ -75,8 +69,8 @@ const RegionSelector = () => {
     const openAddRegionModal = () => {
         const modal_elem = document.getElementById('addRegionModal')
         if (modal_elem) {
-            const instance = M.Modal.getInstance(modal_elem)
-            instance.open()
+            // const instance = M.Modal.getInstance(modal_elem)
+            // instance.open()
         }
     }
 
@@ -91,7 +85,6 @@ const RegionSelector = () => {
 
     return (
         <div>
-            <TopSpacing >
                 <div className="row right-align">
                     <div className="col offset l10 right-align">
                         <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>{set_region?.name}</a>
@@ -107,7 +100,6 @@ const RegionSelector = () => {
 
 
                 </div>
-            </TopSpacing>
 
 
             <ul id='dropdown1' className='dropdown-content'>

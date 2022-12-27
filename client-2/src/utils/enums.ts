@@ -1,0 +1,17 @@
+export enum DUMPSTER_SIZES {
+    TEN = 10,
+    FIFTEEN = 15,
+    TWENTY = 20,
+    THIRTY = 30,
+    FOURTY = 40,
+    FIFTY = 50
+}
+
+export const dumpster_sizes = [
+    DUMPSTER_SIZES.TEN,
+    DUMPSTER_SIZES.FIFTEEN,
+    DUMPSTER_SIZES.TWENTY,
+    DUMPSTER_SIZES.THIRTY,
+    DUMPSTER_SIZES.FOURTY,
+    DUMPSTER_SIZES.FIFTY
+]

@@ -24,11 +24,11 @@ const CreateVehicleForm = ({ setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
         const elems = document.querySelectorAll('select')
-        M.FormSelect.init(elems)
+        // M.FormSelect.init(elems)
     }, [])
 
 
@@ -52,17 +52,17 @@ const CreateVehicleForm = ({ setActive }: prop) => {
         console.log('inside on submit')
 
         if(license_number ==='' || size===0){
-            M.toast({html: 'All fields need to be filled out'})
+            // M.toast({html: 'All fields need to be filled out'})
         }else{
             const start_depot_id = start_depot.id
             const end_depot_id = end_depot?.id
             const new_vehicle: NewVehicle = { license_number, size, 'start_depot': start_depot_id, 'end_depot': end_depot_id, active, 'region_id': region.id }
             await createVehicle(new_vehicle)
-            M.toast({html: 'Created New Vehicle'})
+            // M.toast({html: 'Created New Vehicle'})
             const modal_elem = document.getElementById('modal1')
             if (modal_elem) {
-                const instance = M.Modal.getInstance(modal_elem)
-                instance.close()
+                // const instance = M.Modal.getInstance(modal_elem)
+                // instance.close()
             }
             setActive(false)
         }

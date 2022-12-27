@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'
-import DriverList from './DriverList'
-import styled from 'styled-components'
 import { TruckRoute } from '../types'
 import { bindActionCreators } from 'redux'
 
-
-const TableFormat = styled.div`
-  margin: 2em;
-`
 
 
 
@@ -31,8 +25,6 @@ const AssignDriver = ({ setActive, truckRoute }: prop) => {
         if (modal_1) {
             if(region){
                 initializeDrivers(region)
-                const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-                instance.open()
             }
 
         }
@@ -62,7 +54,6 @@ const AssignDriver = ({ setActive, truckRoute }: prop) => {
 
     return (
         <div id="modal1" className="modal">
-            <TableFormat>
                 <table>
                     <thead>
                         <tr>
@@ -77,7 +68,6 @@ const AssignDriver = ({ setActive, truckRoute }: prop) => {
                         {insertDrivers()}
                     </tbody>
                 </table>
-            </TableFormat>
         </div>
     )
 

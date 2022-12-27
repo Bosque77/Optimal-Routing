@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { DbResponse, Depot, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../types'
 import RoutingService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,15 +6,6 @@ import { actionCreators, State } from '../state'
 import { bindActionCreators } from 'redux'
 import route from '../services/route'
 
-
-const Spacing = styled.div`
-  margin-top: 2em;
-`
-
-const DataHeader = styled.div`
-    font-size:16px;
-    font-weight:bold;
-`
 
 
 
@@ -38,8 +28,8 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
-        M.Collapsible.init(elems, {})
-        M.AutoInit()
+        // M.Collapsible.init(elems, {})
+        // M.AutoInit()
     }, [])
 
     const [num_of_routes, setNumberOfRoutes] = useState(1)
@@ -115,9 +105,7 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
                         <tr key={depot.id}>
                             <td>
                                 <div className="row">
-                                    <DataHeader>
                                         {depot.name}
-                                    </DataHeader>
                                 </div>
                                 <div className="row">
                                     {depot.street} {depot.city}
@@ -144,9 +132,7 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
                         <tr key={landfill.id}>
                             <td>
                                 <div className="row">
-                                    <DataHeader>
                                         {landfill.name}
-                                    </DataHeader>
                                 </div>
                                 <div className="row">
                                     {landfill.street} {landfill.city}
@@ -187,7 +173,7 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
 
 
 
-        M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
+        // M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
         const route_query: RouteQuery = { landfills, depots, orders: orders_to_analyze, 'date': date.toDateString(), num_of_routes }
         const route_response = await RoutingService.createRoutes(route_query) as DbResponse
 
@@ -237,7 +223,6 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
                         <table>
                             <tbody>
                                 {insertOrders()}
-                                <Spacing />
                                 <div className="input-field">
                                     <input placeholder="Number of Routes" id="first_name" type="number" className="validate" onChange={({ target }) => setNumberOfRoutes(parseInt(target.value))} />
                                 </div>

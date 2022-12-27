@@ -1,34 +1,22 @@
 import React, { useState } from 'react'
 import { Order } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { actionCreators, State } from '../state'
+import { State } from '../state'
 import { useEffect } from 'react'
-import styled from 'styled-components'
 import CreateOrderForm from './CreateOrderForm'
 import OrderInfoForm from './OrderInfoForm'
 
 
-import M from 'materialize-css'
 import EditOrderForm from './EditOrderForm'
 import ConfirmDelete from './ConfirmDelete'
 
 
-const TopSpacing = styled.div`
-  margin-top: 2em;
-`
+
 
 const OrderList = () => {
 
-    const dispatch = useDispatch()
 
  
-
-
-    useEffect(() => {
-        M.AutoInit()
-
-    }, [])
     
     const orders = useSelector((state: State) => state.orders)
     const [order, setOrder] = useState<Order>(orders[0])
@@ -92,7 +80,6 @@ const OrderList = () => {
                 </div>
 
             </div>
-            <TopSpacing>
                 <table>
                     <thead>
                         <tr>
@@ -108,7 +95,6 @@ const OrderList = () => {
                         {insertOrders()}
                     </tbody>
                 </table>
-            </TopSpacing>
             {editFormActive && <EditOrderForm order={order} setActive={setEditFormActive}  />}
             {createFormActive && <CreateOrderForm setActive={setCreateFormActive} />}
             {orderInfoFormActive && <OrderInfoForm setActive={setOrderInfoFormActive} order={order}/>}

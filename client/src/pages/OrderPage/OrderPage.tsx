@@ -4,19 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import OrderList from '../../components/OrderList'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
-import GoogleMap from '../../components/GoogleMap'
-import styled from 'styled-components'
+import GoogleMap from '../../../archive/GoogleMap'
 import { Depot, Landfill } from '../../types'
 
 
 
-const Spacing = styled.div`
-  margin-top: 2em;
-`
-
-const OrderStyle = styled.div`
-margin-bottom: 50px;
-`
 
 const OrderPage = () => {
 
@@ -35,7 +27,7 @@ const OrderPage = () => {
     useEffect(() => {
 
         const elems = document.querySelectorAll('.datepicker')
-        M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
+        // M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
             initializeOrders(region, date.toString())
 
@@ -101,17 +93,13 @@ const OrderPage = () => {
             </div>
             <GoogleMap orders={orders} landfills={show_landfills} depots={show_depots} />
             <br />
-            <Spacing>
                 <div className="row">
                     <div className="col l3">
                         <input type="text" className="datepicker" placeholder='Select Date' />
                     </div>
 
                 </div>
-            </Spacing>
-            <OrderStyle>
                 <OrderList />
-            </OrderStyle>
 
         </div>
 

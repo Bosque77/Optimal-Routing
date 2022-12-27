@@ -5,19 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 
-import GoogleMap from '../../components/GoogleMap'
+import GoogleMap from '../../../archive/GoogleMap'
 
 import RouteItemSummaryList from '../../components/RouteItemSummaryList'
-import styled from 'styled-components'
 
 import { Order, TruckRoute } from '../../types'
 
 import RouteLists from '../../components/RouteLists'
-import orderReducer from '../../state/reducers/orderReducer'
 
-const Spacing = styled.div`
-  margin-top: 2em;
-`
+
 
 
 const RoutePage = () => {
@@ -35,7 +31,7 @@ const RoutePage = () => {
 
     useEffect(() => {
         const elems = document.querySelectorAll('.datepicker')
-        M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
+        // M.Datepicker.init(elems, { defaultDate: date, setDefaultDate: true, onSelect: (date) => onDateChange(date) })
         if (region) {
             initializeOrders(region, date.toDateString())
             initializeTruckRoutes(region, date.toDateString())
@@ -80,7 +76,6 @@ const RoutePage = () => {
 
         <div>
             <GoogleMap />
-            <Spacing />
             <div className="row">
                 <div className="col l3">
                     <input type="text" className="datepicker" placeholder='Select Date' />

@@ -24,8 +24,6 @@ const ConfirmDelete = ({ setActive, landfill, driver, depot, vehicle, order }: p
 
         const modal = document.querySelector('#confirm_delete')
         if (modal) {
-            const instance = M.Modal.init(modal, { dismissible: false })
-            instance.open()
         }
     }, [])
 

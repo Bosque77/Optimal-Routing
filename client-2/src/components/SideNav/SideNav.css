@@ -1,0 +1,17 @@
+.icon {
+    max-height: 75px;
+}
+
+.button-spacing {
+  margin-top: 50vh;
+}
+
+header, main, footer {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+    header, main, footer {
+      padding-left: 0;
+    }
+  }

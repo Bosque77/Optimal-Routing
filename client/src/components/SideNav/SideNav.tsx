@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import icon from './images/icon.png'
 import './SideNav.css'
-import M from 'materialize-css'
 import { Link, useNavigate } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../../state'
@@ -13,10 +12,10 @@ const SideNav = () => {
     const navigate = useNavigate()
     const { setUserToken } = bindActionCreators(actionCreators, dispatch)
 
-    useEffect(() => {
-        M.AutoInit()
+    // useEffect(() => {
+    //     M.AutoInit()
 
-    }, [])
+    // }, [])
 
 
 
@@ -32,7 +31,6 @@ const SideNav = () => {
         <div>
             <ul id="slide-out" className="sidenav sidenav-fixed">
                 <li>
-                    {/* <div> <i className="material-icons">add</i></div> */}
                     <div><a href="#!" className=""><img className="icon" src={icon} /></a></div>
                 </li>
                 <li><div className="divider"></div></li>

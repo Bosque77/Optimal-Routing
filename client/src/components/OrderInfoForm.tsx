@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { LatLng, Order } from '../types'
+import React, { useEffect } from 'react'
+import { Order } from '../types'
 
 
 interface prop {
@@ -14,8 +14,8 @@ const OrderInfoForm = ({ setActive, order }: prop) => {
 
         const modal = document.querySelector('#info-form-modal')
         if (modal) {
-            const instance = M.Modal.init(modal, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
 
     }, [])

@@ -20,8 +20,8 @@ const CreateDriverForm = ({ setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            // instance.open()
         }
     }, [])
 
@@ -48,15 +48,15 @@ const CreateDriverForm = ({ setActive }: prop) => {
         console.log('inside on submit')
 
         if (name === '' || phone_number === '' || email === '' || password === '') {
-            M.toast({ html: 'All fields need to be filled out' })
+            // M.toast({ html: 'All fields need to be filled out' })
         } else {
             const new_driver: NewDriver = { name, phone_number, email, password, 'region_id': region.id }
             await createDriver(new_driver)
-            M.toast({ html: 'Created New Landfill' })
+            // M.toast({ html: 'Created New Landfill' })
             const modal_elem = document.getElementById('modal1')
             if (modal_elem) {
-                const instance = M.Modal.getInstance(modal_elem)
-                instance.close()
+                // const instance = M.Modal.getInstance(modal_elem)
+                // instance.close()
             }
             setActive(false)
         }

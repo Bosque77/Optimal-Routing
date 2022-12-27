@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import AddRouteItem from './AddRouteItem'
-import M from 'materialize-css'
 import { Order, Landfill, Depot, Route_Item, TruckRoute, Region } from '../types'
-import styled from 'styled-components'
 import RouteService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'
 import { bindActionCreators } from 'redux'
 import AssignDriver from './AssignDriver'
 
-
-const Spacing = styled.div`
-  margin-top: 2em;
-`
 
 
 interface Returning_Route_Data {
@@ -44,7 +38,7 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
 
     useEffect(() => {
         const elems = document.querySelectorAll('.collapsible')
-        M.Collapsible.init(elems, {})
+        // M.Collapsible.init(elems, {})
 
     })
 
@@ -299,7 +293,6 @@ const RouteLists = ({ date, assignedOrders, setAssignedOrders }: prop) => {
                                             </tbody>
 
                                         </table>
-                                        <Spacing />
                                         <div className="row">
 
                                             <div className="col l4">

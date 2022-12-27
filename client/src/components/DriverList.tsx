@@ -4,16 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
 import { useEffect } from 'react'
-import styled from 'styled-components'
 import CreateDriverForm from './CreateDriverForm'
 import ConfirmDelete from './ConfirmDelete'
 
-import M from 'materialize-css'
 import EditDriverForm from './EditDriverForm'
 
-const TopSpacing = styled.div`
-  margin-top: 2em;
-`
+
 
 const DriverList = () => {
 
@@ -23,7 +19,7 @@ const DriverList = () => {
 
 
     useEffect(() => {
-        M.AutoInit()
+        // M.AutoInit()
 
     }, [])
     
@@ -93,7 +89,6 @@ const DriverList = () => {
                 </div>
 
             </div>
-            <TopSpacing>
                 <table>
                     <thead>
                         <tr>
@@ -108,7 +103,6 @@ const DriverList = () => {
                         {insertDrivers()}
                     </tbody>
                 </table>
-            </TopSpacing>
             {editFormActive && <EditDriverForm driver={driver} setActive={setEditFormActive}  />}
             {createFormActive && <CreateDriverForm setActive={setCreateFormActive} />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} driver={driver} />}

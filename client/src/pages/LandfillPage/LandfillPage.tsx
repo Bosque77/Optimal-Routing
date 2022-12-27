@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import LandfillList from '../../components/LandfillList'
 import {State } from '../../state'
-import GoogleMap from '../../components/GoogleMap'
+import GoogleMap from '../../../archive/GoogleMap'
 
 // import './LandfillPage.css'
 

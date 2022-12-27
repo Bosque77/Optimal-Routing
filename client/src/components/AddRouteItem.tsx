@@ -1,18 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styled from 'styled-components'
 import { actionCreators, State } from '../state'
 import { Order, Landfill, Depot, Route_Item, TruckRoute } from '../types'
-
-const Spacing = styled.div`
-  margin-top: 2em;
-`
-
-const DataHeader = styled.div`
-    font-size:16px;
-    font-weight:bold;
-`
 
 
 
@@ -36,8 +26,7 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
     useEffect(() => {
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
+
         }
     },[])
 
@@ -141,8 +130,8 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
 
         const modal_elem = document.getElementById('modal1')
         if (modal_elem) {
-            const instance = M.Modal.getInstance(modal_elem)
-            instance.close()
+            // const instance = M.Modal.getInstance(modal_elem)
+            // instance.close()
         }
 
 
@@ -155,7 +144,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
     return (
         <div id="modal1" className="modal">
             <div className="modal-content">
-                <DataHeader>Unassigned Orders</DataHeader>
                 <table className="striped">
                     <thead>
                         <tr>
@@ -168,8 +156,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
                         {insertOrders()}
                     </tbody>
                 </table>
-                <Spacing />
-                <DataHeader>Landfills</DataHeader>
                 <table className="striped">
                     <thead>
                         <tr>
@@ -182,8 +168,6 @@ const AddRouteItem = ({ date,  assignedOrders, setAssignedOrders, setActive, tru
                         {insertLandfills()}
                     </tbody>
                 </table>
-                <Spacing />
-                <DataHeader>Depots</DataHeader>
                 <table className="striped">
                     <thead>
                         <tr>

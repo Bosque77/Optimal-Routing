@@ -3,17 +3,11 @@ import { EditVehicle, Vehicle } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
-import { useEffect } from 'react'
-import styled from 'styled-components'
 import CreateVehicleForm from './CreateVehicleForm'
 import ConfirmDelete from './ConfirmDelete'
 
-import M from 'materialize-css'
 import EditVehicleForm from './EditVehicleForm'
 
-const TopSpacing = styled.div`
-  margin-top: 2em;
-`
 
 const VehicleList = () => {
 
@@ -22,10 +16,6 @@ const VehicleList = () => {
     const { updateVehicle } = bindActionCreators(actionCreators, dispatch)
 
 
-    useEffect(() => {
-        M.AutoInit()
-
-    }, [])
     
     const vehicles = useSelector((state: State) => state.vehicles)
     const [vehicle, setVehicle] = useState<Vehicle>(vehicles[0])
@@ -50,12 +40,6 @@ const VehicleList = () => {
 
         }
 
-        // const new_vehicle = { ...vehicle }
-        // if (vehicle.active) {
-        //     new_vehicle.active = false
-        // } else {
-        //     new_vehicle.active = true
-        // }
         updateVehicle(updated_vehicle)
     }
 
@@ -107,7 +91,6 @@ const VehicleList = () => {
                 </div>
 
             </div>
-            <TopSpacing>
                 <table>
                     <thead>
                         <tr>
@@ -123,7 +106,6 @@ const VehicleList = () => {
                         {insertVehicles()}
                     </tbody>
                 </table>
-            </TopSpacing>
             {editFormActive && <EditVehicleForm vehicle={vehicle} setActive={setEditFormActive}  />}
             {createFormActive && <CreateVehicleForm setActive={setCreateFormActive} />}
             {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} vehicle={vehicle} />}
