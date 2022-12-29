@@ -1,0 +1,21 @@
+.container {
+    flex: auto;
+    flex-direction: row;
+    background-color: black;
+  }
+
+  .text {
+    color: white;
+  }
+
+  .flex-item{
+      flex: auto;
+      flex-grow: 1;
+      color: white;
+  }
+
+  .flex-item-2{
+      flex: auto;
+      flex-grow: 2;
+      color: white;
+  }

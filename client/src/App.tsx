@@ -36,11 +36,13 @@ function App() {
     return (
         <Router>
             <div className="App">
+                <HomePage />
 
                 <Routes>
-                    {!user_token && <Route path="/*" element={<Login />} />}
+                    
+                    {/* {!user_token && <Route path="/*" element={<Login />} />}
 
-                    {user_token && <Route path="/*" element={<HomePage />} />}
+                    {user_token && <Route path="/*" element={<HomePage />} />} */}
 
                 </Routes>
 

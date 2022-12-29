@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Hello Drew</title>
+    <style>
+      #container {
+        width: 350px;
+        margin: 50px auto;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+        color: #333;
+      }
+      
+      #container h1 {
+        color: #16a085;
+        font-size: 20px;
+        font-weight: normal;
+        margin: 0 0 20px 0;
+        padding: 20px;
+        text-align: center;
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      
+      #message {
+        left: 30px;
+        line-height: 20px;
+        padding: 30px;
+        top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>How to Change an Object's Content</h1>
+      <p>This page is to show how to change the content of an object by clicking a button. First the message is inserted into the div. Then, when the button is clicked, the script will change the content of the message.</p>
+      <button onclick="sayHello()">Click me</button>
+      <div id="message"></div>
+    </div>
+    <script>
+      function sayHello() {
+        document.getElementById("message").innerHTML = "Hello Drew";
+      }
+    </script>
+  </body>
+</html>

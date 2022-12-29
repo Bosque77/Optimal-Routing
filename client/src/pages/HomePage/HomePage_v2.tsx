@@ -43,8 +43,12 @@ const HomePage = () => {
   }, [region]);
 
   return (
-    <div>
-      <Header />
+    <div className="bg-slate-100 flex h-screen">
+      <div className="w-64 bg-slate-50 flex flex-col">
+      <SideNav />
+
+      </div>
+      <div>The rest of the content</div>
     </div>
   );
 };
