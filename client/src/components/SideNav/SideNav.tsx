@@ -23,18 +23,65 @@ const SideNav = () => {
   };
 
   return (
-    <div className="fixed h-screen w-64 bg-slate-50 overflow-y-auto">
+    <div className="fixed h-screen w-64 bg-white overflow-y-auto shadow-md">
       <div className="h-auto">
         <img className="mx-auto w-32" src={icon} alt="website logo" />
-        <Link to="/landfill" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Landfills</Link>
-        <Link to="/driver" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Truck Drivers</Link>
-        <Link to="/depot" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Depots</Link>
-        <Link to="/vehicle" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Vehicles</Link>
-        <Link to="/order" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Orders</Link>
-        <Link to="/route" className="block mt-4 text-gray-700 text-lg font-semibold hover:text-gray-500">Routes</Link>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/landfill"
+            className="block mt-4 text-gray-600 text-lg hover:text-gray-900 text-left ml-10 font-normal font-sans"
+          >
+            Landfills
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/driver"
+            className="block mt-2 text-gray-700 text-lg  hover:text-gray-900 text-left ml-10 font-normal"
+          >
+            Truck Drivers
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/depot"
+            className="block mt-2 text-gray-700 text-lg  hover:text-gray-900 text-left ml-10 font-normal"
+          >
+            Depots
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/vehicle"
+            className="block mt-2 text-gray-700 text-lg  hover:text-gray-900 text-left ml-10 font-normal"
+          >
+            Vehicles
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/order"
+            className="block mt-2 text-gray-700 text-lg  hover:text-gray-900 text-left ml-10 font-normal"
+          >
+            Orders
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+          <Link
+            to="/route"
+            className="block mt-2 text-gray-700 text-lg  hover:text-gray-900 text-left ml-10 font-normal"
+          >
+            Routes
+          </Link>
+        </div>
       </div>
       <div className="absolute bottom-5 w-full">
-        <button className="mx-auto mt-4 py-2 px-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded" onClick={() => onSignOut()}>Sign Out</button>
+        <button
+          className="mx-auto mt-4 py-2 px-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded"
+          onClick={() => onSignOut()}
+        >
+          Sign Out
+        </button>
       </div>
     </div>
   );
