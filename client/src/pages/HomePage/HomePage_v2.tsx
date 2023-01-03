@@ -4,7 +4,7 @@ import "./HomePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../../state";
-import DepotList from "../../components/DepotList";
+import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 
 
@@ -46,15 +46,9 @@ const HomePage = () => {
       <div className="mx-auto flex flex-col">
         <div className="py-5"></div>
         <LandfillTable />
+        <div className="py-5"></div>
+        <DepotTable />
 
-        <div className="bg-white p-3 mt-10 pt-0 drop-shadow-md rounded">
-          <h2 className="text-left font-sans mt-8 text-gray-600 text-lg">
-            Depots
-          </h2>
-          <div className="drop-shadow-sm">
-            <DepotList />
-          </div>
-        </div>
       </div>
     </div>
   );
