@@ -1,8 +1,0 @@
-Primary: Lime
-Neutral: Neutral
-
-Accent 1: Cyan
-Accent 2: Rose
-Accent 3: Blue
-Accent 4: Fuchsia
-Accent 5: Yellow

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { useEffect } from "react";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import EditLandfillForm from "./EditLandfillForm";
 import CreateLandfillForm from "./CreateLandfillForm";
 import ConfirmDelete from "./ConfirmDelete";
@@ -52,15 +54,14 @@ const LandfillList = () => {
   const insertLandfills = () => {
     return landfills.map((landfill) => (
       <tr key={landfill.id}  className="border-b bg-white">
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{landfill.name}</td>
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{landfill.street}</td>
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{landfill.city}</td>
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-right">{landfill.zipcode}</td>
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-right">{landfill.latitude}</td>
-        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-right">{landfill.longitude}</td>
-        {/* <td>{(landfill.active) ? <p><label><input type="checkbox" checked={true} onChange={() => changeLandfillStatus(landfill)} /><span>Active</span></label> </p> : <p><label><input type="checkbox" checked={false} onChange={() => changeLandfillStatus(landfill)} /><span>Inactive</span></label> </p>}</td>
-                    <td> <button className="btn-floating btn waves-light red" onClick={() => editLandfill(landfill)}><i className="material-icons">mode_edit</i></button></td>
-                    <td> <button className="btn-floating btn black" onClick={() => onDeleteLandfill(landfill)}><i className="material-icons">delete</i></button></td> */}
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{landfill.name}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{landfill.street}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{landfill.city}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">{landfill.zipcode}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">{landfill.latitude}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">{landfill.longitude}</td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none"><PencilIcon  className="w-6 h-6 mr-3 text-lime-700 stroke-2 hover:text-indigo-900 cursor-pointer active:drop-shadow-none active:scale-95"/></td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none"><TrashIcon  className="w-6 h-6 mr-3 text-red-900 stroke-2 hover:text-red-900 cursor-pointer active:drop-shadow-none active:scale-95"/></td>
       </tr>
     ));
   };
@@ -87,6 +88,8 @@ const LandfillList = () => {
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-right">Zipcode</th>
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-right">Latitude</th>
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-right">Longitude</th>
+                  <th></th>
+                  <th></th>
                   {/* <th>Active</th> */}
                 </tr>
               </thead>
