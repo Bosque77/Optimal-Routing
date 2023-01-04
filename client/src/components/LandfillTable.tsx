@@ -163,11 +163,11 @@ const LandfillTable = () => {
 
   return (
     <div className="bg-white drop-shadow-md rounded">
-      <div className="bg-lime-500 pt-2"></div>
+      <div className="bg-amber-900 pt-2"></div>
       <div className="relative">
         <div className="flex flex-row mt-4 ml-4">
           <InformationCircleIcon
-            className="w-6 h-6 mr-3 text-indigo-600 hover:text-indigo-800 cursor-pointer"
+            className="w-6 h-6 mr-3 text-amber-900 hover:text-indigo-800 cursor-pointer"
             onMouseEnter={() => setShowInfo(true)}
             onMouseLeave={() => setShowInfo(false)}
           />

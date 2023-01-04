@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../../state";
 import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
-
+import OrderTable from "../../components/OrderTable";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -36,19 +36,19 @@ const HomePage = () => {
     }
   }, [region]);
 
-
-
   return (
-    <div className="bg-slate-100 flex h-screen">
+    <div className="bg-slate-100 flex h-full">
       <div className="w-64 bg-slate-50">
         <SideNav />
       </div>
       <div className="mx-auto flex flex-col">
         <div className="py-5"></div>
+        <OrderTable />
+        <div className="py-5"></div>
         <LandfillTable />
         <div className="py-5"></div>
         <DepotTable />
-
+        <div className="py-5"></div>
       </div>
     </div>
   );

@@ -155,7 +155,7 @@ const DepotTable = () => {
       <div className="relative">
         <div className="flex flex-row mt-4 ml-4">
           <InformationCircleIcon
-            className="w-6 h-6 mr-3 text-indigo-600 hover:text-indigo-800 cursor-pointer"
+            className="w-6 h-6 mr-3 text-indigo-500 hover:text-indigo-800 cursor-pointer"
             onMouseEnter={() => setShowInfo(true)}
             onMouseLeave={() => setShowInfo(false)}
           />

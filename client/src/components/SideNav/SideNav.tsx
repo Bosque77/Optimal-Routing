@@ -29,9 +29,9 @@ const SideNav = () => {
         <div className="hover:bg-slate-200 mx-4 rounded-lg">
           <Link
             to="/landfill"
-            className="block mt-4 text-black text-lg hover:text-black text-left ml-14 font-normal"
+            className="block mt-4 text-gray-900 text-lg hover:text-black text-left ml-14 font-normal"
           >
-            Landfills
+            <span className="ml-3"> Landfills</span>
           </Link>
         </div>
         <div className="hover:bg-slate-200 mx-4 rounded-lg">
@@ -76,6 +76,7 @@ const SideNav = () => {
         </div>
       </div>
       <div className="absolute bottom-5 w-full">
+        
         <button
           className="mx-auto mt-4 py-2 px-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded"
           onClick={() => onSignOut()}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import OrderList from '../../components/OrderList'
+import OrderList from '../../components/OrderTable'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 import GoogleMap from '../../../archive/GoogleMap'
