@@ -10,7 +10,10 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { TruckIcon } from "@heroicons/react/24/solid";
 
-import M from "materialize-css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+// import M from "materialize-css";
 
 import EditOrderForm from "./EditOrderForm";
 import ConfirmDelete from "./ConfirmDelete";
@@ -159,10 +162,19 @@ const OrderTable = () => {
           )}
         </div>
       </div>
-      <div className="text-right my-5 mr-5">
-        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95">
-          Add Order
-        </button>
+
+      <div className="text-right my-5 mr-5 flex justify-end z-40">
+        <div className="col l3 mr-3">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date: Date) => handleDateChange(date)} className="border rounded w-48 p-2"
+          />
+        </div>
+        <div className="col l3">
+          <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95">
+            Add Order
+          </button>
+        </div>
       </div>
       <div className="drop-shadow-sm px-4">
         <div className="">
@@ -170,7 +182,7 @@ const OrderTable = () => {
             <div className="m-4">
               <div>There are no orders for today. </div>
               <div>Add your first order!</div>
-              <TruckIcon className="w-20 h-20 my-4 black mx-auto text-lime-500" />
+              <TruckIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
             </div>
           )}
           {orders.length > 0 && <OrderList />}
