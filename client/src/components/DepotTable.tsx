@@ -162,7 +162,7 @@ const DepotTable = () => {
           <h2 className="text-left font-sans text-black text-xl">Depots</h2>
           {showInfo && (
             <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
-              The depot locations are where the dumpsters depart and come back to.
+              The depot locations are where the dumpsters depart from and return to at the end of their shift.
             </div>
           )}
         </div>

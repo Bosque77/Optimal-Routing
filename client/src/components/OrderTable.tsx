@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Order } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../state";
+import { bindActionCreators } from "redux";
+import { actionCreators, State } from "../state";
 import { useEffect } from "react";
-import CreateOrderForm from "./CreateOrderForm";
-import OrderInfoForm from "./OrderInfoForm";
+import CreateOrderForm from "./CreateOrderForm_v2";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
@@ -13,13 +13,17 @@ import { TruckIcon } from "@heroicons/react/24/solid";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// import M from "materialize-css";
+import M from "materialize-css";
 
-import EditOrderForm from "./EditOrderForm";
-import ConfirmDelete from "./ConfirmDelete";
+// import EditOrderForm from "./EditOrderForm";
+// import ConfirmDelete from "./ConfirmDelete";
 
-const OrderList = () => {
-  const orders = useSelector((state: State) => state.orders);
+interface prop_1 {
+  orders: Order[];
+}
+
+const OrderList = ({ orders }: prop_1) => {
+  // const orders = useSelector((state: State) => state.orders);
   const [order, setOrder] = useState<Order>(orders[0]);
   const [editFormActive, setEditFormActive] = useState(false);
   const [createFormActive, setCreateFormActive] = useState(false);
@@ -132,17 +136,37 @@ const OrderList = () => {
   );
 };
 
-const OrderTable = () => {
+interface prop_2 {
+  setCreateOrderModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
+  const dispatch = useDispatch();
+  const region = useSelector((state: State) => state.setRegion);
+  const { initializeOrders } = bindActionCreators(actionCreators, dispatch);
+
   const orders = useSelector((state: State) => state.orders);
   const [selectedDate, handleDateChange] = useState(new Date());
+  const [createOrder, setCreateOrder] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
-    const elem = document.querySelector(".datepicker");
-    if (elem) {
-      M.Datepicker.init(elem, {});
+    const date_picker_element = document.querySelector(".datepicker");
+    if (date_picker_element) {
+      M.Datepicker.init(date_picker_element, {});
+    }
+
+    const modal_elem = document.getElementById("modal1");
+    if (modal_elem) {
+      M.Modal.init(modal_elem, {});
     }
   }, []);
+
+  useEffect(() => {
+    if (region) {
+      initializeOrders(region, selectedDate.toDateString());
+    }
+  }, [region, selectedDate]);
 
   return (
     <div className="bg-white drop-shadow-md rounded">
@@ -163,15 +187,20 @@ const OrderTable = () => {
         </div>
       </div>
 
-      <div className="text-right my-5 mr-5 flex justify-end z-40">
+      <div className="text-right my-5 mr-5 flex justify-end ">
         <div className="col l3 mr-3">
           <DatePicker
             selected={selectedDate}
-            onChange={(date: Date) => handleDateChange(date)} className="border rounded w-48 p-2"
+            onChange={(date: Date) => handleDateChange(date)}
+            className="border-2 rounded w-48 p-2"
           />
         </div>
         <div className="col l3">
-          <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95">
+          <button
+            className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
+            data-target="modal1"
+            onClick={() => setCreateOrderModalActive(true)}
+          >
             Add Order
           </button>
         </div>
@@ -181,11 +210,14 @@ const OrderTable = () => {
           {orders.length === 0 && (
             <div className="m-4">
               <div>There are no orders for today. </div>
-              <div>Add your first order!</div>
+              <div>
+                Add a order for today or change the date to see the orders for
+                that day.
+              </div>
               <TruckIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
             </div>
           )}
-          {orders.length > 0 && <OrderList />}
+          {orders.length > 0 && <OrderList orders={orders} />}
         </div>
       </div>
     </div>

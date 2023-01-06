@@ -99,7 +99,7 @@ const OrderPage = () => {
                     </div>
 
                 </div>
-                <OrderList />
+                {/* <OrderList /> */}
 
         </div>
 

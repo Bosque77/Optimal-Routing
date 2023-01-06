@@ -7,6 +7,8 @@ import geocode from '../services/geocode'
 import { LatLng } from '../types'
 import { DUMPSTER_SIZES, dumpster_sizes } from '../utils/enums'
 
+import M from "materialize-css";
+
 interface prop {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
@@ -25,15 +27,15 @@ const CreateOrderForm = ({ setActive }: prop) => {
         console.log('inside useEffect')
         const modal_1 = document.querySelector('#modal1')
         if (modal_1) {
-            // const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            // instance.open()
+            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
+            instance.open()
         }
         const geo_modal = document.querySelector('#geoModal')
         if (geo_modal) {
-            // M.Modal.init(geo_modal)
+            M.Modal.init(geo_modal)
         }
         const elems = document.querySelectorAll('select')
-        // M.FormSelect.init(elems)
+        M.FormSelect.init(elems)
 
 
         // Drop Off Date Picker Initialization
@@ -41,7 +43,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
         if (drop_off_date_picker) {
             const elem = document.body
             console.log(elem)
-            // M.Datepicker.init(drop_off_date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
+            M.Datepicker.init(drop_off_date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
         }
 
 
@@ -50,7 +52,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
         if (pickup_date_picker) {
             const elem = document.body
             console.log(elem)
-            // M.Datepicker.init(pickup_date_picker, { setDefaultDate: true, onSelect: (date) => onPickupDateChange(date), container: elem })
+            M.Datepicker.init(pickup_date_picker, { setDefaultDate: true, onSelect: (date) => onPickupDateChange(date), container: elem })
         }
 
 
@@ -102,14 +104,14 @@ const CreateOrderForm = ({ setActive }: prop) => {
         const response = await geocode.get(address)
         console.log(response)
         if (response.status === 'ERROR') {
-            // M.toast({ html: 'Was not able to geolocate this location' })
+            M.toast({ html: 'Was not able to geolocate this location' })
         } else {
             const lat_lng = response.data as LatLng
             setCoord(lat_lng)
             const modal_elem = document.getElementById('geoModal')
             if (modal_elem) {
-                // const instance = M.Modal.getInstance(modal_elem)
-                // instance.open()
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.open()
             }
         }
 
@@ -149,16 +151,16 @@ const CreateOrderForm = ({ setActive }: prop) => {
         console.log('inside on submit')
 
         if (name === '' || phone_number==='' || email==='' || street === '' || city === '' || state === '' || zipcode === '' || latitude === '' || longitude === '' || drop_off_date === '' || pickup_date==='') {
-            // M.toast({ html: 'All fields need to be filled out' })
+            M.toast({ html: 'All fields need to be filled out' })
         } else {
             const new_order: NewOrder = { name, street, city, email, phone_number, dumpster_size, 'delivery_date': drop_off_date, pickup_date, state, special_instructions, delivery_completed, pickup_completed, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), 'region_id': region.id, 'type':'Order' }
             console.log(new_order)
             await createOrder(new_order)
-            // M.toast({ html: 'Created New Order' })
+            M.toast({ html: 'Created New Order' })
             const modal_elem = document.getElementById('modal1')
             if (modal_elem) {
-                // const instance = M.Modal.getInstance(modal_elem)
-                // instance.close()
+                const instance = M.Modal.getInstance(modal_elem)
+                instance.close()
             }
             setActive(false)
         }
@@ -171,8 +173,8 @@ const CreateOrderForm = ({ setActive }: prop) => {
         setLongitude(lat_lng.lng.toFixed(3))
         const modal_elem = document.getElementById('geoModal')
         if (modal_elem) {
-            // const instance = M.Modal.getInstance(modal_elem)
-            // instance.close()
+            const instance = M.Modal.getInstance(modal_elem)
+            instance.close()
         }
     }
 

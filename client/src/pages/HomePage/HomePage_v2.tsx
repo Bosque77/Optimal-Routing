@@ -7,9 +7,14 @@ import { actionCreators, State } from "../../state";
 import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
+import CreateOrderFrom from "../../components/CreateOrderForm_v2";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
+  const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
+
+
   const {
     initializeDepots,
     initializeDrivers,
@@ -30,7 +35,7 @@ const HomePage = () => {
       initializeDepots(region);
       // initializeDrivers(region);
       initializeLandfills(region);
-      // initializeOrders(region, date);
+      initializeOrders(region, date);
       // initializeTruckRoutes(region, date);
       // initializeVehicles(region);
     }
@@ -43,13 +48,17 @@ const HomePage = () => {
       </div>
       <div className="mx-auto flex flex-col">
         <div className="py-5"></div>
-        <OrderTable />
+        <OrderTable setCreateOrderModalActive={setCreateOrderModalActive}/>
         <div className="py-5"></div>
         <LandfillTable />
         <div className="py-5"></div>
         <DepotTable />
         <div className="py-5"></div>
       </div>
+
+
+        {createOrderModalActive && <CreateOrderFrom setActive={setCreateOrderModalActive}/> }
+
     </div>
   );
 };
