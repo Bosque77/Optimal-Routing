@@ -14,7 +14,6 @@ const HomePage = () => {
 
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
 
-
   const {
     initializeDepots,
     initializeDrivers,
@@ -48,7 +47,7 @@ const HomePage = () => {
       </div>
       <div className="mx-auto flex flex-col">
         <div className="py-5"></div>
-        <OrderTable setCreateOrderModalActive={setCreateOrderModalActive}/>
+        <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
         <div className="py-5"></div>
         <LandfillTable />
         <div className="py-5"></div>
@@ -56,9 +55,9 @@ const HomePage = () => {
         <div className="py-5"></div>
       </div>
 
-
-        {createOrderModalActive && <CreateOrderFrom setActive={setCreateOrderModalActive}/> }
-
+      {createOrderModalActive && (
+        <CreateOrderFrom setActive={setCreateOrderModalActive} />
+      )}
     </div>
   );
 };
