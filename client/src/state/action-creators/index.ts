@@ -11,6 +11,7 @@ import routeService from '../../services/route'
 import { Dispatch } from 'redux'
 import { Depot, Driver, EditVehicle, Landfill, LoginInfo, NewDepot, NewDriver, NewLandfill, NewOrder, NewRegion, NewTruckRoute, NewVehicle, Order, Region, Route_Item, TruckRoute, UserToken, Vehicle } from '../../types'
 import { setToken } from '../../services/config'
+import { Severity } from '../../types'
 
 
 export const setRegion = (region: Region) => {
@@ -336,6 +337,25 @@ export const setUserToken = (user_token: UserToken | null) => {
         dispatch({
             type: ActionType.SET_USER_TOKEN,
             data: user_token
+        })
+    }
+}
+
+
+export const setAlert = (mesage: string, severity: Severity) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.SET_ALERT,
+            data: {message: mesage, severity: severity, open: true}
+        })
+    }
+}
+
+export const removeAlert = () => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.REMOVE_ALERT,
+            data: { message: '', severity: 'info', open: false}
         })
     }
 }

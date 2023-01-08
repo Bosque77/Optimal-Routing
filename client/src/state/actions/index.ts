@@ -1,4 +1,4 @@
-import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute, NewTruckRoute } from '../../types'
+import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute, NewTruckRoute, AlertState } from '../../types'
 import { ActionType } from '../action-types'
 
 interface SET_USER_TOKEN {
@@ -149,6 +149,17 @@ interface INIT_ORDERS {
     data: Order[]
 }
 
+interface SET_ALERT {
+    type: ActionType.SET_ALERT;
+    data: AlertState
+}
+
+interface REMOVE_ALERT {
+    type: ActionType.REMOVE_ALERT;
+    data: AlertState
+}
+
+
 
 export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS |
  DELETE_LANDFILL | SET_USER_TOKEN | INIT_REGIONS | SET_REGION | ADD_REGION | DELETE_REGION |
@@ -156,4 +167,4 @@ export type Action = ADD_LANDFILL | UPDATE_LANDFILL | INIT_LANDFILLS |
  ADD_DEPOT | UPDATE_DEPOT | INIT_DEPOTS | DELETE_DEPOT |
  ADD_VEHICLE | UPDATE_VEHICLE | DELETE_VEHICLE | INIT_VEHICLES |
  ADD_ORDER | UPDATE_ORDER | DELETE_ORDER | INIT_ORDERS |
- ADD_TRUCK_ROUTE | UPDATE_TRUCK_ROUTE | DELETE_TRUCK_ROUTE | INIT_TRUCK_ROUTES
+ ADD_TRUCK_ROUTE | UPDATE_TRUCK_ROUTE | DELETE_TRUCK_ROUTE | INIT_TRUCK_ROUTES | SET_ALERT | REMOVE_ALERT

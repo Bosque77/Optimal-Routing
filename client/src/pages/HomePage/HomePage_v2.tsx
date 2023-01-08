@@ -8,11 +8,13 @@ import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
 import CreateOrderFrom from "../../components/CreateOrderForm_v2";
+import Alert from "../../components/Alert";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
+  const [alertActive, setAlertActive] = useState(false);
 
   const {
     initializeDepots,
@@ -24,6 +26,7 @@ const HomePage = () => {
     initializeRegions,
   } = bindActionCreators(actionCreators, dispatch);
   const region = useSelector((state: State) => state.setRegion);
+  const alert_data = useSelector((state: State) => state.alert_data);
   const date = Date();
 
   useEffect(() => {
@@ -58,6 +61,7 @@ const HomePage = () => {
       {createOrderModalActive && (
         <CreateOrderFrom setActive={setCreateOrderModalActive} />
       )}
+      <Alert message={alert_data.message} severity={alert_data.severity} open={alert_data.open} />
     </div>
   );
 };

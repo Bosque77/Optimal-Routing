@@ -8,6 +8,7 @@ import depotReducer from './depotReducer'
 import vehicleReducer from './vehicleReducer'
 import orderReducer from './orderReducer'
 import routeReducer from './routeReducer'
+import alertReducer from './alertReducer'
 
 const reducers = combineReducers({
     landfills: landfillReducer,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
     depots: depotReducer,
     vehicles: vehicleReducer,
     orders: orderReducer,
-    routes: routeReducer
+    routes: routeReducer,
+    alert_data: alertReducer,
 })
 
 export default reducers

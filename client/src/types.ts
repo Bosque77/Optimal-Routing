@@ -267,3 +267,12 @@ export interface UserToken {
     token: string;
     username: string;
 }
+
+
+export type Severity = 'success' | 'error' | 'warning' | 'info'
+export interface AlertState {
+    message: string;
+    severity: Severity
+    open: boolean;
+}
+

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TruckIcon } from "@heroicons/react/24/solid";
 import { DUMPSTER_SIZES } from "../utils/enums";
 import DatePicker from "react-datepicker";
 import { LatLng, Address } from "../types";
-import geocode from "../services/geocode"
-
+import geocode from "../services/geocode";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators} from "../state";
+import {AlertState} from "../types"
 
 interface prop {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +15,8 @@ interface prop {
 
 const CreateOrderFrom = ({ setActive }: prop) => {
 
-
+  const dispatch = useDispatch();
+  const {setAlert, removeAlert} = bindActionCreators(actionCreators, dispatch);
 
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
@@ -30,12 +34,10 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   const [special_instructions, setInstructions] = useState("");
   // const [delivery_completed, setDeliveryStatus] = useState(false);
   // const [pickup_completed, setPickupStatus] = useState(false);
-  const [geo_modal_active, setGeoModalActive] = useState(false);
 
   const onDumpsterSelect = (dumpster_size: string) => {
     setDumpsterSize(parseInt(dumpster_size));
   };
-
 
   const geoLocate = async () => {
     const address: Address = {
@@ -45,16 +47,19 @@ const CreateOrderFrom = ({ setActive }: prop) => {
       zipcode: parseInt(zipcode),
     };
     const response = await geocode.get(address);
-    console.log(response)
+    console.log(response);
     if (response.status === "ERROR") {
-      console.log(response.message);
+      console.log('inside error about to render the alert')
+      const message = 'Error: ' + response.message
+      const severity =  'error'
+      setAlert(message, severity);
+
     } else {
       const lat_lng = response.data as LatLng;
-      setLatitude(lat_lng.lat.toString());
-      setLongitude(lat_lng.lng.toString());
+      setLatitude(lat_lng.lat.toFixed(3));
+      setLongitude(lat_lng.lng.toFixed(3));
     }
   };
-
 
   return (
     <>
@@ -221,8 +226,9 @@ const CreateOrderFrom = ({ setActive }: prop) => {
               </div>
             </div>
             <div className="text-left mt-2">
-              <button className="mt-5 py-2 px-4 bg-slate-50 text-black rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
-              onClick={geoLocate}
+              <button
+                className="mt-5 py-2 px-4 bg-slate-50 text-black rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                onClick={geoLocate}
               >
                 Calculate
               </button>
@@ -316,9 +322,6 @@ const CreateOrderFrom = ({ setActive }: prop) => {
         </div>
         <div className="fixed inset-0 bg-black opacity-50"></div>
       </div>
-
-
-
     </>
   );
 };
