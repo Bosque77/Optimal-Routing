@@ -9,11 +9,12 @@ const initialState : AlertState = {
 }
 
 const alertReducer = (state = initialState, action: Action): AlertState => {
+
     switch (action.type) {
     case ActionType.SET_ALERT:
-        return state
+        return action.data
     case ActionType.REMOVE_ALERT:
-        return state
+        return action.data
     default:
         return state
     }

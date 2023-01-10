@@ -14,10 +14,11 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
-  const [alertActive, setAlertActive] = useState(false);
+  // const [alertActive, setAlertActive] = useState(false);
 
   const {
     initializeDepots,
+    setAlert,
     initializeDrivers,
     initializeLandfills,
     initializeOrders,
@@ -43,12 +44,19 @@ const HomePage = () => {
     }
   }, [region]);
 
+
+  const renderMsg = () => {
+    console.log('inside render msg')
+    setAlert('test',  'info')
+  }
+
   return (
     <div className="bg-slate-100 flex h-full">
       <div className="w-64 bg-slate-50">
         <SideNav />
       </div>
       <div className="mx-auto flex flex-col">
+        <button onClick={renderMsg}>Test</button>
         <div className="py-5"></div>
         <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
         <div className="py-5"></div>
