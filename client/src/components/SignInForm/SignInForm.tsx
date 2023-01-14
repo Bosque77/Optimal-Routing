@@ -30,7 +30,6 @@ const SignInForm = () => {
 
   return (
     <>
-      <body>
         <div className="section"></div>
         <main>
           <h1 className="header black-text">Route Optimization Services</h1>
@@ -112,7 +111,6 @@ const SignInForm = () => {
             Create account
           </a>
         </main>
-      </body>
     </>
   );
 };

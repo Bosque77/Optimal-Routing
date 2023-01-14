@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { State } from "../state";
 
-import { Severity } from "../types";
 
-interface prop {
-  message: string;
-  severity: Severity;
-  open: boolean;
-}
+const Alert = () => {
 
-const Alert = ({ message, severity, open }: prop) => {
+
+  const alert_data = useSelector((state: State) => state.alert_data);
+
+  const message = alert_data.message;
+  const severity = alert_data.severity;
+  const time = alert_data.time;
+  const [open, setOpen] = useState(false);
+
+
+  useEffect(() => {
+    setOpen(true)
+    setTimeout(() => {
+      setOpen(false);
+    }, time);
+  }, [alert_data, time]);
+
+
+
   const get_jsx_msg = () => {
+
     switch (severity) {
       case "success":
         return (
@@ -29,7 +44,6 @@ const Alert = ({ message, severity, open }: prop) => {
               className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative bg-opacity-100"
               role="alert"
             >
-              <strong className="font-bold pr-4">Error</strong>
               <span className="block sm:inline">
                 {message}
               </span>

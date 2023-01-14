@@ -18,8 +18,6 @@ const HomePage = () => {
 
   const {
     initializeDepots,
-    setAlert,
-    removeAlert,
     initializeDrivers,
     initializeLandfills,
     initializeOrders,
@@ -46,13 +44,7 @@ const HomePage = () => {
   }, [region]);
 
 
-  const renderMsg = () => {
-    console.log('inside render msg')
-    setAlert('test',  'info')
-    setTimeout(() => {
-      removeAlert()
-    },3000)
-  }
+
 
   return (
     <div className="bg-slate-100 flex h-full">
@@ -60,7 +52,6 @@ const HomePage = () => {
         <SideNav />
       </div>
       <div className="mx-auto flex flex-col">
-        <button onClick={renderMsg}>Test</button>
         <div className="py-5"></div>
         <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
         <div className="py-5"></div>
@@ -73,7 +64,7 @@ const HomePage = () => {
       {createOrderModalActive && (
         <CreateOrderFrom setActive={setCreateOrderModalActive} />
       )}
-      <Alert message={alert_data.message} severity={alert_data.severity} open={alert_data.open} />
+      <Alert  />
     </div>
   );
 };

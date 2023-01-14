@@ -4,19 +4,22 @@ import { DUMPSTER_SIZES } from "../utils/enums";
 import DatePicker from "react-datepicker";
 import { LatLng, Address } from "../types";
 import geocode from "../services/geocode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators} from "../state";
-import {AlertState} from "../types"
+import { actionCreators, State } from "../state";
+import { NewOrder } from "../types";
 
 interface prop {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CreateOrderFrom = ({ setActive }: prop) => {
-
   const dispatch = useDispatch();
-  const {setAlert, removeAlert} = bindActionCreators(actionCreators, dispatch);
+  const { setAlert, createOrder } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+  const region = useSelector((state: State) => state.setRegion);
 
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
@@ -25,18 +28,64 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   const [zipcode, setZipcode] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  // const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 });
   const [dumpster_size, setDumpsterSize] = useState(DUMPSTER_SIZES.TEN);
   const [email, setEmail] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
-  const [drop_off_date, setDropOffDate] = useState(new Date());
+  const [delivery_date, setDeliveryDate] = useState(new Date());
   const [pickup_date, setPickupDate] = useState(new Date());
   const [special_instructions, setInstructions] = useState("");
-  // const [delivery_completed, setDeliveryStatus] = useState(false);
-  // const [pickup_completed, setPickupStatus] = useState(false);
+
 
   const onDumpsterSelect = (dumpster_size: string) => {
     setDumpsterSize(parseInt(dumpster_size));
+  };
+
+  const submit = async () => {
+    console.log("inside on submit");
+
+    if (
+      name === "" ||
+      phone_number === "" ||
+      email === "" ||
+      street === "" ||
+      city === "" ||
+      state === "" ||
+      zipcode === "" ||
+      latitude === "" ||
+      longitude === "" ||
+      region === null
+    ) {
+      setAlert("Please fill out all required fields", "error", 3000);
+    } else {
+      const delivery_date_str = delivery_date.toDateString();
+      const pickup_date_str = pickup_date.toDateString();
+      const new_order: NewOrder = {
+        name,
+        street,
+        city,
+        email,
+        phone_number,
+        dumpster_size,
+        delivery_date: delivery_date_str,
+        pickup_date: pickup_date_str,
+        state,
+        special_instructions,
+        zipcode: parseInt(zipcode),
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        region_id: region.id,
+        type: "Order",
+      };
+      console.log(new_order);
+      const response = await createOrder(new_order);
+      console.log(response);
+
+      // setAlert("Added Order", "success");
+      // setTimeout(() => {
+      //   removeAlert();
+      // }, 3000);
+      // setActive(false);
+    }
   };
 
   const geoLocate = async () => {
@@ -49,13 +98,10 @@ const CreateOrderFrom = ({ setActive }: prop) => {
     const response = await geocode.get(address);
     console.log(response);
     if (response.status === "ERROR") {
-      const message = 'Could not find address.  Please try again or manually enter coordinates'
-      const severity =  'error'
-      setAlert(message, severity);
-      setTimeout(() => {
-        removeAlert();
-      }, 5000);
-
+      const message =
+        "Could not find address.  Please try again or manually enter coordinates";
+      const severity = "error";
+      setAlert(message, severity, 3000);
     } else {
       const lat_lng = response.data as LatLng;
       setLatitude(lat_lng.lat.toFixed(3));
@@ -278,8 +324,8 @@ const CreateOrderFrom = ({ setActive }: prop) => {
               </label>
               <DatePicker
                 id="delivery_date_picker"
-                selected={drop_off_date}
-                onChange={(date: Date) => setDropOffDate(date)}
+                selected={delivery_date}
+                onChange={(date: Date) => setDeliveryDate(date)}
                 className="border rounded w-48 p-1 mt-2"
               />
             </div>
@@ -311,7 +357,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
             >
               Cancel
             </button>
-            <button className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white">
+            <button onClick={submit} className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white">
               Submit
             </button>
           </div>

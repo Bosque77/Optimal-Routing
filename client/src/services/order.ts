@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { NewOrder, Order } from '../types'
+import { HttpResponse, NewOrder, Order } from '../types'
 import { Region } from '../types'
 import { token } from './config'
 const baseUrl = '/orders'
@@ -61,11 +61,28 @@ const deleteOrder = async (order: Order) => {
 }
 
 const createNew = async (order: NewOrder) => {
-    const config = {
-        headers: { Authorization: token },
+
+    try{
+        const config = {
+            headers: { Authorization: token },
+        }
+        const axios_response = await axios.post(baseUrl, order, config)
+        const response: HttpResponse = {
+            status: 'OK',
+            message: 'Order created',
+            data: axios_response.data
+        }
+        return response
+
+    }catch(error){
+        const response: HttpResponse = {
+            status: 'ERROR',
+            message: 'Order creation failed',
+            data: error
+        }
+        return response
     }
-    const response = await axios.post(baseUrl, order, config)
-    return response.data
+
 }
 
 export default { getAll, put, deleteOrder, createNew, getByRegion, getByRegionAndDate }
