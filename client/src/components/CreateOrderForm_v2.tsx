@@ -49,10 +49,12 @@ const CreateOrderFrom = ({ setActive }: prop) => {
     const response = await geocode.get(address);
     console.log(response);
     if (response.status === "ERROR") {
-      console.log('inside error about to render the alert')
-      const message = 'Error: ' + response.message
+      const message = 'Could not find address.  Please try again or manually enter coordinates'
       const severity =  'error'
       setAlert(message, severity);
+      setTimeout(() => {
+        removeAlert();
+      }, 5000);
 
     } else {
       const lat_lng = response.data as LatLng;

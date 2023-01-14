@@ -19,6 +19,7 @@ const HomePage = () => {
   const {
     initializeDepots,
     setAlert,
+    removeAlert,
     initializeDrivers,
     initializeLandfills,
     initializeOrders,
@@ -48,6 +49,9 @@ const HomePage = () => {
   const renderMsg = () => {
     console.log('inside render msg')
     setAlert('test',  'info')
+    setTimeout(() => {
+      removeAlert()
+    },3000)
   }
 
   return (

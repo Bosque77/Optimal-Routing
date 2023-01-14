@@ -17,50 +17,8 @@ interface prop {
 const CreateOrderForm = ({ setActive }: prop) => {
 
     const dispatch = useDispatch()
-    const { createOrder } = bindActionCreators(actionCreators, dispatch)
+    const { createOrder, setAlert, removeAlert } = bindActionCreators(actionCreators, dispatch)
     const region = useSelector((state: State) => state.setRegion)
-
-
-    useEffect(() => {
-
-        // M.AutoInit()
-        console.log('inside useEffect')
-        const modal_1 = document.querySelector('#modal1')
-        if (modal_1) {
-            const instance = M.Modal.init(modal_1, { onCloseEnd: () => setActive(false) })
-            instance.open()
-        }
-        const geo_modal = document.querySelector('#geoModal')
-        if (geo_modal) {
-            M.Modal.init(geo_modal)
-        }
-        const elems = document.querySelectorAll('select')
-        M.FormSelect.init(elems)
-
-
-        // Drop Off Date Picker Initialization
-        const drop_off_date_picker = document.getElementById('drop-off-date')
-        if (drop_off_date_picker) {
-            const elem = document.body
-            console.log(elem)
-            M.Datepicker.init(drop_off_date_picker, { setDefaultDate: true, onSelect: (date) => onDropOffDateChange(date), container: elem })
-        }
-
-
-        // Pickup Date Picker Initialization
-        const pickup_date_picker = document.getElementById('pickup-date')
-        if (pickup_date_picker) {
-            const elem = document.body
-            console.log(elem)
-            M.Datepicker.init(pickup_date_picker, { setDefaultDate: true, onSelect: (date) => onPickupDateChange(date), container: elem })
-        }
-
-
-
-
-    }, [])
-
-
 
 
 
@@ -87,12 +45,6 @@ const CreateOrderForm = ({ setActive }: prop) => {
 
 
 
-
-
-
-
-
-
     const geoLocate = async () => {
         console.log('inside geoLocate')
         const address: Address = {
@@ -104,7 +56,14 @@ const CreateOrderForm = ({ setActive }: prop) => {
         const response = await geocode.get(address)
         console.log(response)
         if (response.status === 'ERROR') {
-            M.toast({ html: 'Was not able to geolocate this location' })
+            console.log('inside response error')
+            setAlert(response.message, 'error')
+            console.log('removing the alert')
+            setTimeout(() => {
+                console.log('executing timeout code')
+                removeAlert()
+            }, 3000)
+            console.log('after timeout')
         } else {
             const lat_lng = response.data as LatLng
             setCoord(lat_lng)

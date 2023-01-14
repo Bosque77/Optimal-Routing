@@ -143,24 +143,15 @@ interface prop_2 {
 const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
   const dispatch = useDispatch();
   const region = useSelector((state: State) => state.setRegion);
+  const orders = useSelector((state: State) => state.orders);
   const { initializeOrders } = bindActionCreators(actionCreators, dispatch);
 
-  const orders = useSelector((state: State) => state.orders);
+  
   const [selectedDate, handleDateChange] = useState(new Date());
   const [createOrder, setCreateOrder] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
-  useEffect(() => {
-    const date_picker_element = document.querySelector(".datepicker");
-    if (date_picker_element) {
-      M.Datepicker.init(date_picker_element, {});
-    }
 
-    const modal_elem = document.getElementById("modal1");
-    if (modal_elem) {
-      M.Modal.init(modal_elem, {});
-    }
-  }, []);
 
   useEffect(() => {
     if (region) {
