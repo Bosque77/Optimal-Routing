@@ -151,16 +151,19 @@ export const createVehicle = (vehicle: NewVehicle) => {
   };
 };
 
-
-
 export const createOrder = (order: NewOrder) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await orderService.createNew(order);
-    const new_order = response.data as Order;
-    dispatch({
-      type: ActionType.ADD_ORDER,
-      data: new_order,
-    });
+    if (response.status === "OK") {
+      const new_order = response.data as Order;
+      dispatch({
+        type: ActionType.ADD_ORDER,
+        data: new_order,
+      });
+      return { status: "OK", data: new_order };
+    }else{
+      return { status: "ERROR", data: response.data };
+    }
   };
 };
 
