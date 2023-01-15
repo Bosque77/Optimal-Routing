@@ -19,11 +19,8 @@ const orderSchema = z.object({
   dumpster_size: z.number(),
   delivery_date: z.string(),
   pickup_date: z.string(),
+  region_id: z.string(),
   special_instructions: z.string(),
-  delivery_completed: z.boolean(),
-  pickup_completed: z.boolean(),
-  active: z.boolean(),
-  user_id: z.string(),
 });
 
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { useEffect } from "react";
-import CreateOrderForm from "./CreateOrderForm_v2";
+import CreateOrderForm from "./CreateOrderForm";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";

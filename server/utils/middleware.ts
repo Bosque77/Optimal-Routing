@@ -53,6 +53,8 @@ const errorHandler = (
       return response.status(404).json({ error: "user not found" });
     case ERROR_CODES.TOKEN_NOT_FOUND:
       return response.status(401).json({ error: "token not found" });
+    case ERROR_CODES.ZOD_ERROR:
+      return response.status(400).json({error: "Zod error proccing request. Input type does not match Expected Type."})
     default:
       return next(error);
   }

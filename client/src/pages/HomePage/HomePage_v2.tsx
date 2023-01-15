@@ -7,7 +7,7 @@ import { actionCreators, State } from "../../state";
 import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
-import CreateOrderFrom from "../../components/CreateOrderForm_v2";
+import CreateOrderFrom from "../../components/CreateOrderForm";
 import Alert from "../../components/Alert";
 
 const HomePage = () => {

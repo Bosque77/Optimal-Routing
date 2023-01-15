@@ -23,7 +23,7 @@ const deleteOrder = async (order_id: string) => {
 const createOrder = async (new_order: any, user_id: string) => {
     // creates an order in the database
     // returns the created order
-    const query = new Order({ ...new_order, user_id: user_id });
+    const query = new Order({ ...new_order, user_id: user_id, delivery_completed: false, pickup_completed: false, active: true, type: 'Order' });
     const order_object = await query.save();
     return order_object
 }
