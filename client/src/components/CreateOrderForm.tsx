@@ -116,7 +116,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
 
   return (
     <>
-      <div className="fixed h-screen w-screen flex items-center justify-center">
+      <div className="fixed h-screen w-screen flex items-center justify-center z-20">
         <div className="bg-white px-12 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
           <div className={`${loading ? "loading bg-lime-500" : ""}`}></div>
           <h2 className="text-xl font-serif pt-6">Create Order From</h2>

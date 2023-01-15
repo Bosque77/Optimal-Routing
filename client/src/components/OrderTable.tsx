@@ -160,7 +160,7 @@ const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
   }, [region, selectedDate]);
 
   return (
-    <div className="bg-white drop-shadow-md rounded">
+    <div className="bg-white drop-shadow-md rounded z-10">
       <div className="bg-lime-500 pt-2"></div>
       <div className="relative">
         <div className="flex flex-row mt-4 ml-4">
@@ -178,7 +178,7 @@ const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
         </div>
       </div>
 
-      <div className="text-right my-5 mr-5 flex justify-end ">
+      <div className="text-right my-5 mr-5 flex justify-end">
         <div className="col l3 mr-3">
           <DatePicker
             selected={selectedDate}
