@@ -13,6 +13,7 @@ import {
   Depot,
   Driver,
   EditVehicle,
+  HttpResponse,
   Landfill,
   LoginInfo,
   NewDepot,
@@ -160,9 +161,9 @@ export const createOrder = (order: NewOrder) => {
         type: ActionType.ADD_ORDER,
         data: new_order,
       });
-      return { status: "OK", data: new_order };
+      return { status: "OK", data: new_order, message: "Order created" };
     }else{
-      return { status: "ERROR", data: response.data };
+      return { status: "ERROR", data: response.data, message: response.message };
     }
   };
 };

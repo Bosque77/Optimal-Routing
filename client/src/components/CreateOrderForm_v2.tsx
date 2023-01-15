@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { TruckIcon } from "@heroicons/react/24/solid";
 import { DUMPSTER_SIZES } from "../utils/enums";
 import DatePicker from "react-datepicker";
-import { LatLng, Address } from "../types";
+import { LatLng, Address, HttpResponse } from "../types";
 import geocode from "../services/geocode";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { NewOrder } from "../types";
+
+import "../styles/LoadingBar.css";
 
 interface prop {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,6 +23,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   );
   const region = useSelector((state: State) => state.setRegion);
 
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
@@ -34,7 +37,6 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   const [delivery_date, setDeliveryDate] = useState(new Date());
   const [pickup_date, setPickupDate] = useState(new Date());
   const [special_instructions, setInstructions] = useState("");
-
 
   const onDumpsterSelect = (dumpster_size: string) => {
     setDumpsterSize(parseInt(dumpster_size));
@@ -77,14 +79,17 @@ const CreateOrderFrom = ({ setActive }: prop) => {
         type: "Order",
       };
       console.log(new_order);
-      const response = await createOrder(new_order);
-      console.log(response);
 
-      // setAlert("Added Order", "success");
-      // setTimeout(() => {
-      //   removeAlert();
-      // }, 3000);
-      // setActive(false);
+      setLoading(true);
+      const response = await createOrder(new_order) as unknown as HttpResponse;
+      setLoading(false);
+      if( response.status === "ERROR"){
+        setAlert("Order Creation failed. Please try again later.", "error", 3000);
+      }else{
+        setAlert("Order Created", "success", 3000);
+        setActive(false);
+      }
+
     }
   };
 
@@ -112,8 +117,9 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   return (
     <>
       <div className="fixed h-screen w-screen flex items-center justify-center">
-        <div className="bg-white px-12 py-6 rounded-lg shadow-xl absolute z-50 flex flex-col">
-          <h2 className="text-xl font-serif">Create Order From</h2>
+        <div className="bg-white px-12 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
+          <div className={`${loading ? "loading bg-lime-500" : ""}`}></div>
+          <h2 className="text-xl font-serif pt-6">Create Order From</h2>
           <TruckIcon className="w-14 h-14 text-lime-500 mx-auto my-5" />
           <div className="grid gap-4 grid-cols-2">
             <div className="flex flex-col">
@@ -249,7 +255,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
                   type="number"
                   name="Latitude"
                   id="Latitude"
-                  value={longitude}
+                  value={latitude}
                   onChange={(e) => setLatitude(e.target.value)}
                   className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
                   placeholder="Latitude"
@@ -266,7 +272,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
                   type="number"
                   name="Longitude"
                   id="Longitude"
-                  value={latitude}
+                  value={longitude}
                   onChange={(e) => setLongitude(e.target.value)}
                   className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
                   placeholder="Longitude"
@@ -357,7 +363,10 @@ const CreateOrderFrom = ({ setActive }: prop) => {
             >
               Cancel
             </button>
-            <button onClick={submit} className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white">
+            <button
+              onClick={submit}
+              className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+            >
               Submit
             </button>
           </div>
@@ -368,6 +377,7 @@ const CreateOrderFrom = ({ setActive }: prop) => {
             Close
           </button> */}
         </div>
+
         <div className="fixed inset-0 bg-black opacity-50"></div>
       </div>
     </>
