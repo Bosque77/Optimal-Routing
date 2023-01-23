@@ -15,7 +15,7 @@ interface prop {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreateOrderFrom = ({ setActive }: prop) => {
+const CreateOrderForm = ({ setActive }: prop) => {
   const dispatch = useDispatch();
   const { setAlert, createOrder } = bindActionCreators(
     actionCreators,
@@ -370,12 +370,6 @@ const CreateOrderFrom = ({ setActive }: prop) => {
               Submit
             </button>
           </div>
-          {/* <button
-            onClick={() => setActive(false)}
-            className="absolute top-0 right-0 px-4 py-3 text-gray-600 hover:text-gray-500"
-          >
-            Close
-          </button> */}
         </div>
 
         <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -384,4 +378,4 @@ const CreateOrderFrom = ({ setActive }: prop) => {
   );
 };
 
-export default CreateOrderFrom;
+export default CreateOrderForm;

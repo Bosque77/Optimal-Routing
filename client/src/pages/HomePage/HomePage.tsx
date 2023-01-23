@@ -7,14 +7,17 @@ import { actionCreators, State } from "../../state";
 import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
-import CreateOrderFrom from "../../components/CreateOrderForm";
+import CreateOrderForm from "../../components/CreateOrderForm";
+import CreateLandfillForm from "../../components/CreateLandfillForm_v1";
 import Alert from "../../components/Alert";
+import RegionSelector from "../../components/RegionSelector";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
-  // const [alertActive, setAlertActive] = useState(false);
+  const [createLandfillModalActive, setCreateLandfillModalActive] = useState(false);
+
 
   const {
     initializeDepots,
@@ -34,6 +37,7 @@ const HomePage = () => {
       initializeRegions();
     }
     if (region) {
+      initializeRegions();
       initializeDepots(region);
       // initializeDrivers(region);
       initializeLandfills(region);
@@ -51,20 +55,29 @@ const HomePage = () => {
       <div className="w-64 bg-slate-50">
         <SideNav />
       </div>
-      <div className="mx-auto flex flex-col">
+      <div className="mx-auto flex flex-col w-2/3">
+        <div className="flex flex-row justify-end">
+          <RegionSelector />
+        </div>
+
+
+
         <div className="py-5"></div>
-        <OrderTable  setCreateOrderModalActive={setCreateOrderModalActive} />
+        <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
         <div className="py-5"></div>
-        <LandfillTable />
+        <LandfillTable setCreateLandfillModalActive={setCreateLandfillModalActive} />
         <div className="py-5"></div>
         <DepotTable />
         <div className="py-5"></div>
       </div>
 
       {createOrderModalActive && (
-        <CreateOrderFrom setActive={setCreateOrderModalActive} />
+        <CreateOrderForm setActive={setCreateOrderModalActive} />
       )}
-      <Alert  />
+      {createLandfillModalActive && (
+        <CreateLandfillForm setActive={setCreateLandfillModalActive} />
+      )}
+      <Alert />
     </div>
   );
 };

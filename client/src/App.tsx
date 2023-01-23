@@ -22,7 +22,6 @@ function App() {
         const user_token = window.localStorage.getItem('user_token')
         const region = window.localStorage.getItem('region')
         if (user_token) {
-            console.log('inside setting the user token')
             const parsed_user_token: UserToken = JSON.parse(user_token)
             setUserToken(parsed_user_token)
             if(region){

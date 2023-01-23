@@ -15,7 +15,7 @@ const LandfillPage = () => {
 
         <div>
             <GoogleMap landfills={landfills} />
-            <LandfillList />
+            {/* <LandfillList /> */}
         </div>
 
     )

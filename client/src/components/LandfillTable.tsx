@@ -158,8 +158,18 @@ const LandfillList = () => {
   );
 };
 
-const LandfillTable = () => {
+interface prop_2 {
+  setCreateLandfillModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LandfillTable = ({ setCreateLandfillModalActive }: prop_2) => {
   const [showInfo, setShowInfo] = useState(false);
+
+
+  const onCreateLandfill = () => {
+    setCreateLandfillModalActive(true);
+  };
+
 
   return (
     <div className="bg-white drop-shadow-md rounded">
@@ -181,7 +191,9 @@ const LandfillTable = () => {
       </div>
 
       <div className="text-right my-5 mr-5">
-        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95">
+        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95"
+        onClick={onCreateLandfill}
+        >
           Add Landfill
         </button>
       </div>
