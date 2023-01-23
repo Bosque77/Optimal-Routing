@@ -13,7 +13,6 @@ const landfillSchema = z.object({
     zipcode: z.number(),
     latitude: z.number(),
     longitude: z.number(),
-    active: z.boolean(),
     region_id: z.string(),
     type: z.string()
 })
@@ -54,12 +53,12 @@ landfillRouter.delete("/:id", async (request: Request, response: Response) => {
 });
 
 // create new landfill
-landfillRouter.post("/", async (request: Request, response: Response) => {
+landfillRouter.post("/", asyncHandler(async (request: Request, response: Response) => {
     const user = request.user as UserType;
     const user_id = user._id as string;
     const new_landfill = landfillSchema.parse(request.body);
     const returned_data = await landfillService.createLandfill(new_landfill, user_id);
     response.status(200).send(returned_data);
-});
+}));
 
 export default landfillRouter;

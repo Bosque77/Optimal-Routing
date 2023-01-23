@@ -114,11 +114,17 @@ export const initializeTruckRoutes = (region: Region, date: string) => {
 
 export const createLandfill = (landfill: NewLandfill) => {
   return async (dispatch: Dispatch<Action>) => {
-    const new_landfill = await landfillService.createNew(landfill);
-    dispatch({
-      type: ActionType.ADD_LANDFILL,
-      data: new_landfill,
-    });
+    const response = await landfillService.createNew(landfill);
+    if (response.status === "OK") {
+      const new_landfill = response.data as Landfill;
+      dispatch({
+        type: ActionType.ADD_LANDFILL,
+        data: new_landfill,
+      });
+      return { status: "OK", data: new_landfill, message: "Order created" };
+    } else {
+      return { status: "ERROR", data: response.data, message: response.message };
+    }
   };
 };
 
@@ -162,7 +168,7 @@ export const createOrder = (order: NewOrder) => {
         data: new_order,
       });
       return { status: "OK", data: new_order, message: "Order created" };
-    }else{
+    } else {
       return { status: "ERROR", data: response.data, message: response.message };
     }
   };

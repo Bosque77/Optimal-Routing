@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Landfill, NewLandfill, Region } from '../types'
+import { HttpResponse, Landfill, NewLandfill, Region } from '../types'
 import {token} from './config'
 const baseUrl = '/landfills'
 
@@ -61,12 +61,28 @@ const deleteLandfill = async (landfill: Landfill) => {
 }
 
 const createNew = async (landfill: NewLandfill) => {
-    const config = {
-        headers: { Authorization: token },
+    try{
+        const config = {
+            headers: { Authorization: token },
+        }
+        const axios_response = await axios.post(baseUrl, landfill, config)
+        const response: HttpResponse = {
+            status: 'OK',
+            message: 'landfill created',
+            data: axios_response.data
+        }
+        return response
+
+    }catch(error){
+        const response: HttpResponse = {
+            status: 'ERROR',
+            message: 'landfill creation failed',
+            data: error
+        }
+        return response
     }
-    const response = await axios.post(baseUrl, landfill, config)
-    console.log(response.data)
-    return response.data
 }
+
+
 
 export default { getAll, put, createNew, deleteLandfill, getByRegion }

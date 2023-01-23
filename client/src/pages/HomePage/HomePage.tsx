@@ -8,7 +8,7 @@ import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
 import CreateOrderForm from "../../components/CreateOrderForm";
-import CreateLandfillForm from "../../components/CreateLandfillForm_v1";
+import CreateLandfillForm from "../../components/CreateLandfillForm";
 import Alert from "../../components/Alert";
 import RegionSelector from "../../components/RegionSelector";
 
@@ -52,6 +52,7 @@ const HomePage = () => {
 
   return (
     <div className="bg-slate-100 flex h-full">
+      <Alert />
       <div className="w-64 bg-slate-50">
         <SideNav />
       </div>
@@ -77,7 +78,7 @@ const HomePage = () => {
       {createLandfillModalActive && (
         <CreateLandfillForm setActive={setCreateLandfillModalActive} />
       )}
-      <Alert />
+
     </div>
   );
 };

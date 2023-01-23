@@ -28,7 +28,7 @@ const Alert = () => {
     switch (severity) {
       case "success":
         return (
-          <div className="fixed top-0 right-0 w-full max-w-sm mx-auto mt-4">
+          <div className="fixed top-0 right-0 w-full max-w-sm mx-auto mt-4  ">
             <div className="bg-green-500 text-white font-bold rounded-t px-4 py-2">
               Success
             </div>
@@ -39,7 +39,7 @@ const Alert = () => {
         );
       case "error":
         return (
-          <div className="fixed top-0 right-0 flex mx-auto mt-4 mr-4 transition ease-in-out delay-150">
+          <div className="fixed top-0 right-0 flex mx-auto mt-4 mr-4 transition ease-in-out delay-150 z-30">
             <div
               className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative bg-opacity-100"
               role="alert"

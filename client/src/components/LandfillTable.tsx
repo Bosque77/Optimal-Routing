@@ -8,7 +8,6 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import EditLandfillForm from "./EditLandfillForm";
-import CreateLandfillForm from "./CreateLandfillForm";
 import ConfirmDelete from "./ConfirmDelete";
 
 const LandfillList = () => {

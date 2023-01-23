@@ -186,7 +186,6 @@ export interface NewLandfill {
   latitude: number;
   longitude: number;
   type: "Landfill";
-  active: boolean;
   region_id: string;
 }
 
