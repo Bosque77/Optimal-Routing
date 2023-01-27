@@ -27,17 +27,14 @@ const HomePage = () => {
     initializeTruckRoutes,
     initializeVehicles,
     initializeRegions,
+    setAlert,
   } = bindActionCreators(actionCreators, dispatch);
-  const region = useSelector((state: State) => state.setRegion);
+  const region = useSelector((state: State) => state.setRegion)
   const alert_data = useSelector((state: State) => state.alert_data);
   const date = new Date();
 
   useEffect(() => {
-    if (!region) {
-      initializeRegions();
-    }
     if (region) {
-      initializeRegions();
       initializeDepots(region);
       // initializeDrivers(region);
       initializeLandfills(region);
@@ -48,39 +45,46 @@ const HomePage = () => {
   }, [region]);
 
 
-
-
-  return (
-    <div className="bg-slate-100 flex h-full">
-      <Alert />
-      <div className="w-64 bg-slate-50">
-        <SideNav />
-      </div>
-      <div className="mx-auto flex flex-col w-2/3">
-        <div className="flex flex-row justify-end">
-          <RegionSelector />
-        </div>
+const onSuccess = () => {
+  setAlert("OHH YEAAA", "success", 3000);
+}
 
 
 
-        <div className="py-5"></div>
-        <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
-        <div className="py-5"></div>
-        <LandfillTable setCreateLandfillModalActive={setCreateLandfillModalActive} />
-        <div className="py-5"></div>
-        <DepotTable />
-        <div className="py-5"></div>
-      </div>
 
-      {createOrderModalActive && (
-        <CreateOrderForm setActive={setCreateOrderModalActive} />
-      )}
-      {createLandfillModalActive && (
-        <CreateLandfillForm setActive={setCreateLandfillModalActive} />
-      )}
 
+return (
+  <div className="bg-slate-100 flex h-full">
+    <Alert />
+    <div className="w-64 bg-slate-50">
+      <SideNav />
     </div>
-  );
+    <div className="mx-auto flex flex-col w-2/3">
+      <button onClick={onSuccess}>click me</button>
+      <div className="flex flex-row justify-end">
+        <RegionSelector />
+      </div>
+
+
+
+      <div className="py-5"></div>
+      <OrderTable setCreateOrderModalActive={setCreateOrderModalActive} />
+      <div className="py-5"></div>
+      <LandfillTable setCreateLandfillModalActive={setCreateLandfillModalActive} />
+      <div className="py-5"></div>
+      <DepotTable />
+      <div className="py-5"></div>
+    </div>
+
+    {createOrderModalActive && (
+      <CreateOrderForm setActive={setCreateOrderModalActive} />
+    )}
+    {createLandfillModalActive && (
+      <CreateLandfillForm setActive={setCreateLandfillModalActive} />
+    )}
+
+  </div>
+);
 };
 
 export default HomePage;

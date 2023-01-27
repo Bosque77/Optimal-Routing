@@ -101,7 +101,6 @@ const CreateOrderForm = ({ setActive }: prop) => {
       zipcode: parseInt(zipcode),
     };
     const response = await geocode.get(address);
-    console.log(response);
     if (response.status === "ERROR") {
       const message =
         "Could not find address.  Please try again or manually enter coordinates";

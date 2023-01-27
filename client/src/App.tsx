@@ -15,8 +15,9 @@ import { Region, UserToken } from './types'
 function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
+    const region = useSelector((state: State) => state.setRegion);
     const dispatch = useDispatch()
-    const { setUserToken, setRegion } = bindActionCreators(actionCreators, dispatch)
+    const { setUserToken, setRegion, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
@@ -27,6 +28,7 @@ function App() {
             if(region){
                 const parsed_region: Region = JSON.parse(region)
                 setRegion(parsed_region)
+                initializeRegions()
             }
         }
     }, [])
@@ -41,7 +43,7 @@ function App() {
                     
                     {!user_token && <Route path="/*" element={<Login />} />}
 
-                    {user_token && <Route path="/*" element={<HomePage />} />}
+                    {user_token && region && <Route path="/*" element={<HomePage />} />}
 
                 </Routes>
 

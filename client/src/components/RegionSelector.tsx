@@ -11,12 +11,14 @@ const RegionSelector = () => {
 
     console.log('inside Region Selector Component')
 
+    
     const dispatch = useDispatch()
     const { setRegion } = bindActionCreators(actionCreators, dispatch)
 
 
     const [new_region, setNewRegion] = useState('')
     const user_token = useSelector((state: State) => state.userToken)
+    const region = useSelector((state: State) => state.setRegion)
     const regions = useSelector((state: State) => state.regions)
     const set_region = useSelector((state: State) => state.setRegion)
 
@@ -48,6 +50,7 @@ const RegionSelector = () => {
                 Region Selector
             </label>
             <select id="region-selector" className="mt-2 bg-white p-2 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm w-40" 
+              value={region?.id}
             onChange={({ target }) => onRegionSelect(target.value)}>
                 {insertRegionTabs()}
             </select>
