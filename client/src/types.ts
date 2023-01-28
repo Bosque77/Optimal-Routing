@@ -198,7 +198,6 @@ export interface NewDepot {
   latitude: number;
   longitude: number;
   type: "Depot";
-  active: boolean;
   region_id: string;
 }
 

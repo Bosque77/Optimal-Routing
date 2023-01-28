@@ -34,7 +34,7 @@ import { setToken } from "../../services/config";
 import { Severity } from "../../types";
 
 export const setRegion = (region: Region) => {
-  console.log(JSON.stringify(region))
+  console.log(JSON.stringify(region));
   window.localStorage.setItem("region", JSON.stringify(region));
   return {
     type: ActionType.SET_REGION,
@@ -121,20 +121,22 @@ export const createLandfill = (landfill: NewLandfill) => {
         type: ActionType.ADD_LANDFILL,
         data: new_landfill,
       });
-      return { status: "OK", data: new_landfill, message: "Order created" };
-    } else {
-      return { status: "ERROR", data: response.data, message: response.message };
     }
+    return response;
   };
 };
 
 export const createDepot = (depot: NewDepot) => {
   return async (dispatch: Dispatch<Action>) => {
-    const new_depot = await depotService.createNew(depot);
-    dispatch({
-      type: ActionType.ADD_DEPOT,
-      data: new_depot,
-    });
+    const response = await depotService.createNew(depot);
+    if (response.status === "OK") {
+      const new_depot = response.data as Depot;
+      dispatch({
+        type: ActionType.ADD_DEPOT,
+        data: new_depot,
+      });
+    }
+    return response;
   };
 };
 
@@ -169,7 +171,11 @@ export const createOrder = (order: NewOrder) => {
       });
       return { status: "OK", data: new_order, message: "Order created" };
     } else {
-      return { status: "ERROR", data: response.data, message: response.message };
+      return {
+        status: "ERROR",
+        data: response.data,
+        message: response.message,
+      };
     }
   };
 };

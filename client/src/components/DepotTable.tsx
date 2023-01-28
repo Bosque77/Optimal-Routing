@@ -5,7 +5,6 @@ import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { useEffect } from "react";
 import EditDepotForm from "./EditDepotForm";
-import CreateDepotForm from "./CreateDepotForm";
 import ConfirmDelete from "./ConfirmDelete";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -145,8 +144,18 @@ const DepotList = () => {
   );
 };
 
-const DepotTable = () => {
+
+interface prop_2 {
+  setCreateDepotModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DepotTable = ({setCreateDepotModalActive}: prop_2) => {
   const [showInfo, setShowInfo] = useState(false);
+
+
+  const onCreateDepot = () => {
+    setCreateDepotModalActive(true);
+  };
 
 
   return (
@@ -169,7 +178,9 @@ const DepotTable = () => {
       </div>
 
       <div className="text-right my-5 mr-5">
-        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95">
+        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95"
+        onClick = {() => onCreateDepot()}
+        >
           Add Depot
         </button>
       </div>

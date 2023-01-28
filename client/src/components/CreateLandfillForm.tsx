@@ -108,7 +108,7 @@ const CreateLandfillForm = ({ setActive }: prop) => {
 
                     <h2 className="text-xl font-serif pt-6">Create Landfill From</h2>
                     <div className="flex flex-row justify-center py-6">
-                        <TrashIcon className="w-12 h-12 fill-amber-900" />
+                        <TrashIcon className="w-12 h-12 text-black" />
                     </div>
                     <div className="grid gap-4 grid-cols-2">
                         <div className="flex flex-col">

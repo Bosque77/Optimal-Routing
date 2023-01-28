@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TruckIcon } from "@heroicons/react/24/solid";
+
 import { DUMPSTER_SIZES } from "../utils/enums";
 import DatePicker from "react-datepicker";
 import { LatLng, Address, HttpResponse } from "../types";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { NewOrder } from "../types";
+import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 
 import "../styles/LoadingBar.css";
 
@@ -119,7 +120,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
         <div className="bg-white px-12 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
           <div className={`${loading ? "loading bg-lime-500" : ""}`}></div>
           <h2 className="text-xl font-serif pt-6">Create Order From</h2>
-          <TruckIcon className="w-14 h-14 text-lime-500 mx-auto my-5" />
+          <ClipboardDocumentIcon className="w-14 h-14 text-lime-500 mx-auto my-5" />
           <div className="grid gap-4 grid-cols-2">
             <div className="flex flex-col">
               <label

@@ -8,6 +8,7 @@ import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
 import CreateOrderForm from "../../components/CreateOrderForm";
+import CreateDepotForm from "../../components/CreateDepotForm";
 import CreateLandfillForm from "../../components/CreateLandfillForm";
 import Alert from "../../components/Alert";
 import RegionSelector from "../../components/RegionSelector";
@@ -17,6 +18,7 @@ const HomePage = () => {
 
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
   const [createLandfillModalActive, setCreateLandfillModalActive] = useState(false);
+  const [createDepotModalActive, setCreateDepotModalActive] = useState(false);
 
 
   const {
@@ -72,7 +74,7 @@ return (
       <div className="py-5"></div>
       <LandfillTable setCreateLandfillModalActive={setCreateLandfillModalActive} />
       <div className="py-5"></div>
-      <DepotTable />
+      <DepotTable setCreateDepotModalActive={setCreateDepotModalActive}/>
       <div className="py-5"></div>
     </div>
 
@@ -81,6 +83,9 @@ return (
     )}
     {createLandfillModalActive && (
       <CreateLandfillForm setActive={setCreateLandfillModalActive} />
+    )}
+        {createDepotModalActive && (
+      <CreateDepotForm setActive={setCreateDepotModalActive} />
     )}
 
   </div>

@@ -10,6 +10,8 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { TruckIcon } from "@heroicons/react/24/solid";
 
+import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -205,7 +207,7 @@ const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
                 Add a order for today or change the date to see the orders for
                 that day.
               </div>
-              <TruckIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
+              <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
             </div>
           )}
           {orders.length > 0 && <OrderList orders={orders} />}

@@ -12,7 +12,7 @@ const DepotPage = () => {
   return (
     <div>
       <GoogleMap depots={depots} />
-      <DepotList />
+      {/* <DepotList /> */}
     </div>
   );
 };

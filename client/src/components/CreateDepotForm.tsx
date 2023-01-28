@@ -1,190 +1,271 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { NewDepot, Address } from '../types'
-import { actionCreators, State } from '../state'
-import { useDispatch, useSelector } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import geocode from '../services/geocode'
-import { LatLng } from '../types'
+import React, { useState } from "react";
+import { LatLng, Address, HttpResponse, NewLandfill, NewDepot } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators, State } from "../state";
+import geocode from "../services/geocode";
+import { TruckIcon } from "@heroicons/react/24/solid";
+
+
 
 interface prop {
-    setActive: React.Dispatch<React.SetStateAction<boolean>>,
+    setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const CreateDepotForm = ({ setActive }: prop) => {
 
-const CreateDepotForm = ({setActive }: prop) => {
+    const dispatch = useDispatch();
+    const { setAlert, createDepot } = bindActionCreators(
+        actionCreators,
+        dispatch
+    );
 
-    const dispatch = useDispatch()
-    const { createDepot } = bindActionCreators(actionCreators, dispatch)
-    const region = useSelector((state: State) => state.setRegion)
-
-
-    componentDidMount(() => {
-
-
-        const modal_1 = document.querySelector('#modal1')
-        if (modal_1) {
-
-        }
-        const geo_modal = document.querySelector('#geoModal')
-        if (geo_modal) {
-            // M.Modal.init(geo_modal)
-        }
-
-    }, [])
+    const region = useSelector((state: State) => state.setRegion);
 
 
-    const [name, setName] = useState('')
-    const [street, setStreet] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [zipcode, setZipcode] = useState('')
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
-    const [active, setStatus] = useState(false)
-    const [lat_lng, setCoord] = useState<LatLng>({ lat: 0.0, lng: 0.0 })
-
-    if(!region){
-        return(<div></div>)
-    }
-
-
-    const geoLocate = async () => {
-        console.log('inside geoLocate')
-        const address: Address = {
-            street,
-            city,
-            state,
-            'zipcode': parseInt(zipcode)
-        }
-        const response = await geocode.get(address)
-        console.log(response)
-        if (response.status === 'ERROR') {
-            // M.toast({ html: 'Was not able to geolocate this location' })
-        }else{
-            const lat_lng = response.data as LatLng
-            setCoord(lat_lng)
-            const modal_elem = document.getElementById('geoModal')
-            if (modal_elem) {
-                // const instance = M.Modal.getInstance(modal_elem)
-                // instance.open()
-            }
-        }
-
-    }
+    const [loading, setLoading] = useState(false);
+    const [name, setName] = useState("");
+    const [street, setStreet] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipcode, setZipcode] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
 
 
 
     const submit = async () => {
-        console.log('inside on submit')
+        console.log("inside on submit");
+    
+        if (
+          name === "" ||
+          street === "" ||
+          city === "" ||
+          state === "" ||
+          zipcode === "" ||
+          latitude === "" ||
+          longitude === "" ||
+          region === null
+        ) {
+          setAlert("Please fill out all required fields", "error", 3000);
+        } else {
 
-        if(name==='' || street==='' || city==='' || state==='' || zipcode==='' || latitude==='' || longitude===''){
-            // M.toast({html: 'All fields need to be filled out'})
-        }else{
-            const new_depot: NewDepot = { name, street, city, state, 'zipcode': parseInt(zipcode), 'latitude': parseFloat(latitude), 'longitude': parseFloat(longitude), active, 'region_id':region.id, 'type': 'Depot' }
-            console.log(new_depot)
-            await createDepot(new_depot)
-            // M.toast({html: 'Created New Depot'})
-            const modal_elem = document.getElementById('modal1')
-            if(modal_elem){
-                // const instance = M.Modal.getInstance(modal_elem)
-                // instance.close()
-            }
-            setActive(false)
+          const new_depot: NewDepot = {
+            name,
+            street,
+            city,
+            state,
+            zipcode: parseInt(zipcode),
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            region_id: region.id,
+            type: "Depot",
+          };
+    
+          setLoading(true);
+          const response = await createDepot(new_depot) as unknown as HttpResponse;
+          setLoading(false);
+          if( response.status === "ERROR"){
+            setAlert("Depot Creation failed. Please try again later.", "error", 3000);
+          }else{
+            setAlert("Depot Created", "success", 3000);
+            setActive(false);
+          }
+    
         }
+      };
 
 
-    }
 
-    const assignLatLng = () => {
-        setLatitude(lat_lng.lat.toFixed(3))
-        setLongitude(lat_lng.lng.toFixed(3))
-        const modal_elem = document.getElementById('geoModal')
-        if (modal_elem) {
-            // const instance = M.Modal.getInstance(modal_elem)
-            // instance.close()
+
+    const geoLocate = async () => {
+        const address: Address = {
+            street,
+            city,
+            state,
+            zipcode: parseInt(zipcode),
+        };
+        const response = await geocode.get(address);
+        console.log(response);
+        if (response.status === "ERROR") {
+            const message =
+                "Could not find address.  Please try again or manually enter coordinates";
+            const severity = "error";
+            setAlert(message, severity, 3000);
+        } else {
+            const lat_lng = response.data as LatLng;
+            setLatitude(lat_lng.lat.toFixed(3));
+            setLongitude(lat_lng.lng.toFixed(3));
         }
+    };
 
-    }
+
 
     return (
-        <div className="row">
-            <div id="modal1" className="modal">
-                <div className="modal-content">
-                    <h4>Depot</h4>
-                    <form className="col s12">
-                        <div className="row">
-                            <div className="input-field col s6">
-                                <input id="name" type="text" className="validate" value={name} onChange={({ target }) => setName(target.value)}/>
-                                <label htmlFor="name" className="active">Name</label>
-                            </div>
-                            <div className="input-field col s6">
-                                <input id="street" type="text" className="validate" value={street} onChange={({ target }) => setStreet(target.value)} />
-                                <label htmlFor="street" className="active">Street</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s6">
-                                <input id="city" type="text" className="validate" value={city} onChange={({ target }) => setCity(target.value)} />
-                                <label htmlFor="city" className="active">City</label>
-                            </div>
-                            <div className="input-field col s6">
-                                <input id="state" type="text" className="validate" value={state} onChange={({ target }) => setState(target.value)} />
-                                <label htmlFor="state" className="active">State</label>
-                            </div>
+        <>
+            <div className="fixed h-screen w-screen flex items-center justify-center z-20">
+                <div className="bg-white px-12 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
+                    <div className={`${loading ? "loading bg-lime-500" : ""}`}></div>
 
+                    <h2 className="text-xl font-serif pt-6">Create Depot From</h2>
+                    <div className="flex flex-row justify-center py-6">
+                        <TruckIcon className="w-12 h-12 text-black" />
+                    </div>
+                    <div className="grid gap-4 grid-cols-2">
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor="name"
+                                className="block text-sm font-medium text-gray-700 text-left pl-2"
+                            >
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className=" border rounded-md pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2 sm:text-sm text-left"
+                                placeholder="Name"
+                            />
                         </div>
-                        <div className="row">
-                            <div className="input-field col s6">
-                                <input id="zipcode" type="number" className="validate" value={zipcode} onChange={({ target }) => setZipcode(target.value)} />
-                                <label htmlFor="zipcode" className="active">Zipcode</label>
-                            </div>
-                            <div className="input-field col s3">
-                                <input id="latitude" type="text" className="validate" value={latitude} onChange={({ target }) => setLatitude(target.value)} />
-                                <label htmlFor="latitude" className="active">Latitude</label>
-                            </div>
-                            <div className="input-field col s3">
-                                <input id="longitude" type="text" className="validate" value={longitude} onChange={({ target }) => setLongitude(target.value)} />
-                                <label htmlFor="longitude" className="active">Longitude</label>
-                            </div>
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor="street"
+                                className="block text-sm font-medium text-gray-700 text-left pl-2"
+                            >
+                                Street
+                            </label>
+                            <input
+                                type="text"
+                                name="street"
+                                id="street"
+                                value={street}
+                                onChange={(e) => setStreet(e.target.value)}
+                                className=" border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+                                placeholder="Street"
+                            />
                         </div>
-                        <div className="row right-align">
-                            <a className="btn-flat offset-s6" onClick={geoLocate}>Geolocate</a>
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor="city"
+                                className="block text-sm font-medium text-gray-700 text-left pl-2"
+                            >
+                                City
+                            </label>
+                            <input
+                                type="text"
+                                name="city"
+                                id="city"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                className=" border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+                                placeholder="City"
+                            />
                         </div>
-                        <div className="row left-align" >
-                            {(active) ? <a className="red btn-small" onClick={() => setStatus(!active)}>Deactivate</a> : <a className="green lighten-1 btn-small" onClick={() => setStatus(!active)}>Activate</a>}
 
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor="state"
+                                className="block text-sm font-medium text-gray-700 text-left pl-2"
+                            >
+                                State
+                            </label>
+                            <input
+                                type="text"
+                                name="state"
+                                id="state"
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
+                                className=" border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+                                placeholder="State"
+                            />
                         </div>
-                        <div className="row right-align">
-                            <a className="waves-effect waves-teal btn-flat" onClick={() => submit()}>Submit</a>
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor="zipcode"
+                                className="block text-sm font-medium text-gray-700 text-left pl-2"
+                            >
+                                Zipcode
+                            </label>
+                            <input
+                                type="text"
+                                name="zipcode"
+                                id="zipcode"
+                                value={zipcode}
+                                onChange={(e) => setZipcode(e.target.value)}
+                                className=" border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+                                placeholder="Zipcode"
+                            />
                         </div>
-                    </form>
-                    <div id="geoModal" className="modal">
-                        <div className="modal-content">
-                            <h6>Geolocation</h6>
-                            <div >Latitude: {lat_lng.lat.toFixed(3)} </div>
-                            <div>Longitude: {lat_lng.lng.toFixed(3)}</div>
-                            <br />
-                            <div className="right row">
-                                <div className="col s5=4">
-                                    Asign Lat Lng Values
-                                </div>
-                                <div className="col s2">
-                                    <button className="btn" onClick={assignLatLng}>Submit</button>
-                                </div>
-
+                        <div></div>
+                        <div className="flex flex-row">
+                            <div className="flex flex-col mr-3">
+                                <label
+                                    htmlFor="Latitude"
+                                    className="block text-sm font-medium text-gray-700 text-left pl-2"
+                                >
+                                    Latitude
+                                </label>
+                                <input
+                                    type="number"
+                                    name="Latitude"
+                                    id="Latitude"
+                                    value={latitude}
+                                    onChange={(e) => setLatitude(e.target.value)}
+                                    className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
+                                    placeholder="Latitude"
+                                />
                             </div>
+                            <div className="flex flex-col">
+                                <label
+                                    htmlFor="Longitude"
+                                    className="block text-sm font-medium text-gray-700 text-left pl-2"
+                                >
+                                    Longitude
+                                </label>
+                                <input
+                                    type="number"
+                                    name="Longitude"
+                                    id="Longitude"
+                                    value={longitude}
+                                    onChange={(e) => setLongitude(e.target.value)}
+                                    className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
+                                    placeholder="Longitude"
+                                />
+                            </div>
+                        </div>
+                        <div className="text-left mt-2">
+                            <button
+                                className="mt-5 py-2 px-4 bg-slate-50 text-black rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                                onClick={geoLocate}
+                            >
+                                Calculate
+                            </button>
                         </div>
                     </div>
+
+                    <div className="text-right mt-2">
+                        <button
+                            className="mt-5 mr-2 py-2 px-4  text-slate-700 underline underline-offset-1 hover:text-black active:scale-95"
+                            onClick={() => setActive(false)}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={submit}
+                            className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </div>
+
+                <div className="fixed inset-0 bg-black opacity-50"></div>
             </div>
-        </div>
-    )
+        </>
+    );
+};
 
-}
 
-export default CreateDepotForm
-
-function componentDidMount(arg0: () => void, arg1: never[]) {
-    throw new Error('Function not implemented.')
-}
-
+export default CreateDepotForm;

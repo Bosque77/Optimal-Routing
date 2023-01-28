@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Depot, NewDepot } from '../types'
+import { Depot, HttpResponse, NewDepot } from '../types'
 import { Region } from '../types'
 import { token } from './config'
 const baseUrl = '/depots'
@@ -48,11 +48,27 @@ const deleteDepot = async (depot: Depot) => {
 }
 
 const createNew = async (depot: NewDepot) => {
-    const config = {
-        headers: { Authorization: token },
+    try {
+        const config = {
+            headers: { Authorization: token },
+        }
+        const axios_response = await axios.post(baseUrl, depot, config)
+        const response: HttpResponse = {
+            status: 'OK',
+            message: 'depot created',
+            data: axios_response.data
+        }
+        return response
+    }catch{
+        const response: HttpResponse = {
+            status: 'ERROR',
+            message: 'depot creation failed',
+            data: null
+        }
+        return response
     }
-    const response = await axios.post(baseUrl, depot, config)
-    return response.data
-}
+
+    }
+
 
 export default { getAll, put, deleteDepot, createNew, getByRegion }
