@@ -190,7 +190,7 @@ const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
         </div>
         <div className="col l3">
           <button
-            className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
+            className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
             data-target="modal1"
             onClick={() => setCreateOrderModalActive(true)}
           >

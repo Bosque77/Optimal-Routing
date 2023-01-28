@@ -62,7 +62,6 @@ return (
       <SideNav />
     </div>
     <div className="mx-auto flex flex-col w-2/3">
-      <button onClick={onSuccess}>click me</button>
       <div className="flex flex-row justify-end">
         <RegionSelector />
       </div>

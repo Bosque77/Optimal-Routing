@@ -24,61 +24,29 @@ const SideNav = () => {
 
   return (
     <div className="fixed h-screen w-64 bg-white overflow-y-auto shadow-md">
-      <div className="h-auto">
-        <img className="mx-auto w-32" src={icon} alt="website logo" />
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+      <div className="flex flex-col">
+        <img className="mx-auto w-32 flex" src={icon} alt="website logo" />
+        <div className="hover:bg-slate-200 mx-4 rounded-lg ">
           <Link
-            to="/landfill"
-            className="block mt-4 text-gray-900 text-lg hover:text-black text-left ml-14 font-normal"
+            to="/home"
+            className="block text-gray-900 text-lg hover:text-black  font-medium"
           >
-            <span className="ml-3"> Landfills</span>
+         Home
           </Link>
         </div>
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
+        <div className="hover:bg-slate-200 rounded-lg mx-4">
           <Link
-            to="/driver"
-            className="block mt-2 text-black text-lg  hover:text-gray-900 text-left ml-14 font-normal"
-          >
-            Truck Drivers
-          </Link>
-        </div>
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
-          <Link
-            to="/depot"
-            className="block mt-2 text-black text-lg  hover:text-gray-900 text-left ml-14 font-normal"
-          >
-            Depots
-          </Link>
-        </div>
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
-          <Link
-            to="/vehicle"
-            className="block mt-2 text-black text-lg  hover:text-gray-900 text-left ml-14 font-normal"
-          >
-            Vehicles
-          </Link>
-        </div>
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
-          <Link
-            to="/order"
-            className="block mt-2 text-black text-lg  hover:text-gray-900 text-left ml-14 font-normal"
-          >
-            Orders
-          </Link>
-        </div>
-        <div className="hover:bg-slate-200 mx-4 rounded-lg">
-          <Link
-            to="/route"
-            className="block mt-2 text-black text-lg  hover:text-gray-900 text-left ml-14 font-normal"
+            to="/routes"
+            className="text-black text-lg  hover:text-gray-900 font-medium"
           >
             Routes
           </Link>
         </div>
       </div>
-      <div className="absolute bottom-5 w-full">
+      <div className="absolute bottom-12 w-full">
         
         <button
-          className="mx-auto mt-4 py-2 px-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded"
+          className="mx-auto mt-4 py-2 px-4 bg-gray-300 hover:bg-black hover:text-white text-black font-bold rounded drop-shadow hover:drop-shadow active:scale-90"
           onClick={() => onSignOut()}
         >
           Sign Out
