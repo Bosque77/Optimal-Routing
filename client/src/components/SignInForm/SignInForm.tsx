@@ -30,87 +30,75 @@ const SignInForm = () => {
 
   return (
     <>
-        <div className="section"></div>
-        <main>
-          <h1 className="header black-text">Route Optimization Services</h1>
-          {/* <img className="responsive-img" style={{width: 250}} src="https://i.imgur.com/ax0NCsK.gif" /> */}
-          <div>
-            <img src={front_page_logo} className="image-logo" />
+    <main className="bg-white items-center">
+      <div className="">
+      Hey there
+      </div>
+
+    {/* <div className="f text-3xl font-bold mb-5">Route Optimization Services</div>
+      <h1 className="flex text-3xl font-bold mb-5">Route Optimization Services</h1>
+
+      <div className="text-center mb-10">
+        <img src={front_page_logo} className="w-32" />
+      </div>
+
+      <h5 className="text-gray-600 text-base mb-10">
+        Please, login into your account
+      </h5>
+
+      <div className="bg-white p-10 rounded-lg shadow-md">
+        <form
+          className="w-full"
+          method="post"
+          onSubmit={(event) => handleLogin(event)}
+        >
+          <div className="mb-5">
+            <input
+              className="w-full border border-gray-400 p-2"
+              type="text"
+              name="user-name"
+              id="user-name"
+              onChange={({ target }) => setEmail(target.value)}
+            />
+            <label className="block mt-2 text-gray-600" htmlFor="email">
+              Enter your email
+            </label>
           </div>
 
-          <h5 className="grey-text lighten-4 under-logo-text">
-            Please, login into your account
-          </h5>
-          <div className="section"></div>
+          <div className="mb-5">
+            <input
+              className="w-full border border-gray-400 p-2"
+              type="password"
+              name="password"
+              id="password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+            <label className="block mt-2 text-gray-600" htmlFor="password">
+              Enter your password
+            </label>
+          </div>
 
-          <div className="container">
-            <div
-              className="z-depth-1 grey lighten-4 row"
-              style={{
-                display: "inline-block",
-                padding: "32 48 0 48",
-                border: "1 solid #EEE",
-              }}
+          <div className="mb-5">
+            <button
+              type="submit"
+              name="btn_login"
+              className="bg-indigo-500 text-white p-2 rounded-full"
             >
-              <div className="col l10 offset-l1">
-                <form
-                  className="col s12"
-                  method="post"
-                  onSubmit={(event) => handleLogin(event)}
-                >
-                  <div className="row">
-                    <div className="col s12"></div>
-                  </div>
-
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <input
-                        className="validate"
-                        type="text"
-                        name="user-name"
-                        id="user-name"
-                        onChange={({ target }) => setEmail(target.value)}
-                      />
-                      <label htmlFor="email">Enter your email</label>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <input
-                        className="validate"
-                        type="password"
-                        name="password"
-                        id="password"
-                        onChange={({ target }) => setPassword(target.value)}
-                      />
-                      <label htmlFor="password">Enter your password</label>
-                    </div>
-                    <label>
-                      <a className="pink-text" href="#!">
-                        <b>Forgot Password?</b>
-                      </a>
-                    </label>
-                  </div>
-
-                  <br />
-                  <div className="row">
-                    <button
-                      type="submit"
-                      name="btn_login"
-                      className="col s12 btn btn-large waves-effect indigo"
-                    >
-                      Login
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+              Login
+            </button>
+            <a className="ml-3 text-pink-500 underline" href="#!">
+              Forgot Password?
+            </a>
           </div>
-          <a href="#!" className="black-text">
-            Create account
-          </a>
-        </main>
+
+          <div className="text-center">
+            <a className="text-black" href="#!">
+              Create account
+            </a>
+          </div>
+        </form>
+      </div> */}
+    </main>
     </>
   );
 };

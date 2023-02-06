@@ -11,26 +11,22 @@ import {
 
 const Login = () => {
     return (
-        <div className="body">
-            <div className="row">
-                <div className="col l4">
-                    <img src={background_image} id='background-image'/>
-
-                </div>
-                <div className="col l6 sign-in">
+        <div className="body grid grid-cols-2 bg-slate-50 h-screen">
+            <div className="col-span-1">
+                <img src={background_image} id='background-image'  />
+            </div>
+            <div className="col-span-1">
+                <div className='flex h-full justify-center items-center'>
                     <Routes>
                         <Route path="/" element={<SignInForm />} />
                         <Route path="/SignUp" element={<SignUpForm />} />
                         <Route path="SignIn" element={<SignInForm />} />
                     </Routes>
                 </div>
+ 
 
             </div>
-
-
-
         </div>
-
     )
 }
 

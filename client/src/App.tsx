@@ -42,8 +42,7 @@ function App() {
                 <Routes>
                     
                     {!user_token && <Route path="/*" element={<Login />} />}
-
-                    {user_token && region && <Route path="/*" element={<HomePage />} />}
+                    {user_token  && <Route path="/" element={<HomePage />} />}
 
                 </Routes>
 
