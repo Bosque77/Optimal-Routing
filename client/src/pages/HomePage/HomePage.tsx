@@ -43,6 +43,9 @@ const HomePage = () => {
       initializeOrders(region, date.toDateString());
       // initializeTruckRoutes(region, date);
       // initializeVehicles(region);
+    }else{
+      initializeRegions();
+      
     }
   }, [region]);
 

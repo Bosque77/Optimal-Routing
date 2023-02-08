@@ -58,11 +58,11 @@ const SignInForm = () => {
             placeholder="Password"
             onChange={({ target }) => setPassword(target.value)}
           />
-          <button className="text-sm text-gray-500 mt-2 hover:text-black">Forgot Password?</button>
-          <button className=" mt-6 py-2 px-4 bg-green-800 text-white rounded hover:bg-slate-900 active:scale-95">Submit</button>
+          <button type="button" className="text-sm text-gray-500 mt-2 hover:text-black">Forgot Password?</button>
+          <button type="submit" className="mt-6 py-2 px-4 bg-green-800 text-white rounded hover:bg-slate-900 active:scale-95">Submit</button>
         </form>
 
-        {/* <hr className="hr-line bg-gray-500 h-0.5 mt-6"></hr> */}
+
 
     
       </div>
