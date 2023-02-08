@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { useEffect } from "react";
-import { PencilIcon } from "@heroicons/react/24/outline";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import EditLandfillForm from "./EditLandfillForm";
 import ConfirmDelete from "./ConfirmDelete";
@@ -71,11 +71,16 @@ const LandfillList = () => {
           {landfill.longitude}
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <PencilIcon className="w-6 h-6 mr-3 black stroke-1 hover:text-indigo-900 cursor-pointer active:drop-shadow-none active:scale-95" />
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <TrashIcon className="w-6 h-6 mr-3 black stroke-1 hover:text-red-900 cursor-pointer active:drop-shadow-none active:scale-95" />
-        </td>
+  <PencilIcon 
+    className="w-6 h-6 mr-3 black stroke-1 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
+  />
+</td>
+<td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
+  <TrashIcon 
+    className="w-6 h-6 mr-3 black stroke-1  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
+  />
+</td>
+
       </tr>
     ));
   };
@@ -172,7 +177,7 @@ const LandfillTable = ({ setCreateLandfillModalActive }: prop_2) => {
 
   return (
     <div className="bg-white drop-shadow-md rounded">
-      <div className="bg-amber-900 pt-2"></div>
+      <div className="bg-amber-900 pt-2 opacity-50"></div>
       <div className="relative">
         <div className="flex flex-row mt-4 ml-4">
           <InformationCircleIcon

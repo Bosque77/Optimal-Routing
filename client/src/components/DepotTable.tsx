@@ -6,8 +6,8 @@ import { actionCreators, State } from "../state";
 import { useEffect } from "react";
 import EditDepotForm from "./EditDepotForm";
 import ConfirmDelete from "./ConfirmDelete";
-import { PencilIcon } from "@heroicons/react/24/outline";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 const DepotList = () => {
@@ -69,10 +69,10 @@ const DepotList = () => {
           {depot.longitude}
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <PencilIcon className="w-6 h-6 mr-3 black stroke-1 hover:text-indigo-900 cursor-pointer active:drop-shadow-none active:scale-95" />
+          <PencilIcon className="w-6 h-6 mr-3 black stroke-1 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <TrashIcon className="w-6 h-6 mr-3 black stroke-1 hover:text-red-900 cursor-pointer active:drop-shadow-none active:scale-95" />
+          <TrashIcon className="w-6 h-6 mr-3 black stroke-1  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
         </td>
       </tr>
     ));
@@ -144,23 +144,20 @@ const DepotList = () => {
   );
 };
 
-
 interface prop_2 {
   setCreateDepotModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DepotTable = ({setCreateDepotModalActive}: prop_2) => {
+const DepotTable = ({ setCreateDepotModalActive }: prop_2) => {
   const [showInfo, setShowInfo] = useState(false);
-
 
   const onCreateDepot = () => {
     setCreateDepotModalActive(true);
   };
 
-
   return (
     <div className="bg-white drop-shadow-md rounded">
-      <div className="bg-indigo-500 pt-2"></div>
+      <div className="bg-indigo-500 pt-2 opacity-50"></div>
       <div className="relative">
         <div className="flex flex-row mt-4 ml-4">
           <InformationCircleIcon
@@ -171,15 +168,17 @@ const DepotTable = ({setCreateDepotModalActive}: prop_2) => {
           <h2 className="text-left font-sans text-black text-xl">Depots</h2>
           {showInfo && (
             <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
-              The depot locations are where the dumpsters depart from and return to at the end of their shift.
+              The depot locations are where the dumpsters depart from and return
+              to at the end of their shift.
             </div>
           )}
         </div>
       </div>
 
       <div className="text-right my-5 mr-5">
-        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95"
-        onClick = {() => onCreateDepot()}
+        <button
+          className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger "
+          onClick={() => onCreateDepot()}
         >
           Add Depot
         </button>
