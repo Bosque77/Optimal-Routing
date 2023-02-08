@@ -30,75 +30,42 @@ const SignInForm = () => {
 
   return (
     <>
-    <main className="bg-white items-center">
-      <div className="">
-      Hey there
-      </div>
-
-    {/* <div className="f text-3xl font-bold mb-5">Route Optimization Services</div>
-      <h1 className="flex text-3xl font-bold mb-5">Route Optimization Services</h1>
-
-      <div className="text-center mb-10">
-        <img src={front_page_logo} className="w-32" />
-      </div>
-
-      <h5 className="text-gray-600 text-base mb-10">
-        Please, login into your account
-      </h5>
-
-      <div className="bg-white p-10 rounded-lg shadow-md">
+      <div className="bg-white items-center px-12  py-6 rounded shadow">
+        <h1 className="flex text-3xl font-bold my-8">
+          Route Optimization Services
+        </h1>
+        <img src={front_page_logo} className="w-32 mx-auto my-8" />
+        <p className="text-base my-6"> Login to Your Account</p>
         <form
-          className="w-full"
+          className="flex flex-col items-center"
           method="post"
           onSubmit={(event) => handleLogin(event)}
         >
-          <div className="mb-5">
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="text"
-              name="user-name"
-              id="user-name"
-              onChange={({ target }) => setEmail(target.value)}
-            />
-            <label className="block mt-2 text-gray-600" htmlFor="email">
-              Enter your email
-            </label>
-          </div>
+          <input
+            className="w-64 border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+            type="text"
+            name="user-name"
+            id="user-name"
+            placeholder="Username"
+            onChange={({ target }) => setEmail(target.value)}
+          />
 
-          <div className="mb-5">
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="password"
-              name="password"
-              id="password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-            <label className="block mt-2 text-gray-600" htmlFor="password">
-              Enter your password
-            </label>
-          </div>
-
-          <div className="mb-5">
-            <button
-              type="submit"
-              name="btn_login"
-              className="bg-indigo-500 text-white p-2 rounded-full"
-            >
-              Login
-            </button>
-            <a className="ml-3 text-pink-500 underline" href="#!">
-              Forgot Password?
-            </a>
-          </div>
-
-          <div className="text-center">
-            <a className="text-black" href="#!">
-              Create account
-            </a>
-          </div>
+          <input
+            className="w-64 border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-4 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+          <button className="text-sm text-gray-500 mt-2 hover:text-black">Forgot Password?</button>
+          <button className=" mt-6 py-2 px-4 bg-green-800 text-white rounded hover:bg-slate-900 active:scale-95">Submit</button>
         </form>
-      </div> */}
-    </main>
+
+        {/* <hr className="hr-line bg-gray-500 h-0.5 mt-6"></hr> */}
+
+    
+      </div>
     </>
   );
 };
