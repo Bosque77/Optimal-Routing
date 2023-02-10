@@ -142,18 +142,16 @@ interface prop_2 {
   setCreateOrderModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
+const OrderTable = () => {
   const dispatch = useDispatch();
   const region = useSelector((state: State) => state.setRegion);
   const orders = useSelector((state: State) => state.orders);
   const { initializeOrders } = bindActionCreators(actionCreators, dispatch);
 
-  
   const [selectedDate, handleDateChange] = useState(new Date());
   const [createOrder, setCreateOrder] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
-
-
+  const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
 
   useEffect(() => {
     if (region) {
@@ -162,57 +160,62 @@ const OrderTable = ({ setCreateOrderModalActive }: prop_2) => {
   }, [region, selectedDate]);
 
   return (
-    <div className="bg-white drop-shadow-md rounded z-10">
-      <div className="bg-lime-200 pt-2"></div>
-      <div className="relative">
-        <div className="flex flex-row mt-4 ml-4">
-          <InformationCircleIcon
-            className="w-6 h-6 mr-3 text-lime-500 hover:text-indigo-800 cursor-pointer"
-            onMouseEnter={() => setShowInfo(true)}
-            onMouseLeave={() => setShowInfo(false)}
-          />
-          <h2 className="text-left font-sans text-black text-xl">Orders</h2>
-          {showInfo && (
-            <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
-              Delivery and Pickup orders for the day
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="text-right my-5 mr-5 flex justify-end">
-        <div className="col l3 mr-3">
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date: Date) => handleDateChange(date)}
-            className="border-2 rounded w-48 p-2"
-          />
-        </div>
-        <div className="col l3">
-          <button
-            className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
-            data-target="modal1"
-            onClick={() => setCreateOrderModalActive(true)}
-          >
-            Add Order
-          </button>
-        </div>
-      </div>
-      <div className="drop-shadow-sm px-4">
-        <div className="">
-          {orders.length === 0 && (
-            <div className="m-4">
-              <div>There are no orders for today. </div>
-              <div>
-                Add a order for today or change the date to see the orders for
-                that day.
+    <div>
+      <div className="bg-white drop-shadow-md rounded z-10">
+        <div className="bg-lime-200 pt-2"></div>
+        <div className="relative">
+          <div className="flex flex-row mt-4 ml-4">
+            <InformationCircleIcon
+              className="w-6 h-6 mr-3 text-lime-500 hover:text-indigo-800 cursor-pointer"
+              onMouseEnter={() => setShowInfo(true)}
+              onMouseLeave={() => setShowInfo(false)}
+            />
+            <h2 className="text-left font-sans text-black text-xl">Orders</h2>
+            {showInfo && (
+              <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
+                Delivery and Pickup orders for the day
               </div>
-              <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
-            </div>
-          )}
-          {orders.length > 0 && <OrderList orders={orders} />}
+            )}
+          </div>
+        </div>
+
+        <div className="text-right my-5 mr-5 flex justify-end">
+          <div className="col l3 mr-3">
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date: Date) => handleDateChange(date)}
+              className="border-2 rounded w-48 p-2"
+            />
+          </div>
+          <div className="col l3">
+            <button
+              className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
+              data-target="modal1"
+              onClick={() => setCreateOrderModalActive(true)}
+            >
+              Add Order
+            </button>
+          </div>
+        </div>
+        <div className="drop-shadow-sm px-4">
+          <div className="">
+            {orders.length === 0 && (
+              <div className="m-4">
+                <div>There are no orders for today. </div>
+                <div>
+                  Add a order for today or change the date to see the orders for
+                  that day.
+                </div>
+                <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
+              </div>
+            )}
+            {orders.length > 0 && <OrderList orders={orders} />}
+          </div>
         </div>
       </div>
+      {createOrderModalActive && (
+        <CreateOrderForm setActive={setCreateOrderModalActive} />
+      )}
     </div>
   );
 };

@@ -367,12 +367,3 @@ export const setAlert = (message: string, severity: Severity, time: number) => {
     });
   };
 };
-
-// export const removeAlert = () => {
-//   return async (dispatch: Dispatch<Action>) => {
-//     dispatch({
-//       type: ActionType.REMOVE_ALERT,
-//       data: { message: "", severity: "info", open: false },
-//     });
-//   };
-// };

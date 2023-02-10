@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { useEffect } from "react";
-import EditDepotForm from "./EditDepotForm";
+// import EditDepotForm from "./EditDepotForm";
 import ConfirmDelete from "./ConfirmDelete";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/solid";

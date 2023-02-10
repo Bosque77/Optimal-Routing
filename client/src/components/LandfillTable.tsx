@@ -72,12 +72,12 @@ const LandfillList = () => {
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
   <PencilIcon 
-    className="w-6 h-6 mr-3 black stroke-1 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
+    className="w-6 h-6 mr-3 black stroke-0 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
   />
 </td>
 <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
   <TrashIcon 
-    className="w-6 h-6 mr-3 black stroke-1  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
+    className="w-6 h-6 mr-3 black stroke-0  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
   />
 </td>
 
