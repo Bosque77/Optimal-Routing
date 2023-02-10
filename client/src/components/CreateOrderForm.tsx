@@ -123,7 +123,7 @@ const CreateOrderForm = ({ setActive }: prop) => {
     <>
     <div >
     <div className="h-screen w-screen flex items-center justify-center z-10 fixed top-0 left-0">
-        <div className="bg-white px-12 pb-6 rounded-lg shadow-xl z-10 flex flex-col  overflow-hidden ">
+        <div className="bg-white px-12 pb-6 rounded-lg shadow-xl z-10 flex flex-col  ">
           <div className={`${loading ? "loading bg-lime-500" : ""}`}></div>
           <h2 className="text-xl font-serif pt-6">Create Order From</h2>
           <ClipboardDocumentIcon className="w-14 h-14 text-lime-500 mx-auto my-5" />

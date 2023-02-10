@@ -9,13 +9,12 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import EditLandfillForm from "./EditLandfillForm";
 import ConfirmDelete from "./ConfirmDelete";
+import CreateLandfillForm from "./CreateLandfillForm";
 
 const LandfillList = () => {
   const dispatch = useDispatch();
 
   const { updateLandfill } = bindActionCreators(actionCreators, dispatch);
-
-
 
   const landfills = useSelector((state: State) => state.landfills);
   const [landfill, setLandfill] = useState<Landfill>(landfills[0]);
@@ -71,16 +70,11 @@ const LandfillList = () => {
           {landfill.longitude}
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-  <PencilIcon 
-    className="w-6 h-6 mr-3 black stroke-0 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
-  />
-</td>
-<td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-  <TrashIcon 
-    className="w-6 h-6 mr-3 black stroke-0  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" 
-  />
-</td>
-
+          <PencilIcon className="w-6 h-6 mr-3 black stroke-0 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
+        </td>
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
+          <TrashIcon className="w-6 h-6 mr-3 black stroke-0  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
+        </td>
       </tr>
     ));
   };
@@ -162,48 +156,53 @@ const LandfillList = () => {
   );
 };
 
-interface prop_2 {
-  setCreateLandfillModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const LandfillTable = ({ setCreateLandfillModalActive }: prop_2) => {
+const LandfillTable = () => {
   const [showInfo, setShowInfo] = useState(false);
-
+  const [createLandfillModalActive, setCreateLandfillModalActive] =
+    useState(false);
 
   const onCreateLandfill = () => {
     setCreateLandfillModalActive(true);
   };
 
-
   return (
-    <div className="bg-white drop-shadow-md rounded">
-      <div className="bg-amber-900 pt-2 opacity-50"></div>
-      <div className="relative">
-        <div className="flex flex-row mt-4 ml-4">
-          <InformationCircleIcon
-            className="w-6 h-6 mr-3 text-amber-900 hover:text-indigo-800 cursor-pointer"
-            onMouseEnter={() => setShowInfo(true)}
-            onMouseLeave={() => setShowInfo(false)}
-          />
-          <h2 className="text-left font-sans text-black text-xl">Landfills</h2>
-          {showInfo && (
-            <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
-              Add landfills at the locations where the dumpsters can be emptied.
-            </div>
-          )}
+    <div>
+      <div className="bg-white drop-shadow-md rounded">
+        <div className="bg-amber-900 pt-2 opacity-50"></div>
+        <div className="relative">
+          <div className="flex flex-row mt-4 ml-4">
+            <InformationCircleIcon
+              className="w-6 h-6 mr-3 text-amber-900 hover:text-indigo-800 cursor-pointer"
+              onMouseEnter={() => setShowInfo(true)}
+              onMouseLeave={() => setShowInfo(false)}
+            />
+            <h2 className="text-left font-sans text-black text-xl">
+              Landfills
+            </h2>
+            {showInfo && (
+              <div className="bg-slate-700 text-white rounded-md p-2 absolute top-full left-0 mt-4 ml-4">
+                Add landfills at the locations where the dumpsters can be
+                emptied.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="text-right my-5 mr-5">
+          <button
+            className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95"
+            onClick={onCreateLandfill}
+          >
+            Add Landfill
+          </button>
+        </div>
+        <div className="drop-shadow-sm px-4">
+          <LandfillList />
         </div>
       </div>
-
-      <div className="text-right my-5 mr-5">
-        <button className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-slate-100 hover:drop-shadow-md active:drop-shadow-none active:scale-95"
-        onClick={onCreateLandfill}
-        >
-          Add Landfill
-        </button>
-      </div>
-      <div className="drop-shadow-sm px-4">
-        <LandfillList />
-      </div>
+      {createLandfillModalActive && (
+        <CreateLandfillForm setActive={setCreateLandfillModalActive} />
+      )}
     </div>
   );
 };

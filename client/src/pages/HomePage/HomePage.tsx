@@ -76,23 +76,19 @@ return (
       <div className="py-5"></div>
       <OrderTable  />
       <div className="py-5"></div>
-      <LandfillTable setCreateLandfillModalActive={setCreateLandfillModalActive} />
+      <LandfillTable  />
       <div className="py-5"></div>
-      <DepotTable setCreateDepotModalActive={setCreateDepotModalActive}/>
+      <DepotTable />
       <div className="py-5"></div>
     </div>
 
 
 
-    {createLandfillModalActive && (
-      <CreateLandfillForm setActive={setCreateLandfillModalActive} />
-    )}
+
         {/* {editLandfillModalActive && (
       <EditLandfillForm setActive={setEditLandfillModalActive} />
     )} */}
-        {createDepotModalActive && (
-      <CreateDepotForm setActive={setCreateDepotModalActive} />
-    )}
+
 
   </div>
 );

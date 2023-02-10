@@ -161,7 +161,7 @@ const OrderTable = () => {
 
   return (
     <div>
-      <div className="bg-white drop-shadow-md rounded z-10">
+      <div className="bg-white drop-shadow-md rounded z-10 pb-4">
         <div className="bg-lime-200 pt-2"></div>
         <div className="relative">
           <div className="flex flex-row mt-4 ml-4">
