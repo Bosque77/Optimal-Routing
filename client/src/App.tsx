@@ -16,6 +16,7 @@ function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
     const region = useSelector((state: State) => state.setRegion);
+    const regions = useSelector((state: State) => state.regions);
     const dispatch = useDispatch()
     const { setUserToken, setRegion, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
@@ -25,10 +26,13 @@ function App() {
         if (user_token) {
             const parsed_user_token: UserToken = JSON.parse(user_token)
             setUserToken(parsed_user_token)
+            initializeRegions()
             if(region){
                 const parsed_region: Region = JSON.parse(region)
                 setRegion(parsed_region)
-                initializeRegions()
+            }else{
+                const current_region = regions[0]
+                setRegion(current_region)
             }
         }
     }, [])

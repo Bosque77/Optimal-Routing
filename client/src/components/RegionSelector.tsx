@@ -30,7 +30,7 @@ const RegionSelector = () => {
         return (
 
             regions?.map(region =>
-                <option value={region.id}>{region.name}</option>
+                <option value={region.id} key={region.id}>{region.name}</option>
             )
         )
     }
