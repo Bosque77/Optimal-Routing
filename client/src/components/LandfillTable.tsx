@@ -11,12 +11,14 @@ import EditLandfillForm from "./EditLandfillForm";
 import ConfirmDelete from "./ConfirmDelete";
 import CreateLandfillForm from "./CreateLandfillForm";
 
-const LandfillList = () => {
+interface prop {
+  landfills: Landfill[];
+}
+
+const LandfillList = ({ landfills }: prop) => {
   const dispatch = useDispatch();
 
   const { updateLandfill } = bindActionCreators(actionCreators, dispatch);
-
-  const landfills = useSelector((state: State) => state.landfills);
   const [landfill, setLandfill] = useState<Landfill>(landfills[0]);
   const [editFormActive, setEditFormActive] = useState(false);
   const [createFormActive, setCreateFormActive] = useState(false);
@@ -157,6 +159,7 @@ const LandfillList = () => {
 };
 
 const LandfillTable = () => {
+  const landfills = useSelector((state: State) => state.landfills);
   const [showInfo, setShowInfo] = useState(false);
   const [createLandfillModalActive, setCreateLandfillModalActive] =
     useState(false);
@@ -197,7 +200,26 @@ const LandfillTable = () => {
           </button>
         </div>
         <div className="drop-shadow-sm px-4">
-          <LandfillList />
+          {landfills.length === 0 ? (
+            <div className="py-4" >
+              Add a landfill to get started. 
+              <div className="text-center justify-center flex w-full py-6">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="64"
+                height="64"
+                fill="currentColor"
+              >
+                <path d="M4.5 2h15c.825 0 1.5.675 1.5 1.5V4c0 .825-.675 1.5-1.5 1.5h-15C3.675 5.5 3 4.825 3 4V3.5C3 2.675 3.675 2 4.5 2zm14.5 6v13.5c0 .825-.675 1.5-1.5 1.5h-12c-.825 0-1.5-.675-1.5-1.5V8H2v15c0 1.104.896 2 2 2h16c1.104 0 2-.896 2-2V8h-1z" />
+                <path d="M8 10h1v8H8zm3 0h1v8h-1zm3 0h1v8h-1z" />
+              </svg>
+              </div>
+            </div>
+          ) : (
+            <LandfillList landfills={landfills} />
+          )}
         </div>
       </div>
       {createLandfillModalActive && (
