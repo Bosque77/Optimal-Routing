@@ -19,6 +19,7 @@ const LandfillTable = () => {
   const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
 
   const onCreateLandfill = () => {
+    setLandfill(undefined)
     setCreateLandfillModalActive(true);
   };
 

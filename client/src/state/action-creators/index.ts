@@ -202,11 +202,21 @@ export const createRegion = (region: NewRegion) => {
 
 export const updateLandfill = (updated_landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
-    const landfill = await landfillService.put(updated_landfill);
+    const response = await landfillService.put(updated_landfill);
+    if (response.status === "OK") {
+      const landfill = response.data as Landfill;
     dispatch({
       type: ActionType.UPDATE_LANDFILL,
       data: landfill,
     });
+    return { status: "OK", data: landfill, message: "Order created" };
+  }else{
+    return {
+      status: "ERROR",
+      data: response.data,
+      message: response.message,
+    };
+  }
   };
 };
 

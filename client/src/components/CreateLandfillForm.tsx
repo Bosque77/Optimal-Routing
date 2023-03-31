@@ -13,7 +13,7 @@ interface prop {
 
 const CreateLandfillForm = ({ setActive, landfill }: prop) => {
   const dispatch = useDispatch();
-  const { setAlert, createLandfill } = bindActionCreators(
+  const { setAlert, createLandfill, updateLandfill} = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -41,7 +41,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
     }
   }, [landfill]);
 
-  const submit = async () => {
+  const onCreateLandfill= async () => {
     console.log("inside on submit");
 
     if (
@@ -80,7 +80,57 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
           3000
         );
       } else {
-        setAlert("Order Created", "success", 3000);
+        setAlert("Landfill Created", "success", 3000);
+        setActive(false);
+      }
+    }
+  };
+
+  const onUpdateLandfill= async () => {
+    console.log("inside on submit");
+    if( !landfill){
+      return;
+    }
+    if (
+      name === "" ||
+      street === "" ||
+      city === "" ||
+      state === "" ||
+      zipcode === "" ||
+      latitude === "" ||
+      longitude === "" ||
+      region === null
+    ) {
+      setAlert("Please fill out all required fields", "error", 3000);
+    } else {
+      const updated_landfill: Landfill = {
+        id: landfill.id,
+        user_id: landfill.user_id,
+        name,
+        street,
+        city,
+        state,
+        zipcode: parseInt(zipcode),
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        region_id: region.id,
+        active: true,
+        type: "Landfill",
+      };
+
+      setLoading(true);
+      const response = (await updateLandfill(
+        updated_landfill
+      )) as unknown as HttpResponse;
+      setLoading(false);
+      if (response.status === "ERROR") {
+        setAlert(
+          "Landfill Update failed. Please try again later.",
+          "error",
+          3000
+        );
+      } else {
+        setAlert("Landfill Created", "success", 3000);
         setActive(false);
       }
     }
@@ -258,12 +308,18 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
               >
                 Cancel
               </button>
-              <button
-                onClick={submit}
+              {landfill ? (              <button
+                onClick={onCreateLandfill}
                 className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
               >
                 Submit
-              </button>
+              </button>):(              <button
+                onClick={onUpdateLandfill}
+                className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+              >
+                Update
+              </button>)}
+
             </div>
           </div>
         </div>
