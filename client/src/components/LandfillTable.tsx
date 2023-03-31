@@ -79,7 +79,7 @@ const LandfillTable = () => {
       {createLandfillModalActive && (
         <CreateLandfillForm setActive={setCreateLandfillModalActive} landfill={landfill}/>
       )}
-      {confirmDeleteActive && ( <ConfirmDelete setActive={setConfirmDeleteActive} /> )}
+      {confirmDeleteActive && ( <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill}/> )}
     </div>
   );
 };

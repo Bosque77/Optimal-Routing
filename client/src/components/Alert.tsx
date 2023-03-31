@@ -51,12 +51,11 @@ const Alert = () => {
         );
       default:
         return (
-          <div className="fixed top-0 right-0 w-full max-w-sm mx-auto mt-4">
-            <div className="bg-blue-500 text-white font-bold rounded-t px-4 py-2">
-              Generic
-            </div>
-            <div className="border border-t-0 border-blue-400 rounded-b bg-blue-100 px-4 py-3 text-blue-700">
-              <p>{message}</p>
+          <div className="fixed top-0 right-0 flex mx-auto mt-4 mr-4 transition ease-in-out delay-150 z-30">
+            <div className="bg-white border-t-4 border-slate-900 rounded-b text-slate-900 px-4 py-3 shadow-md flex flex-row" role="alert">
+                 <div>
+                <p className="text-sm">{message}</p>
+              </div>
             </div>
           </div>
         );

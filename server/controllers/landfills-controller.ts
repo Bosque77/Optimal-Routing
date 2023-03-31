@@ -44,13 +44,12 @@ landfillRouter.put("/:id", asyncHandler(async (request: Request, response: Respo
 }))
 
 // delete landfill
-landfillRouter.delete("/:id", async (request: Request, response: Response) => {
+landfillRouter.delete("/:id", asyncHandler(async (request: Request, response: Response) => {
     const landfill_id = request.params.id;
     const landfill = await landfillService.deleteLandfill(landfill_id);
     if (!landfill) response.status(404).send("landfill not found")
-    response.status(204)
-
-});
+    response.status(204).send()
+}));
 
 // create new landfill
 landfillRouter.post("/", asyncHandler(async (request: Request, response: Response) => {

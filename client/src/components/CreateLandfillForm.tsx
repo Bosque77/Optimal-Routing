@@ -13,7 +13,7 @@ interface prop {
 
 const CreateLandfillForm = ({ setActive, landfill }: prop) => {
   const dispatch = useDispatch();
-  const { setAlert, createLandfill, updateLandfill} = bindActionCreators(
+  const { setAlert, createLandfill, updateLandfill } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -41,7 +41,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
     }
   }, [landfill]);
 
-  const onCreateLandfill= async () => {
+  const onCreateLandfill = async () => {
     console.log("inside on submit");
 
     if (
@@ -86,9 +86,9 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
     }
   };
 
-  const onUpdateLandfill= async () => {
-    console.log("inside on submit");
-    if( !landfill){
+  const onUpdateLandfill = async () => {
+    console.log("inside on update landfill");
+    if (!landfill) {
       return;
     }
     if (
@@ -122,6 +122,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
       const response = (await updateLandfill(
         updated_landfill
       )) as unknown as HttpResponse;
+
       setLoading(false);
       if (response.status === "ERROR") {
         setAlert(
@@ -308,18 +309,21 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
               >
                 Cancel
               </button>
-              {landfill ? (              <button
-                onClick={onCreateLandfill}
-                className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
-              >
-                Submit
-              </button>):(              <button
-                onClick={onUpdateLandfill}
-                className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
-              >
-                Update
-              </button>)}
-
+              {landfill ? (
+                <button
+                  onClick={onUpdateLandfill}
+                  className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                >
+                  Update
+                </button>
+              ) : (
+                <button
+                  onClick={onCreateLandfill}
+                  className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                >
+                  Submit
+                </button>
+              )}
             </div>
           </div>
         </div>

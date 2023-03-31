@@ -60,13 +60,20 @@ const put = async (landfill: Landfill) => {
 };
 
 const deleteLandfill = async (landfill: Landfill) => {
-  const config = {
-    headers: { Authorization: token },
-  };
-  const id = landfill.id;
-  const url = baseUrl + `/${id}`;
-  const response = await axios.delete(url, config);
-  return response;
+  try {
+    const config = {
+      headers: { Authorization: token },
+    };
+    const id = landfill.id;
+    const url = baseUrl + `/${id}`;
+    console.log('inside the delete service')
+    const axios_response = await axios.delete(url, config);
+    console.log(axios_response)
+    console.log('sending back axios response')
+    return createSuccessResponse("Landfill updated", axios_response.data);
+  } catch (error) {
+    return createErrorResponse("Landfill update failed", error);
+  }  
 };
 
 const createNew = async (landfill: NewLandfill) => {
@@ -89,6 +96,32 @@ const createNew = async (landfill: NewLandfill) => {
     };
     return response;
   }
+};
+
+
+const createSuccessResponse = (message: string, data: any): HttpResponse => {
+  return {
+    status: "OK",
+    message,
+    data,
+  };
+};
+
+const createErrorResponse = (message: string, error: any): HttpResponse => {
+  let errorMessage = message;
+  if (error.response) {
+    errorMessage += `: ${error.response.statusText} (${error.response.status})`;
+  } else if (error.request) {
+    errorMessage += ": No response received";
+  } else {
+    errorMessage += `: ${error.message}`;
+  }
+
+  return {
+    status: "ERROR",
+    message: errorMessage,
+    data: error,
+  };
 };
 
 export default { getAll, put, createNew, deleteLandfill, getByRegion };

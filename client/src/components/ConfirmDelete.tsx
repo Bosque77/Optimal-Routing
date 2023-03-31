@@ -2,7 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state";
-import { Depot, Driver, Landfill, Order, Vehicle } from "../types";
+import {
+  Depot,
+  Driver,
+  HttpResponse,
+  Landfill,
+  Order,
+  Vehicle,
+} from "../types";
 
 interface props {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +35,7 @@ const ConfirmDelete = ({
     deleteDepot,
     deleteVehicle,
     deleteOrder,
+    setAlert,
   } = bindActionCreators(actionCreators, dispatch);
 
   React.useEffect(() => {
@@ -36,10 +44,24 @@ const ConfirmDelete = ({
     }
   }, []);
 
-  const handleConfirmation = (status: boolean) => {
+  const handleConfirmation = async (status: boolean) => {
     if (status) {
       if (landfill) {
-        deleteLandfill(landfill);
+        console.log('inside confirm delete')
+        const response = await deleteLandfill(
+          landfill
+        ) as unknown as HttpResponse;
+        console.log(response)
+        if (response.status === "ERROR") {
+          setAlert(
+            "Error Deleting Landfill. Server is having issues, try again later.",
+            "error",
+            3000
+          );
+        } else {
+          setAlert("Landfill Deleted Successfully", "info", 3000);
+          setActive(false);
+        }
       } else if (driver) {
         deleteDriver(driver);
       } else if (depot) {
@@ -55,28 +77,22 @@ const ConfirmDelete = ({
 
   return (
     <>
-      <div className="h-screen w-screen flex items-center justify-center z-20 fixed top-0 left-0">
-        <div className="bg-white px-12 pb-6 rounded-lg shadow-xl z-10 flex flex-col  overflow-hidden ">
+      <div className="h-screen w-screen flex items-center justify-center z-10 fixed top-0 left-0">
+        <div className="bg-white px-12 py-8 rounded-lg shadow-xl z-10 flex flex-col  overflow-hidden ">
           <div>Are you sure you want to delete this item?</div>
-          <br />
-          <div className="row">
-            <div className="col s4"></div>
-            <div className="col s2">
-              <button
-                onClick={() => handleConfirmation(true)}
-                className="btn black modal-close"
-              >
-                Yes
-              </button>
-            </div>
-            <div className="col s2">
-              <button
-                onClick={() => handleConfirmation(false)}
-                className="btn black modal-close"
-              >
-                No
-              </button>
-            </div>
+          <div className="flex justify-end">
+            <button
+              onClick={() => handleConfirmation(false)}
+              className="px-4 py-2 text-black hover:underline hover:underline-offset-1 mt-4 mr-4"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => handleConfirmation(true)}
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 hover:text-white mt-4"
+            >
+              Yes
+            </button>
           </div>
         </div>
         <div className="fixed inset-0 bg-black opacity-50"></div>

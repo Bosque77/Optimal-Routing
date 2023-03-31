@@ -209,14 +209,8 @@ export const updateLandfill = (updated_landfill: Landfill) => {
       type: ActionType.UPDATE_LANDFILL,
       data: landfill,
     });
-    return { status: "OK", data: landfill, message: "Order created" };
-  }else{
-    return {
-      status: "ERROR",
-      data: response.data,
-      message: response.message,
-    };
-  }
+    }
+    return response;
   };
 };
 
@@ -274,12 +268,15 @@ export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
 
 export const deleteLandfill = (landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
-    await landfillService.deleteLandfill(landfill);
-    dispatch({
-      type: ActionType.DELETE_LANDFILL,
-      data: landfill,
-    });
-  };
+      const response = await landfillService.deleteLandfill(landfill);
+      if(response.status === "OK"){
+        dispatch({
+          type: ActionType.DELETE_LANDFILL,
+          data: landfill,
+        });
+      }
+      return response;
+    }
 };
 
 export const deleteDriver = (driver: Driver) => {
