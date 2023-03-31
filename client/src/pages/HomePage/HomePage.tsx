@@ -7,10 +7,6 @@ import { actionCreators, State } from "../../state";
 import DepotTable from "../../components/DepotTable";
 import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
-import CreateOrderForm from "../../components/CreateOrderForm";
-import CreateDepotForm from "../../components/CreateDepotForm";
-import CreateLandfillForm from "../../components/CreateLandfillForm";
-import EditLandfillForm from "../../components/EditLandfillForm";
 import Alert from "../../components/Alert";
 import RegionSelector from "../../components/RegionSelector";
 
@@ -81,14 +77,6 @@ return (
       <DepotTable />
       <div className="py-5"></div>
     </div>
-
-
-
-
-        {/* {editLandfillModalActive && (
-      <EditLandfillForm setActive={setEditLandfillModalActive} />
-    )} */}
-
 
   </div>
 );

@@ -3,166 +3,20 @@ import { Landfill } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
-import { useEffect } from "react";
-import { PencilIcon } from "@heroicons/react/24/solid";
-import { TrashIcon } from "@heroicons/react/24/solid";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import EditLandfillForm from "./EditLandfillForm";
+import LandfillList from "./LandfillList";
 import ConfirmDelete from "./ConfirmDelete";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import CreateLandfillForm from "./CreateLandfillForm";
 
-interface prop {
-  landfills: Landfill[];
-}
 
-const LandfillList = ({ landfills }: prop) => {
-  const dispatch = useDispatch();
-
-  const { updateLandfill } = bindActionCreators(actionCreators, dispatch);
-  const [landfill, setLandfill] = useState<Landfill>(landfills[0]);
-  const [editFormActive, setEditFormActive] = useState(false);
-  const [createFormActive, setCreateFormActive] = useState(false);
-  const [confirmDeleteActive, setConfirmDeleteActive] = useState(false);
-
-  const changeLandfillStatus = (landfill: Landfill) => {
-    console.log("inside on click");
-    const new_landfill = { ...landfill };
-    if (landfill.active) {
-      new_landfill.active = false;
-    } else {
-      new_landfill.active = true;
-    }
-    updateLandfill(new_landfill);
-  };
-
-  const editLandfill = (landfill: Landfill) => {
-    setLandfill(landfill);
-    setEditFormActive(true);
-  };
-
-  const onDeleteLandfill = (landfill: Landfill) => {
-    console.log("inside delete landfill");
-    setLandfill(landfill);
-    setConfirmDeleteActive(true);
-  };
-
-  const onCreateLandfill = () => {
-    setCreateFormActive(true);
-  };
-
-  const insertLandfills = () => {
-    return landfills.map((landfill) => (
-      <tr key={landfill.id} className="border-b bg-white">
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-          {landfill.name}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-          {landfill.street}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-          {landfill.city}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">
-          {landfill.zipcode}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">
-          {landfill.latitude}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap text-right">
-          {landfill.longitude}
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <PencilIcon className="w-6 h-6 mr-3 black stroke-0 cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
-        </td>
-        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">
-          <TrashIcon className="w-6 h-6 mr-3 black stroke-0  cursor-pointer transform hover:-translate-y-1 hover:scale-105 active:drop-shadow-none active:scale-95" />
-        </td>
-      </tr>
-    ));
-  };
-
-  return (
-    <div className="">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full">
-              <thead className="border-b bg-slate-200">
-                {/* <div>
-                <br></br>
-                <div className="col offset-s10">
-                    <button className='btn black offset-s10' onClick={() => onCreateLandfill()}>New Landfill</button>
-                </div>
-
-            </div> */}
-
-                <tr>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
-                  >
-                    Street
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
-                  >
-                    City
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
-                  >
-                    Zipcode
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
-                  >
-                    Latitude
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
-                  >
-                    Longitude
-                  </th>
-                  <th></th>
-                  <th></th>
-                  {/* <th>Active</th> */}
-                </tr>
-              </thead>
-
-              <tbody>{insertLandfills()}</tbody>
-
-              {/* {editFormActive && (
-        <EditLandfillForm landfill={landfill} setActive={setEditFormActive} />
-      )}
-      {createFormActive && (
-        <CreateLandfillForm setActive={setCreateFormActive} />
-      )}
-      {confirmDeleteActive && (
-        <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill} />
-      )} */}
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const LandfillTable = () => {
   const landfills = useSelector((state: State) => state.landfills);
   const [showInfo, setShowInfo] = useState(false);
+  const [landfill, setLandfill] = useState<Landfill|undefined>(undefined);
   const [createLandfillModalActive, setCreateLandfillModalActive] =
     useState(false);
+  const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
 
   const onCreateLandfill = () => {
     setCreateLandfillModalActive(true);
@@ -201,30 +55,30 @@ const LandfillTable = () => {
         </div>
         <div className="drop-shadow-sm px-4">
           {landfills.length === 0 ? (
-            <div className="py-4" >
-              Add a landfill to get started. 
+            <div className="py-4">
+              Add a landfill to get started.
               <div className="text-center justify-center flex w-full py-6">
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="64"
-                height="64"
-                fill="currentColor"
-              >
-                <path d="M4.5 2h15c.825 0 1.5.675 1.5 1.5V4c0 .825-.675 1.5-1.5 1.5h-15C3.675 5.5 3 4.825 3 4V3.5C3 2.675 3.675 2 4.5 2zm14.5 6v13.5c0 .825-.675 1.5-1.5 1.5h-12c-.825 0-1.5-.675-1.5-1.5V8H2v15c0 1.104.896 2 2 2h16c1.104 0 2-.896 2-2V8h-1z" />
-                <path d="M8 10h1v8H8zm3 0h1v8h-1zm3 0h1v8h-1z" />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="64"
+                  height="64"
+                  fill="currentColor"
+                >
+                  <path d="M4.5 2h15c.825 0 1.5.675 1.5 1.5V4c0 .825-.675 1.5-1.5 1.5h-15C3.675 5.5 3 4.825 3 4V3.5C3 2.675 3.675 2 4.5 2zm14.5 6v13.5c0 .825-.675 1.5-1.5 1.5h-12c-.825 0-1.5-.675-1.5-1.5V8H2v15c0 1.104.896 2 2 2h16c1.104 0 2-.896 2-2V8h-1z" />
+                  <path d="M8 10h1v8H8zm3 0h1v8h-1zm3 0h1v8h-1z" />
+                </svg>
               </div>
             </div>
           ) : (
-            <LandfillList landfills={landfills} />
+            <LandfillList landfills={landfills} setCreateLandfillModalActive={setCreateLandfillModalActive} setConfirmDeleteActive={setConfirmDeleteActive} setLandfill={setLandfill} />
           )}
         </div>
       </div>
       {createLandfillModalActive && (
-        <CreateLandfillForm setActive={setCreateLandfillModalActive} />
+        <CreateLandfillForm setActive={setCreateLandfillModalActive} landfill={landfill}/>
       )}
+      {confirmDeleteActive && ( <ConfirmDelete setActive={setConfirmDeleteActive} /> )}
     </div>
   );
 };
