@@ -15,6 +15,7 @@ export const landfillReducer = (state: Landfill[] = initialState, action: Action
         console.log('inside update landfill state')
         const id = action.data.id
         const changed_landfill = action.data
+        debugger
         return state.map(landfill => landfill.id !== id ? landfill : changed_landfill)
     }
     case ActionType.DELETE_LANDFILL: {

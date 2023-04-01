@@ -204,7 +204,9 @@ export const updateLandfill = (updated_landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await landfillService.put(updated_landfill);
     if (response.status === "OK") {
+      debugger
       const landfill = response.data as Landfill;
+      debugger
     dispatch({
       type: ActionType.UPDATE_LANDFILL,
       data: landfill,

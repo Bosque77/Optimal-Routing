@@ -131,7 +131,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
           3000
         );
       } else {
-        setAlert("Landfill Created", "success", 3000);
+        setAlert("Landfill Updated", "success", 3000);
         setActive(false);
       }
     }
