@@ -13,6 +13,8 @@ import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Order } from "../types";
+import ConfirmDelete from "./ConfirmDelete";
 
 
 
@@ -33,14 +35,24 @@ const OrderTable = () => {
 
   const [selectedDate, handleDateChange] = useState(new Date());
   const [createOrder, setCreateOrder] = useState(false);
+  const [order, setOrder] = useState<Order|undefined>(undefined);
   const [showInfo, setShowInfo] = useState(false);
   const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
+  const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
+
+  const onCreateOrder = () => {
+    setOrder(undefined)
+    setCreateOrderModalActive(true);
+  };
+
 
   useEffect(() => {
     if (region) {
       initializeOrders(region, selectedDate.toDateString());
     }
   }, [region, selectedDate]);
+
+
 
   return (
     <div className="z-10">
@@ -74,7 +86,7 @@ const OrderTable = () => {
             <button
               className="bg-slate-700 text-white px-7 py-1 rounded-full drop-shadow-md hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 modal-trigger"
               data-target="modal1"
-              onClick={() => setCreateOrderModalActive(true)}
+              onClick={() => onCreateOrder()}
             >
               Add Order
             </button>
@@ -92,13 +104,14 @@ const OrderTable = () => {
                 <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
               </div>
             )}
-            {orders.length > 0 && <OrderList orders={orders} />}
+            {orders.length > 0 && <OrderList orders={orders} setOrder={setOrder} setConfirmDeleteActive={setConfirmDeleteActive} setCreateOrderModalActive={setCreateOrderModalActive}/>}
           </div>
         </div>
       </div>
       {createOrderModalActive && (
-        <CreateOrderForm setActive={setCreateOrderModalActive} />
+        <CreateOrderForm setActive={setCreateOrderModalActive} order={order} />
       )}
+      {confirmDeleteActive && ( <ConfirmDelete setActive={setConfirmDeleteActive} order={order}/> )}
     </div>
   );
 };

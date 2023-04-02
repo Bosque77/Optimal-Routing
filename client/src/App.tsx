@@ -22,20 +22,17 @@ function App() {
 
     useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
-        const region = window.localStorage.getItem('region')
         if (user_token) {
             const parsed_user_token: UserToken = JSON.parse(user_token)
             setUserToken(parsed_user_token)
-            initializeRegions()
-            if(region){
-                const parsed_region: Region = JSON.parse(region)
-                setRegion(parsed_region)
+            if(regions.length === 0){
+                initializeRegions()
             }else{
-                const current_region = regions[0]
-                setRegion(current_region)
+                setRegion(regions[0])
             }
+          
         }
-    }, [])
+    }, [regions])
 
 
     return (

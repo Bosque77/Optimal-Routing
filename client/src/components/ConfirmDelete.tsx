@@ -65,11 +65,38 @@ const ConfirmDelete = ({
       } else if (driver) {
         deleteDriver(driver);
       } else if (depot) {
-        deleteDepot(depot);
+        console.log('inside confirm delete')
+        const response = await deleteDepot(
+          depot
+        ) as unknown as HttpResponse;
+        console.log(response)
+        if (response.status === "ERROR") {
+          setAlert(
+            "Error Deleting Depot. Server is having issues, try again later.",
+            "error",
+            3000
+          );
+        } else {
+          setAlert("Depot Deleted Successfully", "info", 3000);
+          setActive(false);
+        }
       } else if (vehicle) {
         deleteVehicle(vehicle);
       } else if (order) {
-        deleteOrder(order);
+        const response = await deleteOrder(
+          order
+        ) as unknown as HttpResponse;
+        console.log(response)
+        if (response.status === "ERROR") {
+          setAlert(
+            "Error Deleting Order. Server is having issues, try again later.",
+            "error",
+            3000
+          );
+        } else {
+          setAlert("Order Deleted Successfully", "info", 3000);
+          setActive(false);
+        }
       }
     }
     setActive(false);

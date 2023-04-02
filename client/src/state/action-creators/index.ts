@@ -49,6 +49,7 @@ export const initializeRegions = () => {
       type: ActionType.INIT_REGIONS,
       data: regions,
     });
+
   };
 };
 
