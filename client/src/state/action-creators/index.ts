@@ -54,11 +54,15 @@ export const initializeRegions = () => {
 
 export const initializeLandfills = (region: Region) => {
   return async (dispatch: Dispatch<Action>) => {
-    const landfills = await landfillService.getByRegion(region);
-    dispatch({
-      type: ActionType.INIT_LANDFILLS,
-      data: landfills,
-    });
+    const response = await landfillService.getByRegion(region);
+    if (response.status === "OK") {
+      const landfills = response.data as Landfill[];
+      dispatch({
+        type: ActionType.INIT_LANDFILLS,
+        data: landfills,
+      });
+    }
+    return response;
   };
 };
 
@@ -74,11 +78,15 @@ export const initializeDrivers = (region: Region) => {
 
 export const initializeDepots = (region: Region) => {
   return async (dispatch: Dispatch<Action>) => {
-    const depots = await depotService.getByRegion(region);
-    dispatch({
-      type: ActionType.INIT_DEPOTS,
-      data: depots,
-    });
+    const response = await depotService.getByRegion(region);
+    if (response.status === "OK") {
+      const depots = response.data as Depot[];
+      dispatch({
+        type: ActionType.INIT_DEPOTS,
+        data: depots,
+      });
+    }
+    return response;
   };
 };
 
@@ -94,21 +102,29 @@ export const initializeVehicles = (region: Region) => {
 
 export const initializeOrders = (region: Region, date: string) => {
   return async (dispatch: Dispatch<Action>) => {
-    const orders = await orderService.getByRegionAndDate(region, date);
-    dispatch({
-      type: ActionType.INIT_ORDERS,
-      data: orders,
-    });
+    const response = await orderService.getByRegionAndDate(region, date);
+    if (response.status === "OK") {
+      const orders = response.data as Order[];
+      dispatch({
+        type: ActionType.INIT_ORDERS,
+        data: orders,
+      });
+    }
+    return response;
   };
 };
 
 export const initializeTruckRoutes = (region: Region, date: string) => {
   return async (dispatch: Dispatch<Action>) => {
-    const truck_routes = await routeService.getByRegionAndDate(region, date);
-    dispatch({
-      type: ActionType.INIT_TRUCK_ROUTES,
-      data: truck_routes,
-    });
+    const response = await routeService.getByRegionAndDate(region, date);
+    if (response.status === "OK") {
+      const truck_routes = response.data as TruckRoute[];
+      dispatch({
+        type: ActionType.INIT_TRUCK_ROUTES,
+        data: truck_routes,
+      });
+    }
+    return response;
   };
 };
 
@@ -182,11 +198,15 @@ export const createOrder = (order: NewOrder) => {
 
 export const createTruckRoute = (input_truck_route: NewTruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
-    const new_truck_route = await routeService.createNew(input_truck_route);
-    dispatch({
-      type: ActionType.ADD_TRUCK_ROUTE,
-      data: new_truck_route,
-    });
+    const response = await routeService.createNew(input_truck_route);
+    if (response.status === "OK") {
+      const new_truck_route = response.data as TruckRoute;
+      dispatch({
+        type: ActionType.ADD_TRUCK_ROUTE,
+        data: new_truck_route,
+      });
+    }
+    return response;
   };
 };
 
@@ -204,13 +224,11 @@ export const updateLandfill = (updated_landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await landfillService.put(updated_landfill);
     if (response.status === "OK") {
-      debugger
       const landfill = response.data as Landfill;
-      debugger
-    dispatch({
-      type: ActionType.UPDATE_LANDFILL,
-      data: landfill,
-    });
+      dispatch({
+        type: ActionType.UPDATE_LANDFILL,
+        data: landfill,
+      });
     }
     return response;
   };
@@ -240,45 +258,56 @@ export const updateVehicle = (updated_vehicle: EditVehicle) => {
 
 export const updateDepot = (updated_depot: Depot) => {
   return async (dispatch: Dispatch<Action>) => {
-    const depot = await depotService.put(updated_depot);
-    dispatch({
-      type: ActionType.UPDATE_DEPOT,
-      data: depot,
-    });
+    const response = await depotService.put(updated_depot);
+    if (response.status === "OK") {
+      const depot = response.data as Depot;
+      dispatch({
+        type: ActionType.UPDATE_DEPOT,
+        data: depot,
+      });
+    }
+    return response;
   };
 };
 
 export const updateOrder = (updated_order: Order) => {
   return async (dispatch: Dispatch<Action>) => {
-    const order = await orderService.put(updated_order);
-    dispatch({
-      type: ActionType.UPDATE_ORDER,
-      data: order,
-    });
+    const response = await orderService.put(updated_order);
+    if (response.status === "OK") {
+      const order = response.data as Order;
+      dispatch({
+        type: ActionType.UPDATE_ORDER,
+        data: order,
+      });
+    }
+    return response;
   };
 };
 
 export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
-    const truck_route = await routeService.put(updated_truck_route);
-    dispatch({
-      type: ActionType.UPDATE_TRUCK_ROUTE,
-      data: truck_route,
-    });
+    const response = await routeService.put(updated_truck_route);
+    if (response.status === "OK") {
+      const truck_route = response.data as TruckRoute;
+      dispatch({
+        type: ActionType.UPDATE_TRUCK_ROUTE,
+        data: truck_route,
+      });
+    }
+    return response;
   };
 };
-
 export const deleteLandfill = (landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
-      const response = await landfillService.deleteLandfill(landfill);
-      if(response.status === "OK"){
-        dispatch({
-          type: ActionType.DELETE_LANDFILL,
-          data: landfill,
-        });
-      }
-      return response;
+    const response = await landfillService.deleteLandfill(landfill);
+    if (response.status === "OK") {
+      dispatch({
+        type: ActionType.DELETE_LANDFILL,
+        data: landfill,
+      });
     }
+    return response;
+  };
 };
 
 export const deleteDriver = (driver: Driver) => {

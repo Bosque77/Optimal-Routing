@@ -8,7 +8,6 @@ const baseUrl = '/regions'
 
 
 
-
 const getAll = async () => {
     const config = {
         headers: { Authorization: token },

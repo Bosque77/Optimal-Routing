@@ -1,13 +1,9 @@
-import EditLandfillForm from "./EditLandfillForm";
-import ConfirmDelete from "./ConfirmDelete";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
 import { Landfill } from "../types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state";
-import CreateLandfillForm from "./CreateLandfillForm";
 
 interface prop {
   landfills: Landfill[];

@@ -1,36 +1,30 @@
 import axios from "axios";
-import { HttpResponse, Landfill, NewLandfill, Region } from "../types";
-import { token } from "./config";
+import { Landfill, NewLandfill, Region } from "../types";
+import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/landfills";
 
-// const getByRegion = async (region:Region) => {
-//     const url = baseUrl+`/region/${region.id}`
-//     const config = {
-//         headers: { Authorization: token },
-//     }
-//     const response = await axios.get(url, config)
-//     return response.data
-// }
-
 const getByRegion = async (region: Region) => {
-  const url = baseUrl + `?region_id=${region.id}`;
-  const config = {
-    headers: { Authorization: token },
-  };
-  const response = await axios.get(url, config);
-  return response.data;
-};
-
-const getAll = async () => {
-  if (token) {
+  try {
+    const url = baseUrl + `?region_id=${region.id}`;
     const config = {
       headers: { Authorization: token },
     };
-    console.log(config);
+    const response = await axios.get(url, config);
+    return createSuccessResponse("Landfills retrieved", response.data);
+  } catch (error) {
+    return createErrorResponse("Landfill update failed", error);
+  }
+};
+
+const getAll = async () => {
+  try {
+    const config = {
+      headers: { Authorization: token },
+    };
     const response = await axios.get(baseUrl, config);
-    return response.data;
-  } else {
-    throw "Cannot access landfills until the user token is present";
+    return createSuccessResponse("Landfills retrieved", response.data);
+  } catch (error) {
+    return createErrorResponse("Landfill update failed", error);
   }
 };
 
@@ -39,23 +33,12 @@ const put = async (landfill: Landfill) => {
     const config = {
       headers: { Authorization: token },
     };
-
     const id = landfill.id;
     const url = baseUrl + `/${id}`;
     const axios_response = await axios.put(url, landfill, config);
-    const response: HttpResponse = {
-      status: "OK",
-      message: "landfill updated",
-      data: axios_response.data,
-    };
-    return response;
+    return createSuccessResponse("Landfill updated", axios_response.data);
   } catch (error) {
-    const response: HttpResponse = {
-      status: "ERROR",
-      message: "landfill creation failed",
-      data: error,
-    };
-    return response;
+    return createErrorResponse("Landfill update failed", error);
   }
 };
 
@@ -66,14 +49,14 @@ const deleteLandfill = async (landfill: Landfill) => {
     };
     const id = landfill.id;
     const url = baseUrl + `/${id}`;
-    console.log('inside the delete service')
+    console.log("inside the delete service");
     const axios_response = await axios.delete(url, config);
-    console.log(axios_response)
-    console.log('sending back axios response')
+    console.log(axios_response);
+    console.log("sending back axios response");
     return createSuccessResponse("Landfill updated", axios_response.data);
   } catch (error) {
     return createErrorResponse("Landfill update failed", error);
-  }  
+  }
 };
 
 const createNew = async (landfill: NewLandfill) => {
@@ -82,46 +65,10 @@ const createNew = async (landfill: NewLandfill) => {
       headers: { Authorization: token },
     };
     const axios_response = await axios.post(baseUrl, landfill, config);
-    const response: HttpResponse = {
-      status: "OK",
-      message: "landfill created",
-      data: axios_response.data,
-    };
-    return response;
+    return createSuccessResponse("Landfill created", axios_response.data);
   } catch (error) {
-    const response: HttpResponse = {
-      status: "ERROR",
-      message: "landfill creation failed",
-      data: error,
-    };
-    return response;
+    return createErrorResponse("Landfill creation failed", error);
   }
-};
-
-
-const createSuccessResponse = (message: string, data: any): HttpResponse => {
-  return {
-    status: "OK",
-    message,
-    data,
-  };
-};
-
-const createErrorResponse = (message: string, error: any): HttpResponse => {
-  let errorMessage = message;
-  if (error.response) {
-    errorMessage += `: ${error.response.statusText} (${error.response.status})`;
-  } else if (error.request) {
-    errorMessage += ": No response received";
-  } else {
-    errorMessage += `: ${error.message}`;
-  }
-
-  return {
-    status: "ERROR",
-    message: errorMessage,
-    data: error,
-  };
 };
 
 export default { getAll, put, createNew, deleteLandfill, getByRegion };

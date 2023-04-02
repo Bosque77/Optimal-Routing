@@ -26,7 +26,7 @@ depotRouter.put('/:id', async(req:any, res) => {
     try{
         const updated_depot = req.body
         const depot_id = req.params.id
-        const depot = await Depot.findByIdAndUpdate(depot_id, {...updated_depot})
+        const depot = await Depot.findByIdAndUpdate(depot_id, {...updated_depot}, {new:true})
         res.status(200).send(depot)
     }catch(error){
         res.status(500).send('Error saving the depot')

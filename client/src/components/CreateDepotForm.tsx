@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { LatLng, Address, HttpResponse, NewLandfill, NewDepot } from "../types";
+import React, { useEffect, useState } from "react";
+import { LatLng, Address, HttpResponse, NewLandfill, NewDepot, Depot } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
@@ -10,12 +10,13 @@ import { TruckIcon } from "@heroicons/react/24/solid";
 
 interface prop {
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
+    depot: Depot | undefined;
 }
 
-const CreateDepotForm = ({ setActive }: prop) => {
+const CreateDepotForm = ({ setActive, depot }: prop) => {
 
     const dispatch = useDispatch();
-    const { setAlert, createDepot } = bindActionCreators(
+    const { setAlert, createDepot, updateDepot } = bindActionCreators(
         actionCreators,
         dispatch
     );
@@ -31,6 +32,19 @@ const CreateDepotForm = ({ setActive }: prop) => {
     const [zipcode, setZipcode] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
+
+    useEffect(() => {
+        if (depot) {
+            setName(depot.name);
+            setStreet(depot.street);
+            setCity(depot.city);
+            setState(depot.state);
+            setZipcode(depot.zipcode.toString());
+            setLatitude(depot.latitude.toString());
+            setLongitude(depot.longitude.toString());
+        }
+    }, [depot]);
+    
 
 
 
@@ -69,6 +83,50 @@ const CreateDepotForm = ({ setActive }: prop) => {
             setAlert("Depot Creation failed. Please try again later.", "error", 3000);
           }else{
             setAlert("Depot Created", "success", 3000);
+            setActive(false);
+          }
+    
+        }
+      };
+
+      const onUpdate = async (depot:Depot) => {
+
+    
+        if (
+          name === "" ||
+          street === "" ||
+          city === "" ||
+          state === "" ||
+          zipcode === "" ||
+          latitude === "" ||
+          longitude === "" ||
+          region === null
+        ) {
+          setAlert("Please fill out all required fields", "error", 3000);
+        } else {
+
+          const updated_depot: Depot = {
+            id: depot.id,
+            name,
+            street,
+            city,
+            state,
+            zipcode: parseInt(zipcode),
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            region_id: region.id,
+            type: "Depot",
+            active: true,
+            user_id: depot.user_id,
+          };
+    
+          setLoading(true);
+          const response = await updateDepot(updated_depot) as unknown as HttpResponse;
+          setLoading(false);
+          if( response.status === "ERROR"){
+            setAlert("Depot Update failed. Please try again later.", "error", 3000);
+          }else{
+            setAlert("Depot Updated", "success", 3000);
             setActive(false);
           }
     
@@ -252,12 +310,18 @@ const CreateDepotForm = ({ setActive }: prop) => {
                         >
                             Cancel
                         </button>
-                        <button
+                        {depot ? (                        <button
+                            onClick={()=> onUpdate(depot)}
+                            className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
+                        >
+                            Update
+                        </button>):(                        <button
                             onClick={submit}
                             className="mt-5 py-2 px-4 bg-slate-700 text-white rounded-md drop-shadow hover:bg-stone-900 hover:text-white hover:drop-shadow-md active:drop-shadow-none active:scale-95 active:text-white"
                         >
                             Submit
-                        </button>
+                        </button>)}
+
                     </div>
                 </div>
 
