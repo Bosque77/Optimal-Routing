@@ -20,6 +20,7 @@ const DepotTable = () => {
   const [depot, setDepot] = useState<Depot | undefined>(undefined);
 
   const onCreateDepot = () => {
+    setDepot(undefined)
     setCreateDepotModalActive(true);
   };
 
