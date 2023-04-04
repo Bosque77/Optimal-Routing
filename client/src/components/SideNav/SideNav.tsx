@@ -26,20 +26,36 @@ const SideNav = () => {
     <div className="fixed h-screen w-64 bg-white overflow-y-auto shadow-md">
       <div className="flex flex-col">
         <img className="mx-auto w-40 py-2 flex" src="/images/logo.png" alt="website logo" />
-        <div className="hover:bg-slate-200 mx-4 rounded-lg mt-4">
+        <div className="hover:bg-slate-200 mx-4 rounded-lg mt-6">
           <Link
             to="/home"
-            className="block text-gray-900 text-lg hover:text-black  font-medium"
+            className="text-left ml-8 block text-gray-900 text-lg hover:text-black  font-medium"
           >
          Home
           </Link>
         </div>
-        <div className="hover:bg-slate-200 rounded-lg mx-4">
+        <div className="hover:bg-slate-200 rounded-lg mx-4 my-1">
           <Link
             to="/routes"
-            className="text-black text-lg  hover:text-gray-900 font-medium"
+            className="text-left ml-8 block text-black text-lg  hover:text-gray-900 font-medium"
           >
             Routes
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 rounded-lg mx-4 my-1">
+          <Link
+            to="/regions"
+            className="text-left ml-8 block text-black text-lg  hover:text-gray-900 font-medium"
+          >
+            Regions
+          </Link>
+        </div>
+        <div className="hover:bg-slate-200 rounded-lg mx-4 my-1">
+          <Link
+            to="/user-profile"
+            className="text-left ml-8 block text-black text-lg  hover:text-gray-900 font-medium"
+          >
+            User Profile
           </Link>
         </div>
       </div>

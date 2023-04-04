@@ -7,6 +7,7 @@ import {
 import { actionCreators, State } from './state'
 import { useDispatch, useSelector } from 'react-redux'
 import HomePage from './pages/HomePage/HomePage'
+import RoutePage from './pages/RoutePage/RoutePage'
 import { bindActionCreators } from 'redux'
 import { Region, UserToken } from './types'
 
@@ -43,6 +44,7 @@ function App() {
                 <Routes>
                     
                     {!user_token && <Route path="/*" element={<Login />} />}
+                    {user_token  && <Route path="/routes" element={<RoutePage />} />}
                     {user_token  && <Route path="/*" element={<HomePage />} />}
 
                 </Routes>

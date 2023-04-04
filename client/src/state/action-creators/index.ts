@@ -44,12 +44,15 @@ export const setRegion = (region: Region) => {
 
 export const initializeRegions = () => {
   return async (dispatch: Dispatch<Action>) => {
-    const regions = await regionService.getAll();
-    dispatch({
-      type: ActionType.INIT_REGIONS,
-      data: regions,
-    });
-
+    const response = await regionService.getAll();
+    if (response.status === "OK") {
+      const regions = response.data as Region[];
+      dispatch({
+        type: ActionType.INIT_REGIONS,
+        data: regions,
+      });
+    }
+    return response;
   };
 };
 
@@ -213,11 +216,15 @@ export const createTruckRoute = (input_truck_route: NewTruckRoute) => {
 
 export const createRegion = (region: NewRegion) => {
   return async (dispatch: Dispatch<Action>) => {
-    const new_region = await regionService.createNew(region);
-    dispatch({
-      type: ActionType.ADD_REGION,
-      data: new_region,
-    });
+    const response = await regionService.createNew(region);
+    if (response.status === "OK") {
+      const new_region = response.data as Region;
+      dispatch({
+        type: ActionType.ADD_REGION,
+        data: new_region,
+      });
+    }
+    return response;
   };
 };
 
@@ -402,7 +409,7 @@ export const setAlert = (message: string, severity: Severity, time: number) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_ALERT,
-      data: { message: message, severity: severity, time: time },
+      data: { message: message, severity: severity, time: time, open: true },
     });
   };
 };

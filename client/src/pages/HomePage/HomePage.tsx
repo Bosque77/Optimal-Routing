@@ -9,15 +9,10 @@ import LandfillTable from "../../components/LandfillTable";
 import OrderTable from "../../components/OrderTable";
 import Alert from "../../components/Alert";
 import RegionSelector from "../../components/RegionSelector";
+import CreateRegionForm from "../../components/CreateRegionForm";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-
-  const [createOrderModalActive, setCreateOrderModalActive] = useState(false);
-  const [createLandfillModalActive, setCreateLandfillModalActive] = useState(false);
-  const [editLandfillModalActive, setEditLandfillModalActive] = useState(false);
-  const [createDepotModalActive, setCreateDepotModalActive] = useState(false);
-
 
   const {
     initializeDepots,
@@ -32,6 +27,8 @@ const HomePage = () => {
   const region = useSelector((state: State) => state.setRegion)
   const alert_data = useSelector((state: State) => state.alert_data);
   const date = new Date();
+
+  const [createRegionFormActive, setCreateRegionFormActive] = useState(false);
 
   useEffect(() => {
     if (region) {
@@ -52,6 +49,10 @@ const onSuccess = () => {
   setAlert("OHH YEAAA", "success", 3000);
 }
 
+const onCreateRegion = () => {
+  setCreateRegionFormActive(true);
+}
+
 
 
 
@@ -64,6 +65,9 @@ return (
     </div>
     <div className="mx-auto flex flex-col w-2/3">
       <div className="flex flex-row justify-end">
+        {/* <button onClick={onCreateRegion} className="self-end mx-4 my-2 text-slate-700 hover:text-black hover:underline hover:underline-offset-1 active:scale-95">
+          Add Region
+        </button> */}
         <RegionSelector />
       </div>
 
@@ -77,6 +81,7 @@ return (
       <DepotTable />
       <div className="py-5"></div>
     </div>
+    {createRegionFormActive && <CreateRegionForm setActive={setCreateRegionFormActive}   /> }
 
   </div>
 );

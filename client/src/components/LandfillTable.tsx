@@ -7,19 +7,19 @@ import LandfillList from "./LandfillList";
 import ConfirmDelete from "./ConfirmDelete";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import CreateLandfillForm from "./CreateLandfillForm";
-
-
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 const LandfillTable = () => {
   const landfills = useSelector((state: State) => state.landfills);
   const [showInfo, setShowInfo] = useState(false);
-  const [landfill, setLandfill] = useState<Landfill|undefined>(undefined);
+  const [landfill, setLandfill] = useState<Landfill | undefined>(undefined);
   const [createLandfillModalActive, setCreateLandfillModalActive] =
     useState(false);
-  const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
+  const [confirmDeleteActive, setConfirmDeleteActive] =
+    useState<boolean>(false);
 
   const onCreateLandfill = () => {
-    setLandfill(undefined)
+    setLandfill(undefined);
     setCreateLandfillModalActive(true);
   };
 
@@ -58,28 +58,29 @@ const LandfillTable = () => {
           {landfills.length === 0 ? (
             <div className="py-4">
               Add a landfill to get started.
-              <div className="text-center justify-center flex w-full py-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="64"
-                  height="64"
-                  fill="currentColor"
-                >
-                  <path d="M4.5 2h15c.825 0 1.5.675 1.5 1.5V4c0 .825-.675 1.5-1.5 1.5h-15C3.675 5.5 3 4.825 3 4V3.5C3 2.675 3.675 2 4.5 2zm14.5 6v13.5c0 .825-.675 1.5-1.5 1.5h-12c-.825 0-1.5-.675-1.5-1.5V8H2v15c0 1.104.896 2 2 2h16c1.104 0 2-.896 2-2V8h-1z" />
-                  <path d="M8 10h1v8H8zm3 0h1v8h-1zm3 0h1v8h-1z" />
-                </svg>
+              <div className="py-6">
+                <TrashIcon className="w-16 h-16 text-black inline-block ml-2" />
               </div>
             </div>
           ) : (
-            <LandfillList landfills={landfills} setCreateLandfillModalActive={setCreateLandfillModalActive} setConfirmDeleteActive={setConfirmDeleteActive} setLandfill={setLandfill} />
+            <LandfillList
+              landfills={landfills}
+              setCreateLandfillModalActive={setCreateLandfillModalActive}
+              setConfirmDeleteActive={setConfirmDeleteActive}
+              setLandfill={setLandfill}
+            />
           )}
         </div>
       </div>
       {createLandfillModalActive && (
-        <CreateLandfillForm setActive={setCreateLandfillModalActive} landfill={landfill}/>
+        <CreateLandfillForm
+          setActive={setCreateLandfillModalActive}
+          landfill={landfill}
+        />
       )}
-      {confirmDeleteActive && ( <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill}/> )}
+      {confirmDeleteActive && (
+        <ConfirmDelete setActive={setConfirmDeleteActive} landfill={landfill} />
+      )}
     </div>
   );
 };

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { State } from "../state";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../state";
 import {ExclamationTriangleIcon} from '@heroicons/react/24/outline'
+import { bindActionCreators } from "redux";
 
 
 const Alert = () => {
 
 
   const alert_data = useSelector((state: State) => state.alert_data);
+  const dispatch = useDispatch();
+  const {
+    setAlert,
+  } = bindActionCreators(actionCreators, dispatch);
 
   const message = alert_data.message;
   const severity = alert_data.severity;
@@ -16,10 +21,22 @@ const Alert = () => {
 
 
   useEffect(() => {
-    setOpen(true)
-    setTimeout(() => {
-      setOpen(false);
-    }, time);
+    if (message) {
+      setOpen(true);
+      const timer = setTimeout(() => {
+        setOpen(false);
+        setAlert(
+          "",
+          "error",
+          3000
+        );
+      }, time);
+
+      // Clear the previous timeout when the effect is re-run
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, [alert_data, time]);
 
 
