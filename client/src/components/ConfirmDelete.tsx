@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../state";
+import { actionCreators, State } from "../state";
 import {
   Depot,
   Driver,
@@ -38,6 +38,8 @@ const ConfirmDelete = ({
     setAlert,
   } = bindActionCreators(actionCreators, dispatch);
 
+  const alert_data = useSelector((state: State) => state.alert_data);
+
   React.useEffect(() => {
     const modal = document.querySelector("#confirm_delete");
     if (modal) {
@@ -56,10 +58,10 @@ const ConfirmDelete = ({
           setAlert(
             "Error Deleting Landfill. Server is having issues, try again later.",
             "error",
-            3000
+            3000, alert_data.id+1
           );
         } else {
-          setAlert("Landfill Deleted Successfully", "info", 3000);
+          setAlert("Landfill Deleted Successfully", "info", 3000, alert_data.id+1);
           setActive(false);
         }
       } else if (driver) {
@@ -74,10 +76,10 @@ const ConfirmDelete = ({
           setAlert(
             "Error Deleting Depot. Server is having issues, try again later.",
             "error",
-            3000
+            3000,alert_data.id+1
           );
         } else {
-          setAlert("Depot Deleted Successfully", "info", 3000);
+          setAlert("Depot Deleted Successfully", "info", 3000, alert_data.id+1);
           setActive(false);
         }
       } else if (vehicle) {
@@ -91,10 +93,10 @@ const ConfirmDelete = ({
           setAlert(
             "Error Deleting Order. Server is having issues, try again later.",
             "error",
-            3000
+            3000, alert_data.id+1
           );
         } else {
-          setAlert("Order Deleted Successfully", "info", 3000);
+          setAlert("Order Deleted Successfully", "info", 3000, alert_data.id+1);
           setActive(false);
         }
       }

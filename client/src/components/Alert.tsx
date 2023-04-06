@@ -14,22 +14,27 @@ const Alert = () => {
     setAlert,
   } = bindActionCreators(actionCreators, dispatch);
 
+  const id = alert_data.id;
   const message = alert_data.message;
   const severity = alert_data.severity;
   const time = alert_data.time;
   const [open, setOpen] = useState(false);
+  const [displayedId, setDisplayedId] = useState(-1);
 
 
   useEffect(() => {
-    if (message) {
+    if (message && id !== displayedId) {
       setOpen(true);
+      setDisplayedId(id);
       const timer = setTimeout(() => {
         setOpen(false);
-        setAlert(
-          "",
-          "error",
-          3000
-        );
+        console.log('setting timer to false')
+
+        // setAlert(
+        //   "",
+        //   "error",
+        //   3000
+        // );
       }, time);
 
       // Clear the previous timeout when the effect is re-run
@@ -37,7 +42,7 @@ const Alert = () => {
         clearTimeout(timer);
       };
     }
-  }, [alert_data, time]);
+  }, [alert_data, id,  time]);
 
 
 

@@ -46,7 +46,7 @@ const HomePage = () => {
 
 
 const onSuccess = () => {
-  setAlert("OHH YEAAA", "success", 3000);
+  setAlert("OHH YEAAA", "success", 3000, alert_data.id+1);
 }
 
 const onCreateRegion = () => {

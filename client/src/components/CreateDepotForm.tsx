@@ -20,7 +20,8 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
         actionCreators,
         dispatch
     );
-
+    
+    const alert_data = useSelector((state: State) => state.alert_data);
     const region = useSelector((state: State) => state.setRegion);
 
 
@@ -61,7 +62,7 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
           longitude === "" ||
           region === null
         ) {
-          setAlert("Please fill out all required fields", "error", 3000);
+          setAlert("Please fill out all required fields", "error", 3000,alert_data.id+1);
         } else {
 
           const new_depot: NewDepot = {
@@ -80,9 +81,9 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
           const response = await createDepot(new_depot) as unknown as HttpResponse;
           setLoading(false);
           if( response.status === "ERROR"){
-            setAlert("Depot Creation failed. Please try again later.", "error", 3000);
+            setAlert("Depot Creation failed. Please try again later.", "error", 3000, alert_data.id+1);
           }else{
-            setAlert("Depot Created", "success", 3000);
+            setAlert("Depot Created", "success", 3000, alert_data.id+1);
             setActive(false);
           }
     
@@ -102,7 +103,7 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
           longitude === "" ||
           region === null
         ) {
-          setAlert("Please fill out all required fields", "error", 3000);
+          setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
         } else {
 
           const updated_depot: Depot = {
@@ -124,9 +125,9 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
           const response = await updateDepot(updated_depot) as unknown as HttpResponse;
           setLoading(false);
           if( response.status === "ERROR"){
-            setAlert("Depot Update failed. Please try again later.", "error", 3000);
+            setAlert("Depot Update failed. Please try again later.", "error", 3000, alert_data.id+1);
           }else{
-            setAlert("Depot Updated", "success", 3000);
+            setAlert("Depot Updated", "success", 3000, alert_data.id+1);
             setActive(false);
           }
     
@@ -149,7 +150,7 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
             const message =
                 "Could not find address.  Please try again or manually enter coordinates";
             const severity = "error";
-            setAlert(message, severity, 3000);
+            setAlert(message, severity, 3000, alert_data.id+1);
         } else {
             const lat_lng = response.data as LatLng;
             setLatitude(lat_lng.lat.toFixed(3));

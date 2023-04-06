@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
 import { HttpResponse, NewRegion } from "../types";
@@ -16,18 +16,19 @@ const CreateRegionForm = ({ setActive }: Props) => {
   const dispatch = useDispatch();
   const { setAlert, createRegion } = bindActionCreators(actionCreators, dispatch);
 
+  const alert_data = useSelector((state: State) => state.alert_data);
   const [name, setName] = useState("");
 
   const submit = async () => {
     if (name === "") {
-      setAlert("Please fill out all required fields", "error", 3000);
+      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
     } else {
       const newRegion: NewRegion = { name };
       const response = await createRegion(newRegion) as unknown as HttpResponse;
       if (response.status === "ERROR") {
-        setAlert("Region Creation failed. Please try again later.", "error", 3000);
+        setAlert("Region Creation failed. Please try again later.", "error", 3000, alert_data.id+1);
       } else {
-        setAlert("Region Created", "success", 3000);
+        setAlert("Region Created", "success", 3000, alert_data.id+1);
         setActive(false);
       }
     }

@@ -3,6 +3,7 @@ import { Action } from '../actions'
 import { AlertState } from '../../types'
 
 const initialState : AlertState = {
+    id: 0,
     message: '',
     severity: 'success',
     time: 0,

@@ -405,11 +405,11 @@ export const setUserToken = (user_token: UserToken | null) => {
   };
 };
 
-export const setAlert = (message: string, severity: Severity, time: number) => {
+export const setAlert = (message: string, severity: Severity, time: number, id:number) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_ALERT,
-      data: { message: message, severity: severity, time: time, open: true },
+      data: { message: message, severity: severity, time: time, id: id},
     });
   };
 };

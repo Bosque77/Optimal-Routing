@@ -252,4 +252,5 @@ export interface AlertState {
   message: string;
   severity: Severity;
   time: number;
+  id: number;
 }
