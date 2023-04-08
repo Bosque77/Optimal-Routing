@@ -1,9 +1,9 @@
-import config from './utils/config'
+import config from '../utils/config'
 
 
 import mongoose from 'mongoose'
 
-import Order from './models/order'
+import Order from '../models/order-model'
 
 
 const connectMongoose = async () => {

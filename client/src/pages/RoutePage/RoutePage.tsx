@@ -5,7 +5,11 @@ import RegionSelector from "../../components/RegionSelector";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Dropdown from "../../components/Dropdown";
+import { initializeOrders } from "../../state/action-creators";
+import { useSelector } from "react-redux";
+import { State } from "../../state";
 
 const RoutePage = () => {
   const markers = [
@@ -14,7 +18,14 @@ const RoutePage = () => {
     { lat: 40.706086, lng: -74.009051 },
   ];
 
+  const region = useSelector((state: State) => state.setRegion);
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  useEffect(() => {
+    if (region) {
+      initializeOrders(region, selectedDate.toDateString());
+    }
+  }, [region, selectedDate]);
 
   return (
     <div className="bg-slate-100 flex h-screen">
@@ -37,13 +48,17 @@ const RoutePage = () => {
             markers={markers}
           />
           <div className="mt-6 text-left">
-              <label className="ml-2" >Select Date</label>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date: Date) => handleDateChange(date)}
-                className="border-2 rounded w-48 p-2"
-              />
-
+            <label className="ml-2">Select Date</label>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date: Date) => handleDateChange(date)}
+              className="border-2 rounded w-48 p-2"
+              popperPlacement="bottom-start"
+            />
+            <div className="mt-8">
+            <Dropdown />
+            </div>
+ 
           </div>
         </div>
       </div>

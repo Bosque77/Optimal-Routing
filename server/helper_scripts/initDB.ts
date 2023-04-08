@@ -4,16 +4,40 @@ const salt_rounds = 10
 
 
 import mongoose from 'mongoose'
-import config from './utils/config'
-import logger from './utils/logger'
-import User from './models/user'
-import Region from './models/region'
-import Landfill from './models/landfill'
-import Driver from './models/driver'
-import Depot from './models/depot'
-import Vehicle from './models/vehicle'
-import { NewLandfill} from './types'
-import Order from './models/order'
+import config from '../utils/config'
+import logger from '../utils/logger'
+import User from '../models/user-model'
+import Region from '../models/region-model'
+import Landfill from '../models/landfill-model'
+import Driver from '../models/driver-model'
+import Depot from '../models/depot-model'
+import Vehicle from '../models/vehicle-model'
+import Order from '../models/order-model'
+
+// a function that creates the delivery date and pickup date for the order
+// the delivery date is today and the pickup date is tomorrow
+
+interface DateObject {
+    delivery_date: string;
+    pickup_date: string;
+  }
+  
+
+  const createDates = (): DateObject => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    const delivery_date = today.toDateString();
+    const pickup_date = tomorrow.toDateString();
+  
+    return { delivery_date, pickup_date };
+  };
+
+const { delivery_date, pickup_date } = createDates()
+
+console.log(delivery_date, pickup_date)
+
 
 
 
@@ -52,7 +76,7 @@ const regions = [
     }
 ]
 
-const landfills: NewLandfill[] = [
+const landfills = [
     {
         'name': 'Doraville Transfer Station',
         'street': '2784 Woodwin Rd,',
@@ -214,8 +238,8 @@ const orders = [
         'latitude': 33.935,
         'longitude': -84.318,
         'dumpster_size': 15,
-        'delivery_date': 'Thu Dec 30 2021',
-        'pickup_date': 'Fri Dec 31 2021',
+        'delivery_date': delivery_date,
+        'pickup_date': pickup_date,
         'delivery_time': {
             'hour': 12,
             'minute': 35,
@@ -231,7 +255,8 @@ const orders = [
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
-        'type':'Order'
+        'type':'Order',
+        'active': true
     },
     {
         'name': 'Josh Rodriguez',
@@ -261,7 +286,8 @@ const orders = [
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
-        'type':'Order'
+        'type':'Order',
+        'active': true
     },
     {
         'name': 'Daniel Carusi',
@@ -291,7 +317,8 @@ const orders = [
         'pickup_completed': false,
         'user_id': '61c7483607e4533869b9ec08',
         'region_id': '61ca3cb19e9ade7351418e30',
-        'type': 'Order'
+        'type': 'Order',
+        'active': true
     },
 
 ]

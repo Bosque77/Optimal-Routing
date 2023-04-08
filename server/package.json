@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "ts-node": "ts-node",
+    "init-db": "ts-node ./helper_scripts/initDB.ts",
     "tsc": "tsc",
     "start": "cross-env NODE_ENV=development nodemon --exec ts-node index.ts",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
