@@ -8,8 +8,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown";
 import { initializeOrders } from "../../state/action-creators";
-import { useSelector } from "react-redux";
-import { State } from "../../state";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../../state";
+import { bindActionCreators } from "redux";
 
 const RoutePage = () => {
   const markers = [
@@ -18,8 +19,11 @@ const RoutePage = () => {
     { lat: 40.706086, lng: -74.009051 },
   ];
 
+  const dispatch = useDispatch();
   const region = useSelector((state: State) => state.setRegion);
+  const orders = useSelector((state: State) => state.orders);
   const [selectedDate, handleDateChange] = useState(new Date());
+  const { initializeOrders } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     if (region) {
@@ -28,7 +32,8 @@ const RoutePage = () => {
   }, [region, selectedDate]);
 
   return (
-    <div className="bg-slate-100 flex h-screen">
+
+    <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
       <Alert />
       <div className="w-64 bg-slate-50">
         <SideNav />
@@ -47,7 +52,9 @@ const RoutePage = () => {
             centerLongitude={-74.006}
             markers={markers}
           />
-          <div className="mt-6 text-left">
+
+        </div>
+        <div className="my-6 text-left">
             <label className="ml-2">Select Date</label>
             <DatePicker
               selected={selectedDate}
@@ -56,11 +63,10 @@ const RoutePage = () => {
               popperPlacement="bottom-start"
             />
             <div className="mt-8">
-            <Dropdown />
+            <Dropdown orders={orders} selected_date={selectedDate}/>
             </div>
  
           </div>
-        </div>
       </div>
     </div>
   );

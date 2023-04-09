@@ -58,7 +58,7 @@ const onCreateRegion = () => {
 
 
 return (
-  <div className="bg-slate-100 flex h-full">
+  <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
     <Alert />
     <div className="w-64 bg-slate-50">
       <SideNav />
