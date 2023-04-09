@@ -62,8 +62,8 @@ const RoutePage = () => {
               className="border-2 rounded w-48 p-2"
               popperPlacement="bottom-start"
             />
-            <div className="mt-8">
-            <Dropdown orders={orders} selected_date={selectedDate}/>
+            <div className="my-8">
+            <Dropdown selected_date={selectedDate}/>
             </div>
  
           </div>
