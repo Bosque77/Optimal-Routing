@@ -178,7 +178,7 @@ const DropdownTable = ({ selected_date }: prop) => {
   };
 
   return (
-    <>
+    <div>
       <div className="flex flex-col">
         <div className="my-2">Select Route Entries</div>
         <div className="flex w-64 my-2">
@@ -200,40 +200,6 @@ const DropdownTable = ({ selected_date }: prop) => {
             >
               Orders
             </button>
-            <div className="grid grid-cols-3 gap-4"></div>
-            {selectedOrdersTable && orders && (
-              <table className="table-auto mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Address
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Dumpster Size
-                    </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Type
-                    </th>
-                    <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      <div className="flex">
-                        Select All
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
-                          onChange={handleOrderSelectAll}
-                        />
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-100">
-                  {insertOrders()}
-                </tbody>
-              </table>
-            )}
           </div>
         </div>
         <div className="relative inline-block ">
@@ -307,10 +273,55 @@ const DropdownTable = ({ selected_date }: prop) => {
           )}
         </div>
         <div className="relative inline-block my-4">
-          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">Compute</button>
+          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">
+            Compute
+          </button>
         </div>
       </div>
-    </>
+      {selectedOrdersTable && orders && (
+        <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="px-2 py-2  z-20   bg-white flex flex-col">
+
+          <table className="table-automt-2  bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Address
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Dumpster Size
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Type
+                </th>
+                <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  <div className="flex">
+                    Select All
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
+                      onChange={handleOrderSelectAll}
+                    />
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-100">
+              {insertOrders()}
+            </tbody>
+          </table>
+          <div className="flex justify-end">
+
+          <button className="my-2 px-4 py-2 bg-white border hover:bg-black hover:text-white active:scale-95 rounded">Close</button>
+          </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
