@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown";
-import { initializeOrders } from "../../state/action-creators";
+import { initializeDepots, initializeOrders } from "../../state/action-creators";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
@@ -23,11 +23,13 @@ const RoutePage = () => {
   const region = useSelector((state: State) => state.setRegion);
   const orders = useSelector((state: State) => state.orders);
   const [selectedDate, handleDateChange] = useState(new Date());
-  const { initializeOrders } = bindActionCreators(actionCreators, dispatch);
+  const { initializeOrders, initializeLandfills, initializeDepots } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     if (region) {
       initializeOrders(region, selectedDate.toDateString());
+      initializeLandfills(region);
+      initializeDepots(region);
     }
   }, [region, selectedDate]);
 

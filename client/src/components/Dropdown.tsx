@@ -16,13 +16,30 @@ const DropdownTable = ({ selected_date }: prop) => {
   const [selectedLandfillsTable, setSelectedLandfillsTable] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const [depotsSelectAll, setDepotsSelectAll] = useState(false);
+  const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
+  const [selectedLandfills, setSelectedLandfills] = useState<Set<string>>(
+    new Set()
+  );
+  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
 
-  const [selectedDepots, setSelectedDepots] =  useState<Set<string>>(new Set());
-
-  const handleDepotSelection = (depotId : string, isChecked:boolean) => {
+  const handleOrderSelection = (orderId: string, isChecked: boolean) => {
     if (isChecked) {
-      setSelectedDepots((prevSelectedDepots) => new Set([...prevSelectedDepots, depotId]));
+      setSelectedOrders(
+        (prevSelectedOrders) => new Set([...prevSelectedOrders, orderId])
+      );
+    } else {
+      setSelectedOrders((prevSelectedOrders) => {
+        prevSelectedOrders.delete(orderId);
+        return new Set([...prevSelectedOrders]);
+      });
+    }
+  };
+
+  const handleDepotSelection = (depotId: string, isChecked: boolean) => {
+    if (isChecked) {
+      setSelectedDepots(
+        (prevSelectedDepots) => new Set([...prevSelectedDepots, depotId])
+      );
     } else {
       setSelectedDepots((prevSelectedDepots) => {
         prevSelectedDepots.delete(depotId);
@@ -31,7 +48,30 @@ const DropdownTable = ({ selected_date }: prop) => {
     }
   };
 
-  const handleSelectAll = (e : any) => {
+  const handleLandfillSelection = (landfillId: string, isChecked: boolean) => {
+    if (isChecked) {
+      setSelectedLandfills(
+        (prevSelectedLandfills) =>
+          new Set([...prevSelectedLandfills, landfillId])
+      );
+    } else {
+      setSelectedLandfills((prevSelectedLandfills) => {
+        prevSelectedLandfills.delete(landfillId);
+        return new Set([...prevSelectedLandfills]);
+      });
+    }
+  };
+
+  const handleOrderSelectAll = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setSelectedOrders(new Set(orders.map((order) => order.id)));
+    } else {
+      setSelectedOrders(new Set());
+    }
+  };
+
+  const handleDepotSelectAll = (e: any) => {
     const isChecked = e.target.checked;
     if (isChecked) {
       setSelectedDepots(new Set(depots.map((depot) => depot.id)));
@@ -40,8 +80,18 @@ const DropdownTable = ({ selected_date }: prop) => {
     }
   };
 
+  const handleLandfillSelectAll = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setSelectedLandfills(new Set(landfills.map((landfill) => landfill.id)));
+    } else {
+      setSelectedLandfills(new Set());
+    }
+  };
+
   const insertOrders = () => {
     return orders.map((order) => {
+      const isChecked = selectedOrders.has(order.id);
       return (
         <tr key={order.id} className="bg-white divide-y divide-gray-100">
           <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-center ">
@@ -67,6 +117,8 @@ const DropdownTable = ({ selected_date }: prop) => {
             <input
               type="checkbox"
               className="form-checkbox h-5 w-5 text-blue-600 rounded w-16"
+              checked={isChecked}
+              onChange={(e) => handleOrderSelection(order.id, e.target.checked)}
             />
           </td>
         </tr>
@@ -76,6 +128,7 @@ const DropdownTable = ({ selected_date }: prop) => {
 
   const insertLandfills = () => {
     return landfills.map((landfill) => {
+      const isChecked = selectedLandfills.has(landfill.id);
       return (
         <tr key={landfill.id} className="bg-white divide-y divide-gray-100">
           <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
@@ -89,6 +142,10 @@ const DropdownTable = ({ selected_date }: prop) => {
             <input
               type="checkbox"
               className="form-checkbox h-5 w-5 text-blue-600 rounded w-16"
+              checked={isChecked}
+              onChange={(e) =>
+                handleLandfillSelection(landfill.id, e.target.checked)
+              }
             />
           </td>
         </tr>
@@ -122,7 +179,19 @@ const DropdownTable = ({ selected_date }: prop) => {
 
   return (
     <>
-      <div className="flex flex-col ">
+      <div className="flex flex-col">
+        <div className="my-2">Select Route Entries</div>
+        <div className="flex w-64 my-2">
+          <div className="py-2 mt-2 mr-4 grow text-center">
+            {" "}
+            Number of Trucks
+          </div>
+          <input
+            className="w-12 border text-center rounded-md border-gray-300   mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
+            placeholder="1"
+          ></input>
+        </div>
+
         <div className="relative inline-block">
           <div ref={dropdownRef} className="relative inline-block text-left">
             <button
@@ -148,7 +217,16 @@ const DropdownTable = ({ selected_date }: prop) => {
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                       Type
                     </th>
-                    <th></th>
+                    <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      <div className="flex">
+                        Select All
+                        <input
+                          type="checkbox"
+                          className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
+                          onChange={handleOrderSelectAll}
+                        />
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-100">
@@ -175,7 +253,16 @@ const DropdownTable = ({ selected_date }: prop) => {
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Address
                   </th>
-                  <th></th>
+                  <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <div className="flex">
+                      Select All
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
+                        onChange={handleLandfillSelectAll}
+                      />
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -203,14 +290,13 @@ const DropdownTable = ({ selected_date }: prop) => {
                   </th>
                   <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     <div className="flex">
-                    Select All
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
-                      onChange={handleSelectAll}
-                    />
+                      Select All
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
+                        onChange={handleDepotSelectAll}
+                      />
                     </div>
-
                   </th>
                 </tr>
               </thead>
@@ -219,6 +305,9 @@ const DropdownTable = ({ selected_date }: prop) => {
               </tbody>
             </table>
           )}
+        </div>
+        <div className="relative inline-block my-4">
+          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">Compute</button>
         </div>
       </div>
     </>
