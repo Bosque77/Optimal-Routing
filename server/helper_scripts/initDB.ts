@@ -320,6 +320,99 @@ const orders = [
         'type': 'Order',
         'active': true
     },
+    {
+        'name': 'Michael Lee',
+        'email': 'michael.lee@gmail.com',
+        'phone_number': '212-555-0123',
+        'street': '123 Main St.',
+        'city': 'New York',
+        'state': 'New York',
+        'zipcode': 10001,
+        'latitude': 40.7128,
+        'longitude': -74.0060,
+        'dumpster_size': 10,
+        'delivery_date': delivery_date,
+        'pickup_date': pickup_date,
+        'delivery_time': {
+        'hour': 9,
+        'minute': 30,
+        'am_pm': 'AM'
+        },
+        'pickup_time': {
+        'hour': 6,
+        'minute': 15,
+        'am_pm': 'PM'
+        },
+        'special_instructions': 'Please call before delivery',
+        'delivery_completed': false,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type': 'Order',
+        'active': true
+        },
+        {
+        'name': 'Jane Doe',
+        'email': 'janedoe@yahoo.com',
+        'phone_number': '555-123-4567',
+        'street': '321 Elm St.',
+        'city': 'Los Angeles',
+        'state': 'California',
+        'zipcode': 90001,
+        'latitude': 34.0522,
+        'longitude': -118.2437,
+        'dumpster_size': 20,
+        'delivery_date': delivery_date,
+        'pickup_date': pickup_date,
+        'delivery_time': {
+        'hour': 2,
+        'minute': 45,
+        'am_pm': 'PM'
+        },
+        'pickup_time': {
+        'hour': 9,
+        'minute': 0,
+        'am_pm': 'AM'
+        },
+        'special_instructions': 'Please park in driveway',
+        'delivery_completed': false,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type': 'Order',
+        'active': true
+        },        
+        {
+        'name': 'John Smith',
+        'email': 'johnsmith@gmail.com',
+        'phone_number': '800-555-5555',
+        'street': '456 Oak Ave.',
+        'city': 'Chicago',
+        'state': 'Illinois',
+        'zipcode': 60601,
+        'latitude': 41.8781,
+        'longitude': -87.6298,
+        'dumpster_size': 30,
+        'delivery_date': delivery_date,
+        'pickup_date': pickup_date,
+        'delivery_time': {
+        'hour': 11,
+        'minute': 0,
+        'am_pm': 'AM'
+        },
+        'pickup_time': {
+        'hour': 7,
+        'minute': 30,
+        'am_pm': 'PM'
+        },
+        'special_instructions': 'Please park in driveway',
+        'delivery_completed': false,
+        'pickup_completed': false,
+        'user_id': '61c7483607e4533869b9ec08',
+        'region_id': '61ca3cb19e9ade7351418e30',
+        'type': 'Order',
+        'active': true
+    }
 
 ]
 

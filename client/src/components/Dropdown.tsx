@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../state";
+import { useContext } from 'react';
+import { DropdownTableContext, DropdownTableContextType  } from './DropdownTableContext';
 import { Order } from "../types";
 
 interface prop {
@@ -14,13 +16,17 @@ const DropdownTable = ({ selected_date }: prop) => {
   const [selectedOrdersTable, setSelectedOrdersTable] = useState(false);
   const [selectedDepotsTable, setSelectedDepotsTable] = useState(false);
   const [selectedLandfillsTable, setSelectedLandfillsTable] = useState(false);
+  const {
+    selectedDepots,
+    setSelectedDepots,
+    selectedLandfills,
+    setSelectedLandfills,
+    selectedOrders,
+    setSelectedOrders,
+  } = useContext<DropdownTableContextType>(DropdownTableContext);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
-  const [selectedLandfills, setSelectedLandfills] = useState<Set<string>>(
-    new Set()
-  );
-  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
+
 
   const handleOrderSelection = (orderId: string, isChecked: boolean) => {
     if (isChecked) {
@@ -177,6 +183,21 @@ const DropdownTable = ({ selected_date }: prop) => {
     });
   };
 
+  // close the dialog box for the orders
+  const handleOrdersClose = () => {
+    setSelectedOrdersTable(false);
+  };
+
+  // close the dialog box for the landfills
+  const handleLandfillsClose = () => {
+    setSelectedLandfillsTable(false);
+  };
+
+  // close the dialog box for the depots
+  const handleDepotsClose = () => {
+    setSelectedDepotsTable(false);
+  };
+
   return (
     <div>
       <div className="flex flex-col">
@@ -209,8 +230,26 @@ const DropdownTable = ({ selected_date }: prop) => {
           >
             Landfills
           </button>
-          {selectedLandfillsTable && landfills && (
-            <table className="table-auto mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
+        </div>
+        <div className="relative inline-block ">
+          <button
+            className="w-64 mt-4 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none"
+            onClick={() => setSelectedDepotsTable(!selectedDepotsTable)}
+          >
+            Depots
+          </button>
+        </div>
+        <div className="relative inline-block my-4">
+          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">
+            Compute
+          </button>
+        </div>
+      </div>
+      {selectedLandfillsTable && landfills && (
+        <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="px-6 py-6  z-20  bg-white rounded flex flex-col">
+            <table className="table-auto mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -235,17 +274,23 @@ const DropdownTable = ({ selected_date }: prop) => {
                 {insertLandfills()}
               </tbody>
             </table>
-          )}
+            <div className="flex justify-end">
+              <button
+                className="mt-6 px-4 py-2 bg-white border hover:bg-black hover:text-white active:scale-95 rounded"
+                onClick={handleLandfillsClose}
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="relative inline-block ">
-          <button
-            className="w-64 mt-4 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none"
-            onClick={() => setSelectedDepotsTable(!selectedDepotsTable)}
-          >
-            Depots
-          </button>
-          {selectedDepotsTable && depots && (
-            <table className="table-auto mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
+      )}
+
+      {selectedDepotsTable && depots && (
+        <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="px-6 py-6  z-20  bg-white rounded flex flex-col">
+            <table className="table-auto mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -270,54 +315,60 @@ const DropdownTable = ({ selected_date }: prop) => {
                 {insertDepots()}
               </tbody>
             </table>
-          )}
+            <div className="flex justify-end">
+              <button
+                className="mt-6 px-4 py-2 bg-white border hover:bg-black hover:text-white active:scale-95 rounded"
+                onClick={handleDepotsClose}
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="relative inline-block my-4">
-          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">
-            Compute
-          </button>
-        </div>
-      </div>
+      )}
       {selectedOrdersTable && orders && (
         <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0">
           <div className="fixed inset-0 bg-black opacity-50"></div>
-          <div className="px-2 py-2  z-20   bg-white flex flex-col">
-
-          <table className="table-automt-2  bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Address
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Dumpster Size
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Type
-                </th>
-                <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  <div className="flex">
-                    Select All
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
-                      onChange={handleOrderSelectAll}
-                    />
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-100">
-              {insertOrders()}
-            </tbody>
-          </table>
-          <div className="flex justify-end">
-
-          <button className="my-2 px-4 py-2 bg-white border hover:bg-black hover:text-white active:scale-95 rounded">Close</button>
-          </div>
+          <div className="px-6 py-6  z-20  bg-white rounded flex flex-col">
+            <table className="table-automt-2  bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Name
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Address
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Dumpster Size
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Type
+                  </th>
+                  <th className="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <div className="flex">
+                      Select All
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-5 w-5 text-blue-600 rounded ml-4"
+                        onChange={handleOrderSelectAll}
+                      />
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-100">
+                {insertOrders()}
+              </tbody>
+            </table>
+            <div className="flex justify-end">
+              <button
+                className="mt-6 px-4 py-2 bg-white border hover:bg-black hover:text-white active:scale-95 rounded"
+                onClick={handleOrdersClose}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

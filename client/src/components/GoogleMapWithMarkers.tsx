@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 interface GoogleMapWithMarkersProps {
   centerLatitude: number;
   centerLongitude: number;
-  markers: Array<{ lat: number; lng: number }>;
+  markers: Array<{ lat: number; lng: number, type:string }>;
 }
 
 const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
