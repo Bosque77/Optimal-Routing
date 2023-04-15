@@ -61,17 +61,23 @@ const regions = [
 
         'name': 'Default',
         'user_id': '61c7483607e4533869b9ec08',
+        'latitude': 33.7488,
+        'longitude': -84.3877,
         '_id': '61ca3cb19e9ade7351418e30'
     },
     {
 
         'name': 'Atlanta',
         'user_id': '61c7483607e4533869b9ec08',
+        'latitude': 33.7488,
+        'longitude': -84.3877,
         '_id': '61ca3cb19e9ade7351418e31'
     },
     {
         'name': 'Woodstock',
         'user_id': '61c7483607e4533869b9ec08',
+        'latitude': 34.1015,
+        'longitude': -84.5194,
         '_id': '61ca3cb19e9ade7351418e32'
     }
 ]

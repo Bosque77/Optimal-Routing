@@ -159,6 +159,8 @@ export interface Vehicle {
 export interface Region {
   id: string;
   name: string;
+  latitude: number;
+  longitude: number;
   user_id: string;
 }
 
@@ -222,6 +224,8 @@ export interface NewVehicle {
 
 export interface NewRegion {
   name: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface User {

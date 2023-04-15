@@ -15,18 +15,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
+import { Region } from "../../types";
 
 const RoutePage = () => {
-  const markers = [
-    { lat: 40.7128, lng: -74.006 },
-    { lat: 40.73061, lng: -73.935242 },
-    { lat: 40.706086, lng: -74.009051 },
-  ];
-
   const dispatch = useDispatch();
-  const region = useSelector((state: State) => state.setRegion);
+  const region = useSelector((state: State) => state.setRegion) as Region;
   const orders = useSelector((state: State) => state.orders);
-  const landfills = useSelector((state: State) => state.landfills); 
+  const landfills = useSelector((state: State) => state.landfills);
   const depots = useSelector((state: State) => state.depots);
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
@@ -37,6 +32,8 @@ const RoutePage = () => {
   const { initializeOrders, initializeLandfills, initializeDepots } =
     bindActionCreators(actionCreators, dispatch);
 
+  console.log(region);
+
   useEffect(() => {
     if (region) {
       initializeOrders(region, selectedDate.toDateString());
@@ -45,38 +42,49 @@ const RoutePage = () => {
     }
   }, [region, selectedDate]);
 
-
-
-  // write the getMarkers function that returns markers based on the selected orders, landfills and depots 
-  const getMarkers = () => {
+  // write the getMarkers function that returns markers based on the selected orders, landfills and depots
+  const getMarkers = (): Array<{ lat: number; lng: number; type: string }> => {
     let markers: any = [];
     if (selectedOrders.size > 0) {
       for (let order_id of selectedOrders) {
         const order = orders.find((order) => order.id === order_id);
         if (order) {
-          markers.push({ lat: order.latitude, lng: order.longitude, type: "order" });
+          markers.push({
+            lat: order.latitude,
+            lng: order.longitude,
+            type: "order",
+          });
         }
       }
     }
     if (selectedLandfills.size > 0) {
-      for (let landfill of selectedLandfills) {
-        markers.push({
-          lat: landfills[landfill].latitude,
-          lng: landfills[landfill].longitude,
-        });
+      for (let landfill_id of selectedLandfills) {
+        const landfill = landfills.find(
+          (landfill) => landfill.id === landfill_id
+        );
+        if (landfill) {
+          markers.push({
+            lat: landfill.latitude,
+            lng: landfill.longitude,
+            type: "landfill",
+          });
+        }
       }
     }
     if (selectedDepots.size > 0) {
-      for (let depot of selectedDepots) {
-        markers.push({
-          lat: depots[depot].latitude,
-          lng: depots[depot].longitude,
-        });
+      for (let depot_id of selectedDepots) {
+        const depot = depots.find((depot) => depot.id === depot_id);
+        if (depot) {
+          markers.push({
+            lat: depot.latitude,
+            lng: depot.longitude,
+            type: "depot",
+          });
+        }
       }
     }
     return markers;
-  }
-  
+  };
 
   return (
     <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
@@ -98,9 +106,9 @@ const RoutePage = () => {
           style={{ height: "500px", width: "100%" }}
         >
           <GoogleMapWithMarkers
-            centerLatitude={40.7128}
-            centerLongitude={-74.006}
-            markers={getMarkers}
+            centerLatitude={region.latitude}
+            centerLongitude={region.longitude}
+            markers={getMarkers()}
           />
         </div>
         <div className="my-6 text-left">

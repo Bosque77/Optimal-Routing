@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -9,26 +8,43 @@ interface Props {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
-
-
 const CreateRegionForm = ({ setActive }: Props) => {
   const dispatch = useDispatch();
-  const { setAlert, createRegion } = bindActionCreators(actionCreators, dispatch);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const { setAlert, createRegion } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const alert_data = useSelector((state: State) => state.alert_data);
   const [name, setName] = useState("");
 
   const submit = async () => {
     if (name === "") {
-      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
+      setAlert(
+        "Please fill out all required fields",
+        "error",
+        3000,
+        alert_data.id + 1
+      );
     } else {
-      const newRegion: NewRegion = { name };
-      const response = await createRegion(newRegion) as unknown as HttpResponse;
+      const newRegion: NewRegion = { name, 
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude)
+       };
+      const response = (await createRegion(
+        newRegion
+      )) as unknown as HttpResponse;
       if (response.status === "ERROR") {
-        setAlert("Region Creation failed. Please try again later.", "error", 3000, alert_data.id+1);
+        setAlert(
+          "Region Creation failed. Please try again later.",
+          "error",
+          3000,
+          alert_data.id + 1
+        );
       } else {
-        setAlert("Region Created", "success", 3000, alert_data.id+1);
+        setAlert("Region Created", "success", 3000, alert_data.id + 1);
         setActive(false);
       }
     }
@@ -40,7 +56,10 @@ const CreateRegionForm = ({ setActive }: Props) => {
         <div className="bg-white px-12 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
           <h2 className="text-xl font-serif pt-6">Create Region Form</h2>
           <div className="flex flex-col">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 text-left pl-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 text-left pl-2"
+            >
               Name
             </label>
             <input
@@ -52,6 +71,44 @@ const CreateRegionForm = ({ setActive }: Props) => {
               className="border rounded-md pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2 sm:text-sm text-left"
               placeholder="Name"
             />
+            <div className="flex flex-row">
+              <div>
+              <label
+                htmlFor="Latitude"
+                className="block text-sm font-medium text-gray-700 text-left pl-2"
+              >
+                Latitude
+              </label>
+              <input
+                type="number"
+                name="Latitude"
+                id="Latitude"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+                className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
+                placeholder="Latitude"
+              />
+              </div>
+              <div>
+              <label
+                htmlFor="Longitude"
+                className="block text-sm font-medium text-gray-700 text-left pl-2"
+              >
+                Longitude
+              </label>
+              <input
+                type="number"
+                name="Longitude"
+                id="Longitude"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                className=" border rounded-md border-gray-300 pl-2 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-32"
+                placeholder="Latitude"
+              />
+              </div>
+
+
+            </div>
           </div>
           <div className="text-right mt-2">
             <button
@@ -70,9 +127,9 @@ const CreateRegionForm = ({ setActive }: Props) => {
         </div>
 
         <div className="fixed inset-0 bg-black opacity-50"></div>
-        </div>
+      </div>
     </>
-    );
+  );
 };
 
 export default CreateRegionForm;

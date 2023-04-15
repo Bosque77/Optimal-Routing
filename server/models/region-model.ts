@@ -2,6 +2,8 @@ import mongoose, { ObjectId } from 'mongoose'
 
 interface IRegion {
     name: string,
+    latitude: number,
+    longitude: number,
     user_id: string
 }
 
@@ -14,6 +16,8 @@ interface ReturnedObject {
 
 const regionSchema = new mongoose.Schema<IRegion>({
     name: String,
+    latitude: Number,
+    longitude: Number,
     user_id: String,
 })
 

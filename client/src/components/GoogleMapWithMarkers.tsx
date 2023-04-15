@@ -8,6 +8,17 @@ interface GoogleMapWithMarkersProps {
   markers: Array<{ lat: number; lng: number, type:string }>;
 }
 
+const getMarkerIconUrl = (type: string): string => {
+  const colorMap: { [key: string]: string } = {
+    'order': 'red',
+    'landfill': 'blue',
+    'depot': 'green',
+  };
+
+  const color = colorMap[type] || 'gray';
+  return `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
+};
+
 const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
   centerLatitude,
   centerLongitude,
@@ -27,6 +38,7 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
       markers.forEach((marker) => {
         new google.maps.Marker({
           position: { lat: marker.lat, lng: marker.lng },
+          icon: getMarkerIconUrl(marker.type),
           map,
         });
       });
