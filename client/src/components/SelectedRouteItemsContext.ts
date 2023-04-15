@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export interface DropdownTableContextType {
+export interface SelectedRouteItemsContextType {
   selectedDepots: Set<string>;
   setSelectedDepots: React.Dispatch<React.SetStateAction<Set<string>>>;
   selectedLandfills: Set<string>;
@@ -9,7 +9,7 @@ export interface DropdownTableContextType {
   setSelectedOrders: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
-const defaultDropdownTableContext: DropdownTableContextType = {
+const defaultSelectedRouteItemsContext: SelectedRouteItemsContextType = {
   selectedDepots: new Set(),
   setSelectedDepots: () => {},
   selectedLandfills: new Set(),
@@ -18,4 +18,4 @@ const defaultDropdownTableContext: DropdownTableContextType = {
   setSelectedOrders: () => {},
 };
 
-export const DropdownTableContext = createContext<DropdownTableContextType>(defaultDropdownTableContext);
+export const SelectedRouteItemsContext = createContext<SelectedRouteItemsContextType>(defaultSelectedRouteItemsContext);

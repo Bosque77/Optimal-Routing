@@ -2,7 +2,7 @@ import Alert from "../../components/Alert";
 import SideNav from "../../components/SideNav/SideNav";
 import GoogleMapWithMarkers from "../../components/GoogleMapWithMarkers";
 import RegionSelector from "../../components/RegionSelector";
-import { DropdownTableContext } from "../../components/DropdownTableContext";
+import { SelectedRouteItemsContext } from "../../components/SelectedRouteItemsContext";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,49 +42,7 @@ const RoutePage = () => {
     }
   }, [region, selectedDate]);
 
-  // write the getMarkers function that returns markers based on the selected orders, landfills and depots
-  const getMarkers = (): Array<{ lat: number; lng: number; type: string }> => {
-    let markers: any = [];
-    if (selectedOrders.size > 0) {
-      for (let order_id of selectedOrders) {
-        const order = orders.find((order) => order.id === order_id);
-        if (order) {
-          markers.push({
-            lat: order.latitude,
-            lng: order.longitude,
-            type: "order",
-          });
-        }
-      }
-    }
-    if (selectedLandfills.size > 0) {
-      for (let landfill_id of selectedLandfills) {
-        const landfill = landfills.find(
-          (landfill) => landfill.id === landfill_id
-        );
-        if (landfill) {
-          markers.push({
-            lat: landfill.latitude,
-            lng: landfill.longitude,
-            type: "landfill",
-          });
-        }
-      }
-    }
-    if (selectedDepots.size > 0) {
-      for (let depot_id of selectedDepots) {
-        const depot = depots.find((depot) => depot.id === depot_id);
-        if (depot) {
-          markers.push({
-            lat: depot.latitude,
-            lng: depot.longitude,
-            type: "depot",
-          });
-        }
-      }
-    }
-    return markers;
-  };
+
 
   return (
     <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
@@ -96,44 +54,38 @@ const RoutePage = () => {
         <div className="flex flex-row justify-end">
           <RegionSelector />
         </div>
-        <div>
-          {/* write a table for orders here  */}
-          <table></table>
-        </div>
-
-        <div
-          className="mx-auto mt-8"
-          style={{ height: "500px", width: "100%" }}
+        <SelectedRouteItemsContext.Provider
+          value={{
+            selectedDepots,
+            setSelectedDepots,
+            selectedLandfills,
+            setSelectedLandfills,
+            selectedOrders,
+            setSelectedOrders,
+          }}
         >
-          <GoogleMapWithMarkers
-            centerLatitude={region.latitude}
-            centerLongitude={region.longitude}
-            markers={getMarkers()}
-          />
-        </div>
-        <div className="my-6 text-left">
-          <label className="ml-2">Select Date</label>
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date: Date) => handleDateChange(date)}
-            className="border-2 rounded w-48 p-2"
-            popperPlacement="bottom-start"
-          />
-          <div className="my-8">
-            <DropdownTableContext.Provider
-              value={{
-                selectedDepots,
-                setSelectedDepots,
-                selectedLandfills,
-                setSelectedLandfills,
-                selectedOrders,
-                setSelectedOrders,
-              }}
-            >
-              <Dropdown selected_date={selectedDate} />
-            </DropdownTableContext.Provider>
+          <div
+            className="mx-auto mt-8"
+            style={{ height: "500px", width: "100%" }}
+          >
+            <GoogleMapWithMarkers
+              centerLatitude={region.latitude}
+              centerLongitude={region.longitude}
+            />
           </div>
-        </div>
+          <div className="my-6 text-left">
+            <label className="ml-2">Select Date</label>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date: Date) => handleDateChange(date)}
+              className="border-2 rounded w-48 p-2"
+              popperPlacement="bottom-start"
+            />
+            <div className="my-8">
+              <Dropdown selected_date={selectedDate} />
+            </div>
+          </div>
+        </SelectedRouteItemsContext.Provider>
       </div>
     </div>
   );

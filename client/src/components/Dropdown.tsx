@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../state";
 import { useContext } from 'react';
-import { DropdownTableContext, DropdownTableContextType  } from './DropdownTableContext';
+import { SelectedRouteItemsContext, SelectedRouteItemsContextType  } from './SelectedRouteItemsContext';
 import { Order } from "../types";
 
 interface prop {
@@ -23,7 +23,7 @@ const DropdownTable = ({ selected_date }: prop) => {
     setSelectedLandfills,
     selectedOrders,
     setSelectedOrders,
-  } = useContext<DropdownTableContextType>(DropdownTableContext);
+  } = useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
 
