@@ -80,46 +80,40 @@ const LandfillList = ({
   };
 
   return (
-    <div className="">
+    <div className="relative w-full overflow-hidden">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden">
-            <table className="min-w-full">
-              <thead className="border-b bg-slate-200">
+            <table className="min-w-fullmt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <thead className="bg-gray-50">
                 <tr>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Name
                   </th>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Street
                   </th>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     City
                   </th>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Zipcode
                   </th>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Latitude
                   </th>
                   <th
-                    scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Longitude
                   </th>
