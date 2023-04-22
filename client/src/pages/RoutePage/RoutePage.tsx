@@ -17,6 +17,8 @@ import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region } from "../../types";
 
+
+
 const RoutePage = () => {
   const dispatch = useDispatch();
   const region = useSelector((state: State) => state.setRegion) as Region;
@@ -81,8 +83,9 @@ const RoutePage = () => {
               className="border-2 rounded w-48 p-2"
               popperPlacement="bottom-start"
             />
-            <div className="my-8">
+            <div className="flex flex-row justify-between mt-8">
               <Dropdown selected_date={selectedDate} />
+
             </div>
           </div>
         </SelectedRouteItemsContext.Provider>

@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A simplified AWS Lambda function.
+
+Resources:
+  GetRoutesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.get_routes
+      Runtime: python3.10
+      CodeUri: .
+      Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /getRoutes
+            Method: get
+
+  CreateRoutesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.create_routes
+      Runtime: python3.10
+      CodeUri: .
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            Path: /createRoutes
+            Method: post
+
+  AnalyzeRouteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.analyze_route
+      Runtime: python3.10
+      CodeUri: .
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            Path: /analyzeRoute
+            Method: post

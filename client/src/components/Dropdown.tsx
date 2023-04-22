@@ -4,6 +4,7 @@ import { State } from "../state";
 import { useContext } from 'react';
 import { SelectedRouteItemsContext, SelectedRouteItemsContextType  } from './SelectedRouteItemsContext';
 import { Order } from "../types";
+import RouteQueryService from "../services/route_query";
 
 interface prop {
   selected_date: Date;
@@ -13,9 +14,11 @@ const DropdownTable = ({ selected_date }: prop) => {
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+  const [number_of_trucks, setNumberOfTrucks] = useState("1");
   const [selectedOrdersTable, setSelectedOrdersTable] = useState(false);
   const [selectedDepotsTable, setSelectedDepotsTable] = useState(false);
   const [selectedLandfillsTable, setSelectedLandfillsTable] = useState(false);
+
   const {
     selectedDepots,
     setSelectedDepots,
@@ -25,6 +28,26 @@ const DropdownTable = ({ selected_date }: prop) => {
     setSelectedOrders,
   } = useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+
+  const computeRoute = () => {
+    const full_selected_orders = orders.filter((order) => selectedOrders.has(order.id));
+    const full_selected_landfills = landfills.filter((landfill) => selectedLandfills.has(landfill.id));
+    const full_selected_depots = depots.filter((depot) => selectedDepots.has(depot.id));
+    const route_query = {
+      landfills: full_selected_landfills,
+      depots: full_selected_depots,
+      orders: full_selected_orders,
+      num_of_routes: parseInt(number_of_trucks),
+      date: selected_date.toDateString(),
+    }
+    console.log('sending the route query')
+    console.log(route_query)
+    const response = RouteQueryService.createRoutes(route_query);
+    console.log(response)
+
+  }
+
 
 
 
@@ -209,7 +232,9 @@ const DropdownTable = ({ selected_date }: prop) => {
           </div>
           <input
             className="w-12 border text-center rounded-md border-gray-300   mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left"
-            placeholder="1"
+            onChange={(e) => setNumberOfTrucks(e.target.value)}
+            type="number"
+            value={number_of_trucks}
           ></input>
         </div>
 
@@ -240,7 +265,9 @@ const DropdownTable = ({ selected_date }: prop) => {
           </button>
         </div>
         <div className="relative inline-block my-4">
-          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95">
+          <button className="w-64 text-center bg-white border rounded py-2 hover:text-white hover:bg-slate-700 active:scale-95"
+          onClick={computeRoute}
+          >
             Compute
           </button>
         </div>
