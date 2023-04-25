@@ -17,8 +17,6 @@ import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region } from "../../types";
 
-
-
 const RoutePage = () => {
   const dispatch = useDispatch();
   const region = useSelector((state: State) => state.setRegion) as Region;
@@ -44,8 +42,6 @@ const RoutePage = () => {
     }
   }, [region, selectedDate]);
 
-
-
   return (
     <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
       <Alert />
@@ -56,41 +52,49 @@ const RoutePage = () => {
         <div className="flex flex-row justify-end">
           <RegionSelector />
         </div>
-        <SelectedRouteItemsContext.Provider
-          value={{
-            selectedDepots,
-            setSelectedDepots,
-            selectedLandfills,
-            setSelectedLandfills,
-            selectedOrders,
-            setSelectedOrders,
-          }}
-        >
-          <div
-            className="mx-auto mt-8"
-            style={{ height: "500px", width: "100%" }}
+          <SelectedRouteItemsContext.Provider
+            value={{
+              selectedDepots,
+              setSelectedDepots,
+              selectedLandfills,
+              setSelectedLandfills,
+              selectedOrders,
+              setSelectedOrders,
+            }}
           >
-            <GoogleMapWithMarkers
-              centerLatitude={region.latitude}
-              centerLongitude={region.longitude}
-            />
-          </div>
-          <div className="my-6 text-left">
-            <label className="ml-2">Select Date</label>
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date: Date) => handleDateChange(date)}
-              className="border-2 rounded w-48 p-2"
-              popperPlacement="bottom-start"
-            />
-            <div className="flex flex-row justify-between mt-8">
-              <Dropdown selected_date={selectedDate} />
-
+            <div
+              className="mx-auto mt-8"
+              style={{ height: "500px", width: "100%" }}
+            >
+              <GoogleMapWithMarkers
+                centerLatitude={region.latitude}
+                centerLongitude={region.longitude}
+              />
             </div>
-          </div>
-        </SelectedRouteItemsContext.Provider>
+            <div className="flex flex-row w-full">
+              <div className="my-6 text-left">
+                <label className="ml-2">Select Date</label>
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date: Date) => handleDateChange(date)}
+                  className="border-2 rounded w-48 p-2"
+                  popperPlacement="bottom-start"
+                />
+                <div className="flex flex-row justify-between mt-8">
+                  <Dropdown selected_date={selectedDate} />
+                </div>
+              </div>
+              <div className="flex flex-col justify-center w-full text-center">
+                <p className="text-3xl px-4 py-2 rounded"> No Routes to Display Yet</p>
+                <img
+                  className="opacity-80 mx-auto mt-4 "
+                  src="/images/Routes_Place_Holder_Image_1_v3.png"
+                />
+              </div>
+            </div>
+          </SelectedRouteItemsContext.Provider>
+        </div>
       </div>
-    </div>
   );
 };
 

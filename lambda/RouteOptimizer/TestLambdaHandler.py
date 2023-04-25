@@ -8,8 +8,8 @@ def testCreateRoutes():
     test_file_location = './json_objects/createRoutes_Event.json'
     f = open(test_file_location)
     event = json.load(f)
-    context = '<__main__.LambdaContext object at 0x7f9e431f7ca0>'
-    lambda_function.lambda_handler(event,context)
+    response = lambda_function.create_routes(event)
+    print(response)
 
 
 def testAnalyzeRoute():
@@ -17,8 +17,8 @@ def testAnalyzeRoute():
     test_file_location = './json_objects/analyzeRoute_Event.json'
     f = open(test_file_location)
     event = json.load(f)
-    context = '<__main__.LambdaContext object at 0x7f9e431f7ca0>'
-    lambda_function.lambda_handler(event,context)
+    response = lambda_function.analyze_route(event)
+    print(response)
 
 if __name__=="__main__":
-    testAnalyzeRoute()
+    testCreateRoutes()

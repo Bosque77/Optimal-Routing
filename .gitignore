@@ -107,8 +107,8 @@ dist
 # Python Virtual Env
 *venv
 .idea
-
-
+.aws-sam
+*pycache
 **/requests
 
 my-deployment-package.zip

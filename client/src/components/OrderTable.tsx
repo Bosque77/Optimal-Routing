@@ -57,11 +57,11 @@ const OrderTable = () => {
   return (
     <div className="z-10">
       <div className="bg-white drop-shadow-md rounded z-10 pb-4">
-        <div className="bg-lime-200 pt-2"></div>
+        <div className="bg-stone-500 pt-2"></div>
         <div className="relative">
           <div className="flex flex-row mt-4 ml-4">
             <InformationCircleIcon
-              className="w-6 h-6 mr-3 text-lime-500 hover:text-indigo-800 cursor-pointer"
+              className="w-6 h-6 mr-3 text-slate-700 hover:text-indigo-800 cursor-pointer"
               onMouseEnter={() => setShowInfo(true)}
               onMouseLeave={() => setShowInfo(false)}
             />
@@ -101,7 +101,7 @@ const OrderTable = () => {
                   Add a order for today or change the date to see the orders for
                   that day.
                 </div>
-                <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-lime-500" />
+                <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-stone-300" />
               </div>
             )}
             {orders.length > 0 && <OrderList orders={orders} setOrder={setOrder} setConfirmDeleteActive={setConfirmDeleteActive} setCreateOrderModalActive={setCreateOrderModalActive}/>}
