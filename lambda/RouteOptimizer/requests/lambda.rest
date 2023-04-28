@@ -1,11 +1,11 @@
 
 ### Get Request to Lambda
-GET https://ldryzqul7l.execute-api.us-west-1.amazonaws.com/getRoutes
+GET https://f6vrxsc1l7.execute-api.us-west-1.amazonaws.com/Prod/getRoutes
 Content-Type: application/json
 
 
 ### Post Request to Lambda
-POST https://ldryzqul7l.execute-api.us-west-1.amazonaws.com/createRoutes
+POST https://f6vrxsc1l7.execute-api.us-west-1.amazonaws.com/Prod/createRoutes
 Content-Type: application/json
 
 {
