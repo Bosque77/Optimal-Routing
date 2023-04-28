@@ -3,6 +3,23 @@ Transform: AWS::Serverless-2016-10-31
 Description: A simplified AWS Lambda function.
 
 Resources:
+  MyHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+        AllowHeaders:
+          - Content-Type
+          - X-Amz-Date
+          - Authorization
+          - X-Api-Key
+          - X-Amz-Security-Token
+          - X-Amz-User-Agent
+        AllowOrigins:
+          - '*' # Update this to your specific origin in production
+
   GetRoutesFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -11,10 +28,12 @@ Resources:
       CodeUri: .
       Events:
         GetApi:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /getRoutes
-            Method: get
+            Method: GET
+            ApiId:
+              Ref: MyHttpApi
 
   CreateRoutesFunction:
     Type: AWS::Serverless::Function
@@ -24,10 +43,12 @@ Resources:
       CodeUri: .
       Events:
         PostApi:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /createRoutes
-            Method: post
+            Method: POST
+            ApiId:
+              Ref: MyHttpApi
 
   AnalyzeRouteFunction:
     Type: AWS::Serverless::Function
@@ -37,7 +58,9 @@ Resources:
       CodeUri: .
       Events:
         PostApi:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /analyzeRoute
-            Method: post
+            Method: POST
+            ApiId:
+              Ref: MyHttpApi
