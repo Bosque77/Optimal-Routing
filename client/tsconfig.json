@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-, "archive/GoogleMap.tsx"  ]
+, "archive/GoogleMap.tsx", "../shared/types.ts"  ]
 }

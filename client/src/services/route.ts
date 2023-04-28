@@ -1,5 +1,5 @@
 import axios from "axios";
-import { HttpResponse, NewTruckRoute, TruckRoute, Region } from "../types";
+import { HttpResponse, NewTruckRoute, TruckRoute, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/routes";
 

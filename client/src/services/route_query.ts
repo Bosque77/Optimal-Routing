@@ -1,6 +1,6 @@
 import axios from "axios";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
-import { RouteQuery, Route_Item } from "../types";
+import { RouteQuery, Route_Item } from "../../../shared/types";
 
 const createRoutesUrl =
   "https://99vqvr7812.execute-api.us-west-1.amazonaws.com/createRoutes";

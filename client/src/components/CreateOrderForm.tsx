@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { DUMPSTER_SIZES } from "../utils/enums";
 import DatePicker from "react-datepicker";
-import { LatLng, Address, HttpResponse, Order } from "../types";
+import { LatLng, Address, HttpResponse, Order } from "../../../shared/types";
 import geocode from "../services/geocode";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
-import { NewOrder } from "../types";
+import { NewOrder } from "../../../shared/types";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 
 import "../styles/LoadingBar.css";

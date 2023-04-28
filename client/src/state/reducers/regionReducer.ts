@@ -1,5 +1,5 @@
 
-import { Region } from '../../types'
+import { Region } from '../../../../shared/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 

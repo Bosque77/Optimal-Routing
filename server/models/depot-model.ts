@@ -1,20 +1,6 @@
 import mongoose, { ObjectId } from 'mongoose'
+import {Depot} from '../../shared/types'
 
-
-
-interface IDepot {
-    name: string,
-    street: string,
-    city: string,
-    state: string,
-    zipcode: number,
-    latitude: number,
-    longitude: number,
-    active: boolean,
-    user_id: string,
-    region_id: string,
-    type: string
-}
 
 interface ReturnedObject {
     id?: string,
@@ -23,7 +9,7 @@ interface ReturnedObject {
 }
 
 
-const depotSchema = new mongoose.Schema<IDepot>({
+const depotSchema = new mongoose.Schema<Depot>({
     name: String,
     street: String,
     city: String,
@@ -47,6 +33,6 @@ depotSchema.set('toJSON', {
     }
 })
 
-const Depot = mongoose.model<IDepot>('Depot', depotSchema)
+const Depot = mongoose.model<Depot>('Depot', depotSchema)
 
 export default Depot

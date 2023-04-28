@@ -10,7 +10,7 @@ import HomePage from './pages/HomePage/HomePage'
 import RoutePage from './pages/RoutePage/RoutePage'
 import RegionPage from './pages/RegionPage/RegionPage'
 import { bindActionCreators } from 'redux'
-import { Region, UserToken } from './types'
+import { Region, UserToken } from '../../shared/types'
 
 
 

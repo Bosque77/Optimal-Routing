@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Route_Item } from '../types'
+import { Route_Item } from '../../../shared/types'
 
 
 const analyzeRoute = async (route_items:Route_Item[]) => {

@@ -1,4 +1,4 @@
-import { Order } from "../types";
+import { Order } from "../../../shared/types";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";

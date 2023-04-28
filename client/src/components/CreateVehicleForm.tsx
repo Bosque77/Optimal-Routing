@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Depot, NewVehicle} from '../types'
+import { Depot, NewVehicle} from '../../../shared/types'
 import { actionCreators, State } from '../state'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'

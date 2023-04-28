@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Depot, HttpResponse, NewDepot, Region } from "../types";
+import { Depot, HttpResponse, NewDepot, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/depots";
 

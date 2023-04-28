@@ -258,3 +258,11 @@ export interface AlertState {
   time: number;
   id: number;
 }
+
+export interface UserType {
+  _id: string,
+}
+
+export interface UserRequest extends Request {
+  user: UserType
+}

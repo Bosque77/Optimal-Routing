@@ -1,5 +1,5 @@
 
-import { Order } from '../../types'
+import { Order } from '../../../../shared/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 

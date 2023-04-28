@@ -21,7 +21,7 @@ import * as React from 'react'
 import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { createCustomEqual } from 'fast-equals'
 import { isLatLngLiteral, } from '@googlemaps/typescript-guards'
-import { Depot, Landfill, Order } from '../src/types'
+import { Depot, Landfill, Order } from '../../shared/types'
 
 
 

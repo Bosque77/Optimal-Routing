@@ -1,5 +1,5 @@
 
-import { Depot } from '../../types'
+import { Depot } from '../../../../shared/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 

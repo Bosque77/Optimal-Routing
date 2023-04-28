@@ -13,7 +13,7 @@ import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Order } from "../types";
+import { Order } from "../../../shared/types";
 import ConfirmDelete from "./ConfirmDelete";
 
 

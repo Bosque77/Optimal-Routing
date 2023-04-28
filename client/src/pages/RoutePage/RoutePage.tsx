@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
-import { Region } from "../../types";
+import { Region } from "../../../../shared/types";
 
 const RoutePage = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 
-import { Vehicle } from '../../types'
+import { Vehicle } from '../../../../shared/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 

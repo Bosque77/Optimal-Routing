@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DbResponse, Depot, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../types'
+import { DbResponse, Depot, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../../../shared/types'
 import RoutingService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Order } from '../types'
+import { Order } from '../../../shared/types'
 
 
 interface prop {

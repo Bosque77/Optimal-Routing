@@ -1,7 +1,7 @@
 
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
-import { UserToken } from '../../types'
+import { UserToken } from '../../../../shared/types'
 
 
 

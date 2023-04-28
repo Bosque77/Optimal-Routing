@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NewOrder, Order, Region } from "../types";
+import { NewOrder, Order, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/orders";
 

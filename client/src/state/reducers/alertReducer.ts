@@ -1,6 +1,6 @@
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
-import { AlertState } from '../../types'
+import { AlertState } from '../../../../shared/types'
 
 const initialState : AlertState = {
     id: 0,

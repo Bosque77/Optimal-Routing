@@ -1,5 +1,5 @@
 import mongoose, { ObjectId } from 'mongoose'
-import { IOrder } from '../types'
+import { Order } from '../../shared/types'
 
 
 
@@ -10,7 +10,7 @@ interface ReturnedObject {
 }
 
 
-const orderSchema = new mongoose.Schema<IOrder>({
+const orderSchema = new mongoose.Schema<Order>({
     name: {type: String, required : true},
     email: {type:String, required: true},
     phone_number: {type: String, required: true},
@@ -51,6 +51,6 @@ orderSchema.set('toJSON', {
     }
 })
 
-const Order = mongoose.model<IOrder>('Order', orderSchema)
+const Order = mongoose.model<Order>('Order', orderSchema)
 
 export default Order

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { Driver, NewDriver } from '../types'
-import { Region } from '../types'
+import { Driver, NewDriver } from '../../../shared/types'
+import { Region } from '../../../shared/types'
 import { token } from './config'
 const baseUrl = '/drivers'
 

@@ -1,4 +1,4 @@
-import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute, NewTruckRoute, AlertState } from '../../types'
+import { Landfill, UserToken, Region, Driver, Depot, Vehicle, Order, TruckRoute, NewTruckRoute, AlertState } from '../../../../shared/types'
 import { ActionType } from '../action-types'
 
 interface SET_USER_TOKEN {

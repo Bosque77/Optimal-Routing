@@ -29,9 +29,9 @@ import {
   TruckRoute,
   UserToken,
   Vehicle,
-} from "../../types";
+} from "../../../../shared/types";
 import { setToken } from "../../services/config";
-import { Severity } from "../../types";
+import { Severity } from "../../../../shared/types";
 
 export const setRegion = (region: Region) => {
   console.log(JSON.stringify(region));

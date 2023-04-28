@@ -9,7 +9,7 @@ import {
   Landfill,
   Order,
   Vehicle,
-} from "../types";
+} from "../../../shared/types";
 
 interface props {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;

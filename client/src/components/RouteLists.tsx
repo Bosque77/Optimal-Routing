@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AddRouteItem from './AddRouteItem'
-import { Order, Landfill, Depot, Route_Item, TruckRoute, Region } from '../types'
+import { Order, Landfill, Depot, Route_Item, TruckRoute, Region } from '../../../shared/types'
 import RouteService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'

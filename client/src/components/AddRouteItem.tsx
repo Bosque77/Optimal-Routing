@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
-import { Order, Landfill, Depot, Route_Item, TruckRoute } from '../types'
+import { Order, Landfill, Depot, Route_Item, TruckRoute } from '../../../shared/types'
 
 
 

@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import config from "../utils/config";
 import asyncHandler from "express-async-handler";
 import { ERROR_CODES } from "../utils/errors";
-import { UserType } from "../types";
+import { UserType } from "../../shared/types";
 
 const requestLogger = (
   req: Request,

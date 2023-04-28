@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'
-import { TruckRoute } from '../types'
+import { TruckRoute } from '../../../shared/types'
 import { bindActionCreators } from 'redux'
 
 

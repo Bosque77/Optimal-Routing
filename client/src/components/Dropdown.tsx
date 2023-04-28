@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { State } from "../state";
 import { useContext } from 'react';
 import { SelectedRouteItemsContext, SelectedRouteItemsContextType  } from './SelectedRouteItemsContext';
-import { Order } from "../types";
+import { Order } from "../../../shared/types";
 import RouteQueryService from "../services/route_query";
 
 interface prop {

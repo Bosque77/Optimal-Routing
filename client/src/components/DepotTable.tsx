@@ -3,7 +3,7 @@ import DepotList from "./DepotList";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import CreateDepotForm from "./CreateDepotForm";
 import ConfirmDelete from "./ConfirmDelete";
-import { Depot } from "../types";
+import { Depot } from "../../../shared/types";
 import { State } from "../state";
 import { useSelector } from "react-redux";
 

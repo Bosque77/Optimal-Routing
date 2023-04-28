@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LatLng, Address, HttpResponse, NewLandfill, Landfill } from "../types";
+import { LatLng, Address, HttpResponse, NewLandfill, Landfill } from "../../../shared/types";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";

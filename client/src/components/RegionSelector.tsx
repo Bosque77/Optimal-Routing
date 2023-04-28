@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../state'
-import { Region } from '../types'
+import { Region } from '../../../shared/types'
 import './RegionSelector.css'
 
 
 
 const RegionSelector = () => {
 
-    console.log('inside Region Selector Component')
-
-    
+   
     const dispatch = useDispatch()
     const { setRegion } = bindActionCreators(actionCreators, dispatch)
 
@@ -25,8 +23,6 @@ const RegionSelector = () => {
 
 
     const insertRegionTabs = () => {
-        console.log(regions)
-        console.log(set_region)
         return (
 
             regions?.map(region =>

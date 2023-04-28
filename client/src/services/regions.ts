@@ -1,6 +1,6 @@
 import axios from "axios";
 // import RegionSelector from '../components/RegionSelector'
-import { NewRegion, Region, HttpResponse } from "../types";
+import { NewRegion, Region, HttpResponse } from "../../../shared/types";
 import { token, createErrorResponse, createSuccessResponse } from "./config";
 
 const baseUrl = "/regions";

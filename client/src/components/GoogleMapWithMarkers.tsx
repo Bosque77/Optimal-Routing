@@ -7,7 +7,7 @@ import {
 } from "./SelectedRouteItemsContext";
 import { useSelector } from "react-redux";
 import { State } from "../state";
-import { Depot, Landfill, Order } from "../types";
+import { Depot, Landfill, Order } from "../../../shared/types";
 
 interface GoogleMapWithMarkersProps {
   centerLatitude: number;

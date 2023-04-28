@@ -5,7 +5,7 @@ import OrderList from '../../components/OrderTable'
 import { bindActionCreators } from 'redux'
 import { actionCreators, State } from '../../state'
 import GoogleMap from '../../../archive/GoogleMap'
-import { Depot, Landfill } from '../../types'
+import { Depot, Landfill } from '../../../../shared/types'
 
 
 

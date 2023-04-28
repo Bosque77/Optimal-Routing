@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
-import { HttpResponse, NewRegion } from "../types";
+import { HttpResponse, NewRegion } from "../../../shared/types";
 
 interface Props {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;

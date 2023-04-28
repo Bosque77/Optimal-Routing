@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Address, HttpResponse, LatLng } from '../types'
+import { Address, HttpResponse, LatLng } from '../../../shared/types'
 
 
 

@@ -6,7 +6,7 @@ import {
   NewLandfill,
   NewDepot,
   Depot,
-} from "../types";
+} from "../../../shared/types";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../state";
