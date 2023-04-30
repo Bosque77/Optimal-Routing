@@ -8,7 +8,7 @@ interface IRoute {
     durations: [number],
     total_distance: number,
     total_duration: number,
-    driver_id: string,
+    driver_id?: string,
     user_id: string,
     region_id: string,
     date: string

@@ -79,8 +79,10 @@ const DropdownTable = ({ selected_date }: prop) => {
       const route_collection = response.data as DbResponse;
       const db_routes = route_collection.routes;
       const new_truck_routes = convertToTruckRoutes(db_routes);
+      console.log(new_truck_routes)
       const new_current_routes = [...currentRoutes, ...new_truck_routes];
       setCurrentRoutes(new_current_routes);
+      
     }else{
       setAlert(response.message, 'error', 3000, alert_data.id + 1)
     }

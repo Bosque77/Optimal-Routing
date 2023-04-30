@@ -8,14 +8,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState, createContext } from "react";
 import Dropdown from "../../components/Dropdown";
-import {
-  initializeDepots,
-  initializeOrders,
-} from "../../state/action-creators";
+
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
-import { Region } from "../../../../shared/types";
+import { Region, TruckRoute } from "../../../../shared/types";
 import RouteListUpdated from "../../components/RouteListUpdated";
 
 const RoutePage = () => {
@@ -26,14 +23,14 @@ const RoutePage = () => {
   const depots = useSelector((state: State) => state.depots);
   const routes = useSelector((state: State) => state.routes);
 
-  const [currentRoutes, setCurrentRoutes] = useState(routes);
+  const [currentRoutes, setCurrentRoutes] = useState<TruckRoute[]>(routes);
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
   const [selectedLandfills, setSelectedLandfills] = useState<Set<string>>(
     new Set()
   );
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
-  const { initializeOrders, initializeLandfills, initializeDepots } =
+  const { initializeOrders, initializeLandfills, initializeDepots, initializeTruckRoutes } =
     bindActionCreators(actionCreators, dispatch);
 
 
@@ -43,6 +40,8 @@ const RoutePage = () => {
       initializeOrders(region, selectedDate.toDateString());
       initializeLandfills(region);
       initializeDepots(region);
+      initializeDepots(region);
+      initializeTruckRoutes(region, selectedDate.toDateString());
     }
   }, [region, selectedDate]);
 

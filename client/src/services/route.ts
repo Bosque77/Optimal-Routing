@@ -3,6 +3,10 @@ import { HttpResponse, NewTruckRoute, TruckRoute, Region } from "../../../shared
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/routes";
 
+const getConfig = () => ({
+  headers: { Authorization: token },
+});
+
 const getByRegion = async (region: Region) => {
   try {
     const url = baseUrl + `?region_id=${region.id}`;
@@ -16,12 +20,15 @@ const getByRegion = async (region: Region) => {
   }
 };
 
+
+
 const getByRegionAndDate = async (region: Region, date: string) => {
   try {
-    const url = baseUrl + `/date/${region.id}/${date}`;
+    const url = baseUrl + "/date";
     const config = {
-      headers: { Authorization: token },
-    };
+            ...getConfig(),
+            params: { date: date, region: region.id },
+          };
     const response = await axios.get(url, config);
     return createSuccessResponse("Routes retrieved", response.data);
   } catch (error) {
