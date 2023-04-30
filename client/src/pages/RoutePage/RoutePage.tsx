@@ -30,10 +30,12 @@ const RoutePage = () => {
     new Set()
   );
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
-  const { initializeOrders, initializeLandfills, initializeDepots, initializeTruckRoutes } =
-    bindActionCreators(actionCreators, dispatch);
-
-
+  const {
+    initializeOrders,
+    initializeLandfills,
+    initializeDepots,
+    initializeTruckRoutes,
+  } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     if (region) {
@@ -98,7 +100,9 @@ const RoutePage = () => {
                   </button>
                 </div>
                 {currentRoutes.length > 0 ? (
-                  <RouteListUpdated truck_routes={currentRoutes} />
+                  <div className="px-4">
+                    <RouteListUpdated truck_routes={currentRoutes} />
+                  </div>
                 ) : (
                   <>
                     <p className="text-lg px-4 mt-6 rounded text-slate-500 w-1/2 mx-auto">
