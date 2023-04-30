@@ -200,6 +200,8 @@ export const createOrder = (order: NewOrder) => {
   };
 };
 
+
+
 export const createTruckRoute = (input_truck_route: NewTruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.createNew(input_truck_route);
@@ -292,6 +294,8 @@ export const updateOrder = (updated_order: Order) => {
   };
 };
 
+
+
 export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.put(updated_truck_route);
@@ -305,6 +309,8 @@ export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
     return response;
   };
 };
+
+
 export const deleteLandfill = (landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await landfillService.deleteLandfill(landfill);

@@ -26,7 +26,7 @@ const LandfillTable = () => {
   return (
     <div>
       <div className="bg-white drop-shadow-md rounded">
-        <div className="bg-stone-500 pt-2 opacity-50"></div>
+        <div className="bg-stone-200 pt-2 "></div>
         <div className="relative">
           <div className="flex flex-row mt-4 ml-4">
             <InformationCircleIcon

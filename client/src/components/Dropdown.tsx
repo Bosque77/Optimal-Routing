@@ -1,19 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { State } from "../state";
+import { useSelector, useDispatch, } from "react-redux";
+import { State, actionCreators } from "../state";
 import { useContext } from 'react';
 import { SelectedRouteItemsContext, SelectedRouteItemsContextType  } from './SelectedRouteItemsContext';
-import { Order } from "../../../shared/types";
+import { DbResponse, DbReturnedRouteData, HttpResponse, Order, RouteObject, TruckRoute } from "../../../shared/types";
 import RouteQueryService from "../services/route_query";
+import { bindActionCreators } from "redux";
 
 interface prop {
   selected_date: Date;
 }
 
 const DropdownTable = ({ selected_date }: prop) => {
+  const dispatch = useDispatch();
+  const { createTruckRoute, setAlert } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
+  const alert_data = useSelector((state: State) => state.alert_data);
+  const region = useSelector((state: State) => state.setRegion);
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+
   const [number_of_trucks, setNumberOfTrucks] = useState("1");
   const [selectedOrdersTable, setSelectedOrdersTable] = useState(false);
   const [selectedDepotsTable, setSelectedDepotsTable] = useState(false);
@@ -26,11 +36,34 @@ const DropdownTable = ({ selected_date }: prop) => {
     setSelectedLandfills,
     selectedOrders,
     setSelectedOrders,
+    currentRoutes,
+    setCurrentRoutes,
   } = useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
 
-  const computeRoute = () => {
+  const convertToTruckRoutes = (new_routes: DbReturnedRouteData[]) => {
+     const truck_routes = [] as TruckRoute[];
+      for (let i = 0; i < new_routes.length; i++){
+        const truck_route = {} as unknown as TruckRoute;
+        const db_route = new_routes[i];
+        truck_route.distances = db_route.distances;
+        truck_route.durations = db_route.durations;
+        truck_route.route_types = db_route.route_objects.map((route_object) => route_object.type);
+        truck_route.route_items = db_route.route_objects.map((route_object) => route_object.id);
+        truck_route.total_distance = db_route.total_distance;
+        truck_route.total_duration = db_route.total_duration;
+        truck_route.date = selected_date.toDateString();
+        truck_route.region_id = region?.id as string;
+        truck_routes.push(truck_route);
+      }
+
+      return truck_routes;
+  }
+
+
+
+  const computeRoute = async () => {
     const full_selected_orders = orders.filter((order) => selectedOrders.has(order.id));
     const full_selected_landfills = landfills.filter((landfill) => selectedLandfills.has(landfill.id));
     const full_selected_depots = depots.filter((depot) => selectedDepots.has(depot.id));
@@ -41,10 +74,17 @@ const DropdownTable = ({ selected_date }: prop) => {
       num_of_routes: parseInt(number_of_trucks),
       date: selected_date.toDateString(),
     }
-    console.log('sending the route query')
-    console.log(route_query)
-    const response = RouteQueryService.createRoutes(route_query);
-    console.log(response)
+    const response = await RouteQueryService.createRoutes(route_query) as unknown as HttpResponse;
+    if (response.status == 'OK'){
+      const route_collection = response.data as DbResponse;
+      const db_routes = route_collection.routes;
+      const new_truck_routes = convertToTruckRoutes(db_routes);
+      const new_current_routes = [...currentRoutes, ...new_truck_routes];
+      setCurrentRoutes(new_current_routes);
+    }else{
+      setAlert(response.message, 'error', 3000, alert_data.id + 1)
+    }
+
 
   }
 
@@ -356,7 +396,7 @@ const DropdownTable = ({ selected_date }: prop) => {
       {selectedOrdersTable && orders && (
         <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0">
           <div className="fixed inset-0 bg-black opacity-50"></div>
-          <div className="px-6 py-6  z-20  bg-white rounded flex flex-col">
+          <div className="px-6 py-6  z-20  bg-white  rounded flex flex-col">
             <table className="table-automt-2  bg-white border border-gray-200 divide-y divide-gray-100 ">
               <thead className="bg-gray-50">
                 <tr>

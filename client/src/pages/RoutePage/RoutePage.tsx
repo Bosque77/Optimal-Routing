@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region } from "../../../../shared/types";
+import RouteListUpdated from "../../components/RouteListUpdated";
 
 const RoutePage = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const RoutePage = () => {
   const orders = useSelector((state: State) => state.orders);
   const landfills = useSelector((state: State) => state.landfills);
   const depots = useSelector((state: State) => state.depots);
+  const routes = useSelector((state: State) => state.routes);
+
+  const [currentRoutes, setCurrentRoutes] = useState(routes);
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
   const [selectedLandfills, setSelectedLandfills] = useState<Set<string>>(
@@ -32,7 +36,7 @@ const RoutePage = () => {
   const { initializeOrders, initializeLandfills, initializeDepots } =
     bindActionCreators(actionCreators, dispatch);
 
-  console.log(region);
+
 
   useEffect(() => {
     if (region) {
@@ -52,49 +56,68 @@ const RoutePage = () => {
         <div className="flex flex-row justify-end">
           <RegionSelector />
         </div>
-          <SelectedRouteItemsContext.Provider
-            value={{
-              selectedDepots,
-              setSelectedDepots,
-              selectedLandfills,
-              setSelectedLandfills,
-              selectedOrders,
-              setSelectedOrders,
-            }}
+        <SelectedRouteItemsContext.Provider
+          value={{
+            selectedDepots,
+            setSelectedDepots,
+            selectedLandfills,
+            setSelectedLandfills,
+            selectedOrders,
+            setSelectedOrders,
+            currentRoutes,
+            setCurrentRoutes,
+          }}
+        >
+          <div
+            className="mx-auto mt-8"
+            style={{ height: "500px", width: "100%" }}
           >
-            <div
-              className="mx-auto mt-8"
-              style={{ height: "500px", width: "100%" }}
-            >
-              <GoogleMapWithMarkers
-                centerLatitude={region.latitude}
-                centerLongitude={region.longitude}
+            <GoogleMapWithMarkers
+              centerLatitude={region.latitude}
+              centerLongitude={region.longitude}
+            />
+          </div>
+          <div className="flex flex-row w-full my-12">
+            <div className="text-left">
+              <label className="ml-2">Select Date</label>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date: Date) => handleDateChange(date)}
+                className="border-2 rounded w-48 p-2"
+                popperPlacement="bottom-start"
               />
+              <div className="flex flex-row justify-between mt-8">
+                <Dropdown selected_date={selectedDate} />
+              </div>
             </div>
-            <div className="flex flex-row w-full">
-              <div className="my-6 text-left">
-                <label className="ml-2">Select Date</label>
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={(date: Date) => handleDateChange(date)}
-                  className="border-2 rounded w-48 p-2"
-                  popperPlacement="bottom-start"
-                />
-                <div className="flex flex-row justify-between mt-8">
-                  <Dropdown selected_date={selectedDate} />
+
+            <div className="flex flex-col justify-center w-full text-center rounded mx-6 shadow">
+              <div className="bg-white mt-4 py-4 ">
+                <div className="w-full text-right px-2">
+                  <button className="py-2 px-4 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right">
+                    Custom Route
+                  </button>
                 </div>
-              </div>
-              <div className="flex flex-col justify-center w-full text-center">
-                <p className="text-3xl px-4 py-2 rounded"> No Routes to Display Yet</p>
-                <img
-                  className="opacity-80 mx-auto mt-4 "
-                  src="/images/Routes_Place_Holder_Image_1_v3.png"
-                />
+                {currentRoutes.length > 0 ? (
+                  <RouteListUpdated truck_routes={currentRoutes} />
+                ) : (
+                  <>
+                    <p className="text-lg px-4 mt-6 rounded text-slate-500 w-1/2 mx-auto">
+                      There are not any routes to display yet. Create a custom
+                      route or use the auto route generator.
+                    </p>
+                    <img
+                      className=" mx-auto w-1/2"
+                      src="/images/Routes_Place_Holder_Image_1_v3.png"
+                    />
+                  </>
+                )}
               </div>
             </div>
-          </SelectedRouteItemsContext.Provider>
-        </div>
+          </div>
+        </SelectedRouteItemsContext.Provider>
       </div>
+    </div>
   );
 };
 

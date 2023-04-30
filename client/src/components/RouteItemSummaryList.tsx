@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DbResponse, Depot, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../../../shared/types'
+import { DbResponse, Depot, HttpResponse, Landfill, NewTruckRoute, Order, Region, RouteQuery } from '../../../shared/types'
 import RoutingService from '../services/route_query'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators, State } from '../state'
@@ -170,46 +170,46 @@ const RouteItemSummaryList = ({ date, assignedOrders }: prop) => {
         }
 
 
-
-
-
         // M.toast({ html: 'Sending Request to Create Routes. This is still a work in progress' })
         const route_query: RouteQuery = { landfills, depots, orders: orders_to_analyze, 'date': date.toDateString(), num_of_routes }
-        const route_response = await RoutingService.createRoutes(route_query) as DbResponse
+        const response = await RoutingService.createRoutes(route_query) as HttpResponse
 
-        console.log('logging the route_response')
-        console.log(route_response)
+        if(response.status == "OK"){
+            const route_response = response.data as DbResponse
 
-        const routes = route_response.routes
-
-        for(let i=0;i<num_of_routes;i++){
-            const current_route = routes[i]
-
-            const route_objects = current_route.route_objects
-
-            const route_types = [] as string[]
-            const route_object_ids = [] as string []
-            route_objects.forEach(route_object => {
-                route_types.push(route_object.type)
-                route_object_ids.push(route_object.id)
-            })
-
-            const new_truck_route: NewTruckRoute = {
-                route_types: route_types,
-                route_items: route_object_ids,
-                distances: current_route.distances,
-                durations: current_route.durations,
-                total_distance: current_route.total_distance,
-                total_duration: current_route.total_duration,
-                date: date.toDateString(),
-                region_id: region.id
-
+            const routes = route_response.routes
+    
+            for(let i=0;i<num_of_routes;i++){
+                const current_route = routes[i]
+    
+                const route_objects = current_route.route_objects
+    
+                const route_types = [] as string[]
+                const route_object_ids = [] as string []
+                route_objects.forEach(route_object => {
+                    route_types.push(route_object.type)
+                    route_object_ids.push(route_object.id)
+                })
+    
+                const new_truck_route: NewTruckRoute = {
+                    route_types: route_types,
+                    route_items: route_object_ids,
+                    distances: current_route.distances,
+                    durations: current_route.durations,
+                    total_distance: current_route.total_distance,
+                    total_duration: current_route.total_duration,
+                    date: date.toDateString(),
+                    region_id: region.id
+    
+                }
+                console.log('about to create a new truck route')
+                console.log(new_truck_route)
+                
+                await createTruckRoute(new_truck_route)
             }
-            console.log('about to create a new truck route')
-            console.log(new_truck_route)
-            
-            await createTruckRoute(new_truck_route)
         }
+
+
 
     }
 

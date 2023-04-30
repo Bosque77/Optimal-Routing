@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { TruckRoute } from "../../../shared/types";
 
 export interface SelectedRouteItemsContextType {
   selectedDepots: Set<string>;
@@ -7,6 +8,8 @@ export interface SelectedRouteItemsContextType {
   setSelectedLandfills: React.Dispatch<React.SetStateAction<Set<string>>>;
   selectedOrders: Set<string>;
   setSelectedOrders: React.Dispatch<React.SetStateAction<Set<string>>>;
+  currentRoutes: TruckRoute[],
+  setCurrentRoutes: React.Dispatch<React.SetStateAction<TruckRoute[]>>,
 }
 
 const defaultSelectedRouteItemsContext: SelectedRouteItemsContextType = {
@@ -16,6 +19,8 @@ const defaultSelectedRouteItemsContext: SelectedRouteItemsContextType = {
   setSelectedLandfills: () => {},
   selectedOrders: new Set(),
   setSelectedOrders: () => {},
+  currentRoutes: [] as TruckRoute[],
+  setCurrentRoutes: () => {},
 };
 
 export const SelectedRouteItemsContext = createContext<SelectedRouteItemsContextType>(defaultSelectedRouteItemsContext);

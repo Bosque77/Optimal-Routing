@@ -57,11 +57,11 @@ const OrderTable = () => {
   return (
     <div className="z-10">
       <div className="bg-white drop-shadow-md rounded z-10 pb-4">
-        <div className="bg-stone-500 pt-2"></div>
+        <div className="bg-green-200 pt-2"></div>
         <div className="relative">
           <div className="flex flex-row mt-4 ml-4">
             <InformationCircleIcon
-              className="w-6 h-6 mr-3 text-slate-700 hover:text-indigo-800 cursor-pointer"
+              className="w-6 h-6 mr-3 text-green-500 hover:text-indigo-800 cursor-pointer"
               onMouseEnter={() => setShowInfo(true)}
               onMouseLeave={() => setShowInfo(false)}
             />

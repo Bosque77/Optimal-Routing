@@ -6,6 +6,8 @@ export interface DbReturnedRouteData {
   total_duration: number;
 }
 
+export type RouteObject = Order | Depot | Landfill; 
+
 export interface DbResponse {
   routes: DbReturnedRouteData[];
   total_distance: number;
@@ -13,7 +15,7 @@ export interface DbResponse {
 }
 
 export interface TruckRoute {
-  id: string;
+  id?: string;
   route_types: string[];
   route_items: string[];
   distances: number[];

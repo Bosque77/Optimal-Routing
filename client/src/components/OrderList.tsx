@@ -29,20 +29,20 @@ const OrderList = ({
 
   const insertOrders = () => {
     return orders.map((order) => (
-      <tr key={order.id}>
-        <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+      <tr key={order.id} className="border-b bg-white">
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
           {order.name}
         </td>
-        <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
           {order.dumpster_size}
         </td>
-        <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
           {order.delivery_date}
         </td>
-        <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
           {order.pickup_date}
         </td>
-        <td className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
           {order.phone_number}
         </td>
         <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap border-none">

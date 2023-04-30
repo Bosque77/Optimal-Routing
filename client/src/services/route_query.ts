@@ -13,7 +13,7 @@ const createRoutes = async (route_query: RouteQuery) => {
   try {
     const response = await axios.post(createRoutesUrl, route_query);
     console.log(response.data)
-    return response.data;
+    return createSuccessResponse("Route generation successful", response.data)
   } catch (error) {
     return createErrorResponse(
       `Route generation failed for route query: ${route_query}`,
@@ -23,15 +23,29 @@ const createRoutes = async (route_query: RouteQuery) => {
 };
 
 const getRoutes = async () => {
-  const response = await axios.get(getRoutesUrl);
-  return response.data;
+  try{
+    const response = await axios.get(getRoutesUrl);
+    console.log(response.data)
+    return createSuccessResponse("Get Routes Successful", response.data)
+  } catch (error) {
+    return createErrorResponse(
+      `Get Routes Failed`,
+      error
+    );
+  }
 };
 
 const analyzeRoute = async (route_items: Route_Item[]) => {
-  console.log("inside analyzeRoute Service");
-  console.log(JSON.stringify(route_items, null, 2));
-  const response = await axios.post(analyzeRoutesUrl, route_items);
-  return response.data;
+  try{
+    const response = await axios.post(analyzeRoutesUrl, route_items);
+    console.log(response.data)
+    return createSuccessResponse("Analyze Route Successful", response.data)
+  } catch (error) {
+    return createErrorResponse(
+      `Analyze Route Failed`,
+      error
+    );
+  }
 };
 
 export default { createRoutes, getRoutes, analyzeRoute };
