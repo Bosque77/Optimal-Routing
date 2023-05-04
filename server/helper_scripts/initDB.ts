@@ -14,7 +14,6 @@ import Vehicle from "../models/vehicle-model";
 import Order from "../models/order-model";
 import Route from "../models/route-model";
 
-
 // a function that creates the delivery date and pickup date for the order
 // the delivery date is today and the pickup date is tomorrow
 
@@ -81,6 +80,7 @@ const regions = [
 
 const landfills = [
   {
+    _id: "645316a283f170ee959170f5",
     name: "Doraville Transfer Station",
     street: "2784 Woodwin Rd,",
     city: "Atlanta",
@@ -94,6 +94,7 @@ const landfills = [
     type: "Landfill",
   },
   {
+    _id: "645316a283f170ee959170f6",
     name: "Cobb County Landfill",
     street: "1775 County Services Pkwy SW",
     city: "Marietta",
@@ -107,6 +108,7 @@ const landfills = [
     type: "Landfill",
   },
   {
+    _id: "645316a283f170ee959170f7",
     name: "Republic Services of Atlanta",
     street: "3045 Donald Lee Hollowell Parkway Northwest",
     city: "Woodstock",
@@ -120,6 +122,7 @@ const landfills = [
     type: "Landfill",
   },
   {
+    _id: "645316a283f170ee959170f8",
     name: "Waste Management - Atlanta West Hauling",
     street: "3001 S Pioneer Dr SE",
     city: "Smyrna",
@@ -259,15 +262,16 @@ const orders = [
     active: true,
   },
   {
+    _id: "644df6d8c4e5d698c11840d7",
     name: "Josh Rodriguez",
     email: "jr@gmail.com",
     phone_number: "404-585-8945",
-    street: "225 Baker St NW",
+    street: "3380 Peachtree Rd NE",
     city: "Atlanta",
     state: "Georgia",
-    zipcode: 30313,
-    latitude: 33.764,
-    longitude: -84.395,
+    zipcode: 30326,
+    latitude: 33.849,
+    longitude: -84.363,
     dumpster_size: 15,
     delivery_date: "Wed Dec 29 2021",
     pickup_date: "Thu Dec 30 2021",
@@ -290,15 +294,16 @@ const orders = [
     active: true,
   },
   {
+    _id: "644df6d8c4e5d698c11840d9",
     name: "Daniel Carusi",
     email: "d.carusi@gmail.com",
     phone_number: "485-859-8569",
-    street: "690 Olde Rope Mill Park Rd",
-    city: "Woodstock",
+    street: "300 Oakland Ave SE",
+    city: "Atlanta",
     state: "Georgia",
-    zipcode: 30188,
-    latitude: 34.131,
-    longitude: -84.523,
+    zipcode: 30312,
+    latitude: 33.746,
+    longitude: -84.376,
     dumpster_size: 30,
     delivery_date: "Thu Dec 30 2021",
     pickup_date: "Wed Jan 05 2022",
@@ -321,15 +326,16 @@ const orders = [
     active: true,
   },
   {
+    _id: "644df6d8c4e5d698c11840d8",
     name: "Michael Lee",
     email: "michael.lee@gmail.com",
     phone_number: "212-555-0123",
-    street: "123 Main St.",
-    city: "New York",
-    state: "New York",
-    zipcode: 10001,
-    latitude: 40.7128,
-    longitude: -74.006,
+    street: "1270 Spring St NW",
+    city: "Atlanta",
+    state: "Georgia",
+    zipcode: 30309,
+    latitude: 33.7830,
+    longitude: -84.3893,
     dumpster_size: 10,
     delivery_date: delivery_date,
     pickup_date: pickup_date,
@@ -352,15 +358,16 @@ const orders = [
     active: true,
   },
   {
+    _id: "644df6d8c4e5d698c11840db",
     name: "Jane Doe",
     email: "janedoe@yahoo.com",
     phone_number: "555-123-4567",
-    street: "321 Elm St.",
-    city: "Los Angeles",
-    state: "California",
-    zipcode: 90001,
-    latitude: 34.0522,
-    longitude: -118.2437,
+    street: "415 East Paces Ferry Rd NE",
+    city: "Atlanta",
+    state: "Georgia",
+    zipcode: 30305,
+    latitude: 33.8412,
+    longitude: -84.3720,
     dumpster_size: 20,
     delivery_date: delivery_date,
     pickup_date: pickup_date,
@@ -383,15 +390,16 @@ const orders = [
     active: true,
   },
   {
+    _id: "644df6d8c4e5d698c11840dc",
     name: "John Smith",
     email: "johnsmith@gmail.com",
     phone_number: "800-555-5555",
-    street: "456 Oak Ave.",
-    city: "Chicago",
-    state: "Illinois",
-    zipcode: 60601,
-    latitude: 41.8781,
-    longitude: -87.6298,
+    street: "290 Martin Luther King Jr Dr SE",
+    city: "Atlanta",
+    state: "Georgia",
+    zipcode: 30312,
+    latitude: 33.7490,
+    longitude: -84.3844,
     dumpster_size: 30,
     delivery_date: delivery_date,
     pickup_date: pickup_date,
@@ -419,14 +427,13 @@ const routes = [
   {
     user_id: "61c7483607e4533869b9ec08",
     date: delivery_date,
-    distances: [3519748, 3500503, 77179, 1351990, 1374391, 21998, 22375, 22189],
-    durations: [114534, 114974, 3308, 47145, 46883, 1180, 1248, 1149],
+    distances: [798, 1344, 8432, 7616, 5522, 6677, 22375, 22189],
+    durations: [132, 218, 735, 693, 452, 525, 1248, 1149],
     region_id: "61ca3cb19e9ade7351418e30",
-    route_items : ["61cdeb3f291ff09681e49c08",  "644bdb6c383c678d5a9b8ce0",      "644bdb6b383c678d5a9b8cc1",      "61cdeb3f291ff09681e49c09",     "644bdb6c383c678d5a9b8cdf",      "644bdb6b383c678d5a9b8cc0",      "61cdeb3f291ff09681e49c08",      "644bdb6c383c678d5a9b8cdc",      "61cdeb3f291ff09681e49c08"    ],
-    route_types: ['Depot', 'Order', 'Landfill', 'Depot', 'Order', 'Landfill', 'Depot', 'Order', 'Depot'],
-    total_distance: 9890373,
-    total_duration: 343321,
-
+    route_items: ['61cdeb3f291ff09681e49c08', '644df6d8c4e5d698c11840d8', '61cdeb3f291ff09681e49c08', '644df6d8c4e5d698c11840db', '61cdeb3f291ff09681e49c08', '644df6d8c4e5d698c11840dc', '61cdeb3f291ff09681e49c08', '644df6d8c4e5d698c11840da', '61cdeb3f291ff09681e49c08'],
+    route_types: ['Depot', 'Order', 'Depot', 'Order', 'Depot', 'Order', 'Depot', 'Order', 'Depot'],
+    total_distance: 74953,
+    total_duration: 5152,
   },
 ];
 
@@ -526,11 +533,11 @@ const initOrders = async () => {
 };
 
 const initTruckRoutes = async () => {
-    await Route.deleteMany({});
-    const route_objects = routes.map((route) => new Route({ ...route }));
-    const promise_array = route_objects.map((route) => route.save());
-    await Promise.all(promise_array);
-}
+  await Route.deleteMany({});
+  const route_objects = routes.map((route) => new Route({ ...route }));
+  const promise_array = route_objects.map((route) => route.save());
+  await Promise.all(promise_array);
+};
 
 const runInit = async () => {
   await connectMongoose();
