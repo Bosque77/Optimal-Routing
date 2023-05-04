@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { TruckRoute } from "../../../shared/types";
 import React, { useState } from "react";
 import { State } from "../state";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface prop {
   truck_routes: TruckRoute[];
@@ -67,22 +68,35 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
     );
   };
 
+  const deleteRoute = (index: number) => {
+    console.log("inside delete route");
+  };
+
   const insertTruckRoutes = () => {
     return truck_routes.map((truck_route, index) => (
       <div key={`${Date.now()}-${Math.random()}`} className="mt-4">
         <div
           onClick={() => toggleTableVisibility(index)}
-          className="flex items-center justify-between p-4 text-lg bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none "
+          className="flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
         >
-          <div className="flex flex-row  w-full ">
-            <div className="flex flex-grow justify-start ">
-              Route: {index + 1} 
+          <div className="flex flex-row w-full">
+            <div className="flex flex-grow justify-start">
+              Route: {index + 1}
             </div>
             <div className="">
-            Total Distance: {truck_route.total_distance} | Total Duration:{truck_route.total_duration}
+              Total Distance: {truck_route.total_distance} | Total Duration:
+              {truck_route.total_duration}
             </div>
-            
-            </div>
+          </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteRoute(index);
+            }}
+            className="p-2 text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md"
+          >
+            <TrashIcon className="w-6 h-6 ml-6" />
+          </button>
         </div>
         {visibleTables.includes(index) && (
           <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
