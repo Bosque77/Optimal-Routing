@@ -47,6 +47,19 @@ const RoutePage = () => {
     }
   }, [region, selectedDate]);
 
+
+  const getOrdersInRoutes = (routes: TruckRoute[]) => {
+    const ordersInRoutes = new Set<string>();
+    routes.forEach((route) => {
+      route.route_items.forEach((item, index) => {
+        if (route.route_types[index] === "Order") {
+          ordersInRoutes.add(item);
+        }
+      });
+    });
+    return ordersInRoutes;
+  };
+
   return (
     <div className="flex min-h-screen bg-slate-100 overflow-y-auto">
       <Alert />
@@ -88,14 +101,14 @@ const RoutePage = () => {
                 popperPlacement="bottom-start"
               />
               <div className="flex flex-row justify-between mt-8">
-                <Dropdown selected_date={selectedDate} />
+                <Dropdown selected_date={selectedDate} ordersInRoutes={getOrdersInRoutes(currentRoutes)} />
               </div>
             </div>
 
-            <div className="flex flex-col justify-center w-full text-center rounded mx-6 shadow">
-              <div className="bg-white mt-4 py-4 ">
-                <div className="w-full text-right px-2">
-                  <button className="py-2 px-4 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right">
+            <div className="flex flex-col bg-white w-full rounded mx-6 shadow">
+              <div className=" py-4 ">
+                <div className="w-full text-right px-2 py-2">
+                  <button className="py-2 px-4 bg-gray-100 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right">
                     Custom Route
                   </button>
                 </div>

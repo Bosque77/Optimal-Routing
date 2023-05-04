@@ -9,9 +9,10 @@ import { bindActionCreators } from "redux";
 
 interface prop {
   selected_date: Date;
+  ordersInRoutes: Set<string>;
 }
 
-const DropdownTable = ({ selected_date }: prop) => {
+const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
   const dispatch = useDispatch();
   const { createTruckRoute, setAlert } = bindActionCreators(
     actionCreators,
@@ -90,6 +91,7 @@ const DropdownTable = ({ selected_date }: prop) => {
 
   }
 
+  const filteredOrders = orders.filter((order) => !ordersInRoutes.has(order.id));
 
 
 
@@ -161,7 +163,7 @@ const DropdownTable = ({ selected_date }: prop) => {
   };
 
   const insertOrders = () => {
-    return orders.map((order) => {
+    return filteredOrders.map((order) => {
       const isChecked = selectedOrders.has(order.id);
       return (
         <tr key={order.id} className="bg-white divide-y divide-gray-100">
