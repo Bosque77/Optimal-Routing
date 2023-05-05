@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region, TruckRoute } from "../../../../shared/types";
+
 import RouteListUpdated from "../../components/RouteListUpdated";
 
 const RoutePage = () => {
@@ -30,6 +31,8 @@ const RoutePage = () => {
     new Set()
   );
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
+
+
   const {
     initializeOrders,
     initializeLandfills,
@@ -114,7 +117,7 @@ const RoutePage = () => {
                 </div>
                 {currentRoutes.length > 0 ? (
                   <div className="px-4">
-                    <RouteListUpdated truck_routes={currentRoutes} />
+                    <RouteListUpdated  />
                   </div>
                 ) : (
                   <>
@@ -133,6 +136,7 @@ const RoutePage = () => {
           </div>
         </SelectedRouteItemsContext.Provider>
       </div>
+      
     </div>
   );
 };

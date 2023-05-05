@@ -62,7 +62,7 @@ const put = async (truck_route: TruckRoute) => {
   }
 };
 
-const deleteOrder = async (truck_route: TruckRoute) => {
+const deleteRoute = async (truck_route: TruckRoute) => {
   try {
     const config = {
       headers: { Authorization: token },
@@ -91,7 +91,7 @@ const createNew = async (truck_route: NewTruckRoute) => {
 export default {
   getAll,
   put,
-  deleteOrder,
+  deleteRoute,
   createNew,
   getByRegion,
   getByRegionAndDate,

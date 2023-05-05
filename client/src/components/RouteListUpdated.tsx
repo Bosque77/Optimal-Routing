@@ -1,19 +1,48 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TruckRoute } from "../../../shared/types";
-import React, { useState } from "react";
-import { State } from "../state";
+import React, { useContext, useState } from "react";
+import { State, actionCreators } from "../state";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import {
+  SelectedRouteItemsContext,
+  SelectedRouteItemsContextType,
+} from "./SelectedRouteItemsContext";
+import { bindActionCreators } from "redux";
+import ConfirmDelete from "./ConfirmDelete";
 
-interface prop {
-  truck_routes: TruckRoute[];
-}
 
-const RouteListUpdated = ({ truck_routes }: prop) => {
+const RouteListUpdated = () => {
+  const dispatch = useDispatch();
   const [visibleTables, setVisibleTables] = useState<number[]>([]);
+  const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
 
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+
+  const { deleteTruckRoute } = bindActionCreators(actionCreators, dispatch);
+
+  const { currentRoutes, setCurrentRoutes } =
+    useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
+
+  const toggleTableVisibility = (index: number) => {
+    setVisibleTables((prevVisibleTables) =>
+      prevVisibleTables.includes(index)
+        ? prevVisibleTables.filter((tableIndex) => tableIndex !== index)
+        : [...prevVisibleTables, index]
+    );
+  };
+
+  const deleteRoute = (index: number) => {
+    console.log("inside delete route");
+    let current_route = currentRoutes[index];
+    if (current_route.id) {
+      deleteTruckRoute(current_route);
+    }else{
+      let updated_routes = currentRoutes.filter((route, i) => i !== index);
+      setCurrentRoutes(updated_routes);
+    }
+  };
 
   const insertRows = (truck_route: TruckRoute) => {
     const rows = [];
@@ -60,20 +89,8 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
     return rows;
   };
 
-  const toggleTableVisibility = (index: number) => {
-    setVisibleTables((prevVisibleTables) =>
-      prevVisibleTables.includes(index)
-        ? prevVisibleTables.filter((tableIndex) => tableIndex !== index)
-        : [...prevVisibleTables, index]
-    );
-  };
-
-  const deleteRoute = (index: number) => {
-    console.log("inside delete route");
-  };
-
   const insertTruckRoutes = () => {
-    return truck_routes.map((truck_route, index) => (
+    return currentRoutes.map((current_route, index) => (
       <div key={`${Date.now()}-${Math.random()}`} className="mt-4">
         <div
           onClick={() => toggleTableVisibility(index)}
@@ -84,8 +101,8 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
               Route: {index + 1}
             </div>
             <div className="">
-              Total Distance: {truck_route.total_distance} | Total Duration:
-              {truck_route.total_duration}
+              Total Distance: {current_route.total_distance} | Total Duration:
+              {current_route.total_duration}
             </div>
           </div>
           <button
@@ -93,7 +110,7 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
               e.stopPropagation();
               deleteRoute(index);
             }}
-            className="p-2 text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md"
+            className="p-2 text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md active:scale-95"
           >
             <TrashIcon className="w-6 h-6 ml-6" />
           </button>
@@ -120,7 +137,7 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {insertRows(truck_route)}
+              {insertRows(current_route)}
             </tbody>
           </table>
         )}
@@ -128,7 +145,14 @@ const RouteListUpdated = ({ truck_routes }: prop) => {
     ));
   };
 
-  return <div>{insertTruckRoutes()}</div>;
+  return (
+    <div>
+      {insertTruckRoutes()}
+      {confirmDeleteActive && (
+        <ConfirmDelete setActive={setConfirmDeleteActive} />
+      )}
+    </div>
+  );
 };
 
 export default RouteListUpdated;

@@ -376,13 +376,18 @@ export const deleteOrder = (order: Order) => {
 
 export const deleteTruckRoute = (truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
-    await routeService.deleteOrder(truck_route);
-    dispatch({
-      type: ActionType.DELETE_TRUCK_ROUTE,
-      data: truck_route,
-    });
+    const response = await routeService.deleteRoute(truck_route);
+    if (response.status === "OK"){
+      dispatch({
+        type: ActionType.DELETE_TRUCK_ROUTE,
+        data: truck_route,
+      });
+    }
+    return response;
   };
 };
+
+
 
 export const loginUser = (login_info: LoginInfo) => {
   return async (dispatch: Dispatch<Action>) => {

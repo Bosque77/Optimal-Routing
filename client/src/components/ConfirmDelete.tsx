@@ -8,6 +8,7 @@ import {
   HttpResponse,
   Landfill,
   Order,
+  TruckRoute,
   Vehicle,
 } from "../../../shared/types";
 
@@ -18,6 +19,7 @@ interface props {
   depot?: Depot;
   vehicle?: Vehicle;
   order?: Order;
+  truckRoute?: TruckRoute;
 }
 
 const ConfirmDelete = ({
