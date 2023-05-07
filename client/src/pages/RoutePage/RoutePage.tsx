@@ -83,6 +83,7 @@ const RoutePage = () => {
             setSelectedOrders,
             currentRoutes,
             setCurrentRoutes,
+            selectedDate
           }}
         >
           <div

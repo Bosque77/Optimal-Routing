@@ -10,6 +10,7 @@ export interface SelectedRouteItemsContextType {
   setSelectedOrders: React.Dispatch<React.SetStateAction<Set<string>>>;
   currentRoutes: TruckRoute[],
   setCurrentRoutes: React.Dispatch<React.SetStateAction<TruckRoute[]>>,
+  selectedDate: Date,
 }
 
 const defaultSelectedRouteItemsContext: SelectedRouteItemsContextType = {
@@ -21,6 +22,7 @@ const defaultSelectedRouteItemsContext: SelectedRouteItemsContextType = {
   setSelectedOrders: () => {},
   currentRoutes: [] as TruckRoute[],
   setCurrentRoutes: () => {},
+  selectedDate: new Date(),
 };
 
 export const SelectedRouteItemsContext = createContext<SelectedRouteItemsContextType>(defaultSelectedRouteItemsContext);

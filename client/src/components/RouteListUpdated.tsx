@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { TruckRoute } from "../../../shared/types";
+import { Order, TruckRoute } from "../../../shared/types";
 import React, { useContext, useState } from "react";
 import { State, actionCreators } from "../state";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -22,7 +22,7 @@ const RouteListUpdated = () => {
 
   const { deleteTruckRoute } = bindActionCreators(actionCreators, dispatch);
 
-  const { currentRoutes, setCurrentRoutes } =
+  const { currentRoutes, setCurrentRoutes, selectedDate } =
     useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
 
   const toggleTableVisibility = (index: number) => {
@@ -48,7 +48,7 @@ const RouteListUpdated = () => {
     const rows = [];
     const num_of_items = truck_route.route_items.length;
     for (let i = 0; i < num_of_items; i++) {
-      const route_type = truck_route.route_types[i];
+      let route_type = truck_route.route_types[i];
       const item_key = truck_route.route_items[i];
       const distance = truck_route.distances[i];
       const duration = truck_route.durations[i];
@@ -60,7 +60,13 @@ const RouteListUpdated = () => {
       } else if (route_type == "Landfill") {
         route_item = landfills.find((landfill) => landfill.id === item_key);
       } else {
-        route_item = orders.find((order) => order.id === item_key);
+        route_item = orders.find((order) => order.id === item_key) as Order;
+        if(route_item.delivery_date= selectedDate.toDateString()){
+          route_type = route_item.dumpster_size + " Yard" + " Delivery"
+        }else{
+          route_type = route_item.dumpster_size + " Yard" + " Pickup"
+        }
+
       }
 
       rows.push(
@@ -116,6 +122,7 @@ const RouteListUpdated = () => {
           </button>
         </div>
         {visibleTables.includes(index) && (
+          <div>
           <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
             <thead className="bg-gray-50">
               <tr>
@@ -140,6 +147,9 @@ const RouteListUpdated = () => {
               {insertRows(current_route)}
             </tbody>
           </table>
+          <div className="flex w-full justify-end "><button className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">Save Route</button></div>
+          
+          </div>
         )}
       </div>
     ));
