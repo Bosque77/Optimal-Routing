@@ -115,12 +115,12 @@ const RouteListUpdated = () => {
             <div className="text-sm text-gray-900">{duration}</div>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
-            <div className="absolute bottom-0 left-0 mb-[-1rem] active:scale-75">
+            <div className="absolute bottom-0 left-0 mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
                 onClick={() => {
                   // Perform the action here
                 }}
-                className="px-2 py-1 bg-none hover:bg-gray-200 hover:text-black rounded-md cursor-pointer text-gray-700"
+                className="bg-none text-black cursor-pointer"
               >
                 {"<"}
               </span>
