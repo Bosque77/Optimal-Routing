@@ -118,7 +118,7 @@ const RoutePage = () => {
               </div>
             </div>
 
-            <div className="flex flex-col bg-white w-full rounded mx-6 shadow">
+            <div className="flex flex-col bg-white w-full rounded mx-6 shadow overflow-x-auto overflow-hidden">
               <div className=" py-4 ">
                 <div className="w-full text-right px-2 py-2">
                   <button className="py-2 px-4 bg-gray-100 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right">
@@ -126,7 +126,7 @@ const RoutePage = () => {
                   </button>
                 </div>
                 {currentRoutes.length > 0 ? (
-                  <div className="px-12">
+                  <div className="px-12 ">
                     <RouteListUpdated  />
                   </div>
                 ) : (

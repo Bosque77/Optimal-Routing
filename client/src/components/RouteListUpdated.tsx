@@ -103,19 +103,13 @@ const RouteListUpdated = () => {
             <div className="text-sm text-gray-900">{route_item?.name}</div>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            <div className="text-sm text-gray-900">
-              {route_item?.street} {route_item?.city}, {route_item?.state}{" "}
-              {route_item?.zipcode}
-            </div>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap">
             <div className="text-sm text-gray-900">{distance}</div>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="text-sm text-gray-900">{duration}</div>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
-            <div className="absolute bottom-0 left-0 mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
+            <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
                 onClick={() => {
                   // Perform the action here
@@ -159,8 +153,8 @@ const RouteListUpdated = () => {
           </button>
         </div>
         {visibleTables.includes(index) && (
-          <div>
-            <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
+          <div className="">
+            <table className="min-w-full  mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -168,9 +162,6 @@ const RouteListUpdated = () => {
                   </th>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Name
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Address
                   </th>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Distance
