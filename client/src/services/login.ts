@@ -2,7 +2,7 @@ import axios from 'axios'
 import { LoginInfo, UserToken } from '../../../shared/types'
 
 
-const baseUrl = '/login'
+const baseUrl = '/api/login'
 
 
 

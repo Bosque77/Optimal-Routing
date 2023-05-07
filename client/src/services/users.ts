@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { User } from '../../../shared/types'
 
-const baseUrl = '/users'
+const baseUrl = '/api/users'
 
 
 const login = async (user:User) => {

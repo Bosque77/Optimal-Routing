@@ -1,7 +1,7 @@
 import axios from "axios";
 import { HttpResponse, NewTruckRoute, TruckRoute, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
-const baseUrl = "/routes";
+const baseUrl = "/api/routes";
 
 const getConfig = () => ({
   headers: { Authorization: token },

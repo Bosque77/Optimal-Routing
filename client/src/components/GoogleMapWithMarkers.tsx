@@ -47,33 +47,39 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
     const markers = [
       ...[...selectedDepotIds].map((depotId) => {
         const depot = depots.find((d) => d.id === depotId) as Depot; // Find the depot by ID
+        if(depot){
+          return {
+            lat: depot.latitude,
+            lng: depot.longitude,
+            type: "depot",
+            title: `Depot: ${depot.name}, ${depot.street} , ${depot.city}, ${depot.state}, ${depot.zipcode}`,
+          };
+        }
 
-        return {
-          lat: depot.latitude,
-          lng: depot.longitude,
-          type: "depot",
-          title: `Depot: ${depot.name}, ${depot.street} , ${depot.city}, ${depot.state}, ${depot.zipcode}`,
-        };
       }),
       ...[...selectedLandfillIds].map((landfillId) => {
         const landfill = landfills.find((l) => l.id === landfillId) as Landfill; // Find the landfill by ID
+        if(landfill){
+          return {
+            lat: landfill.latitude,
+            lng: landfill.longitude,
+            type: "landfill",
+            title: `Landfill: ${landfill.name}, ${landfill.street} , ${landfill.city}, ${landfill.state}, ${landfill.zipcode}`,
+          };
+        }
 
-        return {
-          lat: landfill.latitude,
-          lng: landfill.longitude,
-          type: "landfill",
-          title: `Landfill: ${landfill.name}, ${landfill.street} , ${landfill.city}, ${landfill.state}, ${landfill.zipcode}`,
-        };
       }),
       ...[...selectedOrderIds].map((orderId) => {
         const order = orders.find((o) => o.id === orderId) as Order; // Find the order by ID
+        if(order){
+          return {
+            lat: order.latitude,
+            lng: order.longitude,
+            type: "order",
+            title: `Order: ${order.name},  ${order.street}, ${order.city}, ${order.state}, ${order.zipcode}`,
+          };
+        }
 
-        return {
-          lat: order.latitude,
-          lng: order.longitude,
-          type: "order",
-          title: `Order: ${order.name},  ${order.street}, ${order.city}, ${order.state}, ${order.zipcode}`,
-        };
       }),
     ];
 
@@ -93,12 +99,15 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
       });
 
       markers.forEach((marker) => {
-        new google.maps.Marker({
-          position: { lat: marker.lat, lng: marker.lng },
-          icon: getMarkerIconUrl(marker.type),
-          title: marker.title, // Use the title from the marker object
-          map: gMap, // Use gMap instead of map
-        });
+        if(marker){
+          new google.maps.Marker({
+            position: { lat: marker.lat, lng: marker.lng },
+            icon: getMarkerIconUrl(marker.type),
+            title: marker.title, // Use the title from the marker object
+            map: gMap, // Use gMap instead of map
+          });
+        }
+
       });
     };
 

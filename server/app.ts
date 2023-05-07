@@ -56,16 +56,16 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 
-app.use('/regions', middleware.userExtractor,regionRouter)
-app.use('/landfills', middleware.userExtractor,landfillRouter)
-app.use('/drivers', middleware.userExtractor,driverRouter)
-app.use('/orders', middleware.userExtractor,orderRouter)
-app.use('/routes', middleware.userExtractor,routeRouter)
-app.use('/depots', middleware.userExtractor,depotRouter)
-app.use('/vehicles', middleware.userExtractor,vehicleRouter)
-app.use('/users', usersRouter)
-app.use('/login', loginRouter)
-app.use('/login-driver', driverLoginRouter)
+app.use('/api/regions', middleware.userExtractor,regionRouter)
+app.use('/api/landfills', middleware.userExtractor,landfillRouter)
+app.use('/api/drivers', middleware.userExtractor,driverRouter)
+app.use('/api/orders', middleware.userExtractor,orderRouter)
+app.use('/api/routes', middleware.userExtractor,routeRouter)
+app.use('/api/depots', middleware.userExtractor,depotRouter)
+app.use('/api/vehicles', middleware.userExtractor,vehicleRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/login-driver', driverLoginRouter)
 
 
 

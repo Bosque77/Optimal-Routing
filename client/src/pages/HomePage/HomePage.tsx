@@ -16,11 +16,9 @@ const HomePage = () => {
 
   const {
     initializeDepots,
-    initializeDrivers,
     initializeLandfills,
     initializeOrders,
     initializeTruckRoutes,
-    initializeVehicles,
     initializeRegions,
     setAlert,
   } = bindActionCreators(actionCreators, dispatch);
@@ -33,11 +31,9 @@ const HomePage = () => {
   useEffect(() => {
     if (region) {
       initializeDepots(region);
-      // initializeDrivers(region);
       initializeLandfills(region);
       initializeOrders(region, date.toDateString());
       initializeTruckRoutes(region, date.toDateString());
-      // initializeVehicles(region);
     } else {
       initializeRegions();
     }
@@ -59,9 +55,6 @@ const HomePage = () => {
       </div>
       <div className="mx-auto flex flex-col w-2/3">
         <div className="flex flex-row justify-end">
-          {/* <button onClick={onCreateRegion} className="self-end mx-4 my-2 text-slate-700 hover:text-black hover:underline hover:underline-offset-1 active:scale-95">
-          Add Region
-        </button> */}
           <RegionSelector />
         </div>
 

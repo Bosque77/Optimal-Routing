@@ -17,7 +17,6 @@ import { Region, UserToken } from '../../shared/types'
 function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
-    const region = useSelector((state: State) => state.setRegion);
     const regions = useSelector((state: State) => state.regions);
     const dispatch = useDispatch()
     const { setUserToken, setRegion, initializeRegions } = bindActionCreators(actionCreators, dispatch)

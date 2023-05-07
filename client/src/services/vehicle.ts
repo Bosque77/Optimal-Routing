@@ -2,7 +2,7 @@ import axios from 'axios'
 import { EditVehicle, NewVehicle, Vehicle } from '../../../shared/types'
 import { Region } from '../../../shared/types'
 import { token } from './config'
-const baseUrl = '/vehicles'
+const baseUrl = '/api/vehicles'
 
 
 

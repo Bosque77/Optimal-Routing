@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Landfill, NewLandfill, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
-const baseUrl = "/landfills";
+const baseUrl = "/api/landfills";
 
 const getByRegion = async (region: Region) => {
   try {

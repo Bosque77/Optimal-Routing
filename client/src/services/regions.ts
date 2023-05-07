@@ -3,7 +3,7 @@ import axios from "axios";
 import { NewRegion, Region, HttpResponse } from "../../../shared/types";
 import { token, createErrorResponse, createSuccessResponse } from "./config";
 
-const baseUrl = "/regions";
+const baseUrl = "/api/regions";
 
 const getConfig = () => {
   const config = {

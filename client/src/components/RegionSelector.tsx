@@ -14,12 +14,9 @@ const RegionSelector = () => {
     const { setRegion } = bindActionCreators(actionCreators, dispatch)
 
 
-    const [new_region, setNewRegion] = useState('')
-    const user_token = useSelector((state: State) => state.userToken)
+
     const region = useSelector((state: State) => state.setRegion)
     const regions = useSelector((state: State) => state.regions)
-    const set_region = useSelector((state: State) => state.setRegion)
-
 
 
     const insertRegionTabs = () => {

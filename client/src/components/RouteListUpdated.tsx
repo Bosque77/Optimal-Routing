@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Order, TruckRoute } from "../../../shared/types";
+import { HttpResponse, Order, TruckRoute } from "../../../shared/types";
 import React, { useContext, useState } from "react";
 import { State, actionCreators } from "../state";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -10,20 +10,41 @@ import {
 import { bindActionCreators } from "redux";
 import ConfirmDelete from "./ConfirmDelete";
 
-
 const RouteListUpdated = () => {
   const dispatch = useDispatch();
   const [visibleTables, setVisibleTables] = useState<number[]>([]);
-  const [confirmDeleteActive, setConfirmDeleteActive] = useState<boolean>(false);
+  const [confirmDeleteActive, setConfirmDeleteActive] =
+    useState<boolean>(false);
 
+  const alert_data = useSelector((state: State) => state.alert_data);
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
 
-  const { deleteTruckRoute } = bindActionCreators(actionCreators, dispatch);
+  const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
+    bindActionCreators(actionCreators, dispatch);
 
   const { currentRoutes, setCurrentRoutes, selectedDate } =
     useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
+
+  const saveRoute = async (truck_route:TruckRoute) => {
+    const response = await createTruckRoute(truck_route) as unknown as HttpResponse;
+      if (response.status === "ERROR") {
+        setAlert(
+          "Route Creation failed. Please try again later.",
+          "error",
+          3000,
+          alert_data.id+1
+        );
+      } else {
+        setAlert("Route Created", "success", 3000, alert_data.id+1);
+      }
+
+  };
+
+  const updateRoute = (truck_route:TruckRoute) => {
+    updateTruckRoute(truck_route);
+  };
 
   const toggleTableVisibility = (index: number) => {
     setVisibleTables((prevVisibleTables) =>
@@ -38,7 +59,7 @@ const RouteListUpdated = () => {
     let current_route = currentRoutes[index];
     if (current_route.id) {
       deleteTruckRoute(current_route);
-    }else{
+    } else {
       let updated_routes = currentRoutes.filter((route, i) => i !== index);
       setCurrentRoutes(updated_routes);
     }
@@ -61,12 +82,11 @@ const RouteListUpdated = () => {
         route_item = landfills.find((landfill) => landfill.id === item_key);
       } else {
         route_item = orders.find((order) => order.id === item_key) as Order;
-        if(route_item.delivery_date= selectedDate.toDateString()){
-          route_type = route_item.dumpster_size + " Yard" + " Delivery"
-        }else{
-          route_type = route_item.dumpster_size + " Yard" + " Pickup"
+        if ((route_item.delivery_date = selectedDate.toDateString())) {
+          route_type = route_item.dumpster_size + " Yard" + " Delivery";
+        } else {
+          route_type = route_item.dumpster_size + " Yard" + " Pickup";
         }
-
       }
 
       rows.push(
@@ -123,32 +143,42 @@ const RouteListUpdated = () => {
         </div>
         {visibleTables.includes(index) && (
           <div>
-          <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Type
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Address
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Distance
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Duration
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-100">
-              {insertRows(current_route)}
-            </tbody>
-          </table>
-          <div className="flex w-full justify-end "><button className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">Save Route</button></div>
-          
+            <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Type
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Name
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Address
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Distance
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Duration
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-100">
+                {insertRows(current_route)}
+              </tbody>
+            </table>
+
+            <div className="flex w-full justify-end ">
+              {current_route.id ? (
+                <button className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">
+                  Update Route
+                </button>
+              ) : (
+                <button onClick={() => saveRoute(current_route)} className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">
+                  Save Route
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>

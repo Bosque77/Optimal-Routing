@@ -45,7 +45,6 @@ const RoutePage = () => {
       initializeOrders(region, selectedDate.toDateString());
       initializeLandfills(region);
       initializeDepots(region);
-      initializeDepots(region);
       initializeTruckRoutes(region, selectedDate.toDateString());
     }
   }, [region, selectedDate]);
