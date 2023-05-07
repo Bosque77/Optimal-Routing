@@ -9,8 +9,13 @@ import {
 } from "./SelectedRouteItemsContext";
 import { bindActionCreators } from "redux";
 import ConfirmDelete from "./ConfirmDelete";
+import RouteItemSelector from "../components/RouteItemSelector";
 
-const RouteListUpdated = () => {
+interface prop {
+  ordersInRoutes: Set<string>;
+}
+
+const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   const dispatch = useDispatch();
   const [visibleTables, setVisibleTables] = useState<number[]>([]);
   const [confirmDeleteActive, setConfirmDeleteActive] =
@@ -20,6 +25,7 @@ const RouteListUpdated = () => {
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+  const [showRouteItemSelector, setShowRouteItemSelector] = useState(false);
 
   const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
     bindActionCreators(actionCreators, dispatch);
@@ -112,7 +118,7 @@ const RouteListUpdated = () => {
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
                 onClick={() => {
-                  // Perform the action here
+                  {setShowRouteItemSelector(true)}
                 }}
                 className="bg-none text-black cursor-pointer"
               >
@@ -203,6 +209,7 @@ const RouteListUpdated = () => {
       {confirmDeleteActive && (
         <ConfirmDelete setActive={setConfirmDeleteActive} />
       )}
+            {showRouteItemSelector && (<RouteItemSelector setShowRouteItemSelector={setShowRouteItemSelector} ordersInRoutes={ordersInRoutes} />)}
     </div>
   );
 };

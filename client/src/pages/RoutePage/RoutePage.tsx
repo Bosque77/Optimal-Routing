@@ -14,6 +14,7 @@ import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region, TruckRoute } from "../../../../shared/types";
 
+
 import RouteListUpdated from "../../components/RouteListUpdated";
 
 const RoutePage = () => {
@@ -23,6 +24,7 @@ const RoutePage = () => {
   const landfills = useSelector((state: State) => state.landfills);
   const depots = useSelector((state: State) => state.depots);
   const routes = useSelector((state: State) => state.routes);
+
 
   const [currentRoutes, setCurrentRoutes] = useState<TruckRoute[]>(routes);
   const [selectedDate, handleDateChange] = useState(new Date());
@@ -127,7 +129,7 @@ const RoutePage = () => {
                 </div>
                 {currentRoutes.length > 0 ? (
                   <div className="px-12 ">
-                    <RouteListUpdated  />
+                    <RouteListUpdated ordersInRoutes={getOrdersInRoutes(currentRoutes)} />
                   </div>
                 ) : (
                   <>
@@ -146,7 +148,7 @@ const RoutePage = () => {
           </div>
         </SelectedRouteItemsContext.Provider>
       </div>
-      
+
     </div>
   );
 };
