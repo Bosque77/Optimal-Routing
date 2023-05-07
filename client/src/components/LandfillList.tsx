@@ -84,7 +84,7 @@ const LandfillList = ({
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden">
-            <table className="min-w-fullmt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
+            <table className="min-w-full mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
               <thead className="bg-gray-50">
                 <tr>
                   <th

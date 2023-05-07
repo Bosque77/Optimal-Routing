@@ -27,6 +27,10 @@ const RouteListUpdated = () => {
   const { currentRoutes, setCurrentRoutes, selectedDate } =
     useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
 
+    if(!currentRoutes){
+      return <div></div>
+    }
+
   const saveRoute = async (truck_route:TruckRoute) => {
     const response = await createTruckRoute(truck_route) as unknown as HttpResponse;
       if (response.status === "ERROR") {
@@ -184,6 +188,8 @@ const RouteListUpdated = () => {
       </div>
     ));
   };
+
+
 
   return (
     <div>

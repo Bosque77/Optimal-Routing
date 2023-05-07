@@ -47,7 +47,17 @@ const RoutePage = () => {
       initializeDepots(region);
       initializeTruckRoutes(region, selectedDate.toDateString());
     }
-  }, [region, selectedDate]);
+  }, [region]);
+
+  useEffect(() => {
+    initializeOrders(region, selectedDate.toDateString());
+    initializeTruckRoutes(region, selectedDate.toDateString());
+  }, [selectedDate]);
+
+
+  useEffect(() => {
+    setCurrentRoutes(routes);
+  }, [routes]);
 
 
   const getOrdersInRoutes = (routes: TruckRoute[]) => {
