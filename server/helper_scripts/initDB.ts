@@ -135,6 +135,20 @@ const landfills = [
     region_id: "61ca3cb19e9ade7351418e30",
     type: "Landfill",
   },
+  {
+    _id: "645719e92d77892b6ee36f53",
+    name: "Doraville Transfer Station",
+    street: "2784 Woodwin Rd,",
+    city: "Atlanta",
+    state: "Georgia",
+    zipcode: 30360,
+    latitude: 33.918,
+    longitude: -84.275,
+    active: true,
+    user_id: "61c7483607e4533869b9ec08",
+    region_id: "61ca3cb19e9ade7351418e31",
+    type: "Landfill",
+  },
 ];
 
 const drivers = [
@@ -195,6 +209,20 @@ const depots = [
     user_id: "61c7483607e4533869b9ec08",
     region_id: "61ca3cb19e9ade7351418e30",
     type: "Depot",
+  },
+    {
+      _id: "6457192c0243f4282c45598d",
+      name: "Depot 2",
+      street: "1280 Peachtree St NE",
+      city: "Atlanta",
+      state: "Georgia",
+      zipcode: 30309,
+      latitude: 33.79,
+      longitude: -84.389,
+      active: true,
+      user_id: "61c7483607e4533869b9ec08",
+      region_id: "61ca3cb19e9ade7351418e31",
+      type: "Depot",
   },
 ];
 
