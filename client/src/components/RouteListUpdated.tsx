@@ -27,26 +27,27 @@ const RouteListUpdated = () => {
   const { currentRoutes, setCurrentRoutes, selectedDate } =
     useContext<SelectedRouteItemsContextType>(SelectedRouteItemsContext);
 
-    if(!currentRoutes){
-      return <div></div>
+  if (!currentRoutes) {
+    return <div></div>;
+  }
+
+  const saveRoute = async (truck_route: TruckRoute) => {
+    const response = (await createTruckRoute(
+      truck_route
+    )) as unknown as HttpResponse;
+    if (response.status === "ERROR") {
+      setAlert(
+        "Route Creation failed. Please try again later.",
+        "error",
+        3000,
+        alert_data.id + 1
+      );
+    } else {
+      setAlert("Route Created", "success", 3000, alert_data.id + 1);
     }
-
-  const saveRoute = async (truck_route:TruckRoute) => {
-    const response = await createTruckRoute(truck_route) as unknown as HttpResponse;
-      if (response.status === "ERROR") {
-        setAlert(
-          "Route Creation failed. Please try again later.",
-          "error",
-          3000,
-          alert_data.id+1
-        );
-      } else {
-        setAlert("Route Created", "success", 3000, alert_data.id+1);
-      }
-
   };
 
-  const updateRoute = (truck_route:TruckRoute) => {
+  const updateRoute = (truck_route: TruckRoute) => {
     updateTruckRoute(truck_route);
   };
 
@@ -113,6 +114,18 @@ const RouteListUpdated = () => {
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="text-sm text-gray-900">{duration}</div>
           </td>
+          <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
+            <div className="absolute bottom-0 left-0 mb-[-1rem] active:scale-75">
+              <span
+                onClick={() => {
+                  // Perform the action here
+                }}
+                className="px-2 py-1 bg-none hover:bg-gray-200 hover:text-black rounded-md cursor-pointer text-gray-700"
+              >
+                {"<"}
+              </span>
+            </div>
+          </td>
         </tr>
       );
     }
@@ -140,7 +153,7 @@ const RouteListUpdated = () => {
               e.stopPropagation();
               deleteRoute(index);
             }}
-            className="p-2 text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md active:scale-95"
+            className="text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md active:scale-95"
           >
             <TrashIcon className="w-6 h-6 ml-6" />
           </button>
@@ -165,6 +178,7 @@ const RouteListUpdated = () => {
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Duration
                   </th>
+                  <th className="w-10"></th> {/* New column for arrow symbol */}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -178,7 +192,10 @@ const RouteListUpdated = () => {
                   Update Route
                 </button>
               ) : (
-                <button onClick={() => saveRoute(current_route)} className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">
+                <button
+                  onClick={() => saveRoute(current_route)}
+                  className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
+                >
                   Save Route
                 </button>
               )}
@@ -188,8 +205,6 @@ const RouteListUpdated = () => {
       </div>
     ));
   };
-
-
 
   return (
     <div>

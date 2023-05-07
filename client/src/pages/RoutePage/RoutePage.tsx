@@ -126,7 +126,7 @@ const RoutePage = () => {
                   </button>
                 </div>
                 {currentRoutes.length > 0 ? (
-                  <div className="px-4">
+                  <div className="px-12">
                     <RouteListUpdated  />
                   </div>
                 ) : (
