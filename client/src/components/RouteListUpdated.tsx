@@ -152,10 +152,15 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
             <div className="flex flex-grow justify-start">
               Route: {index + 1}
             </div>
-            <div className="">
+            {current_route.total_distance > 0 && (            <div className="">
               Total Distance: {current_route.total_distance} | Total Duration:
               {current_route.total_duration}
-            </div>
+            </div>)}
+            {current_route.total_distance == 0 && (            <div className="">
+              The distance and duration will need to be re-calculated
+              </div>)
+              }
+
           </div>
           <button
             onClick={(e) => {
