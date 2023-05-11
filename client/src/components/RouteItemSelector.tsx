@@ -168,9 +168,9 @@ const RouteItemSelector = ({
               Depots
             </button>
           </div>
-          <div className=" max-h-64">
+          <div className=" max-h-64 w-full mt-6 px-4">
             {routeItemType === "Orders" && filteredOrders.length > 0 && (
-              <table className="table-auto mt-6 mx-4  bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <table className="w-full bg-white border border-gray-200 divide-y divide-gray-100 ">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -195,7 +195,7 @@ const RouteItemSelector = ({
             )}{" "}
             {}
             {routeItemType === "Landfills" && landfills.length > 0 && (
-              <table className="table-auto mt-6 mx-4 bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <table className="w-full bg-white border border-gray-200 divide-y divide-gray-100 ">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -213,7 +213,7 @@ const RouteItemSelector = ({
               </table>
             )}
             {routeItemType === "Depots" && depots.length > 0 && (
-              <table className="table-auto mt-6 mx-4  bg-white border border-gray-200 divide-y divide-gray-100 ">
+              <table className="w-full bg-white border border-gray-200 divide-y divide-gray-100 ">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
