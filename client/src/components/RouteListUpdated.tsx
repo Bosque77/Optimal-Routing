@@ -26,6 +26,9 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
   const [showRouteItemSelector, setShowRouteItemSelector] = useState(false);
+  const [current_truck_route, setCurrentTruckRoute] = useState<TruckRoute | undefined>(undefined);
+  const [current_item_ref_number, setCurrentItemRefNumber] = useState<number | undefined>(undefined);
+
 
   const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
     bindActionCreators(actionCreators, dispatch);
@@ -36,6 +39,13 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   if (!currentRoutes) {
     return <div></div>;
   }
+
+  const onInsertRouteItem = (route_item_ref_number:number, truck_route: TruckRoute) => {
+    setCurrentTruckRoute(truck_route)
+    setCurrentItemRefNumber(route_item_ref_number)
+    setShowRouteItemSelector(true)
+
+  };
 
   const saveRoute = async (truck_route: TruckRoute) => {
     const response = (await createTruckRoute(
@@ -80,6 +90,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     const rows = [];
     const num_of_items = truck_route.route_items.length;
     for (let i = 0; i < num_of_items; i++) {
+      const item_ref_number = i+1;
       let route_type = truck_route.route_types[i];
       const item_key = truck_route.route_items[i];
       const distance = truck_route.distances[i];
@@ -117,9 +128,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
-                onClick={() => {
-                  {setShowRouteItemSelector(true)}
-                }}
+                onClick={() => onInsertRouteItem(item_ref_number, truck_route)}
                 className="bg-none text-black cursor-pointer"
               >
                 {"<"}
@@ -203,13 +212,15 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     ));
   };
 
+
+
   return (
     <div>
       {insertTruckRoutes()}
       {confirmDeleteActive && (
         <ConfirmDelete setActive={setConfirmDeleteActive} />
       )}
-            {showRouteItemSelector && (<RouteItemSelector setShowRouteItemSelector={setShowRouteItemSelector} ordersInRoutes={ordersInRoutes} />)}
+            {showRouteItemSelector && (<RouteItemSelector truck_route={current_truck_route} item_ref_number={current_item_ref_number} setShowRouteItemSelector={setShowRouteItemSelector} ordersInRoutes={ordersInRoutes} />)}
     </div>
   );
 };

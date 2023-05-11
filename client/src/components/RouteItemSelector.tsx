@@ -8,27 +8,53 @@ import {
   SelectedRouteItemsContext,
   SelectedRouteItemsContextType,
 } from "./SelectedRouteItemsContext";
-import { RouteObject } from "../../../shared/types";
+import { RouteObject, TruckRoute } from "../../../shared/types";
 
 interface prop {
   setShowRouteItemSelector: React.Dispatch<React.SetStateAction<boolean>>;
   ordersInRoutes: Set<string>;
+  truck_route: TruckRoute | undefined;
+  item_ref_number: number | undefined;
 }
 
 const RouteItemSelector = ({
   setShowRouteItemSelector,
   ordersInRoutes,
+  truck_route ,
+  item_ref_number,
 }: prop) => {
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
 
-  const { selectedDate } = useContext<SelectedRouteItemsContextType>(
+  const { selectedDate, currentRoutes, setCurrentRoutes, } = useContext<SelectedRouteItemsContextType>(
     SelectedRouteItemsContext
   );
 
+
   const onSelect = (route_item: RouteObject) => {
     console.log("on route item selected");
+    console.log(truck_route)
+    if(truck_route && item_ref_number){
+      truck_route.distances = []
+      truck_route.durations = []
+      truck_route.total_distance = 0
+      truck_route.total_duration = 0
+      truck_route.route_items.splice(item_ref_number, 0, route_item.id)
+      truck_route.route_types.splice(item_ref_number, 0, route_item.type)
+    }
+
+    const updated_routes = currentRoutes.map((route) =>  {
+      if (route.id === truck_route?.id) {
+        return truck_route;
+      } else {
+        return route;
+      } 
+    }) as TruckRoute[];
+
+
+    setCurrentRoutes(updated_routes);
+
     setShowRouteItemSelector(false);
   };
 
@@ -120,7 +146,7 @@ const RouteItemSelector = ({
           </td>
           <td>
             <button
-              onSelect={() => onSelect(depot)}
+              onClick={() => onSelect(depot)}
               className="px-4 py-2  text-sm text-gray-700 hover:underline hover:underline-offset-1 text-center active:scale-95"
             >
               Select
