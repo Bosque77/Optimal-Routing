@@ -10,6 +10,8 @@ import {
 import { bindActionCreators } from "redux";
 import ConfirmDelete from "./ConfirmDelete";
 import RouteItemSelector from "../components/RouteItemSelector";
+import RouteQueryService from "../services/route_query";
+import { Route_Item } from "../../../shared/types";
 
 interface prop {
   ordersInRoutes: Set<string>;
@@ -26,9 +28,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
   const [showRouteItemSelector, setShowRouteItemSelector] = useState(false);
-  const [current_truck_route, setCurrentTruckRoute] = useState<TruckRoute | undefined>(undefined);
-  const [current_item_ref_number, setCurrentItemRefNumber] = useState<number | undefined>(undefined);
-
+  const [current_truck_route, setCurrentTruckRoute] = useState<
+    TruckRoute | undefined
+  >(undefined);
+  const [current_item_ref_number, setCurrentItemRefNumber] = useState<
+    number | undefined
+  >(undefined);  
 
   const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
     bindActionCreators(actionCreators, dispatch);
@@ -40,11 +45,13 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     return <div></div>;
   }
 
-  const onInsertRouteItem = (route_item_ref_number:number, truck_route: TruckRoute) => {
-    setCurrentTruckRoute(truck_route)
-    setCurrentItemRefNumber(route_item_ref_number)
-    setShowRouteItemSelector(true)
-
+  const onInsertRouteItem = (
+    route_item_ref_number: number,
+    truck_route: TruckRoute
+  ) => {
+    setCurrentTruckRoute(truck_route);
+    setCurrentItemRefNumber(route_item_ref_number);
+    setShowRouteItemSelector(true);
   };
 
   const saveRoute = async (truck_route: TruckRoute) => {
@@ -66,6 +73,31 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   const updateRoute = (truck_route: TruckRoute) => {
     updateTruckRoute(truck_route);
   };
+
+  const reCalculateRoute = async (truck_route: TruckRoute) => {
+    const route_item_ids = truck_route.route_items;
+    const route_items = route_item_ids.map((id, index) => {
+      const route_type = truck_route.route_types[index];
+      if (route_type == "Depot") {
+        return depots.find((depot) => depot.id === id);
+      } else if (route_type == "Landfill") {
+        return landfills.find((landfill) => landfill.id === id);
+      } else {
+        return orders.find((order) => order.id === id);
+      }
+    }) as Route_Item[];
+
+    const response = await RouteQueryService.analyzeRoute(route_items)
+    if(response.status === "OK"){
+      console.log(response.data)
+    }else{
+      setAlert("Route Analysis failed. Please try again later.", "error", 3000, alert_data.id + 1);
+    }
+
+
+
+  };
+
 
   const toggleTableVisibility = (index: number) => {
     setVisibleTables((prevVisibleTables) =>
@@ -90,7 +122,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     const rows = [];
     const num_of_items = truck_route.route_items.length;
     for (let i = 0; i < num_of_items; i++) {
-      const item_ref_number = i+1;
+      const item_ref_number = i + 1;
       let route_type = truck_route.route_types[i];
       const item_key = truck_route.route_items[i];
       const distance = truck_route.distances[i];
@@ -146,21 +178,27 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
       <div key={`${Date.now()}-${Math.random()}`} className="mt-4">
         <div
           onClick={() => toggleTableVisibility(index)}
-          className="flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
+          className={
+            current_route.total_distance > 0
+              ? "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
+              : "flex items-center justify-between p-4 text-lg bg-red-100 text-gray-800 border border-red-300 rounded-md cursor-pointer hover:bg-red-200 hover:text-gray-900 focus:outline-none"
+          }
         >
           <div className="flex flex-row w-full">
             <div className="flex flex-grow justify-start">
               Route: {index + 1}
             </div>
-            {current_route.total_distance > 0 && (            <div className="">
-              Total Distance: {current_route.total_distance} | Total Duration:
-              {current_route.total_duration}
-            </div>)}
-            {current_route.total_distance == 0 && (            <div className="">
-              The distance and duration will need to be re-calculated
-              </div>)
-              }
-
+            {current_route.total_distance > 0 && (
+              <div className="">
+                Total Distance: {current_route.total_distance} | Total Duration:
+                {current_route.total_duration}
+              </div>
+            )}
+            {current_route.total_distance == 0 && (
+              <div className="text-black">
+                The distances and durations need to be re-calculated
+              </div>
+            )}
           </div>
           <button
             onClick={(e) => {
@@ -175,7 +213,13 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
         {visibleTables.includes(index) && (
           <div className="">
             <table className="min-w-full  mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
-              <thead className="bg-gray-50">
+              <thead
+                className={
+                  current_route.total_distance === 0
+                    ? "bg-gray-100"
+                    : "bg-gray-100"
+                }
+              >
                 <tr>
                   <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Type
@@ -210,6 +254,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
                   Save Route
                 </button>
               )}
+              <button
+                onClick={() => reCalculateRoute(current_route)}
+                className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
+              >
+                Recalculate
+              </button>
             </div>
           </div>
         )}
@@ -217,15 +267,20 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     ));
   };
 
-
-
   return (
     <div>
       {insertTruckRoutes()}
       {confirmDeleteActive && (
         <ConfirmDelete setActive={setConfirmDeleteActive} />
       )}
-            {showRouteItemSelector && (<RouteItemSelector truck_route={current_truck_route} item_ref_number={current_item_ref_number} setShowRouteItemSelector={setShowRouteItemSelector} ordersInRoutes={ordersInRoutes} />)}
+      {showRouteItemSelector && (
+        <RouteItemSelector
+          truck_route={current_truck_route}
+          item_ref_number={current_item_ref_number}
+          setShowRouteItemSelector={setShowRouteItemSelector}
+          ordersInRoutes={ordersInRoutes}
+        />
+      )}
     </div>
   );
 };

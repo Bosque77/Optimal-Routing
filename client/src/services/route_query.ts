@@ -7,7 +7,7 @@ const createRoutesUrl =
 const getRoutesUrl =
   "https://f6vrxsc1l7.execute-api.us-west-1.amazonaws.com/Prod/getRoutes";
 const analyzeRoutesUrl =
-  "https://f6vrxsc1l7.execute-api.us-west-1.amazonaws.com/Prod/analyzeRoute";
+  "https://99vqvr7812.execute-api.us-west-1.amazonaws.com/analyzeRoute";
 
 const createRoutes = async (route_query: RouteQuery) => {
   try {
