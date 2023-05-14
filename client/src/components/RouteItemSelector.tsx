@@ -15,6 +15,7 @@ interface prop {
   ordersInRoutes: Set<string>;
   truck_route: TruckRoute | undefined;
   item_ref_number: number | undefined;
+  truck_route_index: number
 }
 
 const RouteItemSelector = ({
@@ -22,6 +23,7 @@ const RouteItemSelector = ({
   ordersInRoutes,
   truck_route ,
   item_ref_number,
+  truck_route_index,
 }: prop) => {
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
@@ -44,8 +46,8 @@ const RouteItemSelector = ({
       truck_route.route_types.splice(item_ref_number, 0, route_item.type)
     }
 
-    const updated_routes = currentRoutes.map((route) =>  {
-      if (route.id === truck_route?.id) {
+    const updated_routes = currentRoutes.map((route,current_index) =>  {
+      if (current_index === truck_route_index) {
         return truck_route;
       } else {
         return route;
