@@ -21,6 +21,23 @@ def analyzeRoute(route_items):
 
     print('sending back the route data')
     route_data = asyncio.run(google_distance_handler.getRouteDistances(urls))
+    distances = []
+    durations = []
+    total_distance = 0
+    total_duration = 0
+    for data in route_data:
+        distances.append(data['distance'])
+        durations.append(data['duration'])
+        total_distance += data['distance']
+        total_duration += data['duration']
+
+    route_data = {
+        'distances': distances,
+        'durations': durations,
+        'total_distance': total_distance,
+        'total_duration': total_duration
+    }
+
 
     return route_data
 

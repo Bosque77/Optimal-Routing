@@ -5,7 +5,7 @@ import { RouteQuery, Route_Item } from "../../../shared/types";
 const createRoutesUrl =
   "https://99vqvr7812.execute-api.us-west-1.amazonaws.com/createRoutes";
 const getRoutesUrl =
-  "https://f6vrxsc1l7.execute-api.us-west-1.amazonaws.com/Prod/getRoutes";
+  "https://99vqvr7812.execute-api.us-west-1.amazonaws.com/getRoutes";
 const analyzeRoutesUrl =
   "https://99vqvr7812.execute-api.us-west-1.amazonaws.com/analyzeRoute";
 

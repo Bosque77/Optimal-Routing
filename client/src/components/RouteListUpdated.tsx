@@ -33,7 +33,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   >(undefined);
   const [current_item_ref_number, setCurrentItemRefNumber] = useState<
     number | undefined
-  >(undefined);  
+  >(undefined);
 
   const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
     bindActionCreators(actionCreators, dispatch);
@@ -70,8 +70,20 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     }
   };
 
-  const updateRoute = (truck_route: TruckRoute) => {
-    updateTruckRoute(truck_route);
+  const updateRoute = async (truck_route: TruckRoute) => {
+    const response = (await updateTruckRoute(
+      truck_route
+    )) as unknown as HttpResponse;
+    if (response.status === "ERROR") {
+      setAlert(
+        "Route Update failed. Please try again later.",
+        "error",
+        3000,
+        alert_data.id + 1
+      );
+    } else {
+      setAlert("Route Updated Succesfully", "success", 3000, alert_data.id + 1);
+    }
   };
 
   const reCalculateRoute = async (truck_route: TruckRoute) => {
@@ -87,17 +99,51 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
       }
     }) as Route_Item[];
 
-    const response = await RouteQueryService.analyzeRoute(route_items)
-    if(response.status === "OK"){
-      console.log(response.data)
-    }else{
-      setAlert("Route Analysis failed. Please try again later.", "error", 3000, alert_data.id + 1);
+    const response = await RouteQueryService.analyzeRoute(route_items);
+    if (response.status === "OK") {
+      const route_data = response.data as unknown as any;
+      setAlert("Route Analysis successful", "success", 3000, alert_data.id + 1);
+      truck_route.distances = route_data.distances;
+      truck_route.durations = route_data.durations;
+      truck_route.total_distance = route_data.total_distance;
+      truck_route.total_duration = route_data.total_duration;
+
+      // Format distances in the truck_route object
+      truck_route.distances = truck_route.distances.map((distance) =>
+        parseFloat(distance.toFixed(2))
+      );
+
+      // Format durations in the truck_route object
+      truck_route.durations = truck_route.durations.map((duration) =>
+        parseFloat(duration.toFixed(2))
+      );
+
+      // Format total distance in the truck_route object
+      truck_route.total_distance = parseFloat(
+        truck_route.total_distance.toFixed(2)
+      );
+
+      // Format total duration in the truck_route object
+      truck_route.total_duration = parseFloat(
+        truck_route.total_duration.toFixed(2)
+      );
+
+      const new_current_routes = currentRoutes.map((route) => {
+        if (route.id === truck_route.id) {
+          return truck_route;
+        }
+        return route;
+      });
+      setCurrentRoutes(new_current_routes);
+    } else {
+      setAlert(
+        "Route Analysis failed. Please try again later.",
+        "error",
+        3000,
+        alert_data.id + 1
+      );
     }
-
-
-
   };
-
 
   const toggleTableVisibility = (index: number) => {
     setVisibleTables((prevVisibleTables) =>
@@ -174,97 +220,120 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   };
 
   const insertTruckRoutes = () => {
-    return currentRoutes.map((current_route, index) => (
-      <div key={`${Date.now()}-${Math.random()}`} className="mt-4">
-        <div
-          onClick={() => toggleTableVisibility(index)}
-          className={
-            current_route.total_distance > 0
-              ? "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
-              : "flex items-center justify-between p-4 text-lg bg-red-100 text-gray-800 border border-red-300 rounded-md cursor-pointer hover:bg-red-200 hover:text-gray-900 focus:outline-none"
-          }
-        >
-          <div className="flex flex-row w-full">
-            <div className="flex flex-grow justify-start">
-              Route: {index + 1}
-            </div>
-            {current_route.total_distance > 0 && (
-              <div className="">
-                Total Distance: {current_route.total_distance} | Total Duration:
-                {current_route.total_duration}
-              </div>
-            )}
-            {current_route.total_distance == 0 && (
-              <div className="text-black">
-                The distances and durations need to be re-calculated
-              </div>
-            )}
-          </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteRoute(index);
-            }}
-            className="text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md active:scale-95"
-          >
-            <TrashIcon className="w-6 h-6 ml-6" />
-          </button>
-        </div>
-        {visibleTables.includes(index) && (
-          <div className="">
-            <table className="min-w-full  mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
-              <thead
-                className={
-                  current_route.total_distance === 0
-                    ? "bg-gray-100"
-                    : "bg-gray-100"
-                }
-              >
-                <tr>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Type
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Name
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Distance
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Duration
-                  </th>
-                  <th className="w-10"></th> {/* New column for arrow symbol */}
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-100">
-                {insertRows(current_route)}
-              </tbody>
-            </table>
+    return currentRoutes.map((current_route, index) => {
+      const totalDurationHours = Math.floor(current_route.total_duration / 60);
+      const totalDurationMinutes = Math.floor(
+        current_route.total_duration % 60
+      );
 
-            <div className="flex w-full justify-end ">
-              {current_route.id ? (
-                <button className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95">
-                  Update Route
-                </button>
-              ) : (
+      return (
+        <div key={`${Date.now()}-${Math.random()}`} className="mt-4">
+          <div
+            onClick={() => toggleTableVisibility(index)}
+            className={
+              current_route.total_distance > 0
+                ? "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
+                : "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-red-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
+            }
+          >
+            <div className="flex flex-row w-full">
+              <div className="flex flex-grow justify-start">
+                Route: {index + 1}
+              </div>
+              {current_route.total_distance > 0 && (
+                <div className="inline-block px-3 py-1 text-sm font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded-full">
+                  Total Distance: {current_route.total_distance} miles | Total
+                  Duration:{" "}
+                  {totalDurationHours > 0 && (
+                    <span>
+                      {totalDurationHours} hour
+                      {totalDurationHours > 1 ? "s" : ""}{" "}
+                    </span>
+                  )}
+                  {totalDurationMinutes > 0 && (
+                    <span>
+                      {totalDurationMinutes} minute
+                      {totalDurationMinutes > 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
+              )}
+              {current_route.total_distance == 0 && (
+                <div className="text-black">
+                  The distances and durations need to be re-calculated
+                </div>
+              )}
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteRoute(index);
+              }}
+              className="text-gray-700 hover:text-black hover:bg-gray-200 focus:outline-none rounded-md active:scale-95"
+            >
+              <TrashIcon className="w-6 h-6 ml-6" />
+            </button>
+          </div>
+          {visibleTables.includes(index) && (
+            <div className="">
+              <table className="min-w-full  mt-2 bg-white border border-gray-200 divide-y divide-gray-100 ">
+                <thead
+                  className={
+                    current_route.total_distance === 0
+                      ? "bg-gray-100"
+                      : "bg-gray-100"
+                  }
+                >
+                  <tr>
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      Type
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      Name
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      Distance
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      Duration
+                    </th>
+                    <th className="w-10"></th>{" "}
+                    {/* New column for arrow symbol */}
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-100">
+                  {insertRows(current_route)}
+                </tbody>
+              </table>
+
+              <div className="flex w-full justify-end ">
+                {current_route.id ? (
+                  <button
+                    onClick={() => updateRoute(current_route)}
+                    className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
+                  >
+                    Update Route
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => saveRoute(current_route)}
+                    className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
+                  >
+                    Save Route
+                  </button>
+                )}
                 <button
-                  onClick={() => saveRoute(current_route)}
+                  onClick={() => reCalculateRoute(current_route)}
                   className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
                 >
-                  Save Route
+                  Recalculate
                 </button>
-              )}
-              <button
-                onClick={() => reCalculateRoute(current_route)}
-                className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
-              >
-                Recalculate
-              </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    ));
+          )}
+        </div>
+      );
+    });
   };
 
   return (

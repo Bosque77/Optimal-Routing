@@ -22,8 +22,11 @@ async def getRouteDistances(urls):
         for response_object in api_response_distances:
             distance = response_object['rows'][0]['elements'][0]['distance']['value']
             duration = response_object['rows'][0]['elements'][0]['duration']['value']
+            
+            distance_miles = distance / 1609.34
+            duration_minutes = duration / 60
 
-            dist_dur = {'distance':distance,'duration':duration}
+            dist_dur = {'distance':distance_miles,'duration':duration_minutes}
             distances_and_durations.append(dist_dur)
 
         return distances_and_durations
