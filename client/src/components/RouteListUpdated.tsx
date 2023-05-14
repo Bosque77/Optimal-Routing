@@ -55,18 +55,22 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   };
 
   const saveRoute = async (truck_route: TruckRoute) => {
-    const response = (await createTruckRoute(
-      truck_route
-    )) as unknown as HttpResponse;
-    if (response.status === "ERROR") {
-      setAlert(
-        "Route Creation failed. Please try again later.",
-        "error",
-        3000,
-        alert_data.id + 1
-      );
+    if (truck_route.id) {
+      updateRoute(truck_route);
     } else {
-      setAlert("Route Created", "success", 3000, alert_data.id + 1);
+      const response = (await createTruckRoute(
+        truck_route
+      )) as unknown as HttpResponse;
+      if (response.status === "ERROR") {
+        setAlert(
+          "Route Creation failed. Please try again later.",
+          "error",
+          3000,
+          alert_data.id + 1
+        );
+      } else {
+        setAlert("Route Created", "success", 3000, alert_data.id + 1);
+      }
     }
   };
 
@@ -153,11 +157,21 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     );
   };
 
-  const deleteRoute = (index: number) => {
+  const deleteRoute = async (index: number) => {
     console.log("inside delete route");
     let current_route = currentRoutes[index];
     if (current_route.id) {
-      deleteTruckRoute(current_route);
+      const response = await deleteTruckRoute(current_route) as unknown as HttpResponse;
+      if (response.status === "ERROR") {
+        setAlert(
+          "Route Deletion failed. Please try again later.",
+          "error",
+          3000,
+          alert_data.id + 1
+        );
+      } else {
+        setAlert("Route Deleted", "success", 3000, alert_data.id + 1);
+      }
     } else {
       let updated_routes = currentRoutes.filter((route, i) => i !== index);
       setCurrentRoutes(updated_routes);
@@ -307,12 +321,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
               </table>
 
               <div className="flex w-full justify-end ">
-                {current_route.id ? (
+                {current_route.total_distance == 0 ? (
                   <button
-                    onClick={() => updateRoute(current_route)}
+                    onClick={() => reCalculateRoute(current_route)}
                     className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
                   >
-                    Update Route
+                    Recalculate
                   </button>
                 ) : (
                   <button
@@ -322,12 +336,6 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
                     Save Route
                   </button>
                 )}
-                <button
-                  onClick={() => reCalculateRoute(current_route)}
-                  className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
-                >
-                  Recalculate
-                </button>
               </div>
             </div>
           )}

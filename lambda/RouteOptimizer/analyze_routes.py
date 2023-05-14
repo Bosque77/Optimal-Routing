@@ -42,27 +42,3 @@ def analyzeRoute(route_items):
     return route_data
 
 
-
-
-def scrapeGoogleHomePage():
-    """
-    scrape the home page of google and display the top 10
-    most recent headlines
-    """
-    url = 'https://www.google.com'
-    page = requests.get(url)
-    soup = BeautifulSoup(page.text, 'html.parser')
-    headlines = soup.find_all('h3')
-    for i in range(10):
-        print(headlines[i].text)
-
-
-
-
-
-if __name__=="__main__":
-    # file = open('./json_objects/route_items.json')
-    # route_items = json.load(file)
-    # route_data = analyzeRoute(route_items)
-    # print('finished')
-    scrapeGoogleHomePage

@@ -1,3 +1,4 @@
+import math
 from typing import List
 from config import DISTANCE_MATRIX_URL, GOOGLE_API_KEY
 import asyncio
@@ -31,8 +32,10 @@ class Route:
 
         computed_distances_and_durations = asyncio.run(google_distance_handler.getRouteDistances(urls))
         for dist_and_dur in computed_distances_and_durations:
-            self.distances.append(dist_and_dur['distance'])
-            self.durations.append(dist_and_dur['duration'])
+            distance_miles = round(dist_and_dur['distance'],2)
+            duration_minutes = int(dist_and_dur['duration'])
+            self.distances.append(distance_miles)
+            self.durations.append(duration_minutes)
 
         for distance in self.distances:
             self.total_distance += distance
@@ -52,8 +55,8 @@ class Route:
             'route_objects': json_route_objects,
             'distances': self.distances,
             'durations': self.durations,
-            'total_distance': self.total_distance,
-            'total_duration': self.total_duration
+            'total_distance': round(self.total_distance,2),
+            'total_duration': int(self.total_duration)
         }
 
         return json_route_object
@@ -72,11 +75,11 @@ class RouteOption:
             self.total_distance += route.total_distance
             self.total_duration += route.total_duration
 
-    def computeTotalDistance(self):
+    # def computeTotalDistance(self):
 
-        for route in self.routes:
-            route_distance = route.computeTotalDistance()
-            route_duration = route.computeTotalDuration()
+    #     for route in self.routes:
+    #         route_distance = route.computeTotalDistance()
+    #         route_duration = route.computeTotalDuration()
 
     def toJson(self):
         print('inside route option to JSON')
