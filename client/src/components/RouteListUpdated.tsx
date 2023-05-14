@@ -3,6 +3,8 @@ import { HttpResponse, Order, TruckRoute } from "../../../shared/types";
 import React, { useContext, useState } from "react";
 import { State, actionCreators } from "../state";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import {MinusCircleIcon} from "@heroicons/react/24/outline";
+
 import {
   SelectedRouteItemsContext,
   SelectedRouteItemsContextType,
@@ -161,7 +163,9 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     console.log("inside delete route");
     let current_route = currentRoutes[index];
     if (current_route.id) {
-      const response = await deleteTruckRoute(current_route) as unknown as HttpResponse;
+      const response = (await deleteTruckRoute(
+        current_route
+      )) as unknown as HttpResponse;
       if (response.status === "ERROR") {
         setAlert(
           "Route Deletion failed. Please try again later.",
@@ -216,6 +220,14 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="text-sm text-gray-900">{duration}</div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <button
+              onClick={() => onDeleteRouteItem()}
+              className=""
+            >
+              <MinusCircleIcon className="h-5 w-5 hover:text-black hover:scale-110 text-gray-900 active:scale-95" aria-hidden="true" />
+            </button>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
@@ -312,6 +324,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
                       Duration
                     </th>
                     <th className="w-10"></th>{" "}
+                    <th className="w-10"></th>{" "}
                     {/* New column for arrow symbol */}
                   </tr>
                 </thead>
@@ -343,6 +356,11 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
       );
     });
   };
+
+  const onDeleteRouteItem = () => {
+    console.log('pause here');
+  };
+
 
   return (
     <div>
