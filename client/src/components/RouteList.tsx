@@ -225,6 +225,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           route_type = route_item.dumpster_size + " Yard" + " Pickup";
         }
       }
+      
 
       rows.push(
         <tr key={`${Date.now()}-${Math.random()}`}>
@@ -254,15 +255,29 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
             </button>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
+            {i === 0 && 
+                   <div className="absolute top-0 left-[1rem] mt-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
+                   <span
+                     onClick={() =>
+                       onInsertRouteItem(0, truck_route, index)
+                     }
+                     className="bg-none text-black cursor-pointer"
+                   >
+                     {"<"}
+                   </span>
+                   
+                 </div>
+            }
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
                 onClick={() =>
-                  onInsertRouteItem(item_ref_number, truck_route, index)
+                  onInsertRouteItem(item_ref_number+1, truck_route, index)
                 }
                 className="bg-none text-black cursor-pointer"
               >
                 {"<"}
               </span>
+              
             </div>
           </td>
         </tr>
