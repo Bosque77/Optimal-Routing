@@ -16,10 +16,6 @@ routeRouter.get(
       const user_id = user._id;
       const region_id = req.query.region as string;
       const date = req.query.date as string;
-      console.log('about to send the mongo db route request')
-      console.log(user_id)
-      console.log(region_id)
-      console.log(date)
       const routes = await routeService.getEntriesByRegionAndDate(
         user_id,
         region_id,
@@ -37,12 +33,12 @@ routeRouter.get(
 );
 
 routeRouter.put("/:id", async (req: any, res) => {
-  console.log("inside order put request");
+  console.log("inside route put request");
   try {
-    const updated_order = req.body;
-    const order_id = req.params.id;
-    const order = await Route.findByIdAndUpdate(order_id, { ...updated_order });
-    res.status(200).send(order);
+    const updated_route = req.body;
+    const route_id = req.params.id;
+    const route = await Route.findByIdAndUpdate(route_id, { ...updated_route },    { new: true });
+    res.status(200).send(route);
   } catch (error) {
     res.status(500).send("Error saving the order");
   }

@@ -189,7 +189,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     const rows = [];
     const num_of_items = truck_route.route_items.length;
     for (let i = 0; i < num_of_items; i++) {
-      const item_ref_number = i + 1;
+      const item_ref_number = i ;
       let route_type = truck_route.route_types[i];
       const item_key = truck_route.route_items[i];
       const distance = truck_route.distances[i];
@@ -362,6 +362,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
 
   const onDeleteRouteItem = (item_ref_number: number, truck_route: TruckRoute, index: number) => {
     console.log('about to delete the route item')
+    console.log(item_ref_number)
     console.log(truck_route)
     const updated_truck_route = {...truck_route}
     updated_truck_route.route_items.splice(item_ref_number,1)

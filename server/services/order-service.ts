@@ -14,7 +14,7 @@ const getEntriesByRegionAndDate = async (user_id: string, region_id: string, dat
 const updateOrder = async (order_id: string, updated_order: any)=>  {
     // updates an order in the database
     // returns the updated order
-    const order = await Order.findByIdAndUpdate(order_id, { ...updated_order });
+    const order = await Order.findByIdAndUpdate(order_id, { ...updated_order },  { new: true });
     return order
 }
 
