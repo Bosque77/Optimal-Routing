@@ -67,7 +67,6 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
   }
 
 
-
   const computeRoute = async () => {
     const full_selected_orders = filteredOrders.filter((order) => selectedOrders.has(order.id));
     const full_selected_landfills = landfills.filter((landfill) => selectedLandfills.has(landfill.id));
@@ -94,9 +93,6 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
 
 
   }
-
-
-
 
 
   const handleOrderSelection = (orderId: string, isChecked: boolean) => {

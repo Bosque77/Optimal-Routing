@@ -1,9 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { HttpResponse, Order, TruckRoute, Route_Item  } from "../../../shared/types";
-import React, { useContext, useState} from "react";
+import {
+  HttpResponse,
+  Order,
+  TruckRoute,
+  Route_Item,
+} from "../../../shared/types";
+import React, { useContext, useState } from "react";
 import { State, actionCreators } from "../state";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import {MinusCircleIcon} from "@heroicons/react/24/outline";
+import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 import {
   SelectedRouteItemsContext,
@@ -11,7 +17,7 @@ import {
 } from "./SelectedRouteItemsContext";
 import { bindActionCreators } from "redux";
 import ConfirmDelete from "./ConfirmDelete";
-import RouteItemSelector from "../components/RouteItemSelector";
+import RouteItemSelector from "./RouteItemSelector";
 import RouteQueryService from "../services/route_query";
 
 interface prop {
@@ -51,15 +57,19 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
   const onInsertRouteItem = (
     route_item_ref_number: number,
     truck_route: TruckRoute,
-    index: number,
+    index: number
   ) => {
     setCurrentTruckRoute(truck_route);
     setCurrentItemRefNumber(route_item_ref_number);
     setShowRouteItemSelector(true);
+    console.log(index)
     setCurrentTruckRouteIndex(index);
   };
 
-  const saveRoute = async (truck_route: TruckRoute, truck_route_index: number) => {
+  const saveRoute = async (
+    truck_route: TruckRoute,
+    truck_route_index: number
+  ) => {
     if (truck_route.id) {
       updateRoute(truck_route);
     } else {
@@ -95,7 +105,10 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     }
   };
 
-  const reCalculateRoute = async (truck_route: TruckRoute, truck_route_index: number) => {
+  const reCalculateRoute = async (
+    truck_route: TruckRoute,
+    truck_route_index: number
+  ) => {
     const route_item_ids = truck_route.route_items;
     const route_items = route_item_ids.map((id, index) => {
       const route_type = truck_route.route_types[index];
@@ -187,9 +200,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
 
   const insertRows = (truck_route: TruckRoute, index: number) => {
     const rows = [];
+
     const num_of_items = truck_route.route_items.length;
+
+    // adding rows to the route list based on number of route items
     for (let i = 0; i < num_of_items; i++) {
-      const item_ref_number = i ;
+      const item_ref_number = i;
       let route_type = truck_route.route_types[i];
       const item_key = truck_route.route_items[i];
       const distance = truck_route.distances[i];
@@ -226,16 +242,23 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
             <button
-              onClick={() => onDeleteRouteItem(item_ref_number, truck_route, index)}
+              onClick={() =>
+                onDeleteRouteItem(item_ref_number, truck_route, index)
+              }
               className=""
             >
-              <MinusCircleIcon className="h-5 w-5 hover:text-black hover:scale-110 text-gray-900 active:scale-95" aria-hidden="true" />
+              <MinusCircleIcon
+                className="h-5 w-5 hover:text-black hover:scale-110 text-gray-900 active:scale-95"
+                aria-hidden="true"
+              />
             </button>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
-                onClick={() => onInsertRouteItem(item_ref_number, truck_route, index)}
+                onClick={() =>
+                  onInsertRouteItem(item_ref_number, truck_route, index)
+                }
                 className="bg-none text-black cursor-pointer"
               >
                 {"<"}
@@ -245,6 +268,24 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
         </tr>
       );
     }
+
+    // if there are no route items, then adding button to add route items
+    if (num_of_items === 0) {
+      rows.push(
+        <tr key={`${Date.now()}-${Math.random()}`}>
+          <td className="px-6 py-4 whitespace-nowrap ">
+            <button
+              onClick={() => onInsertRouteItem(0, truck_route, index)}
+              className="text-sm text-gray-900 hover:text-black hover:scale-110 active:scale-95 flex"
+            >
+              <PlusIcon className="h-5 w-5 mr-2" />
+              Add Route Item
+            </button>
+          </td>
+        </tr>
+      );
+    }
+
     return rows;
   };
 
@@ -326,8 +367,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
                     <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                       Duration
                     </th>
-                    <th className="w-10"></th>{" "}
-                    <th className="w-10"></th>{" "}
+                    <th className="w-10"></th> <th className="w-10"></th>{" "}
                     {/* New column for arrow symbol */}
                   </tr>
                 </thead>
@@ -339,7 +379,9 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
               <div className="flex w-full justify-end ">
                 {current_route.total_distance == 0 ? (
                   <button
-                    onClick={() => reCalculateRoute(current_route, truck_route_index)}
+                    onClick={() =>
+                      reCalculateRoute(current_route, truck_route_index)
+                    }
                     className="mr-4 mt-2 px-4 py-2 rounded bg-gray-100 shadow hover:text-white hover:bg-slate-700 active:scale-95"
                   >
                     Recalculate
@@ -360,22 +402,29 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     });
   };
 
-  const onDeleteRouteItem = (item_ref_number: number, truck_route: TruckRoute, index: number) => {
-    console.log('about to delete the route item')
-    console.log(item_ref_number)
-    console.log(truck_route)
-    const updated_truck_route = {...truck_route}
-    updated_truck_route.route_items.splice(item_ref_number,1)
-    updated_truck_route.route_types.splice(item_ref_number,1)
-    updated_truck_route.distances = []
-    updated_truck_route.durations = []
-    updated_truck_route.total_distance = 0
-    updated_truck_route.total_duration = 0
-    setCurrentRoutes(currentRoutes.map((route, current_index) => current_index === index ? updated_truck_route : route))
+  const onDeleteRouteItem = (
+    item_ref_number: number,
+    truck_route: TruckRoute,
+    index: number
+  ) => {
+    console.log("about to delete the route item");
+    console.log(item_ref_number);
+    console.log(truck_route);
+    const updated_truck_route = { ...truck_route };
+    updated_truck_route.route_items.splice(item_ref_number, 1);
+    updated_truck_route.route_types.splice(item_ref_number, 1);
+    updated_truck_route.distances = [];
+    updated_truck_route.durations = [];
+    updated_truck_route.total_distance = 0;
+    updated_truck_route.total_duration = 0;
+    setCurrentRoutes(
+      currentRoutes.map((route, current_index) =>
+        current_index === index ? updated_truck_route : route
+      )
+    );
 
-    console.log('pause here');
+    console.log("pause here");
   };
-
 
   return (
     <div>

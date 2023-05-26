@@ -14,8 +14,7 @@ import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 import { Region, TruckRoute } from "../../../../shared/types";
 
-
-import RouteListUpdated from "../../components/RouteListUpdated";
+import RouteListUpdated from "../../components/RouteList";
 
 const RoutePage = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ const RoutePage = () => {
   const depots = useSelector((state: State) => state.depots);
   const routes = useSelector((state: State) => state.routes);
 
-
   const [currentRoutes, setCurrentRoutes] = useState<TruckRoute[]>(routes);
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedDepots, setSelectedDepots] = useState<Set<string>>(new Set());
@@ -33,7 +31,6 @@ const RoutePage = () => {
     new Set()
   );
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
-
 
   const {
     initializeOrders,
@@ -56,11 +53,9 @@ const RoutePage = () => {
     initializeTruckRoutes(region, selectedDate.toDateString());
   }, [selectedDate]);
 
-
   useEffect(() => {
     setCurrentRoutes(routes);
   }, [routes]);
-
 
   const getOrdersInRoutes = (routes: TruckRoute[]) => {
     const ordersInRoutes = new Set<string>();
@@ -72,6 +67,20 @@ const RoutePage = () => {
       });
     });
     return ordersInRoutes;
+  };
+
+  const addCustomRoute = () => {
+    const newRoute: TruckRoute = {
+      route_items: [],
+      route_types: [],
+      distances: [],
+      durations: [],
+      total_distance : 0,
+      total_duration : 0,
+      date: selectedDate.toDateString(),
+      region_id: region.id,
+    };
+    setCurrentRoutes([...currentRoutes, newRoute]);
   };
 
   return (
@@ -94,7 +103,7 @@ const RoutePage = () => {
             setSelectedOrders,
             currentRoutes,
             setCurrentRoutes,
-            selectedDate
+            selectedDate,
           }}
         >
           <div
@@ -116,20 +125,28 @@ const RoutePage = () => {
                 popperPlacement="bottom-start"
               />
               <div className="flex flex-row justify-between mt-8">
-                <Dropdown selected_date={selectedDate} ordersInRoutes={getOrdersInRoutes(currentRoutes)} />
+                <Dropdown
+                  selected_date={selectedDate}
+                  ordersInRoutes={getOrdersInRoutes(currentRoutes)}
+                />
               </div>
             </div>
 
             <div className="flex flex-col bg-white w-full rounded mx-6 shadow overflow-x-auto overflow-hidden">
               <div className=" py-4 ">
                 <div className="w-full text-right px-2 py-2">
-                  <button className="py-2 px-4 bg-gray-100 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right">
+                  <button
+                    className="py-2 px-4 bg-gray-100 rounded shadow hover:text-white hover:bg-slate-700 active:scale-95 text-right"
+                    onClick={() => addCustomRoute()}
+                  >
                     Custom Route
                   </button>
                 </div>
                 {currentRoutes.length > 0 ? (
                   <div className="px-12 ">
-                    <RouteListUpdated ordersInRoutes={getOrdersInRoutes(currentRoutes)} />
+                    <RouteListUpdated
+                      ordersInRoutes={getOrdersInRoutes(currentRoutes)}
+                    />
                   </div>
                 ) : (
                   <>
@@ -148,7 +165,6 @@ const RoutePage = () => {
           </div>
         </SelectedRouteItemsContext.Provider>
       </div>
-
     </div>
   );
 };

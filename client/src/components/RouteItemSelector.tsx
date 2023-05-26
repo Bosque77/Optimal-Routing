@@ -35,16 +35,19 @@ const RouteItemSelector = ({
 
 
   const onSelect = (route_item: RouteObject) => {
-    console.log("on route item selected");
-    console.log(truck_route)
-    if(truck_route && item_ref_number){
+
+    if(truck_route && item_ref_number !== undefined){
       truck_route.distances = []
       truck_route.durations = []
       truck_route.total_distance = 0
       truck_route.total_duration = 0
+      console.log('about the splice it ')
       truck_route.route_items.splice(item_ref_number, 0, route_item.id)
       truck_route.route_types.splice(item_ref_number, 0, route_item.type)
     }
+
+    console.log('logging the updated truck route')
+    console.log(truck_route)
 
     const updated_routes = currentRoutes.map((route,current_index) =>  {
       if (current_index === truck_route_index) {
