@@ -19,11 +19,15 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
     dispatch
   );
 
+  
+
   const alert_data = useSelector((state: State) => state.alert_data);
   const region = useSelector((state: State) => state.setRegion);
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+
+  const filteredOrders = orders.filter((order) => !ordersInRoutes.has(order.id));
 
   const [number_of_trucks, setNumberOfTrucks] = useState("1");
   const [selectedOrdersTable, setSelectedOrdersTable] = useState(false);
@@ -65,7 +69,7 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
 
 
   const computeRoute = async () => {
-    const full_selected_orders = orders.filter((order) => selectedOrders.has(order.id));
+    const full_selected_orders = filteredOrders.filter((order) => selectedOrders.has(order.id));
     const full_selected_landfills = landfills.filter((landfill) => selectedLandfills.has(landfill.id));
     const full_selected_depots = depots.filter((depot) => selectedDepots.has(depot.id));
     const route_query = {
@@ -91,7 +95,7 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
 
   }
 
-  const filteredOrders = orders.filter((order) => !ordersInRoutes.has(order.id));
+
 
 
 
