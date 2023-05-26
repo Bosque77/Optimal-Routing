@@ -62,7 +62,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     setCurrentTruckRoute(truck_route);
     setCurrentItemRefNumber(route_item_ref_number);
     setShowRouteItemSelector(true);
-    console.log(index)
+    console.log(index);
     setCurrentTruckRouteIndex(index);
   };
 
@@ -225,7 +225,6 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           route_type = route_item.dumpster_size + " Yard" + " Pickup";
         }
       }
-      
 
       rows.push(
         <tr key={`${Date.now()}-${Math.random()}`}>
@@ -255,29 +254,25 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
             </button>
           </td>
           <td className="relative right-[-2rem] px-2 py-4 whitespace-nowrap">
-            {i === 0 && 
-                   <div className="absolute top-0 left-[1rem] mt-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
-                   <span
-                     onClick={() =>
-                       onInsertRouteItem(0, truck_route, index)
-                     }
-                     className="bg-none text-black cursor-pointer"
-                   >
-                     {"<"}
-                   </span>
-                   
-                 </div>
-            }
+            {i === 0 && (
+              <div className="absolute top-0 left-[1rem] mt-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
+                <span
+                  onClick={() => onInsertRouteItem(0, truck_route, index)}
+                  className="bg-none text-black cursor-pointer"
+                >
+                  {"<"}
+                </span>
+              </div>
+            )}
             <div className="absolute bottom-0 left-[1rem] mb-[-1.25rem] px-2 py-2 hover:bg-gray-200 hover:text-black rounded active:scale-75 cursor-pointer">
               <span
                 onClick={() =>
-                  onInsertRouteItem(item_ref_number+1, truck_route, index)
+                  onInsertRouteItem(item_ref_number + 1, truck_route, index)
                 }
                 className="bg-none text-black cursor-pointer"
               >
                 {"<"}
               </span>
-              
             </div>
           </td>
         </tr>
@@ -316,9 +311,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
           <div
             onClick={() => toggleTableVisibility(truck_route_index)}
             className={
-              current_route.total_distance > 0
-                ? "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
-                : "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-red-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
+              "flex items-center justify-between p-4 text-lg bg-gray-100 text-gray-800 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 hover:text-gray-900 focus:outline-none"
             }
           >
             <div className="flex flex-row w-full">
@@ -344,7 +337,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
                 </div>
               )}
               {current_route.total_distance == 0 && (
-                <div className="text-black">
+                <div className="inline-block px-3 py-1 text-sm font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded-full">
                   The distances and durations need to be re-calculated
                 </div>
               )}
