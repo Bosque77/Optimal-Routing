@@ -23,18 +23,13 @@ const Alert = () => {
 
 
   useEffect(() => {
-    if (message && id !== displayedId) {
+    if (message && message !== "" && id && id !== -1) {
       setOpen(true);
       setDisplayedId(id);
       const timer = setTimeout(() => {
         setOpen(false);
         console.log('setting timer to false')
 
-        // setAlert(
-        //   "",
-        //   "error",
-        //   3000
-        // );
       }, time);
 
       // Clear the previous timeout when the effect is re-run
@@ -42,7 +37,7 @@ const Alert = () => {
         clearTimeout(timer);
       };
     }
-  }, [alert_data, id,  time]);
+  }, [ id,  time]);
 
 
 

@@ -20,7 +20,6 @@ const HomePage = () => {
     initializeOrders,
     initializeTruckRoutes,
     initializeRegions,
-    setAlert,
   } = bindActionCreators(actionCreators, dispatch);
   const region = useSelector((state: State) => state.setRegion);
   const alert_data = useSelector((state: State) => state.alert_data);
@@ -39,9 +38,6 @@ const HomePage = () => {
     }
   }, [region]);
 
-  const onSuccess = () => {
-    setAlert("OHH YEAAA", "success", 3000, alert_data.id + 1);
-  };
 
   const onCreateRegion = () => {
     setCreateRegionFormActive(true);

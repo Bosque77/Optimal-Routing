@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import icon from "/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state";
-import { useDispatch } from "react-redux";
+import { bindActionCreators }from "redux";
+import { actionCreators, State } from "../../state";
+import { useDispatch, useSelector } from "react-redux";
 
 const SideNav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { setUserToken } = bindActionCreators(actionCreators, dispatch);
+  const alert_data = useSelector((state: State) => state.alert_data);
+  const { setUserToken, setAlert } = bindActionCreators(actionCreators, dispatch);
 
   // useEffect(() => {
   //     M.AutoInit()
@@ -18,6 +19,7 @@ const SideNav = () => {
   const onSignOut = () => {
     console.log("inside onSignOut");
     window.localStorage.clear();
+    setAlert("", "success",3000, alert_data.id)
     setUserToken(null);
     navigate("/");
   };
