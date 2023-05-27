@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import DepotList from "./DepotList";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { TruckIcon } from "@heroicons/react/24/solid";
 import CreateDepotForm from "./CreateDepotForm";
 import ConfirmDelete from "./ConfirmDelete";
 import { Depot } from "../../../shared/types";
 import { State } from "../state";
 import { useSelector } from "react-redux";
 
-
-
-
 const DepotTable = () => {
-
   const depots = useSelector((state: State) => state.depots);
-  
+
   const [showInfo, setShowInfo] = useState(false);
   const [createDepotModalActive, setCreateDepotModalActive] = useState(false);
   const [confirmDeleteActive, setConfirmDeleteActive] = useState(false);
   const [depot, setDepot] = useState<Depot | undefined>(undefined);
 
   const onCreateDepot = () => {
-    setDepot(undefined)
+    setDepot(undefined);
     setCreateDepotModalActive(true);
   };
 
@@ -54,13 +51,29 @@ const DepotTable = () => {
           </button>
         </div>
         <div className="drop-shadow-sm px-4">
-          <DepotList depots={depots} setDepot={setDepot} setCreateDepotModalActive={setCreateDepotModalActive} setConfirmDeleteActive={setConfirmDeleteActive} />
+          {depots.length === 0 ? (
+            <div className="py-4">
+              Add a depot to get started.
+              <div className="py-6">
+                <TruckIcon className="w-16 h-16 text-indigo-400 inline-block ml-2" />
+              </div>
+            </div>
+          ) : (
+            <DepotList
+              depots={depots}
+              setDepot={setDepot}
+              setCreateDepotModalActive={setCreateDepotModalActive}
+              setConfirmDeleteActive={setConfirmDeleteActive}
+            />
+          )}
         </div>
       </div>
       {createDepotModalActive && (
-        <CreateDepotForm setActive={setCreateDepotModalActive} depot={depot}/>
+        <CreateDepotForm setActive={setCreateDepotModalActive} depot={depot} />
       )}
-      {confirmDeleteActive && <ConfirmDelete setActive={setConfirmDeleteActive} depot={depot} />}
+      {confirmDeleteActive && (
+        <ConfirmDelete setActive={setConfirmDeleteActive} depot={depot} />
+      )}
     </div>
   );
 };
