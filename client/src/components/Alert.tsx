@@ -10,34 +10,26 @@ const Alert = () => {
 
   const alert_data = useSelector((state: State) => state.alert_data);
   const dispatch = useDispatch();
-  const {
-    setAlert,
+  const { hideAlert
   } = bindActionCreators(actionCreators, dispatch);
 
-  const id = alert_data.id;
+  const isVisible = alert_data.isVisible;
   const message = alert_data.message;
   const severity = alert_data.severity;
-  const time = alert_data.time;
-  const [open, setOpen] = useState(false);
-  const [displayedId, setDisplayedId] = useState(-1);
 
 
   useEffect(() => {
-    if (message && message !== "" && id && id !== -1) {
-      setOpen(true);
-      setDisplayedId(id);
+    if (isVisible) {
       const timer = setTimeout(() => {
-        setOpen(false);
-        console.log('setting timer to false')
-
-      }, time);
-
+          hideAlert("", severity) // Close alert after timeout
+      }, 3000);
+  
       // Clear the previous timeout when the effect is re-run
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [ id,  time]);
+  }, [isVisible]);
 
 
 
@@ -79,7 +71,7 @@ const Alert = () => {
     }
   };
 
-  return <>{open && get_jsx_msg()}</>;
+  return <>{isVisible == true && message != "" && get_jsx_msg()}</>;
 };
 
 export default Alert;

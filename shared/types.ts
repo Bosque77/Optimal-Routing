@@ -257,8 +257,6 @@ export type Severity = "success" | "error" | "warning" | "info";
 export interface AlertState {
   message: string;
   severity: Severity;
-  time: number;
-  id: number;
   isVisible: boolean;
 }
 

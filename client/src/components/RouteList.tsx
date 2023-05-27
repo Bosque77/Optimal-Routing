@@ -44,7 +44,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     number | undefined
   >(undefined);
 
-  const { deleteTruckRoute, createTruckRoute, updateTruckRoute, setAlert } =
+  const { deleteTruckRoute, createTruckRoute, updateTruckRoute, showAlert } =
     bindActionCreators(actionCreators, dispatch);
 
   const { currentRoutes, setCurrentRoutes, selectedDate } =
@@ -77,14 +77,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
         truck_route
       )) as unknown as HttpResponse;
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Route Creation failed. Please try again later.",
-          "error",
-          3000,
-          alert_data.id + 1
+          "error"
         );
       } else {
-        setAlert("Route Created", "success", 3000, alert_data.id + 1);
+        showAlert("Route Created", "success");
       }
     }
   };
@@ -94,14 +92,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
       truck_route
     )) as unknown as HttpResponse;
     if (response.status === "ERROR") {
-      setAlert(
+      showAlert(
         "Route Update failed. Please try again later.",
-        "error",
-        3000,
-        alert_data.id + 1
+        "error"
       );
     } else {
-      setAlert("Route Updated Succesfully", "success", 3000, alert_data.id + 1);
+      showAlert("Route Updated Succesfully", "success");
     }
   };
 
@@ -124,7 +120,7 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
     const response = await RouteQueryService.analyzeRoute(route_items);
     if (response.status === "OK") {
       const route_data = response.data as unknown as any;
-      setAlert("Route Analysis successful", "success", 3000, alert_data.id + 1);
+      showAlert("Route Analysis successful", "success");
       truck_route.distances = route_data.distances;
       truck_route.durations = route_data.durations;
       truck_route.total_distance = route_data.total_distance;
@@ -158,11 +154,9 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
       });
       setCurrentRoutes(new_current_routes);
     } else {
-      setAlert(
+      showAlert(
         "Route Analysis failed. Please try again later.",
-        "error",
-        3000,
-        alert_data.id + 1
+        "error"
       );
     }
   };
@@ -183,14 +177,12 @@ const RouteListUpdated = ({ ordersInRoutes }: prop) => {
         current_route
       )) as unknown as HttpResponse;
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Route Deletion failed. Please try again later.",
-          "error",
-          3000,
-          alert_data.id + 1
+          "error"
         );
       } else {
-        setAlert("Route Deleted", "success", 3000, alert_data.id + 1);
+        showAlert("Route Deleted", "success");
       }
     } else {
       let updated_routes = currentRoutes.filter((route, i) => i !== index);

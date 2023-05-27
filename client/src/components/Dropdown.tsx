@@ -14,7 +14,7 @@ interface prop {
 
 const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
   const dispatch = useDispatch();
-  const { createTruckRoute, setAlert } = bindActionCreators(
+  const { createTruckRoute, showAlert } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -88,7 +88,7 @@ const DropdownTable = ({ selected_date, ordersInRoutes }: prop) => {
       setCurrentRoutes(new_current_routes);
       
     }else{
-      setAlert(response.message, 'error', 3000, alert_data.id + 1)
+      showAlert(response.message, 'error')
     }
 
 

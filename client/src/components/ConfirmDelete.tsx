@@ -36,7 +36,7 @@ const ConfirmDelete = ({
     deleteDepot,
     deleteVehicle,
     deleteOrder,
-    setAlert,
+    showAlert,
   } = bindActionCreators(actionCreators, dispatch);
 
   const alert_data = useSelector((state: State) => state.alert_data);
@@ -56,13 +56,12 @@ const ConfirmDelete = ({
         ) as unknown as HttpResponse;
         console.log(response)
         if (response.status === "ERROR") {
-          setAlert(
+          showAlert(
             "Error Deleting Landfill. Server is having issues, try again later.",
-            "error",
-            3000, alert_data.id+1
+            "error"
           );
         } else {
-          setAlert("Landfill Deleted Successfully", "info", 3000, alert_data.id+1);
+          showAlert("Landfill Deleted Successfully", "info");
           setActive(false);
         }
       } else if (depot) {
@@ -72,13 +71,12 @@ const ConfirmDelete = ({
         ) as unknown as HttpResponse;
         console.log(response)
         if (response.status === "ERROR") {
-          setAlert(
+          showAlert(
             "Error Deleting Depot. Server is having issues, try again later.",
-            "error",
-            3000,alert_data.id+1
+            "error"
           );
         } else {
-          setAlert("Depot Deleted Successfully", "info", 3000, alert_data.id+1);
+          showAlert("Depot Deleted Successfully", "info");
           setActive(false);
         }
       } else if (order) {
@@ -87,13 +85,12 @@ const ConfirmDelete = ({
         ) as unknown as HttpResponse;
         console.log(response)
         if (response.status === "ERROR") {
-          setAlert(
+          showAlert(
             "Error Deleting Order. Server is having issues, try again later.",
-            "error",
-            3000, alert_data.id+1
+            "error"
           );
         } else {
-          setAlert("Order Deleted Successfully", "info", 3000, alert_data.id+1);
+          showAlert("Order Deleted Successfully", "info");
           setActive(false);
         }
       }

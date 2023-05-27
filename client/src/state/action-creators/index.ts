@@ -419,11 +419,20 @@ export const setUserToken = (user_token: UserToken | null) => {
   };
 };
 
-export const setAlert = (message: string, severity: Severity, time: number, id:number) => {
+export const showAlert = (message: string, severity: Severity) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.SET_ALERT,
-      data: { message: message, severity: severity, time: time, id: id},
+      type: ActionType.SHOW_ALERT,
+      data: { message, severity, isVisible: true },
+    });
+  };
+};
+
+export const hideAlert = (message: string, severity: Severity) => {
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.HIDE_ALERT,
+      data: { message, severity, isVisible: false },
     });
   };
 };

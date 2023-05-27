@@ -12,7 +12,7 @@ const CreateRegionForm = ({ setActive }: Props) => {
   const dispatch = useDispatch();
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const { setAlert, createRegion } = bindActionCreators(
+  const { showAlert, createRegion } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -22,11 +22,9 @@ const CreateRegionForm = ({ setActive }: Props) => {
 
   const submit = async () => {
     if (name === "") {
-      setAlert(
+      showAlert(
         "Please fill out all required fields",
-        "error",
-        3000,
-        alert_data.id + 1
+        "error"
       );
     } else {
       const newRegion: NewRegion = { name, 
@@ -37,14 +35,12 @@ const CreateRegionForm = ({ setActive }: Props) => {
         newRegion
       )) as unknown as HttpResponse;
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Region Creation failed. Please try again later.",
-          "error",
-          3000,
-          alert_data.id + 1
+          "error"
         );
       } else {
-        setAlert("Region Created", "success", 3000, alert_data.id + 1);
+        showAlert("Region Created", "success");
         setActive(false);
       }
     }

@@ -19,7 +19,7 @@ interface prop {
 
 const CreateOrderForm = ({ setActive, order }: prop) => {
   const dispatch = useDispatch();
-  const { setAlert, createOrder, updateOrder } = bindActionCreators(
+  const { showAlert, createOrder, updateOrder } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -78,7 +78,7 @@ const CreateOrderForm = ({ setActive, order }: prop) => {
       longitude === "" ||
       region === null
     ) {
-      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
+      showAlert("Please fill out all required fields", "error");
     } else {
       const delivery_date_str = delivery_date.toDateString();
       const pickup_date_str = pickup_date.toDateString();
@@ -107,13 +107,12 @@ const CreateOrderForm = ({ setActive, order }: prop) => {
       )) as unknown as HttpResponse;
       setLoading(false);
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Order Creation failed. Please try again later.",
-          "error",
-          3000, alert_data.id+1
+          "error"
         );
       } else {
-        setAlert("Order Created", "success", 3000, alert_data.id+1);
+        showAlert("Order Created", "success");
         setActive(false);
       }
     }
@@ -134,7 +133,7 @@ const CreateOrderForm = ({ setActive, order }: prop) => {
       longitude === "" ||
       region === null
     ) {
-      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
+      showAlert("Please fill out all required fields", "error");
     } else {
       const delivery_date_str = delivery_date.toDateString();
       const pickup_date_str = pickup_date.toDateString();
@@ -167,13 +166,12 @@ const CreateOrderForm = ({ setActive, order }: prop) => {
       )) as unknown as HttpResponse;
       setLoading(false);
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Order Update failed. Please try again later.",
-          "error",
-          3000, alert_data.id+1
+          "error"
         );
       } else {
-        setAlert("Order Updated", "success", 3000, alert_data.id+1);
+        showAlert("Order Updated", "success");
         setActive(false);
       }
     }
@@ -191,7 +189,7 @@ const CreateOrderForm = ({ setActive, order }: prop) => {
       const message =
         "Could not find address.  Please try again or manually enter coordinates";
       const severity = "error";
-      setAlert(message, severity, 3000, alert_data.id+1);
+      showAlert(message, severity);
     } else {
       const lat_lng = response.data as LatLng;
       setLatitude(lat_lng.lat.toFixed(3));

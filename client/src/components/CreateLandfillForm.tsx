@@ -13,7 +13,7 @@ interface prop {
 
 const CreateLandfillForm = ({ setActive, landfill }: prop) => {
   const dispatch = useDispatch();
-  const { setAlert, createLandfill, updateLandfill } = bindActionCreators(
+  const { showAlert, createLandfill, updateLandfill } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -55,7 +55,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
       longitude === "" ||
       region === null
     ) {
-      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
+      showAlert("Please fill out all required fields", "error");
     } else {
       const new_landfill: NewLandfill = {
         name,
@@ -75,14 +75,12 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
       )) as unknown as HttpResponse;
       setLoading(false);
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Landfill Creation failed. Please try again later.",
-          "error",
-          3000,
-          alert_data.id+1
+          "error"
         );
       } else {
-        setAlert("Landfill Created", "success", 3000, alert_data.id+1);
+        showAlert("Landfill Created", "success");
         setActive(false);
       }
     }
@@ -103,7 +101,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
       longitude === "" ||
       region === null
     ) {
-      setAlert("Please fill out all required fields", "error", 3000, alert_data.id+1);
+      showAlert("Please fill out all required fields", "error");
     } else {
       const updated_landfill: Landfill = {
         id: landfill.id,
@@ -127,13 +125,12 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
 
       setLoading(false);
       if (response.status === "ERROR") {
-        setAlert(
+        showAlert(
           "Landfill Update failed. Please try again later.",
-          "error",
-          3000, alert_data.id+1
+          "error"
         );
       } else {
-        setAlert("Landfill Updated", "success", 3000, alert_data.id+1);
+        showAlert("Landfill Updated", "success");
         setActive(false);
       }
     }
@@ -152,7 +149,7 @@ const CreateLandfillForm = ({ setActive, landfill }: prop) => {
       const message =
         "Could not find address.  Please try again or manually enter coordinates";
       const severity = "error";
-      setAlert(message, severity, 3000, alert_data.id+1);
+      showAlert(message, severity);
     } else {
       const lat_lng = response.data as LatLng;
       setLatitude(lat_lng.lat.toFixed(3));

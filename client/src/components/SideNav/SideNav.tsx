@@ -9,7 +9,7 @@ const SideNav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert_data = useSelector((state: State) => state.alert_data);
-  const { setUserToken, setAlert } = bindActionCreators(actionCreators, dispatch);
+  const { setUserToken, showAlert } = bindActionCreators(actionCreators, dispatch);
 
   // useEffect(() => {
   //     M.AutoInit()
@@ -19,7 +19,7 @@ const SideNav = () => {
   const onSignOut = () => {
     console.log("inside onSignOut");
     window.localStorage.clear();
-    setAlert("", "success",3000, alert_data.id)
+    showAlert("", "success")
     setUserToken(null);
     navigate("/");
   };
