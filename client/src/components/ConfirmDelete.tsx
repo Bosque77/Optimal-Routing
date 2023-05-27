@@ -33,7 +33,6 @@ const ConfirmDelete = ({
   const dispatch = useDispatch();
   const {
     deleteLandfill,
-    deleteDriver,
     deleteDepot,
     deleteVehicle,
     deleteOrder,
@@ -66,8 +65,6 @@ const ConfirmDelete = ({
           setAlert("Landfill Deleted Successfully", "info", 3000, alert_data.id+1);
           setActive(false);
         }
-      } else if (driver) {
-        deleteDriver(driver);
       } else if (depot) {
         console.log('inside confirm delete')
         const response = await deleteDepot(
@@ -84,8 +81,6 @@ const ConfirmDelete = ({
           setAlert("Depot Deleted Successfully", "info", 3000, alert_data.id+1);
           setActive(false);
         }
-      } else if (vehicle) {
-        deleteVehicle(vehicle);
       } else if (order) {
         const response = await deleteOrder(
           order
