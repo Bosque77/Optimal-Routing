@@ -101,7 +101,7 @@ const OrderTable = () => {
                   Add a order for today or change the date to see the orders for
                   that day.
                 </div>
-                <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-stone-300" />
+                <ClipboardDocumentIcon className="w-20 h-20 my-4 mb-10 black mx-auto text-stone-400" />
               </div>
             )}
             {orders.length > 0 && <OrderList orders={orders} setOrder={setOrder} setConfirmDeleteActive={setConfirmDeleteActive} setCreateOrderModalActive={setCreateOrderModalActive}/>}

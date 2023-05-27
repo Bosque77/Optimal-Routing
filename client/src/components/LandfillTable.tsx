@@ -59,7 +59,7 @@ const LandfillTable = () => {
             <div className="py-4">
               Add a landfill to get started.
               <div className="py-6">
-                <TrashIcon className="w-16 h-16 text-black inline-block ml-2" />
+                <TrashIcon className="w-16 h-16 text-stone-400 inline-block ml-2" />
               </div>
             </div>
           ) : (

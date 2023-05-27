@@ -181,7 +181,7 @@ const CreateDepotForm = ({ setActive, depot }: prop) => {
 
           <h2 className="text-xl font-serif pt-6">Create Depot From</h2>
           <div className="flex flex-row justify-center py-6">
-            <TruckIcon className="w-12 h-12 text-black" />
+            <TruckIcon className="w-12 h-12 text-indigo-400" />
           </div>
           <div className="grid gap-4 grid-cols-2">
             <div className="flex flex-col">

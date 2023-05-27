@@ -20,18 +20,7 @@ const LandfillList = ({
 }: prop) => {
   const dispatch = useDispatch();
 
-  const { updateLandfill } = bindActionCreators(actionCreators, dispatch);
 
-  // const changeLandfillStatus = (landfill: Landfill) => {
-  //   console.log("inside on click");
-  //   const new_landfill = { ...landfill };
-  //   if (landfill.active) {
-  //     new_landfill.active = false;
-  //   } else {
-  //     new_landfill.active = true;
-  //   }
-  //   updateLandfill(new_landfill);
-  // };
 
   const onEditLandfill = (landfill: Landfill) => {
     setLandfill(landfill);

@@ -346,11 +346,14 @@ export const deleteVehicle = (vehicle: Vehicle) => {
 
 export const deleteDepot = (depot: Depot) => {
   return async (dispatch: Dispatch<Action>) => {
-    await depotService.deleteDepot(depot);
-    dispatch({
-      type: ActionType.DELETE_DEPOT,
-      data: depot,
-    });
+    const response = await depotService.deleteDepot(depot);
+    if (response.status === "OK"){
+      dispatch({
+        type: ActionType.DELETE_DEPOT,
+        data: depot,
+      });
+    }
+    return response
   };
 };
 
