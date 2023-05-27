@@ -259,6 +259,7 @@ export interface AlertState {
   severity: Severity;
   time: number;
   id: number;
+  isVisible: boolean;
 }
 
 export interface UserType {

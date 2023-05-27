@@ -7,6 +7,7 @@ const initialState : AlertState = {
     message: '',
     severity: 'success',
     time: 0,
+    isVisible: false,
 }
 
 const alertReducer = (state = initialState, action: Action): AlertState => {
