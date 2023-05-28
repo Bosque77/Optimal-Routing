@@ -3,6 +3,25 @@ import { Depot, HttpResponse, NewDepot, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/api/depots";
 
+
+const getNumOfDepots = async (region_id: string) => {
+  try {
+    const url = baseUrl + "/num_of_depots";
+    const config = {
+      headers: { Authorization: token },
+      params: { region_id: region_id },
+    };
+    const response = await axios.get(url, config);
+    return createSuccessResponse("Depots retrieved", response.data['num_of_depots']);
+  } catch (error) {
+    return createErrorResponse(
+      `Depot retrieval failed for region id: ${region_id}`,
+      error
+    );
+  }
+};
+
+
 const getByRegion = async (region: Region) => {
   try {
     const url = baseUrl + `?region_id=${region.id}`;
@@ -68,4 +87,4 @@ const createNew = async (depot: NewDepot) => {
   }
 };
 
-export default { getAll, put, createNew, deleteDepot, getByRegion };
+export default { getNumOfDepots, getAll, put, createNew, deleteDepot, getByRegion };

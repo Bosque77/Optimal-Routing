@@ -19,6 +19,22 @@ const landfillSchema = z.object({
 
 const landfillRouter = express.Router();
 
+// get number of landfills 
+landfillRouter.get("/num_of_landfills", asyncHandler(async (request: Request, response: Response) => {
+    console.log('getting the number of landfills')
+    const user = request.user as UserType;
+    const user_id = user._id as string;
+    const region_id = request.query.region_id as string;
+    console.log('logging info in the landfill router')
+    console.log(user_id)
+    console.log(region_id)
+    console.log(request.query)
+    const num_of_landfills = await landfillService.getNumOfLandfills(user_id, region_id);
+    console.log(num_of_landfills)
+    response.status(200).json( {num_of_landfills});
+}))
+
+
 
 // get all of the landfills for the user and region specified
 landfillRouter.get(

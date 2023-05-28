@@ -6,6 +6,9 @@ interface prop {
 }
 
 const AddRegionCard = ({ onSave }: prop) => {
+
+
+  
   const [editing, setEditing] = useState(false);
   const [newRegion, setNewRegion] = useState({
     name: "",

@@ -1,6 +1,24 @@
 import Landfill from "../models/landfill-model";
 import * as mongoDB from "mongodb";
 
+
+// get number of landfills
+const getNumOfLandfills = async (
+  user_id: string,
+  region_id: string,
+) => {
+  console.log('inside the landfill service about to submit that MONGO Count')
+  console.log(user_id)
+  console.log(region_id)
+  const landfill_number = (await Landfill.countDocuments({
+    user_id: user_id,
+    region_id: region_id,
+  })) as unknown as number;
+  return landfill_number;
+};
+
+
+
 // create new landfill
 const createLandfill = async (new_landfill: any, user_id: string) => {
   const landfill_object = new Landfill({ ...new_landfill, user_id: user_id });
@@ -45,4 +63,5 @@ export default {
   getEntriesByRegionAndUser,
   updateLandfill,
   deleteLandfill,
+  getNumOfLandfills
 };

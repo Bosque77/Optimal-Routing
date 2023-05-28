@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import useRegionInfo from '../../components/hooks/useRegionInfo';
 
 interface prop {
-  region: any
+  region: any,
+  selectedDate: Date
 }
 
-const RegionCard = ({ region }: prop) => {
+const RegionCard = ({ region, selectedDate }: prop) => {
   const [state, setState] = useState({
     latitude: region.latitude,
     longitude: region.longitude
   });
+
+  const [num_of_orders, num_of_landfills, num_of_depots] = useRegionInfo(region.id, selectedDate)
+
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
@@ -23,15 +29,15 @@ const RegionCard = ({ region }: prop) => {
       <div className="mb-4 space-y-2">
         <div className="flex justify-between items-center">
           <h3 className="font-semibold text-gray-600">Landfills</h3>
-          <p className="text-lg font-bold text-gray-800">{region.landfills}</p>
+          <p className="text-lg font-bold text-gray-800">{num_of_landfills}</p>
         </div>
         <div className="flex justify-between items-center">
           <h3 className="font-semibold text-gray-600">Depots</h3>
-          <p className="text-lg font-bold text-gray-800">{region.depots}</p>
+          <p className="text-lg font-bold text-gray-800">{num_of_depots}</p>
         </div>
         <div className="flex justify-between items-center">
           <h3 className="font-semibold text-gray-600">Daily Orders</h3>
-          <p className="text-lg font-bold text-gray-800">{region.dailyOrders}</p>
+          <p className="text-lg font-bold text-gray-800">{num_of_orders}</p>
         </div>
       </div>
       <div className="flex space-x-2">

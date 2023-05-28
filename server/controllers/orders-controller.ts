@@ -24,6 +24,25 @@ const orderSchema = z.object({
 });
 
 
+// num of orders
+orderRouter.get(
+  "/num_of_orders",
+  asyncHandler(async (req: Request, res: Response) => {
+    console.log('inside number of orders')
+    console.log(req.user)
+    console.log(req.query)
+    const user = req.user as UserType;
+    const user_id = user._id;
+    const region_id = req.query.region_id as string;
+    const date = req.query.date as string;
+    const num_of_orders = await orderService.getNumOfOrders(user_id, region_id, date);
+    console.log(num_of_orders)
+    res.status(200).json({num_of_orders});
+  })
+);
+
+
+
 // create order
 orderRouter.post(
   "/",

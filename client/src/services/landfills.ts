@@ -3,6 +3,26 @@ import { Landfill, NewLandfill, Region } from "../../../shared/types";
 import { token, createSuccessResponse, createErrorResponse } from "./config";
 const baseUrl = "/api/landfills";
 
+
+const getNumOfLandfills = async (region_id: string) => {
+  try {
+    const url = baseUrl + "/num_of_landfills";
+    const config = {
+      headers: { Authorization: token },
+      params: { region_id: region_id },
+    };
+    const response = await axios.get(url, config);
+    return createSuccessResponse("Landfills retrieved", response.data['num_of_landfills']);
+  } catch (error) {
+    return createErrorResponse(
+      `Landfill retrieval failed for region id: ${region_id}`,
+      error
+    );
+  }
+};
+
+
+
 const getByRegion = async (region: Region) => {
   try {
     const url = baseUrl + `?region_id=${region.id}`;
@@ -68,4 +88,4 @@ const createNew = async (landfill: NewLandfill) => {
   }
 };
 
-export default { getAll, put, createNew, deleteLandfill, getByRegion };
+export default { getNumOfLandfills, getAll, put, createNew, deleteLandfill, getByRegion };

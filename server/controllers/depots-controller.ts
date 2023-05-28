@@ -9,6 +9,21 @@ import * as mongoDB from 'mongodb'
 
 const depotRouter = express.Router()
 
+// get number of depots 
+depotRouter.get('/num_of_depots', async(req:any, res) => {
+    console.log('inside the depot router')
+    try {
+        const user = req.user
+        const user_id = user._id as string
+        const region_id = req.query.region_id as string     
+        const num_of_depots = await Depot.countDocuments({user_id: user_id, region_id:region_id}).populate('depots') as unknown as number
+        res.status(200).json({num_of_depots})
+    }catch (error){
+        res.status(500).send('Error getting the depot entries by user and region')
+    }
+})
+
+
 depotRouter.get('/', async(req:any, res) => {
     console.log('inside the depot router')
     try {

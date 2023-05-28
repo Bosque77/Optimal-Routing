@@ -18,24 +18,20 @@ const RegionPage = () => {
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const regionsData = [
-    { name: "Atlanta", landfills: 10, depots: 5, dailyOrders: 200 },
-    { name: "Seattle", landfills: 8, depots: 4, dailyOrders: 150 },
-    // Add more regions here
-  ];
+
 
   const handleAddRegionClick = () => {
     // handle adding a new region here
   };
 
   const insertRegionCards = () => {
-    return regions.map((region: Region) => {
       return (
-        <div className="flex flex-col w-64 h-64 bg-white rounded">
-          <h2 className="flex flex-row justify-center w-full">{region.name}</h2>
-        </div>
-      );
-    });
+        regions.map((region) => {
+          return (
+            <RegionCard region={region} selectedDate = {selectedDate} />
+          )
+        })
+    );
   };
 
   return (
@@ -55,9 +51,7 @@ const RegionPage = () => {
         </div>
       
         <div className="grid grid-cols-4 mt-8">
-          {regionsData.map((region) => (
-            <RegionCard key={region.name} region={region} />
-          ))}
+          {insertRegionCards()}
           <AddRegionCard onSave={handleAddRegionClick} />
         </div>
       </div>
