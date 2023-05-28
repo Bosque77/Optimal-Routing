@@ -5,7 +5,9 @@ import * as z from 'zod'
 
 
 const regionSchema = z.object({
-        name: z.string()
+        name: z.string(),
+        latitude: z.number(),
+        longitude: z.number(),
 })
 
 

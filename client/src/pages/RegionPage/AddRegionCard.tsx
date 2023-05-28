@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { PlusCircleIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
-
-interface prop {
-  onSave: (region: any) => void;
-}
-
-const AddRegionCard = ({ onSave }: prop) => {
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../../state";
+import { bindActionCreators } from "redux";
+import { HttpResponse } from '../../../../shared/types';
 
 
+const AddRegionCard = () => {
+
+  const dispatch = useDispatch();
+  const { createRegion, showAlert } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
   
   const [editing, setEditing] = useState(false);
   const [newRegion, setNewRegion] = useState({
@@ -23,15 +28,27 @@ const AddRegionCard = ({ onSave }: prop) => {
     });
   };
 
-  const handleSaveClick = () => {
-    onSave(newRegion);
+  const handleSaveClick = async () => {
+    const new_region = {
+      name: newRegion.name,
+      latitude: parseFloat(newRegion.latitude),
+      longitude: parseFloat(newRegion.longitude),
+    };
+
+    const response = await createRegion(new_region) as unknown as HttpResponse;
+    if (response.status === "OK") {
+      showAlert("Region created successfully","success");
+    } else {
+      showAlert("Region creation failed","error");
+    }
+
     setEditing(false);
     setNewRegion({ name: "", latitude: "", longitude: "" });
   };
 
   return (
     <div 
-      className="flex flex-col w-64 h-64 bg-white rounded-xl shadow-md p-4 overflow-auto justify-center items-center cursor-pointer  transition-colors duration-200 ease-in-out"
+      className="flex flex-col w-64 h-72 bg-white rounded-xl shadow-md p-4 overflow-auto justify-center items-center cursor-pointer  transition-colors duration-200 ease-in-out"
     >
       {!editing ? (
         <>

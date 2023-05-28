@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useRegionInfo from '../../components/hooks/useRegionInfo';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 
 interface prop {
   region: any,
@@ -24,7 +25,8 @@ const RegionCard = ({ region, selectedDate }: prop) => {
   };
 
   return (
-    <div className="flex flex-col w-64 h-64 bg-white rounded-xl shadow-md p-4 overflow-auto">
+    <div className="flex flex-col w-64 h-72 bg-white rounded-xl shadow-md p-4 overflow-auto">
+      <div className='flex flex-row justify-end'> < MinusCircleIcon className="w-6 h-6 mb-4 hover:scale-110 active:scale-90 " /> </div>
       <h2 className="text-2xl font-bold text-center mb-2">{region.name}</h2>
       <div className="mb-4 space-y-2">
         <div className="flex justify-between items-center">

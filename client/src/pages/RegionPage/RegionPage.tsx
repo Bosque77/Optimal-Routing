@@ -20,10 +20,6 @@ const RegionPage = () => {
 
 
 
-  const handleAddRegionClick = () => {
-    // handle adding a new region here
-  };
-
   const insertRegionCards = () => {
       return (
         regions.map((region) => {
@@ -50,9 +46,9 @@ const RegionPage = () => {
           />
         </div>
       
-        <div className="grid grid-cols-4 mt-8">
+        <div className="grid grid-cols-4 mt-8 gap-y-8">
           {insertRegionCards()}
-          <AddRegionCard onSave={handleAddRegionClick} />
+          <AddRegionCard  />
         </div>
       </div>
 
