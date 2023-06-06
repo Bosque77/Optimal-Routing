@@ -11,6 +11,7 @@ import RoutePage from './pages/RoutePage/RoutePage'
 import RegionPage from './pages/RegionPage/RegionPage'
 import { bindActionCreators } from 'redux'
 import { Region, UserToken } from '../../shared/types'
+import AccountPage from './pages/AccountPage/AccountPage'
 
 
 
@@ -46,6 +47,7 @@ function App() {
                     {!user_token && <Route path="/*" element={<Login />} />}
                     {user_token  && <Route path="/routes" element={<RoutePage />} />}
                     {user_token  && <Route path="/regions" element={<RegionPage />} />}
+                    {user_token  && <Route path="/user-profile" element={<AccountPage />} />}
                     {user_token  && <Route path="/*" element={<HomePage />} />}
 
                 </Routes>
