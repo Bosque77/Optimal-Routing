@@ -35,7 +35,7 @@ const FreeTierCard = () => {
       <hr className="border-gray-200 my-6 border-t-2" />
       <section className="px-6">
         <h2 className="flex justify-start font-medium mb-2">FEATURES</h2>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-left ml-6 mt-6 text-gray-600 text-sm">
+        <div className="grid grid-cols-1 gap-y-3 text-left ml-6 mt-6 text-gray-600 text-sm">
           <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 1 Region</p>
           <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 20 Orders / Day</p>
           <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 5 Landfills / Region</p>

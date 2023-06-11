@@ -16,7 +16,7 @@ const GeneralDetails = () => {
       </section>
 
       <section className="flex justify-start  mt-8 ">
-        <div className="border w-1/2 rounded-lg py-4">
+        <div className="border rounded-lg py-4">
           <div className="flex justify-start font-semibold py-2 rounded px-4">
             Personal Information
           </div>

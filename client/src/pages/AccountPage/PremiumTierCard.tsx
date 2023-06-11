@@ -32,13 +32,12 @@ const PremiumTierCard = () => {
       <hr className="border-gray-200 my-6 border-t-2" />
       <section className="px-6">
         <h2 className="flex justify-start font-medium mb-2">FEATURES</h2>
-        <p className="text-left text-gray-600">Everything in our free plan plus...</p>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-left ml-6 mt-6 text-gray-600 text-sm">
-          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 3 Regions</p>
-          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 20 Orders / Day</p>
-          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 5 Landfills / Region</p>
-          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 5 Depots / Region</p>
-          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 20 Optimizations /day</p>
+        <div className="grid gap-y-3 text-left ml-6 mt-6 text-gray-600 text-sm">
+          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> Unlimited Regions</p>
+          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> Unlimited Orders </p>
+          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> Unlimited Landfills </p>
+          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> Unlimited Depots </p>
+          <p className="flex flex-row items-center"><CheckCircleIcon className="w-5 h-5 mr-2 text-primary"/> 150 Optimizations /day</p>
 
         </div>
       </section>
