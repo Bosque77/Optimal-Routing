@@ -11,16 +11,13 @@ interface Tier {
   };
 }
 
-const BasicTierCard = () => {
+const PremiumTierCard = () => {
   return (
     <div className="flex flex-col shadow border rounded-lg py-6">
       <section className="flex flex-row px-6">
         <div className="flex flex-col grow">
           <div className="flex items-center mb-2">
             <p className="font-semibold text-xl mr-4">Basic plan</p>
-            <div className="flex flex-row items-center bg-primary text-white rounded-full px-2  text-sm py-0">
-              Current Plan
-            </div>
           </div>
 
           <div className="flex justify-start text-gray-600">
@@ -28,7 +25,7 @@ const BasicTierCard = () => {
           </div>
         </div>
         <div>
-          <span className="text-2xl">$50</span>
+          <span className="text-2xl">$100</span>
           <span className="text-gray-600">per month</span>
         </div>
       </section>
@@ -49,4 +46,4 @@ const BasicTierCard = () => {
   );
 };
 
-export default BasicTierCard;
+export default PremiumTierCard;

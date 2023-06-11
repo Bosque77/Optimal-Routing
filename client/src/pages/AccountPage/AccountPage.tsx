@@ -1,20 +1,30 @@
 import Alert from "../../components/Alert";
 import SideNav from "../../components/SideNav/SideNav";
 import AccountSideNav from "./AccountSideNav";
+import BasicTierCard from "./BasicTierCard";
+import FreeTierCard from "./FreeTierCard";
+import PremiumTierCard from "./PremiumTierCard";
 import GeneralDetails from "./GeneralDetails";
 
 const AccountPage = () => {
-    return (
-        <div className="flex min-h-screen bg-background-dumpster text-black-dumpster overflow-y-auto">
-            <Alert />
-            <div className="w-64 bg-slate-50">
-                <SideNav />
-            </div>
-            <AccountSideNav />
-            <div className="mx-auto flex flex-col w-2/3 py-8 px-6">
-                <GeneralDetails />
-                
-                {/* <h1 className="text-4xl mb-8">Billing & Account</h1>
+  return (
+    <div className="flex min-h-screen bg-background-dumpster text-black-dumpster overflow-y-auto">
+      <Alert />
+      <div className="w-64 bg-slate-50">
+        <SideNav />
+      </div>
+      {/* <AccountSideNav /> */}
+      <div className="mx-auto flex flex-col w-3/4 py-8 px-6 ">
+        <div className="py-2">
+          <GeneralDetails />
+        </div>
+        <div className="grid grid-cols-3 gap-x-6 mt-8 w-full">
+          <FreeTierCard />
+          <BasicTierCard />
+          <PremiumTierCard />
+        </div>
+
+        {/* <h1 className="text-4xl mb-8">Billing & Account</h1>
                 <BillingDetails />
                 <div className="my-6">
                   <TierCard />
@@ -23,9 +33,9 @@ const AccountPage = () => {
                 <PaymentSection />
                 <AccountSettings />
                 <UserManagement /> */}
-            </div>
-        </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default AccountPage;

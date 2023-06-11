@@ -6,7 +6,7 @@ const GeneralDetails = () => {
           <h1 className="flex justify-start font-bold text-2xl text-gray-800 grow">
             General Details
           </h1>
-          <button className="rounded border px-4 py-2 bg-mygreen text-white font-semibold">Save</button>
+
         </div>
 
         <p className="flex justify-start text-gray-600 mt-4">
@@ -17,8 +17,8 @@ const GeneralDetails = () => {
 
       <section className="flex justify-start  mt-8 ">
         <div className="border w-1/2 rounded-lg py-4">
-          <div className="flex justify-start font-semibold py-2 hover:bg-gray-300 rounded px-4">
-            Personal Informaiton
+          <div className="flex justify-start font-semibold py-2 rounded px-4">
+            Personal Information
           </div>
           <hr className="border-gray-200 my-4 border-t-2" />
           <div className="flex flex-col mt-6 px-4">
@@ -53,6 +53,9 @@ const GeneralDetails = () => {
               className=" border rounded-md border-gray-300 pl-2 pr-12 py-2 mt-2 focus:outline-none focus:border-indigo-500 focus:border-2  sm:text-sm text-left w-full"
               placeholder="012-345-6789"
             />
+          </div>
+          <div className="flex justify-end mx-4 mt-4">
+          <button className="rounded border px-4 py-2 bg-primary text-white font-semibold active:scale-95">Save</button>
           </div>
         </div>
       </section>
