@@ -13,6 +13,7 @@ import orderRouter from './controllers/orders-controller'
 import depotRouter from './controllers/depots-controller'
 import vehicleRouter from './controllers/vehicles-controller'
 import routeRouter from './controllers/routes-controller'
+import stripeRouter from './controllers/stripe-controller'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 import driverLoginRouter from './controllers/driver-login-controller'
@@ -56,6 +57,7 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 
+app.use('/api/stripe', middleware.userExtractor, stripeRouter)
 app.use('/api/regions', middleware.userExtractor,regionRouter)
 app.use('/api/landfills', middleware.userExtractor,landfillRouter)
 app.use('/api/drivers', middleware.userExtractor,driverRouter)

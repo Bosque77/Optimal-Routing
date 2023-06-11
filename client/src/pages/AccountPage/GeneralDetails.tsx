@@ -1,21 +1,7 @@
 const GeneralDetails = () => {
   return (
     <div className="flex flex-col">
-      <section>
-        <div className="flex flex-row bg-gray">
-          <h1 className="flex justify-start font-bold text-2xl text-gray-800 grow">
-            General Details
-          </h1>
-
-        </div>
-
-        <p className="flex justify-start text-gray-600 mt-4">
-          {" "}
-          Update your photo and personal details here.{" "}
-        </p>
-      </section>
-
-      <section className="flex justify-start  mt-8 ">
+      <section className="flex justify-start ">
         <div className="border rounded-lg py-4">
           <div className="flex justify-start font-semibold py-2 rounded px-4">
             Personal Information
