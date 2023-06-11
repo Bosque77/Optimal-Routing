@@ -25,16 +25,19 @@ const getMarkerIconUrl = (type: string): string => {
   return `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
 };
 
-const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
+const GoogleMapWithMarkers = ({
   centerLatitude,
   centerLongitude,
-}) => {
+}: GoogleMapWithMarkersProps) => {
+
+
   const mapRef = useRef<HTMLDivElement | null>(null);
   const gMapRef = useRef<google.maps.Map | null>(null);
   const region = useSelector((state: State) => state.setRegion);
   const orders = useSelector((state: State) => state.orders);
   const depots = useSelector((state: State) => state.depots);
   const landfills = useSelector((state: State) => state.landfills);
+
   const selectedDepotIds = useContext<SelectedRouteItemsContextType>(
     SelectedRouteItemsContext
   ).selectedDepots;
@@ -44,6 +47,9 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
   const selectedOrderIds = useContext<SelectedRouteItemsContextType>(
     SelectedRouteItemsContext
   ).selectedOrders;
+
+  const markersRef = useRef<google.maps.Marker[]>([]); // <-- NEW: store markers
+
 
   const getMarkers = () => {
     const markers = [
@@ -87,6 +93,8 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
 
   const markers = getMarkers();
 
+ 
+
   useEffect(() => {
     if (!mapRef.current || typeof google === "undefined") return;
 
@@ -94,26 +102,31 @@ const GoogleMapWithMarkers: React.FC<GoogleMapWithMarkersProps> = ({
       center: { lat: centerLatitude, lng: centerLongitude },
       zoom: 12,
     });
-
   }, []); // empty dependency array
-
 
   useEffect(() => {
     if (!gMapRef.current) return;
 
+       // Remove existing markers
+       markersRef.current.forEach(marker => marker.setMap(null));
+       markersRef.current = []; // Clear out the ref
+
+   
+
+    // Add new markers
     markers.forEach((marker) => {
       if(marker){
-        new google.maps.Marker({
+        const gMarker = new google.maps.Marker({
           position: { lat: marker.lat, lng: marker.lng },
           icon: getMarkerIconUrl(marker.type),
           title: marker.title, 
           map: gMapRef.current, 
         });
+
+        markersRef.current.push(gMarker); // Save marker to ref
       }
     });
-  }, [markers, region]); // dependency on markers
-
-
+  }, [markers]); // dependency on markers
 
   return <div ref={mapRef} style={{ height: "100%", width: "100%" }} />;
 };
