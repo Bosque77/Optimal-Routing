@@ -7,8 +7,6 @@ import { bindActionCreators } from "redux";
 
 const Alert = () => {
 
-  console.log('test')
-
 
   const alert_data = useSelector((state: State) => state.alert_data);
   const dispatch = useDispatch();

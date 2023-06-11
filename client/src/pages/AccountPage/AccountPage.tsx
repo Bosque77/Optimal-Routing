@@ -6,6 +6,7 @@ import FreeTierCard from "./FreeTierCard";
 import PremiumTierCard from "./PremiumTierCard";
 import GeneralDetails from "./GeneralDetails";
 import { CardDetails } from "./CardDetails";
+import AddCardPayment from "./AddCardPayment";
 
 const AccountPage = () => {
   return (

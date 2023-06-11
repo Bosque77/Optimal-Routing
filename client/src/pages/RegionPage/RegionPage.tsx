@@ -24,7 +24,7 @@ const RegionPage = () => {
       return (
         regions.map((region) => {
           return (
-            <RegionCard region={region} selectedDate = {selectedDate} />
+            <RegionCard key={region.id} region={region} selectedDate = {selectedDate} />
           )
         })
     );
