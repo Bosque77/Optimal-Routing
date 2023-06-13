@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { LoginInfo } from "../../../../shared/types";
+import google_icon from "../../assets/google.svg";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -58,13 +59,27 @@ const SignInForm = () => {
             placeholder="Password"
             onChange={({ target }) => setPassword(target.value)}
           />
-          <button type="button" className="text-sm text-gray-500 mt-2 hover:text-black">Forgot Password?</button>
-          <button type="submit" className="mt-6 py-2 px-4 bg-green-800 text-white rounded hover:bg-slate-900 active:scale-95">Submit</button>
+          <button
+            type="button"
+            className="text-sm text-gray-500 mt-2 hover:text-black "
+          >
+            Forgot Password?
+          </button>
+          <button
+            type="submit"
+            className=" w-64 mt-6 py-2 px-4 bg-primary text-white rounded hover:bg-slate-900 active:scale-95"
+          >
+            Submit
+          </button>
+
+          <button
+            type="submit"
+            className=" w-64 mt-4 py-2 px-4 bg-white text-black rounded hover:bg-slate-900 hover:text-white active:scale-95 border"
+          >
+            <img src={google_icon} className="w-4 inline-block mr-2" />
+            Sign In With Google
+          </button>
         </form>
-
-
-
-    
       </div>
     </>
   );

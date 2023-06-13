@@ -41,6 +41,7 @@ const users = [
   {
     username: "user_1",
     password: "password123",
+    email: "user_1@gmail.com",
     passwordHash:
       "$2b$10$drQ3m/uP5sejRRlfHNwNfu4Esxec454XqrE9j6ivWG8E/pYa4HF1u",
     _id: "61c7483607e4533869b9ec08",
@@ -48,6 +49,7 @@ const users = [
   {
     username: "user_2",
     password: "password1234",
+    email: "user_2@gmail.com",
     passwordHash:
       "$2b$10$//cykx4aefD9n4YOKYB7kuFGGoHto3izcLWxvmgyZSc0GnAIf8Oh6",
     _id: "61c7483607e4533869b9ec09",
@@ -491,6 +493,7 @@ const initUsers = async () => {
         _id: user._id,
         username: user.username,
         passwordHash: user.passwordHash,
+        email: user.email,
       })
   );
   const promise_array = user_objects.map((user) => user.save());
