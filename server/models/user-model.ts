@@ -1,11 +1,7 @@
 import mongoose, { ObjectId } from 'mongoose'
-// import uniqueValidator from 'mongoose-unique-validator'
+import {User} from '../../shared/types'
 
 
-interface IUser{
-    username: string,
-    passwordHash: string
-}
 
 interface ReturnedObject {
     id?: string,
@@ -14,16 +10,18 @@ interface ReturnedObject {
     passwordHash?: string
 }
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new mongoose.Schema<User>({
     username: {
         type: String,
         unique: true,
     },
     passwordHash: String,
+    stripeUserId: String,
+    email: String,
+    phone: String,
 })
 
-// FOREST UNCOMMENT THIS CODE IF THE UNIQUE VALIDATOR NO LONGER WORKS
-// userSchema.plugin(uniqueValidator)
+
 
 userSchema.set('toJSON', {
     transform: (_document, returnedObject: ReturnedObject) => {
@@ -34,7 +32,7 @@ userSchema.set('toJSON', {
     }
 })
 
-const User = mongoose.model<IUser>('User', userSchema)
+const User = mongoose.model<User>('User', userSchema)
 
 export default User
 

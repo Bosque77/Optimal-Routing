@@ -38,6 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",
     "mongoose-unique-validator": "^2.0.3",
+    "stripe": "^12.9.0",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4",

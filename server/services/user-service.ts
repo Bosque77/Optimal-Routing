@@ -26,17 +26,17 @@ const getUserById = async (user_id: string) => {
 }
 
 // creates a new user
-const createUser = async (username: string, password: string) => {
+const createUser = async (username: string, password: string, stripeCustomerId: string) => {
     const salt_rounds = Number(config.SALT_ROUNDS)
     const passwordHash = await bcrypt.hash(password, salt_rounds)
     const user = new User({
         username,
         passwordHash,
+        stripeCustomerId
     })
 
     const savedUser = await user.save()
     return savedUser.toJSON()
-
 }
 
 

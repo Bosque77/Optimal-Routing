@@ -232,7 +232,10 @@ export interface NewRegion {
 
 export interface User {
   username: string;
-  password: string;
+  passwordHash: string;
+  stripeUserId?: string;
+  email: string;
+  phone?: string;
 }
 
 export interface NewDriver {
