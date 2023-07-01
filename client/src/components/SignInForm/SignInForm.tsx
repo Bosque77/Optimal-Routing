@@ -7,9 +7,8 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { LoginInfo } from "../../../../shared/types";
+import GoogleSignInButton from "./GoogleSignInButton"
 
-import GoogleSignInButton from "./GoogleSignInButton";
-import GoogleSignInButton_v2 from "./GoogleSignInButton_v2";
 
 
 
@@ -77,7 +76,7 @@ const SignInForm = () => {
           </button>
           {/* <GoogleSignInButton /> */}
           <div className="border-t border-gray-200 my-4 w-64"></div>
-          <GoogleSignInButton_v2 />
+          <GoogleSignInButton />
 
         </form>
       </div>
