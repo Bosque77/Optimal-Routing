@@ -7,7 +7,11 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { LoginInfo } from "../../../../shared/types";
-import google_icon from "../../assets/google.svg";
+
+import GoogleSignInButton from "./GoogleSignInButton";
+import GoogleSignInButton_v2 from "./GoogleSignInButton_v2";
+
+
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -71,14 +75,10 @@ const SignInForm = () => {
           >
             Submit
           </button>
+          {/* <GoogleSignInButton /> */}
+          <div className="border-t border-gray-200 my-4 w-64"></div>
+          <GoogleSignInButton_v2 />
 
-          <button
-            type="submit"
-            className=" w-64 mt-4 py-2 px-4 bg-white text-black rounded hover:bg-slate-900 hover:text-white active:scale-95 border"
-          >
-            <img src={google_icon} className="w-4 inline-block mr-2" />
-            Sign In With Google
-          </button>
         </form>
       </div>
     </>

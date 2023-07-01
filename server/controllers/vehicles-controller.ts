@@ -1,7 +1,7 @@
 import express from "express";
 import vehicleService from "../services/vehicle-service";
 import { Request, Response } from "express";
-import { UserType } from "../../shared/types";
+import { UserType } from "..//types";
 import asyncHandler from "express-async-handler";
 import * as z from 'zod'
 

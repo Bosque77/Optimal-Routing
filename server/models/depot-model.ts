@@ -1,5 +1,5 @@
 import mongoose, { ObjectId } from 'mongoose'
-import {Depot} from '../../shared/types'
+import {Depot} from '../types'
 
 
 interface ReturnedObject {

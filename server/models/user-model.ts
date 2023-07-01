@@ -1,5 +1,5 @@
 import mongoose, { ObjectId } from 'mongoose'
-import {User} from '../../shared/types'
+import {User} from '../types'
 
 
 

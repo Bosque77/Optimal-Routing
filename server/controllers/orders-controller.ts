@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import orderService from "../services/order-service";
-import { UserType } from "../../shared/types";
+import { UserType } from "../types";
 import asyncHandler from "express-async-handler";
 import * as z from "zod";
 

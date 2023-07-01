@@ -1,5 +1,5 @@
 import mongoose, { ObjectId } from 'mongoose'
-import { Order } from '../../shared/types'
+import { Order } from '../types'
 
 
 

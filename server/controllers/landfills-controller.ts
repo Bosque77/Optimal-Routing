@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import landfillService from "../services/landfill-service";
 import asyncHandler from "express-async-handler";
-import { UserType } from "../../shared/types";
+import { UserType } from "../types";
 import * as z from "zod";
 
 
