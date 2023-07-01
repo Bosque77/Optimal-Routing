@@ -23,6 +23,26 @@ function App() {
     const { setUserToken, setRegion, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
+        // Ensure the script is not loaded more than once
+        if (!document.getElementById('googleMaps')) {
+          loadGoogleMapsScript();
+        }
+      }, []);
+    
+      const loadGoogleMapsScript = () => {
+        const script = document.createElement('script');
+        script.id = 'googleMaps';
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        // @ts-ignore
+        window.initMap = () => {
+          // your callback function logic here
+        };
+        document.body.appendChild(script);
+      };
+
+    useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
         if (user_token) {
             const parsed_user_token: UserToken = JSON.parse(user_token)
