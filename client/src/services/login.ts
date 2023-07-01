@@ -15,7 +15,7 @@ const login = async (login_info:LoginInfo): Promise<UserToken> => {
 
 const googleLogin = async (google_credentials:string) => {
     try{
-        const response = await axios.post(googleLoginUrl, google_credentials)
+        const response = await axios.post(googleLoginUrl, {google_credentials})
         return createSuccessResponse("Google Credentials Received", response.data);
         return response.data
     } catch(error){

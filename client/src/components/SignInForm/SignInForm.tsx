@@ -7,10 +7,7 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { LoginInfo } from "../../../../shared/types";
-import GoogleSignInButton from "./GoogleSignInButton"
-
-
-
+import GoogleSignInButton from "./GoogleSignInButton";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -75,9 +72,13 @@ const SignInForm = () => {
             Submit
           </button>
           {/* <GoogleSignInButton /> */}
-          <div className="border-t border-gray-200 my-4 w-64"></div>
-          <GoogleSignInButton />
+          <div className="flex items-center justify-center my-4 w-64">
+            <div className="border-t border-gray-200 w-64"></div>
+            <div className="mx-4 text-gray-500">or</div>
+            <div className="border-t border-gray-200 w-64"></div>
+          </div>
 
+          <GoogleSignInButton />
         </form>
       </div>
     </>
