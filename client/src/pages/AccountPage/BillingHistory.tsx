@@ -8,8 +8,10 @@ const BillingHistory = () => {
     ];
   
     return (
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
-        <h2 className="text-xl font-semibold mb-4 text-green-dumpster">Billing History</h2>
+      <div className="bg-white border rounded-lg mb-6 overflow-x-auto">
+        <h2 className="text-xl font-semibold mb-4 text-green-dumpster text-left px-6 py-4">Billing History</h2>
+        <hr className="border-gray-200" />
+        <div className="px-6 py-4">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -30,6 +32,8 @@ const BillingHistory = () => {
             ))}
           </tbody>
         </table>
+        </div>
+
       </div>
     );
   };

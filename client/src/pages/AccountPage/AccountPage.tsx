@@ -4,9 +4,10 @@ import AccountSideNav from "./AccountSideNav";
 import BasicTierCard from "./BasicTierCard";
 import FreeTierCard from "./FreeTierCard";
 import PremiumTierCard from "./PremiumTierCard";
-import GeneralDetails from "./GeneralDetails";
+import GeneralDetails from "./PersonalInformation";
 import { CardDetails } from "./CardDetails";
 import AddCardPayment from "./AddCardPayment";
+import BillingHistory from "./BillingHistory";
 
 const AccountPage = () => {
   return (
@@ -21,11 +22,15 @@ const AccountPage = () => {
           <GeneralDetails />
           <CardDetails />
         </div>
-        <div className="grid grid-cols-3 gap-x-6 mt-8 w-full">
+        <section className="grid grid-cols-3 gap-x-6 mt-8 w-full">
           <FreeTierCard />
           <BasicTierCard />
           <PremiumTierCard />
-        </div>
+        </section>
+        <section className="mt-6">
+          <BillingHistory />
+        </section>
+
 
         {/* <h1 className="text-4xl mb-8">Billing & Account</h1>
                 <BillingDetails />

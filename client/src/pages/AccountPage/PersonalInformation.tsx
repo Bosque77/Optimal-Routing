@@ -1,4 +1,4 @@
-const GeneralDetails = () => {
+const PersonalInformation = () => {
   return (
     <div className="flex flex-col">
       <section className="flex justify-start ">
@@ -49,4 +49,4 @@ const GeneralDetails = () => {
   );
 };
 
-export default GeneralDetails;
+export default PersonalInformation;
