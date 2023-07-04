@@ -79,6 +79,7 @@ const SignInForm = () => {
           </div>
 
           <GoogleSignInButton />
+          <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95">Create an Account</button>
         </form>
       </div>
     </>

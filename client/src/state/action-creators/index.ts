@@ -390,6 +390,21 @@ export const deleteTruckRoute = (truck_route: TruckRoute) => {
   };
 };
 
+export const loginGoogleUser = (credentials: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    const response = await loginService.googleLogin(credentials);
+    if (response.status === "OK") {
+      const user_data = response.data as UserToken;
+      window.localStorage.setItem("user_token", JSON.stringify(user_data));
+      setToken(user_data.token);
+      dispatch({
+        type: ActionType.SET_USER_TOKEN,
+        data: user_data,
+      });
+    }
+    return response
+  };
+};
 
 
 export const loginUser = (login_info: LoginInfo) => {
