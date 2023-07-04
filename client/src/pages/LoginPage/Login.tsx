@@ -15,7 +15,6 @@ const Login = () => {
         <div className="">
           <Routes>
             <Route path="/" element={<SignInForm />} />
-            <Route path="/SignUp" element={<SignUpForm />} />
             <Route path="SignIn" element={<SignInForm />} />
           </Routes>
         </div>

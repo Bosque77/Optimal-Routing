@@ -238,6 +238,13 @@ export interface User {
   phone?: string;
 }
 
+export interface NewUser{
+  username: string;
+  password: string;
+  email: string;
+  phone?: string;
+}
+
 export interface NewDriver {
   name: string;
   phone_number: string;

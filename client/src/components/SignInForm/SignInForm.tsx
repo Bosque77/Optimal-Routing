@@ -17,7 +17,7 @@ const SignInForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [signUpModalActive, setSignUpModalActive] = useState(false);
-  const [createAccountActive, setCreateAccountActive] = useState(false);
+
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -74,6 +74,7 @@ const SignInForm = () => {
           >
             Submit
           </button>
+
           {/* <GoogleSignInButton /> */}
           <div className="flex items-center justify-center my-4 w-64">
             <div className="border-t border-gray-200 w-64"></div>
@@ -82,12 +83,16 @@ const SignInForm = () => {
           </div>
 
           <GoogleSignInButton />
-          { !createAccountActive && <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95" onClick={() => setCreateAccountActive(true)}>Create an Account</button> }
-          { createAccountActive && <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95" onClick={() => setCreateAccountActive(false)}>Sign In</button> }
-       
+          <button
+            type="button"
+            className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95"
+            onClick={() => setSignUpModalActive(true)}
+          >
+            Create an Account
+          </button>
         </form>
       </div>
-      {/* {signUpModalActive && <SignUpForm />} */}
+      {signUpModalActive && <SignUpForm setSignUpModalActive={setSignUpModalActive} />}
     </>
   );
 };

@@ -3,12 +3,35 @@ import "./SignUpForm.css";
 import front_page_logo from "../../static/images/front_page_logo.png";
 import { Link } from "react-router-dom";
 
-const SignUpForm = () => {
+interface prop {
+  setSignUpModalActive: (active: boolean) => void;
+}
+
+const SignUpForm = ({setSignUpModalActive}:prop) => {
 
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone_number, setPhoneNumber] = useState<string>("");
+
+  const signUp = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    const signUpInfo = {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone_number: phone_number,
+    };
+    // eslint-disable-next-line no-debugger
+    try {
+      // await signUpUser(signUpInfo);
+      // navigate("/");
+    } catch (error) {
+      console.log(error);
+      // M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
+    }
+  };
+
 
   return (
     <>
@@ -78,6 +101,7 @@ const SignUpForm = () => {
               />
             </div>
             <button className=" w-64 mt-6 py-2 px-4 bg-primary text-white rounded hover:bg-slate-900 active:scale-95">Sign Up</button>
+            <button className=" text-gray-400 text-sm hover:text-black active:scale-95" onClick={() => setSignUpModalActive(false)}>Cancel</button>
           </div>
         </div>
       </div>
