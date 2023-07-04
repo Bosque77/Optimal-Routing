@@ -8,6 +8,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { LoginInfo } from "../../../../shared/types";
 import GoogleSignInButton from "./GoogleSignInButton";
+import SignUpForm from "../SignUpForm/SignUpForm";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ const SignInForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [signUpModalActive, setSignUpModalActive] = useState(false);
+  const [createAccountActive, setCreateAccountActive] = useState(false);
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -79,9 +82,12 @@ const SignInForm = () => {
           </div>
 
           <GoogleSignInButton />
-          <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95">Create an Account</button>
+          { !createAccountActive && <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95" onClick={() => setCreateAccountActive(true)}>Create an Account</button> }
+          { createAccountActive && <button type="button" className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95" onClick={() => setCreateAccountActive(false)}>Sign In</button> }
+       
         </form>
       </div>
+      {/* {signUpModalActive && <SignUpForm />} */}
     </>
   );
 };
