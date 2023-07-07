@@ -3,6 +3,7 @@ import config from "../utils/config";
 import bcrypt from 'bcrypt'
 import { createCustomer } from '../services/stripe-service'
 import Region from "../models/region-model";
+import { NewUser } from "../types";
 
 
 
@@ -27,19 +28,37 @@ const getUserById = async (user_id: string) => {
     return user;
 }
 
-// creates a new user
-const createUser = async (username: string, password: string, stripeCustomerId: string) => {
+// // creates a new user old way
+// const createUser = async (username: string, password: string, stripeCustomerId: string) => {
+//     const salt_rounds = Number(config.SALT_ROUNDS)
+//     const passwordHash = await bcrypt.hash(password, salt_rounds)
+//     const user = new User({
+//         username,
+//         passwordHash,
+//         stripeCustomerId
+//     })
+
+//     const savedUser = await user.save()
+//     return savedUser.toJSON()
+// }
+
+
+const createUser = async (new_user:NewUser) => {
     const salt_rounds = Number(config.SALT_ROUNDS)
-    const passwordHash = await bcrypt.hash(password, salt_rounds)
+    const passwordHash = await bcrypt.hash(new_user.password, salt_rounds)
     const user = new User({
-        username,
+        email: new_user.email,
         passwordHash,
-        stripeCustomerId
+        phone: new_user.phone,
+        first_name : new_user.first_name,
+        last_name: new_user.last_name,
+        verified: false
     })
 
     const savedUser = await user.save()
     return savedUser.toJSON()
 }
+
 
 
 

@@ -31,3 +31,19 @@ Content-Type: application/json
     "username": "user_2",
     "password": "password123"
 }
+
+
+
+### New Sign Up User
+POST http://localhost:3003/api/users/signup/
+Content-Type: application/json
+
+{
+    "first_name": "forest",
+    "last_name": "schwartz",
+    "email": "forestschwrtz@gmail.com",
+    "password": "password123",
+    "phone": "123-456-7890"
+}
+
+

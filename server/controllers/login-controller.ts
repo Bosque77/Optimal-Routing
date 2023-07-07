@@ -12,7 +12,7 @@ const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const userSchema = z.object({
-  username: z.string(),
+  email: z.string(),
   password: z.string(),
 });
 
@@ -27,10 +27,10 @@ loginRouter.post(
   "/",
   asyncHandler(async (request: Request, response: Response) => {
     const user_data = userSchema.parse(request.body);
-    const username = user_data.username;
+    const email = user_data.email;
     const password = user_data.password;
 
-    const user = await userService.getUserByUsername(username);
+    const user = await userService.getUserByUsername(email);
 
     const passwordCorrect =
       user === null ? false : await bcrypt.compare(password, user.passwordHash);
@@ -42,13 +42,13 @@ loginRouter.post(
     }
 
     const userForToken = {
-      username: user.username,
+      email: user.email,
       id: user._id,
     };
 
 
     const token = jwt.sign(userForToken, config.SECRET!);
-    response.status(200).send({ token, username: user.username });
+    response.status(200).send({ token, email: user.email });
 
   })
 );
@@ -83,21 +83,21 @@ loginRouter.post(
       );
       
       const userForToken = {
-        username: new_user.username,
+        email: new_user.email,
         id: new_user._id,
       };
 
       const token = jwt.sign(userForToken, config.SECRET!);
-      response.status(200).send({ token, username: new_user.username });
+      response.status(200).send({ token, email: new_user.email });
       
     } else {
       const userForToken = {
-        username: user.username,
+        email: user.email,
         id: user._id,
       };
 
       const token = jwt.sign(userForToken, config.SECRET!);
-      response.status(200).send({ token, username: user.username });
+      response.status(200).send({ token, username: user.email });
 
     }
   })

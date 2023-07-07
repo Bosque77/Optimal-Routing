@@ -11,13 +11,15 @@ interface ReturnedObject {
 }
 
 const userSchema = new mongoose.Schema<User>({
-    username: {
+    email: {
         type: String,
         unique: true,
     },
+    first_name: String,
+    last_name: String,
+    verified: Boolean,
     passwordHash: String,
     stripeUserId: String,
-    email: String,
     phone: String,
 })
 

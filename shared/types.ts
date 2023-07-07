@@ -231,15 +231,18 @@ export interface NewRegion {
 }
 
 export interface User {
-  username: string;
-  passwordHash: string;
-  stripeUserId?: string;
   email: string;
+  passwordHash: string;
+  first_name: string,
+  last_name: string,
+  verified: boolean;
+  stripeUserId?: string;
   phone?: string;
 }
 
 export interface NewUser{
-  username: string;
+  first_name:string,
+  last_name:string,
   password: string;
   email: string;
   phone?: string;
