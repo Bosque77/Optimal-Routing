@@ -236,6 +236,7 @@ export interface User {
   first_name: string,
   last_name: string,
   verified: boolean;
+  verificationCode: string;
   stripeUserId?: string;
   phone?: string;
 }

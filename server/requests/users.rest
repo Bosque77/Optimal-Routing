@@ -46,4 +46,8 @@ Content-Type: application/json
     "phone": "123-456-7890"
 }
 
+### New Sign Up User Verification
+http://localhost:3003/api/users/verify/64a881631d29bcb752b2bd7c/%242b%2410%24sSCE5BXYkqi6A27T%2F%2F9FBuCmPfAgKDYvB92JVpN%2FQcPuNQcjf3P2y
 
+### Test
+GET http://localhost:3003/api/users/test

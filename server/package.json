@@ -8,7 +8,7 @@
     "init-db": "ts-node ./helper_scripts/initDB.ts",
     "clear-db": "ts-node ./helper_scripts/clearDB.ts",
     "tsc": "tsc",
-    "start": "cross-env NODE_ENV=development nodemon --exec ts-node index.ts",
+    "start": "cross-env NODE_ENV=production --exec ts-node index.ts",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint --ext .ts .",

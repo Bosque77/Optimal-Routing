@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema<User>({
     last_name: String,
     verified: Boolean,
     passwordHash: String,
+    verificationCode: String,
     stripeUserId: String,
     phone: String,
 })

@@ -7,7 +7,6 @@ import { NewUser } from "../types";
 
 
 
-
 // returns all users
 const getAllUsers = async () => {
     const user_query = await User.find({});
@@ -28,22 +27,9 @@ const getUserById = async (user_id: string) => {
     return user;
 }
 
-// // creates a new user old way
-// const createUser = async (username: string, password: string, stripeCustomerId: string) => {
-//     const salt_rounds = Number(config.SALT_ROUNDS)
-//     const passwordHash = await bcrypt.hash(password, salt_rounds)
-//     const user = new User({
-//         username,
-//         passwordHash,
-//         stripeCustomerId
-//     })
-
-//     const savedUser = await user.save()
-//     return savedUser.toJSON()
-// }
 
 
-const createUser = async (new_user:NewUser) => {
+const createUser = async (new_user:NewUser, verificationCode: string) => {
     const salt_rounds = Number(config.SALT_ROUNDS)
     const passwordHash = await bcrypt.hash(new_user.password, salt_rounds)
     const user = new User({
@@ -52,10 +38,22 @@ const createUser = async (new_user:NewUser) => {
         phone: new_user.phone,
         first_name : new_user.first_name,
         last_name: new_user.last_name,
-        verified: false
+        verified: false,
+        verificationCode,
     })
 
     const savedUser = await user.save()
+
+    // create a default region for this user
+    const region = new Region({
+        name: "Default Region",
+        user_id: savedUser._id,
+        latitude: 33.7488,
+        longitude: -84.3881
+    })
+
+    await region.save()
+
     return savedUser.toJSON()
 }
 
@@ -97,4 +95,20 @@ const createUserByGoogleId = async (user_id: string, user_email: string) => {
 }
 
 
-export default { getUserById, getAllUsers, createUser, getUserByUsername, createUserByGoogleId}
+const verifyUser = async (user_id: string) => {
+    const user = await User.findById(user_id);
+    
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    user.verified = true;
+  
+    const savedUser = await user.save();
+  
+    return savedUser.toJSON();
+  }
+  
+
+
+export default { getUserById, getAllUsers, createUser, getUserByUsername, createUserByGoogleId, verifyUser}

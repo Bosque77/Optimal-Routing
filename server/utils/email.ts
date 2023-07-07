@@ -1,17 +1,22 @@
 import nodemailer from "nodemailer";
+import config from "../utils/config";
+import bcrypt from 'bcrypt'
 
 // Function to generate a random verification code
-function generateVerificationCode(): string {
+const generateVerificationCode = async (email:string) =>  {
   const codeLength = 6; // Length of the verification code
   const characters = "0123456789abcdefghijklmnopqrstuvwxyz"; // Characters to use for the code
-  let code = "";
+  let code = email;
 
   for (let i = 0; i < codeLength; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     code += characters[randomIndex];
   }
 
-  return code;
+    const salt_rounds = Number(config.SALT_ROUNDS)
+    const passwordHash = await bcrypt.hash(code, salt_rounds)
+    return passwordHash
+
 }
 
 // Function to send the verification email
