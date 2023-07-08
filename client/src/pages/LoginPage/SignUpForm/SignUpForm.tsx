@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "./SignUpForm.css";
-import front_page_logo from "../../static/images/front_page_logo.png";
+import front_page_logo from "../../../static/images/front_page_logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import UserService from "../../services/users";
+import UserService from "services/users";
 
 interface prop {
   setSignUpModalActive: (active: boolean) => void;

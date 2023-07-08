@@ -19,7 +19,8 @@
     "isolatedModules": true,
     "sourceMap": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src"
   },
   "include": [
     "src"

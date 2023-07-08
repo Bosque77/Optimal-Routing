@@ -5,8 +5,14 @@ module.exports = {
     extend: {
       colors: {
         "primary": "#016938",
+      },
+      fontFamily: {
+        'mongodb': ['"MongoDB Value Serif"', '"Times New Roman"', 'serif'],
+        'euclid': ['Euclid Circular A', 'sans-serif']
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/custom-forms')
+  ],
 }
