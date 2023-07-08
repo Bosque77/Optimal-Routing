@@ -258,7 +258,7 @@ export interface NewDriver {
 }
 
 export interface LoginInfo {
-  username: string;
+  email: string;
   password: string;
 }
 

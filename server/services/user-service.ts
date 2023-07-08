@@ -28,34 +28,48 @@ const getUserById = async (user_id: string) => {
 }
 
 
+const createUser = async (new_user: NewUser, verificationCode: string) => {
+    const salt_rounds = Number(config.SALT_ROUNDS);
+    const passwordHash = await bcrypt.hash(new_user.password, salt_rounds);
 
-const createUser = async (new_user:NewUser, verificationCode: string) => {
-    const salt_rounds = Number(config.SALT_ROUNDS)
-    const passwordHash = await bcrypt.hash(new_user.password, salt_rounds)
-    const user = new User({
-        email: new_user.email,
-        passwordHash,
-        phone: new_user.phone,
-        first_name : new_user.first_name,
-        last_name: new_user.last_name,
-        verified: false,
-        verificationCode,
-    })
+    let savedUser;
 
-    const savedUser = await user.save()
+    try {
+        const user = new User({
+            email: new_user.email,
+            passwordHash,
+            phone: new_user.phone,
+            first_name: new_user.first_name,
+            last_name: new_user.last_name,
+            verified: false,
+            verificationCode,
+        });
+
+        console.log('about to save the user for mongo db')
+
+        savedUser = await user.save();
+    } catch (error) {
+        if ((error as any).code === 11000) {
+            // This is a duplicate key error (i.e., email already exists)
+            throw new Error('Email already exists');
+        } else {
+            throw error;
+        }
+    }
 
     // create a default region for this user
     const region = new Region({
         name: "Default Region",
         user_id: savedUser._id,
         latitude: 33.7488,
-        longitude: -84.3881
-    })
+        longitude: -84.3881,
+    });
 
-    await region.save()
+    await region.save();
 
-    return savedUser.toJSON()
-}
+    return savedUser.toJSON();
+};
+
 
 
 

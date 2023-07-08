@@ -21,7 +21,7 @@ const SignInForm = () => {
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const login_info: LoginInfo = { username: email, password: password };
+    const login_info: LoginInfo = { email, password };
     // eslint-disable-next-line no-debugger
     try {
       await loginUser(login_info);

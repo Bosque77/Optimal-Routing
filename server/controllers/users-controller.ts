@@ -50,6 +50,7 @@ usersRouter.get(
       // Update the user's verified status
       await userService.verifyUser(userId);
       response.json({ message: "User has been successfully verified" });
+      // response.redirect('http://localhost:3000')
     } else {
       response.status(400).json({ message: "Invalid verification code" });
     }

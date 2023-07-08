@@ -32,6 +32,14 @@ loginRouter.post(
 
     const user = await userService.getUserByUsername(email);
 
+    if (!user) {
+      response.status(401).json({ message: "User not found" });
+    }
+
+    if (!user!.verified) {
+      response.status(401).json({ message: "User not verified" });
+    }
+
     const passwordCorrect =
       user === null ? false : await bcrypt.compare(password, user.passwordHash);
 
