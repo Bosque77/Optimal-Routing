@@ -14,9 +14,10 @@ const baseUrl = "/api/users";
 const signUpUser = async (new_user: NewUser) => {
   try {
     const response = await axios.post(baseUrl+'/signup', new_user);
-    return createSuccessResponse("Google Credentials Received", response.data);
+    console.log(response)
+    return createSuccessResponse("Create User Succeeded", response.data);
   } catch (error) {
-    return createErrorResponse("Google Credentials Failed", error);
+    return createErrorResponse("Create User Failed", error);
   }
 };
 

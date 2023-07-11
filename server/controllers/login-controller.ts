@@ -30,7 +30,7 @@ loginRouter.post(
     const email = user_data.email;
     const password = user_data.password;
 
-    const user = await userService.getUserByUsername(email);
+    const user = await userService.getUserByEmail(email);
 
     if (!user) {
       response.status(401).json({ message: "User not found" });
@@ -81,7 +81,7 @@ loginRouter.post(
     // After successful verification and handling user login, send a response back to the client
     // response.send(...)
 
-    const user = await userService.getUserByUsername(user_id);
+    const user = await userService.getUserByEmail(user_email);
 
     if (!user) {
 

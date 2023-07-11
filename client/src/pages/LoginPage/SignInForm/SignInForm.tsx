@@ -39,7 +39,7 @@ const SignInForm = () => {
         </h1>
         <img src={front_page_logo} className="w-32 mx-auto my-8" />
         <p className="m-0 text-2xl leading-10 font-normal text-green-800"> Login to Your Account</p>
-        <p className="font-euclid mb-4 text-lg font-bold text-gray-800 ">Don't have an account. <button className="text-blue-600">Sign Up</button></p>
+        <p className="font-euclid mb-4 text-lg font-bold text-gray-800 ">Don't have an account. <button onClick={() => navigate("/signup")} className="text-blue-600">Sign Up</button></p>
         <form
           className="flex flex-col items-center"
           method="post"
@@ -83,16 +83,8 @@ const SignInForm = () => {
           </div>
 
           <GoogleSignInButton />
-          <button
-            type="button"
-            className="mt-8 text-gray-400 text-sm hover:text-black active:scale-95"
-            onClick={() => setSignUpModalActive(true)}
-          >
-            Create an Account
-          </button>
         </form>
       </div>
-      {signUpModalActive && <SignUpForm setSignUpModalActive={setSignUpModalActive} />}
     </>
   );
 };

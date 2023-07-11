@@ -14,12 +14,12 @@ const getAllUsers = async () => {
     return users;
 }
 
-// gets a user by the username
-const getUserByUsername = async (this_username: string) => {
-    const user = await User.findOne( {username: this_username} ).exec(); 
-    return user
 
-}  
+// get a user by the email
+const getUserByEmail = async (this_email: string) => {
+    const user = await User.findOne( {email: this_email} ).exec(); 
+    return user
+}
 
 // returns a user by id
 const getUserById = async (user_id: string) => {
@@ -75,14 +75,13 @@ const createUser = async (new_user: NewUser, verificationCode: string) => {
 
 
 
-const createUserByGoogleId = async (user_id: string, user_email: string) => {
+const createUserByGoogleId = async (new_user: NewUser) => {
 
-    const username = user_id
-    const email = user_email
-    const stripeCustomerId = await createCustomer({email, name: username})
+    const email = new_user.email
+    const name = new_user.first_name + ' ' + new_user.last_name
+    const stripeCustomerId = await createCustomer({email, name})
 
     const user = new User({
-        username,
         email,
         stripeCustomerId
     })
@@ -101,12 +100,12 @@ const createUserByGoogleId = async (user_id: string, user_email: string) => {
     const default_region = await region.save()
     console.log(default_region)
 
-
     console.log('about to return the saved user')
 
     return savedUser.toJSON()
 
-}
+} 
+
 
 
 const verifyUser = async (user_id: string) => {
@@ -125,4 +124,4 @@ const verifyUser = async (user_id: string) => {
   
 
 
-export default { getUserById, getAllUsers, createUser, getUserByUsername, createUserByGoogleId, verifyUser}
+export default { getUserById, getAllUsers, createUser, getUserByEmail, createUserByGoogleId, verifyUser}

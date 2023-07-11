@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import front_page_logo from "../../../static/images/front_page_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import UserService from "services/users";
+import GoogleSignInButton from "../SignInForm/GoogleSignInButton";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "state";
+import { HttpResponse } from "../../../../../shared/types";
 
-interface prop {
-  setSignUpModalActive: (active: boolean) => void;
-}
-
-const SignUpForm = ({ setSignUpModalActive }: prop) => {
+const SignUpForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { showAlert, } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
 
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
@@ -16,29 +24,26 @@ const SignUpForm = ({ setSignUpModalActive }: prop) => {
   const [phone_number, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [verify_password, setVerifyPassword] = useState<string>("");
-  const [msg, setMsg] = useState<string | undefined>("Hello there bobby boi");
-
-
+  const [msg, setMsg] = useState<string | undefined>(undefined);
 
   const onSetPassword = (password: string) => {
     setPassword(password);
     setMsg(undefined);
-  }
+  };
 
   const onSetVerifyPassword = (verify_password: string) => {
     setVerifyPassword(verify_password);
     setMsg(undefined);
-  }
+  };
 
   const signUp = async (event: React.SyntheticEvent) => {
-
+    event.preventDefault();
     const passwords_match = password === verify_password;
     if (!passwords_match) {
       setMsg("Passwords do not match");
       return;
     }
-
-    event.preventDefault();
+  
     const signUpInfo = {
       first_name: first_name,
       last_name: last_name,
@@ -46,24 +51,39 @@ const SignUpForm = ({ setSignUpModalActive }: prop) => {
       phone_number: phone_number,
       password: password,
     };
-    // eslint-disable-next-line no-debugger
-    try {
-      // const response = await UserService.signUpUser(signUpInfo);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      // M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
+  
+    const response = await UserService.signUpUser(signUpInfo) as unknown as HttpResponse;
+    if (response.status === "ERROR") {
+      showAlert("Error creating user sign in", "error"); // Change "success" to "error"
+    } else {
+      showAlert(
+        "Your account as been created. Verify your email address before you can begin.",
+        "success"
+      );
+      navigate("/login");
     }
   };
+  
 
   return (
     <>
-      <div className="h-screen w-screen flex items-center justify-center z-10 fixed top-0 left-0">
-        <div className="bg-white px-12 pt-4 pb-6 rounded-lg shadow-xl absolute z-50 flex flex-col relative overflow-hidden">
-          <div className="flex flex-row justify-center ">
-            <img src={front_page_logo} className="w-32 mx-auto my-8" />
-          </div>
-          <div className="grid gap-x-6 gap-y-6 grid-cols-2">
+      <div className="bg-white items-center px-12  py-6 rounded shadow">
+        <h1 className="flex text-3xl font-bold my-6">
+          Route Optimization Services
+        </h1>
+        <img src={front_page_logo} className="w-32 mx-auto my-2" />
+        <p className="m-0 text-2xl leading-10 font-normal text-green-800">
+          {" "}
+          Create Your Account
+        </p>
+        <p className="font-euclid mb-8 text-lg font-bold text-gray-800 ">
+          Have an account?{" "}
+          <button onClick={() => navigate("/login")} className="text-blue-600">
+            Log in now
+          </button>
+        </p>
+        <form>
+          <div className="grid gap-x-6 gap-y-2 grid-cols-1">
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700 text-left pl-2">
                 First Name
@@ -142,26 +162,25 @@ const SignUpForm = ({ setSignUpModalActive }: prop) => {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start w-full mt-4">
-            {msg}
-          </div>
-          <div className="flex flex-row my-auto justify-end mt-8">
-            <button
-              className=" text-gray-400 text-sm hover:text-black active:scale-95 mr-6"
-              onClick={() => setSignUpModalActive(false)}
-            >
-              Cancel
-            </button>
+          <div className="flex flex-row justify-start w-full mt-4">{msg}</div>
+          <div className="flex flex-row my-auto justify-center mt-8">
             <button
               className=" w-48 py-2 px-4 bg-primary text-white rounded hover:bg-slate-900 active:scale-95"
               onClick={signUp}
+              type="button"
             >
               Sign Up
             </button>
           </div>
+        </form>
+        <div className="flex items-center justify-center my-4">
+          <div className="border-t border-gray-300 flex-grow mr-3"></div>
+          <span className="text-gray-500">or sign up with Google</span>
+          <div className="border-t border-gray-300 flex-grow ml-3"></div>
         </div>
+
+        <GoogleSignInButton />
       </div>
-      <div className="fixed inset-0 bg-black opacity-50"></div>
     </>
   );
 };
