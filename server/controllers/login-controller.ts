@@ -7,6 +7,7 @@ import userService from "../services/user-service";
 import * as z from "zod";
 import asyncHandler from "express-async-handler";
 import { ERROR_CODES } from "../utils/errors";
+import { NewUser } from "../types";
 const { OAuth2Client } = require("google-auth-library");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -77,6 +78,8 @@ loginRouter.post(
     const payload = ticket.getPayload(); // This contains the user information
     const user_id = payload["sub"]; // User's Google ID
     const user_email = payload["email"]; // User's email
+    const user_given_name = payload["given_name"] || ""; // User's first name
+    const user_family_name = payload["family_name"] || ""; // User's last name
 
     // After successful verification and handling user login, send a response back to the client
     // response.send(...)
@@ -85,18 +88,22 @@ loginRouter.post(
 
     if (!user) {
 
-      const new_user = await userService.createUserByGoogleId(
-        user_id,
-        user_email
-      );
+      const new_user: NewUser = {
+        first_name: user_given_name,
+        last_name: user_family_name,
+        email: user_email,
+        password: user_id // Assuming Google ID is used as password
+      };
+
+      const created_user = await userService.createUserByGoogleId(new_user);
       
       const userForToken = {
-        email: new_user.email,
-        id: new_user._id,
+        email: created_user.email,
+        id: created_user._id,
       };
 
       const token = jwt.sign(userForToken, config.SECRET!);
-      response.status(200).send({ token, email: new_user.email });
+      response.status(200).send({ token, email: created_user.email, first_name: created_user.first_name, last_name: created_user.last_name });
       
     } else {
       const userForToken = {
@@ -110,5 +117,6 @@ loginRouter.post(
     }
   })
 );
+
 
 export default loginRouter;
