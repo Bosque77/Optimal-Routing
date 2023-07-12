@@ -76,33 +76,43 @@ const createUser = async (new_user: NewUser, verificationCode: string) => {
 
 
 const createUserByGoogleId = async (new_user: NewUser) => {
+    try{
+        const email = new_user.email
+        const name = new_user.first_name + ' ' + new_user.last_name
+        const stripeCustomerId = await createCustomer({email, name})
+    
+        const user = new User({
+            email,
+            first_name: new_user.first_name,
+            last_name: new_user.last_name,
+            verified: true,
+            stripeCustomerId
+        })
+    
+        const savedUser = await user.save()
+        console.log(savedUser)
+    
+        // create a default region for this user
+        const region = new Region({
+            name: "Default Region",
+            user_id: savedUser._id,
+            latitude: 33.7488,
+            longitude: -84.3881
+        })
+    
+        const default_region = await region.save()
+        console.log(default_region)
+    
+        console.log('about to return the saved user')
+    
+        return { user: savedUser.toJSON(), region: default_region.toJSON() }
+    
 
-    const email = new_user.email
-    const name = new_user.first_name + ' ' + new_user.last_name
-    const stripeCustomerId = await createCustomer({email, name})
+    } catch(error){
+        console.log(error)
+        throw error
+    }
 
-    const user = new User({
-        email,
-        stripeCustomerId
-    })
-
-    const savedUser = await user.save()
-    console.log(savedUser)
-
-    // create a default region for this user
-    const region = new Region({
-        name: "Default Region",
-        user_id: savedUser._id,
-        latitude: 33.7488,
-        longitude: -84.3881
-    })
-
-    const default_region = await region.save()
-    console.log(default_region)
-
-    console.log('about to return the saved user')
-
-    return savedUser.toJSON()
 
 } 
 

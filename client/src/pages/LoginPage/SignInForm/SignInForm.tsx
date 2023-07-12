@@ -11,7 +11,7 @@ import SignUpForm from "../SignUpForm/SignUpForm"
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const { loginUser } = bindActionCreators(actionCreators, dispatch);
+  const { loginUser,showAlert } = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,7 +27,11 @@ const SignInForm = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      // M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
+      showAlert(
+        "Your email/password is either incorrect or has not been verified.",
+        "error"
+      );
+
     }
   };
 

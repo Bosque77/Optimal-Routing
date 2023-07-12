@@ -51,6 +51,12 @@ export const initializeRegions = () => {
         type: ActionType.INIT_REGIONS,
         data: regions,
       });
+      if (regions.length > 0) {
+        dispatch({
+          type: ActionType.SET_REGION,
+          data: regions[0],
+        });
+      }
     }
     return response;
   };

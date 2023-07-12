@@ -85,6 +85,7 @@ loginRouter.post(
     // response.send(...)
 
     const user = await userService.getUserByEmail(user_email);
+    
 
     if (!user) {
 
@@ -95,7 +96,9 @@ loginRouter.post(
         password: user_id // Assuming Google ID is used as password
       };
 
-      const created_user = await userService.createUserByGoogleId(new_user);
+      const created_user_data = await userService.createUserByGoogleId(new_user);
+
+      const created_user = created_user_data.user;
       
       const userForToken = {
         email: created_user.email,

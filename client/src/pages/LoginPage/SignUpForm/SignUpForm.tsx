@@ -57,7 +57,7 @@ const SignUpForm = () => {
       showAlert("Error creating user sign in", "error"); // Change "success" to "error"
     } else {
       showAlert(
-        "Your account as been created. Verify your email address before you can begin.",
+        "Your account has been created. Verify your email address before you can begin.",
         "success"
       );
       navigate("/login");
