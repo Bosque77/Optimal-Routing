@@ -42,19 +42,15 @@ function App() {
         document.body.appendChild(script);
       };
 
-    useEffect(() => {
+      useEffect(() => {
         const user_token = window.localStorage.getItem('user_token')
         if (user_token) {
-            const parsed_user_token: UserToken = JSON.parse(user_token)
-            setUserToken(parsed_user_token)
-            if(regions.length === 0){
-                initializeRegions()
-            }else{
-                setRegion(regions[0])
-            }
-          
+          const parsed_user_token: UserToken = JSON.parse(user_token)
+          setUserToken(parsed_user_token)
+          initializeRegions() // This should also set a current region
         }
-    }, [regions])
+      }, [user_token]) // Add user_token as a dependency
+      
 
 
     return (
