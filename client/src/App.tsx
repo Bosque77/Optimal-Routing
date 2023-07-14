@@ -43,13 +43,14 @@ function App() {
       };
 
       useEffect(() => {
-        const user_token = window.localStorage.getItem('user_token')
-        if (user_token) {
-          const parsed_user_token: UserToken = JSON.parse(user_token)
-          setUserToken(parsed_user_token)
+        const storedUserToken = window.localStorage.getItem('user_token')
+        if (storedUserToken && storedUserToken !== JSON.stringify(user_token)) {
+          const parsedUserToken: UserToken = JSON.parse(storedUserToken)
+          setUserToken(parsedUserToken)
           initializeRegions() // This should also set a current region
         }
       }, [user_token]) // Add user_token as a dependency
+      
       
 
 
