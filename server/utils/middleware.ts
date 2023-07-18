@@ -83,12 +83,16 @@ const userExtractor = asyncHandler(
     const token = request.token as string;
     const jwt_secret = config.SECRET as string;
     const decodedToken = jwt.verify(token, jwt_secret) as any;
+    console.log('decoding the token on the server side')
+    console.log(decodedToken)
     if (!token || !decodedToken.id) {
       throw {
         name: ERROR_CODES.TOKEN_NOT_FOUND,
       };
     } else {
-      const user = await userService.getUserById(decodedToken.id);
+      console.log('getting the user from the token')
+      const user = await userService.getUserByEmail(decodedToken.email);
+      console.log(user)
       if (!user) {
         throw {
           name: ERROR_CODES.USER_NOT_FOUND,

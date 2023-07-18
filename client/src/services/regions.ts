@@ -13,6 +13,8 @@ const getConfig = () => {
 };
 
 const getAll = async ():Promise<HttpResponse> => {
+  console.log('logging the regions request to get all regions')
+  console.log(getConfig())
   try {
     const axios_response = await axios.get(baseUrl, getConfig());
     return createSuccessResponse("Got All Regions", axios_response.data);

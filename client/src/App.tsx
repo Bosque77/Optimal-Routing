@@ -20,7 +20,7 @@ function App() {
     const user_token = useSelector((state: State) => state.userToken)
     const regions = useSelector((state: State) => state.regions);
     const dispatch = useDispatch()
-    const { setUserToken, setRegion, initializeRegions } = bindActionCreators(actionCreators, dispatch)
+    const { setUserToken, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
         // Ensure the script is not loaded more than once

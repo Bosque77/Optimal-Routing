@@ -45,12 +45,18 @@ export const setRegion = (region: Region) => {
 export const initializeRegions = () => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await regionService.getAll();
+    console.log('response from region service')
+    console.log(response)
     if (response.status === "OK") {
+      console.log('initializing regions')
       const regions = response.data as Region[];
+      console.log('logging all regions')
+      console.log(regions)
       dispatch({
         type: ActionType.INIT_REGIONS,
         data: regions,
       });
+      console.log('setting the first region')
       if (regions.length > 0) {
         dispatch({
           type: ActionType.SET_REGION,

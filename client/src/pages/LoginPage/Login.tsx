@@ -10,11 +10,10 @@ import { Route, Routes } from "react-router-dom";
 const Login = () => {
   return (
     <div className="body bg-slate-50 h-screen">
-       <Alert />
+      <Alert />
       <div className="flex items-center h-full">
         <img src={background_image} className="w-3/5" />
-
-        <div className="">
+        <div className="mx-auto">
           <Routes>
             <Route path="/" element={<SignInForm />} />
             <Route path="/login" element={<SignInForm />} />
