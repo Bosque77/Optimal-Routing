@@ -12,6 +12,7 @@ import { Region } from "../../../../shared/types";
 import RegionCard from "./RegionCard";
 import AddRegionCard from "./AddRegionCard";
 
+
 const RegionPage = () => {
   const dispatch = useDispatch();
   const regions = useSelector((state: State) => state.regions);
@@ -53,6 +54,7 @@ const RegionPage = () => {
       </div>
 
       {/* {insertRegionCards()} */}
+
     </div>
   );
 };

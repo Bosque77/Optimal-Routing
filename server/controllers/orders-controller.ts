@@ -91,7 +91,7 @@ orderRouter.delete(
   asyncHandler(async (req: Request, res: Response) => {
     const order_id = req.params.id;
     await orderService.deleteOrder(order_id);
-    res.status(204);
+    res.status(204).send('order deleted successfully');
   })
 );
 

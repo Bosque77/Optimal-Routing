@@ -48,7 +48,7 @@ const AddRegionCard = () => {
 
   return (
     <div 
-      className="flex flex-col w-64 h-72 bg-white rounded-xl shadow-md p-4 overflow-auto justify-center items-center cursor-pointer  transition-colors duration-200 ease-in-out"
+      className="flex flex-col w-72 h-94 bg-white rounded shadow-md p-4 overflow-auto justify-center items-center cursor-pointer  transition-colors duration-200 ease-in-out"
     >
       {!editing ? (
         <>

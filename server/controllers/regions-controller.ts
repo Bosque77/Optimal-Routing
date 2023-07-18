@@ -36,10 +36,12 @@ regionRouter.get('/', asyncHandler(async(req:any, res) => {
 
 // delete region
 regionRouter.delete('/:id', asyncHandler(async(req:any, res) => {
+        console.log('inside the delete region route')
         const region_id = req.params.id
         const deleted_region = await regionService.deleteRegion(region_id)
         if(deleted_region){
-            res.status(204)
+                console.log('sending back 204 response')
+            res.status(204).send('depot deleted successfully')
         }else{
             res.status(404).send({error: 'region not found'})
         }

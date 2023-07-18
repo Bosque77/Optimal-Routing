@@ -8,6 +8,7 @@ import {
   HttpResponse,
   Landfill,
   Order,
+  Region,
   TruckRoute,
   Vehicle,
 } from "../../../shared/types";
@@ -19,6 +20,7 @@ interface props {
   depot?: Depot;
   vehicle?: Vehicle;
   order?: Order;
+  region?: Region;
   truckRoute?: TruckRoute;
 }
 
@@ -29,6 +31,7 @@ const ConfirmDelete = ({
   depot,
   vehicle,
   order,
+  region
 }: props) => {
   const dispatch = useDispatch();
   const {
@@ -36,6 +39,7 @@ const ConfirmDelete = ({
     deleteDepot,
     deleteVehicle,
     deleteOrder,
+    deleteRegion,
     showAlert,
   } = bindActionCreators(actionCreators, dispatch);
 
@@ -91,6 +95,20 @@ const ConfirmDelete = ({
           );
         } else {
           showAlert("Order Deleted Successfully", "info");
+          setActive(false);
+        }
+      } else if (region) {
+        const response = await deleteRegion(
+          region
+        ) as unknown as HttpResponse;
+        console.log(response)
+        if (response.status === "ERROR") {
+          showAlert(
+            "Error Deleting Region. Server is having issues, try again later.",
+            "error"
+          );
+        } else {
+          showAlert("Region Deleted Successfully", "info");
           setActive(false);
         }
       }

@@ -32,14 +32,16 @@ const createNew = async (region: NewRegion):Promise<HttpResponse> =>  {
   }
 };
 
-const remove = async (region: Region):Promise<HttpResponse> => {
+const deleteRegion = async (region: Region):Promise<HttpResponse> => {
   try {
+    console.log('inside the delete region service on client')
     const url = baseUrl + `/${region.id}`;
     const response = await axios.delete(url, getConfig());
+    console.log(response)
     return createSuccessResponse("Region Deleted", response.data);
   } catch (error) {
     return createErrorResponse("Delete Region Failed", error);
   }
 };
 
-export default { getAll, createNew, remove };
+export default { getAll, createNew, deleteRegion };

@@ -45,18 +45,18 @@ export const setRegion = (region: Region) => {
 export const initializeRegions = () => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await regionService.getAll();
-    console.log('response from region service')
-    console.log(response)
+    console.log("response from region service");
+    console.log(response);
     if (response.status === "OK") {
-      console.log('initializing regions')
+      console.log("initializing regions");
       const regions = response.data as Region[];
-      console.log('logging all regions')
-      console.log(regions)
+      console.log("logging all regions");
+      console.log(regions);
       dispatch({
         type: ActionType.INIT_REGIONS,
         data: regions,
       });
-      console.log('setting the first region')
+      console.log("setting the first region");
       if (regions.length > 0) {
         dispatch({
           type: ActionType.SET_REGION,
@@ -212,8 +212,6 @@ export const createOrder = (order: NewOrder) => {
   };
 };
 
-
-
 export const createTruckRoute = (input_truck_route: NewTruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.createNew(input_truck_route);
@@ -306,8 +304,6 @@ export const updateOrder = (updated_order: Order) => {
   };
 };
 
-
-
 export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.put(updated_truck_route);
@@ -321,7 +317,6 @@ export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
     return response;
   };
 };
-
 
 export const deleteLandfill = (landfill: Landfill) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -359,23 +354,26 @@ export const deleteVehicle = (vehicle: Vehicle) => {
 export const deleteDepot = (depot: Depot) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await depotService.deleteDepot(depot);
-    if (response.status === "OK"){
+    if (response.status === "OK") {
       dispatch({
         type: ActionType.DELETE_DEPOT,
         data: depot,
       });
     }
-    return response
+    return response;
   };
 };
 
 export const deleteRegion = (region: Region) => {
   return async (dispatch: Dispatch<Action>) => {
-    await regionService.remove(region);
-    dispatch({
-      type: ActionType.DELETE_REGION,
-      data: region,
-    });
+    const response = await regionService.deleteRegion(region);
+    if (response.status === "OK") {
+      dispatch({
+        type: ActionType.DELETE_REGION,
+        data: region,
+      });
+    }
+    return response;
   };
 };
 
@@ -392,7 +390,7 @@ export const deleteOrder = (order: Order) => {
 export const deleteTruckRoute = (truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.deleteRoute(truck_route);
-    if (response.status === "OK"){
+    if (response.status === "OK") {
       dispatch({
         type: ActionType.DELETE_TRUCK_ROUTE,
         data: truck_route,
@@ -414,10 +412,9 @@ export const loginGoogleUser = (credentials: string) => {
         data: user_data,
       });
     }
-    return response
+    return response;
   };
 };
-
 
 export const loginUser = (login_info: LoginInfo) => {
   return async (dispatch: Dispatch<Action>) => {

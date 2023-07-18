@@ -12,7 +12,7 @@ const get = async (address: Address): Promise<HttpResponse> => {
     console.log(street_split)
     const parsed_street = street_split.reduce((prev_value, current_value) => `${prev_value}+${current_value}`, '')
 
-    const url = base_url + `${parsed_street},+${address.city},+${address.state},+${address.zipcode}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
+    const url = base_url + `${parsed_street},+${address.city},+${address.state},+${address.zipcode}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 
     try {
         const response = await axios.get(url)
