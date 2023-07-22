@@ -19,8 +19,14 @@ function App() {
 
     const user_token = useSelector((state: State) => state.userToken)
     const regions = useSelector((state: State) => state.regions);
+    const region = useSelector((state: State) => state.setRegion);
     const dispatch = useDispatch()
     const { setUserToken, initializeRegions } = bindActionCreators(actionCreators, dispatch)
+
+    console.log('logging the basic user info, inside the Apps Component')
+    console.log(region)
+    console.log(user_token)
+    console.log(!user_token || !region)
 
     useEffect(() => {
         // Ensure the script is not loaded more than once
@@ -61,11 +67,11 @@ function App() {
 
                 <Routes>
                     
-                    {!user_token && <Route path="/*" element={<Login />} />}
-                    {user_token  && <Route path="/routes" element={<RoutePage />} />}
-                    {user_token  && <Route path="/regions" element={<RegionPage />} />}
-                    {user_token  && <Route path="/user-profile" element={<AccountPage />} />}
-                    {user_token  && <Route path="/*" element={<HomePage />} />}
+                    {(!user_token || !region) && <Route path="/*" element={<Login />} />}
+                    {user_token  && region && <Route path="/routes" element={<RoutePage />} />}
+                    {user_token  && region && <Route path="/regions" element={<RegionPage />} />}
+                    {user_token  && region && <Route path="/user-profile" element={<AccountPage />} />}
+                    {user_token  && region && <Route path="/*" element={<HomePage />} />}
 
                 </Routes>
 
