@@ -47,13 +47,8 @@ export const setRegion = (region: Region) => {
 export const initializeRegions = () => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await regionService.getAll();
-    console.log("response from region service");
-    console.log(response);
     if (response.status === "OK") {
-      console.log("initializing regions");
       const regions = response.data as Region[];
-      console.log("logging all regions");
-      console.log(regions);
       dispatch({
         type: ActionType.INIT_REGIONS,
         data: regions,
@@ -83,7 +78,6 @@ export const initializeLandfills = (region: Region) => {
     return response;
   };
 };
-
 
 export const initializeUser = () => {
   return async (dispatch: Dispatch<Action>) => {
@@ -442,6 +436,22 @@ export const loginGoogleUser = (credentials: string) => {
         type: ActionType.SET_USER_TOKEN,
         data: user_data,
       });
+      const region_response = await regionService.getAll();
+      if (region_response.status === "OK") {
+        console.log("initializing regions");
+        const regions = region_response.data as Region[];
+        dispatch({
+          type: ActionType.INIT_REGIONS,
+          data: regions,
+        });
+        console.log("setting the first region");
+        if (regions.length > 0) {
+          dispatch({
+            type: ActionType.SET_REGION,
+            data: regions[0],
+          });
+        }
+      }
     }
     return response;
   };
@@ -451,14 +461,14 @@ export const loginUser = (login_info: LoginInfo) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await loginService.login(login_info);
     if (response.status === "OK") {
-    const user_data = response.data as UserToken;
-    window.localStorage.setItem("user_token", JSON.stringify(user_data));
-    setToken(user_data.token);
-    dispatch({
-      type: ActionType.SET_USER_TOKEN,
-      data: user_data,
-    });
-    } 
+      const user_data = response.data as UserToken;
+      window.localStorage.setItem("user_token", JSON.stringify(user_data));
+      setToken(user_data.token);
+      dispatch({
+        type: ActionType.SET_USER_TOKEN,
+        data: user_data,
+      });
+    }
     return response;
   };
 };

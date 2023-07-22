@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './App.css'
 import Login from './pages/LoginPage/Login'
 import {
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import HomePage from './pages/HomePage/HomePage'
 import RoutePage from './pages/RoutePage/RoutePage'
 import RegionPage from './pages/RegionPage/RegionPage'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators,  } from 'redux'
 import { Region, UserToken } from '../../shared/types'
 import AccountPage from './pages/AccountPage/AccountPage'
 
@@ -17,16 +17,18 @@ import AccountPage from './pages/AccountPage/AccountPage'
 
 function App() {
 
+    const renderCount = useRef(0);
     const user_token = useSelector((state: State) => state.userToken)
-    const regions = useSelector((state: State) => state.regions);
     const region = useSelector((state: State) => state.setRegion);
     const dispatch = useDispatch()
     const { setUserToken, initializeRegions } = bindActionCreators(actionCreators, dispatch)
 
-    console.log('logging the basic user info, inside the Apps Component')
-    console.log(region)
-    console.log(user_token)
-    console.log(!user_token || !region)
+
+    useEffect(() => {
+      renderCount.current = renderCount.current + 1;
+      console.log('App being rendered. Render count: ' + renderCount.current);
+      console.log(region)
+  });
 
     useEffect(() => {
         // Ensure the script is not loaded more than once
@@ -49,11 +51,14 @@ function App() {
       };
 
       useEffect(() => {
+        console.log('checking the stored token')
         const storedUserToken = window.localStorage.getItem('user_token')
+        console.log(JSON.stringify(user_token))
+        console.log(storedUserToken)
         if (storedUserToken && storedUserToken !== JSON.stringify(user_token)) {
           const parsedUserToken: UserToken = JSON.parse(storedUserToken)
           setUserToken(parsedUserToken)
-          initializeRegions() // This should also set a current region
+          initializeRegions()
         }
       }, [user_token]) // Add user_token as a dependency
       

@@ -20,11 +20,8 @@ const GoogleSignInButton: React.FC = () => {
     const googleClientId = process.env.REACT_APP_O_AUTH_CLIENT_ID || "";
 
     const callback = async (google_response: any) => {
-        console.log('inside the callback function')
-        const credentials = google_response.credential;
-        const response = await loginGoogleUser(credentials) as any as HttpResponse;
-        console.log('logging the response from the google login')
-        console.log(response)
+        const credentials = google_response.credential;  // gets the response from google
+        const response = await loginGoogleUser(credentials) as any as HttpResponse;  // creates or gets the user credentials from database
         if(response.status === "OK"){
           navigate("/");
         }else{

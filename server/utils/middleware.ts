@@ -86,6 +86,7 @@ const userExtractor = asyncHandler(
     console.log('decoding the token on the server side')
     console.log(decodedToken)
     if (!token || !decodedToken.id) {
+      console.log('error with the token')
       throw {
         name: ERROR_CODES.TOKEN_NOT_FOUND,
       };

@@ -103,11 +103,9 @@ const createUserByGoogleId = async (new_user: NewUser) => {
     });
 
     const default_region = await region.save();
-    console.log(default_region);
 
-    console.log("about to return the saved user");
 
-    return { user: savedUser.toJSON(), region: default_region.toJSON() };
+    return { user: savedUser, region: default_region };
   } catch (error) {
     console.log(error);
     throw error;

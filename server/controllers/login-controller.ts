@@ -93,16 +93,18 @@ loginRouter.post(
         first_name: user_given_name,
         last_name: user_family_name,
         email: user_email,
-        password: user_id // Assuming Google ID is used as password
+        password: user_id // Assuming Google ID is used as password FOREST CHANGE THIS LATER MIGHT ME BAD IDEA
       };
 
       const created_user_data = await userService.createUserByGoogleId(new_user);
+      console.log('logging the created user data on the server')
+      console.log(created_user_data)
 
       const created_user = created_user_data.user;
       
       const userForToken = {
         email: created_user.email,
-        id: created_user._id,
+        id: created_user.id,
       };
 
       const token = jwt.sign(userForToken, config.SECRET!);
