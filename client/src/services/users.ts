@@ -1,24 +1,36 @@
 import axios from "axios";
-import { NewUser } from "../../../shared/types";
-import { createSuccessResponse, createErrorResponse } from "./config";
+import { NewUser, User } from "../../../shared/types";
+import { token, createSuccessResponse, createErrorResponse } from "./config";
 
 const baseUrl = "/api/users";
 
-// const login = async (user: User) => {
-//   const response = await axios.post(baseUrl, user);
-//   console.log(response);
-//   return response.data;
-// };
 
+const getConfig = () => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  return config;
+};
 
-const signUpUser = async (new_user: NewUser) => {
+const getUserData = async () => {
   try {
-    const response = await axios.post(baseUrl+'/signup', new_user);
-    console.log(response)
-    return createSuccessResponse("Create User Succeeded", response.data);
+    const response = await axios.get(baseUrl, getConfig());
+    return createSuccessResponse("Get User Succeeded", response.data);
   } catch (error) {
-    return createErrorResponse("Create User Failed", error);
+    return createErrorResponse("Get User Failed", error);
   }
 };
 
-export default { signUpUser };
+const updateUser = async (user: User) => {
+  try {
+    const response = await axios.put(baseUrl, user, getConfig());
+    return createSuccessResponse("Update User Succeeded", response.data);
+  } catch (error) {
+    return createErrorResponse("Update User Failed", error);
+  }
+};
+
+
+
+
+export default {  getUserData, updateUser };

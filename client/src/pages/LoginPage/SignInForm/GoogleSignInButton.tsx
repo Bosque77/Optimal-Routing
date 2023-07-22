@@ -5,53 +5,37 @@ import { actionCreators } from "../../../state";
 import { useNavigate } from "react-router-dom";
 import LoginService from "../../../services/login"
 import { log } from 'console';
+import { HttpResponse } from '../../../../../shared/types';
 
 
 const GoogleSignInButton: React.FC = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loginGoogleUser } = bindActionCreators(actionCreators, dispatch);
+  const { loginGoogleUser, showAlert } = bindActionCreators(actionCreators, dispatch);
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
 
     const googleClientId = process.env.REACT_APP_O_AUTH_CLIENT_ID || "";
 
-    const callback = async (response: any) => {
-      try {
-        const credentials = response.credential;
-        await loginGoogleUser(credentials);
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-        M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
-      }
-
-
-      // console.log(response);
-      // const id_token = response.credential;
-      // const login_response = await LoginService.googleLogin(id_token);
-      // // handle successful sign-in response here
-      // console.log(login_response);
-
-
+    const callback = async (google_response: any) => {
+        console.log('inside the callback function')
+        const credentials = google_response.credential;
+        const response = await loginGoogleUser(credentials) as any as HttpResponse;
+        console.log('logging the response from the google login')
+        console.log(response)
+        if(response.status === "OK"){
+          navigate("/");
+        }else{
+          showAlert(
+            "Your email/password is either incorrect or has not been verified.",
+            "error"
+          );
+        }
     };
 
 
-
-    // const handleLogin = async (event: React.SyntheticEvent) => {
-    //   event.preventDefault();
-    //   const login_info: LoginInfo = { username: email, password: password };
-    //   // eslint-disable-next-line no-debugger
-    //   try {
-    //     await loginUser(login_info);
-    //     navigate("/");
-    //   } catch (error) {
-    //     console.log(error);
-    //     // M.toast({ html: 'Sign in was not successfull. Double check the username and password' })
-    //   }
-    // };
 
     const runGoogleLogin = () => {
       if (window.google && window.google.accounts && window.google.accounts.id) {

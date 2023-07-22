@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import front_page_logo from "../../../static/images/front_page_logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import UserService from "services/users";
+import SignupService from "services/signup";
 import GoogleSignInButton from "../SignInForm/GoogleSignInButton";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -52,7 +52,7 @@ const SignUpForm = () => {
       password: password,
     };
   
-    const response = await UserService.signUpUser(signUpInfo) as unknown as HttpResponse;
+    const response = await SignupService.signUpUser(signUpInfo) as unknown as HttpResponse;
     if (response.status === "ERROR") {
       showAlert("Error creating user sign in", "error"); // Change "success" to "error"
     } else {

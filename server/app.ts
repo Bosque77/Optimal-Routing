@@ -16,6 +16,7 @@ import routeRouter from './controllers/routes-controller'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 import driverLoginRouter from './controllers/driver-login-controller'
+import signUpRouter from './controllers/signup-controller'
 
 
 declare global {
@@ -64,8 +65,9 @@ app.use('/api/orders', middleware.userExtractor,orderRouter)
 app.use('/api/routes', middleware.userExtractor,routeRouter)
 app.use('/api/depots', middleware.userExtractor,depotRouter)
 app.use('/api/vehicles', middleware.userExtractor,vehicleRouter)
-app.use('/api/users', usersRouter)
+app.use('/api/users', middleware.userExtractor,usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/sign-up', signUpRouter)
 app.use('/api/login-driver', driverLoginRouter)
 
 

@@ -8,6 +8,7 @@ import depotService from "../../services/depots";
 import vehicleService from "../../services/vehicle";
 import orderService from "../../services/order";
 import routeService from "../../services/route";
+import userService from "../../services/users";
 import { Dispatch } from "redux";
 import {
   Depot,
@@ -27,6 +28,7 @@ import {
   Region,
   Route_Item,
   TruckRoute,
+  User,
   UserToken,
   Vehicle,
 } from "../../../../shared/types";
@@ -76,6 +78,21 @@ export const initializeLandfills = (region: Region) => {
       dispatch({
         type: ActionType.INIT_LANDFILLS,
         data: landfills,
+      });
+    }
+    return response;
+  };
+};
+
+
+export const initializeUser = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    const response = await userService.getUserData();
+    if (response.status === "OK") {
+      const user = response.data as User;
+      dispatch({
+        type: ActionType.INIT_USER,
+        data: user,
       });
     }
     return response;
@@ -304,6 +321,20 @@ export const updateOrder = (updated_order: Order) => {
   };
 };
 
+export const updateUser = (updated_user: User) => {
+  return async (dispatch: Dispatch<Action>) => {
+    const response = await userService.updateUser(updated_user);
+    if (response.status === "OK") {
+      const order = response.data as Order;
+      dispatch({
+        type: ActionType.UPDATE_ORDER,
+        data: order,
+      });
+    }
+    return response;
+  };
+};
+
 export const updateTruckRoute = (updated_truck_route: TruckRoute) => {
   return async (dispatch: Dispatch<Action>) => {
     const response = await routeService.put(updated_truck_route);
@@ -418,13 +449,17 @@ export const loginGoogleUser = (credentials: string) => {
 
 export const loginUser = (login_info: LoginInfo) => {
   return async (dispatch: Dispatch<Action>) => {
-    const user_data: UserToken = await loginService.login(login_info);
+    const response = await loginService.login(login_info);
+    if (response.status === "OK") {
+    const user_data = response.data as UserToken;
     window.localStorage.setItem("user_token", JSON.stringify(user_data));
     setToken(user_data.token);
     dispatch({
       type: ActionType.SET_USER_TOKEN,
       data: user_data,
     });
+    } 
+    return response;
   };
 };
 

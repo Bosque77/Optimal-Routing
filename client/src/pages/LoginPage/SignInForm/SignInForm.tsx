@@ -5,33 +5,29 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state";
-import { LoginInfo } from "../../../../../shared/types";
+import { HttpResponse, LoginInfo } from "../../../../../shared/types";
 import GoogleSignInButton from "./GoogleSignInButton";
-import SignUpForm from "../SignUpForm/SignUpForm"
+import SignUpForm from "../SignUpForm/SignUpForm";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const { loginUser,showAlert } = bindActionCreators(actionCreators, dispatch);
+  const { loginUser, showAlert } = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [signUpModalActive, setSignUpModalActive] = useState(false);
-
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     const login_info: LoginInfo = { email, password };
-    // eslint-disable-next-line no-debugger
-    try {
-      await loginUser(login_info);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+
+    const response = (await loginUser(login_info)) as any as HttpResponse;
+    if (response.status === "OK") {
+      navigate("/home");
+    } else {
       showAlert(
         "Your email/password is either incorrect or has not been verified.",
         "error"
       );
-
     }
   };
 
@@ -42,8 +38,16 @@ const SignInForm = () => {
           Route Optimization Services
         </h1>
         <img src={front_page_logo} className="w-32 mx-auto my-8" />
-        <p className="m-0 text-2xl leading-10 font-normal text-green-800"> Login to Your Account</p>
-        <p className="font-euclid mb-4 text-lg font-bold text-gray-800 ">Don't have an account. <button onClick={() => navigate("/signup")} className="text-blue-600">Sign Up</button></p>
+        <p className="m-0 text-2xl leading-10 font-normal text-green-800">
+          {" "}
+          Login to Your Account
+        </p>
+        <p className="font-euclid mb-4 text-lg font-bold text-gray-800 ">
+          Don't have an account.{" "}
+          <button onClick={() => navigate("/signup")} className="text-blue-600">
+            Sign Up
+          </button>
+        </p>
         <form
           className="flex flex-col items-center"
           method="post"

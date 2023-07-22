@@ -19,3 +19,11 @@ export const createCustomer = async (customerData: { email: string; name: string
 
   return customer.id
 }
+
+export const getCustomerCards = async (stripeCustomerId: string) => {
+  const cards = await stripe.customers.listSources(stripeCustomerId, {
+    object: 'card',
+  });
+
+  return cards.data;
+}

@@ -16,12 +16,14 @@ export enum ActionType {
     UPDATE_DEPOT = 'update_depot',
     UPDATE_VEHICLE = 'update_vehicle',
     UPDATE_ORDER = 'update_order',
+    UPDATE_USER = "UPDATE_USER",
     INIT_LANDFILLS = 'init_landfills',
     INIT_REGIONS = 'init_regions',
     INIT_DRIVERS = 'init_drivers',
     INIT_DEPOTS = 'init_depots',
     INIT_VEHICLES = 'init_vehicles',
     INIT_ORDERS = 'init_orders',
+    INIT_USER = 'INIT_USER',
     SET_USER_TOKEN = 'set_user_token',
     SET_REGION = 'set_region',
     ADD_TRUCK_ROUTE = 'ADD_TRUCK_ROUTE',
@@ -30,5 +32,6 @@ export enum ActionType {
     INIT_TRUCK_ROUTES = 'INIT_TRUCK_ROUTES',
     SHOW_ALERT = 'SHOW_ALERT',
     HIDE_ALERT = 'HIDE_ALERT',
-    // REMOVE_ALERT = 'REMOVE_ALERT',
+
+
 }

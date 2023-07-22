@@ -8,16 +8,19 @@ const googleLoginUrl = '/api/login/google'
 
 
 
-const login = async (login_info:LoginInfo): Promise<UserToken> => {
-    const response = await axios.post(baseUrl, login_info)
-    return response.data
+const login = async (login_info:LoginInfo)  => {
+    try{
+        const response = await axios.post(baseUrl, login_info)
+        return createSuccessResponse("Login Successful", response.data);
+    } catch(error){
+        return createErrorResponse("Login Failed", error)
+    }
 }
 
 const googleLogin = async (google_credentials:string) => {
     try{
         const response = await axios.post(googleLoginUrl, {google_credentials})
         return createSuccessResponse("Google Credentials Received", response.data);
-        return response.data
     } catch(error){
         return createErrorResponse("Google Credentials Failed", error)
     }

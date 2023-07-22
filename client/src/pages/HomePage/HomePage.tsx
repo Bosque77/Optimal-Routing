@@ -19,7 +19,7 @@ const HomePage = () => {
     initializeLandfills,
     initializeOrders,
     initializeTruckRoutes,
-    initializeRegions,
+    initializeUser
   } = bindActionCreators(actionCreators, dispatch);
   const region = useSelector((state: State) => state.setRegion);
   const alert_data = useSelector((state: State) => state.alert_data);
@@ -29,13 +29,12 @@ const HomePage = () => {
 
   useEffect(() => {
     if (region) {
+      initializeUser();
       initializeDepots(region);
       initializeLandfills(region);
       initializeOrders(region, date.toDateString());
       initializeTruckRoutes(region, date.toDateString());
-    } else {
-      initializeRegions();
-    }
+    } 
   }, [region]);
 
 

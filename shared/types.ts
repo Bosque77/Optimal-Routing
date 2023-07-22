@@ -238,7 +238,7 @@ export interface User {
   verified: boolean;
   verificationCode: string;
   stripeUserId?: string;
-  phone?: string;
+  phone_number?: string;
 }
 
 export interface NewUser{
@@ -246,7 +246,7 @@ export interface NewUser{
   last_name:string,
   password: string;
   email: string;
-  phone?: string;
+  phone_number?: string;
 }
 
 export interface NewDriver {
