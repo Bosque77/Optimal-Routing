@@ -14,6 +14,8 @@ export interface DbResponse {
   total_duration: number;
 }
 
+
+
 export interface TruckRoute {
   id?: string;
   route_types: string[];

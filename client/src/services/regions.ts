@@ -13,11 +13,7 @@ const getConfig = () => {
 };
 
 const getAll = async ():Promise<HttpResponse> => {
-  console.log('inside my region service to get all')
   try {
-  console.log('logging the regions request to get all regions')
-  console.log(getConfig())
-
     const axios_response = await axios.get(baseUrl, getConfig());
     return createSuccessResponse("Got All Regions", axios_response.data);
   } catch (error) {
@@ -36,10 +32,8 @@ const createNew = async (region: NewRegion):Promise<HttpResponse> =>  {
 
 const deleteRegion = async (region: Region):Promise<HttpResponse> => {
   try {
-    console.log('inside the delete region service on client')
     const url = baseUrl + `/${region.id}`;
     const response = await axios.delete(url, getConfig());
-    console.log(response)
     return createSuccessResponse("Region Deleted", response.data);
   } catch (error) {
     return createErrorResponse("Delete Region Failed", error);

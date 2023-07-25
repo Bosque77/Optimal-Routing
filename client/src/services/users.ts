@@ -21,6 +21,15 @@ const getUserData = async () => {
   }
 };
 
+const getUserCardDetails = async () => {
+  try {
+    const response = await axios.get(baseUrl+'/cards', getConfig());
+    return createSuccessResponse("Get User Card Details Succeeded", response.data);
+  } catch (error) {
+    return createErrorResponse("Get User Card Details Failed", error);
+  }
+};
+
 const updateUser = async (user: User) => {
   try {
     const response = await axios.put(baseUrl, user, getConfig());
@@ -33,4 +42,4 @@ const updateUser = async (user: User) => {
 
 
 
-export default {  getUserData, updateUser };
+export default {  getUserData, updateUser, getUserCardDetails };

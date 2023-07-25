@@ -8,8 +8,20 @@ import GeneralDetails from "./PersonalInformation";
 import { CardDetails } from "./CardDetails";
 import AddCardPayment from "./AddCardPayment";
 import BillingHistory from "./BillingHistory";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "state";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const AccountPage = () => {
+  const dispatch = useDispatch();
+
+  const { initializeUser } = bindActionCreators(actionCreators, dispatch);
+
+  useEffect(() => {
+    initializeUser();
+  }, []);
+
   return (
     <div className="flex min-h-screen bg-background-dumpster text-black-dumpster overflow-y-auto">
       <Alert />
@@ -30,7 +42,6 @@ const AccountPage = () => {
         <section className="mt-6">
           <BillingHistory />
         </section>
-
 
         {/* <h1 className="text-4xl mb-8">Billing & Account</h1>
                 <BillingDetails />

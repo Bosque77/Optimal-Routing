@@ -3,6 +3,8 @@ import visa_icon from "../../assets/visa_icon.png";
 import mastercard_icon from "../../assets/mastercard_icon.png";
 import Modal from "react-modal";
 import AddCardPayment from "./AddCardPayment";
+import useCardDetails from "components/hooks/useCardDetails";
+
 const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",  // black with 50% opacity
@@ -37,68 +39,82 @@ const sample_card_details = [
 
 export const CardDetails: FunctionComponent = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [cardDetails, setCardDetails] = useState(sample_card_details);
+  const { cardDetails, loading, error } = useCardDetails();
+
+  console.log('logging the card details')
+  console.log(cardDetails)
+
+  // const [cardDetails, setCardDetails] = useState(sample_card_details);
 
   Modal.setAppElement('#root');
 
   const handleCardSelect = (id: number) => {
-    const updatedCardDetails = cardDetails.map((card) => {
-      if (card.id === id) {
-        return { ...card, active: true };
-      }
-      return { ...card, active: false };
-    });
+    console.log('in the process of updating')
+    // const updatedCardDetails = cardDetails.map((card) => {
+    //   if (card.id === id) {
+    //     return { ...card, active: true };
+    //   }
+    //   return { ...card, active: false };
+    // });
 
-    setCardDetails(updatedCardDetails);
+    // setCardDetails(updatedCardDetails);
   };
 
   const insertCardDetails = (card_details: any) => {
-    return card_details.map((card: any) => {
-      let card_icon;
 
-      switch (card.title) {
-        case "Visa":
-          card_icon = visa_icon;
-          break;
-        case "Mastercard":
-          card_icon = mastercard_icon;
-          break;
-        default:
-          card_icon = visa_icon;
-          break;
-      }
+    if(loading) return (<div>Loading...</div>)
+    if(error) return (<div>Error: {error.message}</div>)
+    if(!card_details) return (<div>No card details</div>)
+    console.log('logging the card details')
+    console.log(card_details)
 
-      return (
-        <div
-          key={card.id}
-          className={
-            card.active
-              ? `flex flex-col items-start px-6 py-4 bg-gray-200 my-4 mx-4 rounded`
-              : `flex flex-col items-start px-6 py-4 bg-gray-50 my-4 mx-4 rounded`
-          }
-        >
-          <div className="flex flex-row items-center w-full">
-            <div className="flex justify-start items-center">
-              <img src={card_icon} className="w-8 h-8 mr-2" alt="Card Icon" />
-              <p className="font-semibold">{card.title}</p>
-            </div>
-            <p className="flex justify-start font-semibold ml-4">
-              **** **** **** {card.last_4_digits}
-            </p>
-            <input
-              type="radio"
-              name="cardSelection"
-              className=" ml-auto cursor-pointer"
-              checked={card.active}
-              onChange={() => handleCardSelect(card.id)}
-            />
-          </div>
-          <button className="text-sm text-gray-500 block mt-2 hover:text-gray-900 hover:scale-105 active:scale-95">
-            Edit
-          </button>
-        </div>
-      );
-    });
+
+    // return card_details.map((card: any) => {
+    //   let card_icon;
+
+    //   switch (card.title) {
+    //     case "Visa":
+    //       card_icon = visa_icon;
+    //       break;
+    //     case "Mastercard":
+    //       card_icon = mastercard_icon;
+    //       break;
+    //     default:
+    //       card_icon = visa_icon;
+    //       break;
+    //   }
+
+    //   return (
+    //     <div
+    //       key={card.id}
+    //       className={
+    //         card.active
+    //           ? `flex flex-col items-start px-6 py-4 bg-gray-200 my-4 mx-4 rounded`
+    //           : `flex flex-col items-start px-6 py-4 bg-gray-50 my-4 mx-4 rounded`
+    //       }
+    //     >
+    //       <div className="flex flex-row items-center w-full">
+    //         <div className="flex justify-start items-center">
+    //           <img src={card_icon} className="w-8 h-8 mr-2" alt="Card Icon" />
+    //           <p className="font-semibold">{card.title}</p>
+    //         </div>
+    //         <p className="flex justify-start font-semibold ml-4">
+    //           **** **** **** {card.last_4_digits}
+    //         </p>
+    //         <input
+    //           type="radio"
+    //           name="cardSelection"
+    //           className=" ml-auto cursor-pointer"
+    //           checked={card.active}
+    //           onChange={() => handleCardSelect(card.id)}
+    //         />
+    //       </div>
+    //       <button className="text-sm text-gray-500 block mt-2 hover:text-gray-900 hover:scale-105 active:scale-95">
+    //         Edit
+    //       </button>
+    //     </div>
+    //   );
+    // });
   };
 
   return (

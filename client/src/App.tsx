@@ -27,7 +27,6 @@ function App() {
     useEffect(() => {
       renderCount.current = renderCount.current + 1;
       console.log('App being rendered. Render count: ' + renderCount.current);
-      console.log(region)
   });
 
     useEffect(() => {
@@ -51,10 +50,7 @@ function App() {
       };
 
       useEffect(() => {
-        console.log('checking the stored token')
         const storedUserToken = window.localStorage.getItem('user_token')
-        console.log(JSON.stringify(user_token))
-        console.log(storedUserToken)
         if (storedUserToken && storedUserToken !== JSON.stringify(user_token)) {
           const parsedUserToken: UserToken = JSON.parse(storedUserToken)
           setUserToken(parsedUserToken)
@@ -68,10 +64,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-
-
                 <Routes>
-                    
                     {(!user_token || !region) && <Route path="/*" element={<Login />} />}
                     {user_token  && region && <Route path="/routes" element={<RoutePage />} />}
                     {user_token  && region && <Route path="/regions" element={<RegionPage />} />}
