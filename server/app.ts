@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import config from './utils/config'
+
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
@@ -48,6 +49,8 @@ if (config.MONGODB_URI) {
             console.log('monogo not configured correctly')
         })
 }
+
+
 
 
 app.use(cors())

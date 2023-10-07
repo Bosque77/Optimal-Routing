@@ -54,7 +54,7 @@ const SignUpForm = () => {
   
     const response = await SignupService.signUpUser(signUpInfo) as unknown as HttpResponse;
     if (response.status === "ERROR") {
-      showAlert("Error creating user sign in", "error"); // Change "success" to "error"
+      showAlert(response.message, "error"); // Change "success" to "error"
     } else {
       showAlert(
         "Your account has been created. Verify your email address before you can begin.",

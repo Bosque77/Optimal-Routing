@@ -9,9 +9,18 @@ const signUpUser = async (new_user: NewUser) => {
     try {
       const response = await axios.post(baseUrl+'/signup', new_user);
       console.log(response)
+      console.log('inside success response')
       return createSuccessResponse("Create User Succeeded", response.data);
-    } catch (error) {
-      return createErrorResponse("Create User Failed", error);
+    } catch (error:any) {
+      console.log('inside error response')
+      console.log(error)
+      let error_msg = error.response?.data?.message as string;
+      console.log(error_msg)
+      if(error_msg === undefined){
+        return createErrorResponse("Create User Failed", error);
+      }else{
+        return createErrorResponse(error_msg, error);
+      }
     }
   };
 

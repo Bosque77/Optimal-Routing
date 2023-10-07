@@ -39,7 +39,7 @@ const createUser = async (new_user: NewUser, verificationCode: string) => {
 
     const email = new_user.email;
     const name = new_user.first_name + " " + new_user.last_name;
-    const stripeCustomerId = await createCustomer({ email, name });
+    const stripeUserId = await createCustomer({ email, name });
 
     const user = new User({
       email: new_user.email,
@@ -49,7 +49,7 @@ const createUser = async (new_user: NewUser, verificationCode: string) => {
       last_name: new_user.last_name,
       verified: false,
       verificationCode,
-      stripeCustomerId,
+      stripeUserId,
     });
 
     console.log("about to save the user for mongo db");

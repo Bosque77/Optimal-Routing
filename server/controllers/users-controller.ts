@@ -37,6 +37,7 @@ usersRouter.get("/cards", async (request: Request, response: Response) => {
     const user = request.user as UserType;
     const user_id = user._id as string;
     const stripe_user_id = await userService.getStripeUserId(user_id);
+    console.log(stripe_user_id)
     const card_data = await getCustomerCards(stripe_user_id!);
     response.json(card_data);
   } catch (error) {

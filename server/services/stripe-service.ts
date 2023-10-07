@@ -9,8 +9,20 @@ const customerSchema = z.object({
     phone: z.string().optional(),
 })
 
-export const createCustomer = async (customerData: { email: string; name: string; phone?: string }) => {
+export const createCustomer = async (customerData: { email: string; name: string; phone?: string }) => {  
   const new_customer = customerSchema.parse(customerData)
+
+
+  // check if customer already exists
+  const existing_customer = await stripe.customers.list({
+    email: new_customer.email,
+  });
+
+  if (existing_customer.data.length > 0) {
+    throw new Error(`Customer with email ${new_customer.email} already exists. ID: ${existing_customer.data[0].id}`);
+}
+
+
   const customer = await stripe.customers.create({
       email: new_customer.email,
       name: new_customer.name,

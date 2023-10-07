@@ -41,6 +41,13 @@ signUpRouter.get("/verify/:userId/:verificationCode", async (request: Request, r
   signUpRouter.post("/signup", async (request: Request, response: Response) => {
     try {
       const user_data = newUserSchema.parse(request.body);
+
+      // check if user already exists
+      const user = await userService.getUserByEmail(user_data.email);
+      if (user) {
+        response.status(409).json({ message: "A user account is already tied to this email address" });
+        return;
+      }
       const verificationCode = await generateVerificationCode(user_data.email);
       const newUser = await userService.createUser(user_data, verificationCode);
       const uri_safe_verification_code = encodeURIComponent(verificationCode);

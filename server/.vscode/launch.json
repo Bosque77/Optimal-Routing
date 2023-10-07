@@ -1,0 +1,16 @@
+{
+    "type": "node",
+    "request": "launch",
+    "name": "Debug npm run dev",
+    "runtimeExecutable": "npm",
+    "runtimeArgs": [
+        "run-script",
+        "dev"
+    ],
+    "port": 9229,
+    "timeout": 10000,
+    "console": "integratedTerminal",
+    "protocol": "inspector",
+    "restart": true,
+    "internalConsoleOptions": "neverOpen"
+}

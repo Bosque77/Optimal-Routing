@@ -1,26 +1,29 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import visa_icon from "../../assets/visa_icon.png";
 import mastercard_icon from "../../assets/mastercard_icon.png";
 import Modal from "react-modal";
 import AddCardPayment from "./AddCardPayment";
+import Alert from "../../components/Alert";
 import useCardDetails from "components/hooks/useCardDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { State, actionCreators } from "state";
 
 const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.5)",  // black with 50% opacity
-    },
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      backgroundColor: "white",  // fully opaque white
-      width: 400,
-    },
-  };
-  
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // black with 50% opacity
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "white", // fully opaque white
+    width: 400,
+  },
+};
 
 const sample_card_details = [
   {
@@ -38,18 +41,25 @@ const sample_card_details = [
 ];
 
 export const CardDetails: FunctionComponent = () => {
+  const dispatch = useDispatch();
+  const { showAlert } = bindActionCreators(actionCreators, dispatch);
+
   const [modalOpen, setModalOpen] = useState(false);
   const { cardDetails, loading, error } = useCardDetails();
 
-  console.log('logging the card details')
-  console.log(cardDetails)
+  useEffect(() => {
+    if (error) {
+      showAlert("Error connecting to server", "error");
+    }
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
-  // const [cardDetails, setCardDetails] = useState(sample_card_details);
+  console.log("logging the card details");
+  console.log(cardDetails);
 
-  Modal.setAppElement('#root');
+  Modal.setAppElement("#root");
 
   const handleCardSelect = (id: number) => {
-    console.log('in the process of updating')
+    console.log("in the process of updating");
     // const updatedCardDetails = cardDetails.map((card) => {
     //   if (card.id === id) {
     //     return { ...card, active: true };
@@ -60,15 +70,15 @@ export const CardDetails: FunctionComponent = () => {
     // setCardDetails(updatedCardDetails);
   };
 
-  const insertCardDetails = (card_details: any) => {
+  const insertCardDetailsMsg = () => {
+    if (loading) return <div className="mt-2 text-gray-500">Loading...</div>;
+    if (error) return <div className="mt-2 text-gray-500">Error loading card details</div>;
+  };
 
-    if(loading) return (<div>Loading...</div>)
-    if(error) return (<div>Error: {error.message}</div>)
-    if(!card_details) return (<div>No card details</div>)
-    console.log('logging the card details')
-    console.log(card_details)
+  const insertCardDetails = () => {
+    return <div></div>;
 
-
+    // This code will display the card details of the user but is WIP
     // return card_details.map((card: any) => {
     //   let card_icon;
 
@@ -120,18 +130,20 @@ export const CardDetails: FunctionComponent = () => {
   return (
     <>
       <div className=" border bg-white rounded-lg ">
+        {insertCardDetailsMsg()}
         <div className="flex flex-row items-center px-6 py-4">
           <h1 className="flex justify-start font-semibold grow">
             Card Details
           </h1>
-          <button className="px-4 py-2 border rounded-lg text-blue-600 active:scale-95 hover:bg-gray-200"
-          onClick={() => setModalOpen(true)}
+          <button
+            className="px-4 py-2 border rounded-lg text-blue-600 active:scale-95 hover:bg-gray-200"
+            onClick={() => setModalOpen(true)}
           >
             Add Payment
           </button>
         </div>
-        <hr className="border-gray-200 my-4 border-t-2" />
-        <div id="cards">{insertCardDetails(cardDetails)}</div>
+        {/* <hr className="border-gray-200 my-4 border-t-2" /> */}
+        {cardDetails && <div id="cards">{insertCardDetails()}</div>}
       </div>
       <Modal
         isOpen={modalOpen}
