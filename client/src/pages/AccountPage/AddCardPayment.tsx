@@ -6,6 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import powered_by_stripe from "../../assets/powered_by_stripe.svg";
 
 const AddCardForm: FC = () => {
   const stripe = useStripe();
@@ -17,6 +18,7 @@ const AddCardForm: FC = () => {
   const [zipcode, setZipcode] = useState("");
 
   const handleSubmit = async (event: FormEvent) => {
+    console.log('inside handSubmit')
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -49,7 +51,7 @@ const AddCardForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col px-6 py-4">
+    <form onSubmit={handleSubmit} className="flex flex-col px-6 py-1 ">
       <label className="font-medium text-gray-700 my-1">Name on Card</label>
       <input
         type="text"
@@ -88,6 +90,11 @@ const AddCardForm: FC = () => {
       >
         Add Card
       </button>
+
+      <hr className="mt-8 border-solid border-t border-gray-300 " />
+      <div className="mt-8 flex items-center justify-center">
+        <img src={powered_by_stripe} className="w-2/5" />
+      </div>
     </form>
   );
 };

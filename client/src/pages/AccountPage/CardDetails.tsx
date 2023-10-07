@@ -71,8 +71,13 @@ export const CardDetails: FunctionComponent = () => {
   };
 
   const insertCardDetailsMsg = () => {
-    if (loading) return <div className="mt-2 text-gray-500">Loading...</div>;
-    if (error) return <div className="mt-2 text-gray-500">Error loading card details</div>;
+    if (loading) return <div className="text-gray-500">Loading...</div>;
+    if (error)
+      return (
+        <div className="text-gray-500">Error loading card details</div>
+      );
+    if (cardDetails.length === 0)
+      return <div className="text-gray-500 text-xs">Add payment to try out features!</div>;
   };
 
   const insertCardDetails = () => {
@@ -129,14 +134,14 @@ export const CardDetails: FunctionComponent = () => {
 
   return (
     <>
-      <div className=" border bg-white rounded-lg ">
-        {insertCardDetailsMsg()}
-        <div className="flex flex-row items-center px-6 py-4">
-          <h1 className="flex justify-start font-semibold grow">
-            Card Details
-          </h1>
+      <div className="border bg-white rounded-lg">
+        <div className="flex flex-row px-6 py-4">
+          <div className="flex flex-col text-left">
+            <div className="text-lg font-semibold">Card Details</div>
+            {insertCardDetailsMsg() }
+          </div>
           <button
-            className="px-4 py-2 border rounded-lg text-blue-600 active:scale-95 hover:bg-gray-200"
+            className="ml-auto px-4 py-2 border rounded-lg text-blue-600 active:scale-95 hover:bg-gray-200"
             onClick={() => setModalOpen(true)}
           >
             Add Payment

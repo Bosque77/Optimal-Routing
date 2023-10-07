@@ -11,7 +11,7 @@ function useCardDetails() {
     const fetchCardDetails = async () => {
       try {
         const response: HttpResponse = await userService.getUserCardDetails() as HttpResponse;
-
+        console.log(response)
         if (response.status !== "OK") {
           throw new Error(response.message);
         }
