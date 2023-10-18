@@ -6,7 +6,9 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import stripeService from '../../services/stripe'
 import powered_by_stripe from "../../assets/powered_by_stripe.svg";
+import { HttpResponse } from "../../../../shared/types";
 
 const AddCardForm: FC = () => {
   const stripe = useStripe();
@@ -45,7 +47,12 @@ const AddCardForm: FC = () => {
       if (result.error) {
         console.log(result.error.message);
       } else {
-        console.log(result.paymentMethod);
+        console.log('created stripe payment method. Now attaching it to a customer')
+        const response = await stripeService.attachPaymentMethod(result.paymentMethod!.id) as unknown as HttpResponse
+        if (response.status === 'OK') {
+          console.log('successfully attached payment method to customer')
+        }
+
       }
     }
   };
