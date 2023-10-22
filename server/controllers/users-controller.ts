@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express"; 
 import userService from "../services/user-service";
-import { getCustomerCards} from "../services/stripe-service"
+import stripeService from "../services/stripe-service"
 import * as z from "zod";
 import { UserType } from "../types";
 
@@ -38,7 +38,7 @@ usersRouter.get("/cards", async (request: Request, response: Response) => {
     const user_id = user._id as string;
     const stripe_user_id = await userService.getStripeUserId(user_id);
     console.log(stripe_user_id)
-    const card_data = await getCustomerCards(stripe_user_id!);
+    const card_data = await stripeService.getCustomerCards(stripe_user_id!);
     response.json(card_data);
   } catch (error) {
     console.error(error);

@@ -15,11 +15,9 @@ const getConfig = () => {
 
 const attachPaymentMethod = async (payment_id: string) => {
     try {
-      const config = {
-        headers: { Authorization: token },
-      };
+      const config = getConfig();
 
-      const axios_response = await axios.post(baseUrl, payment_id, config);
+      const axios_response = await axios.post(baseUrl+'/attachPayment', {payment_id}, config);
       return createSuccessResponse("payment method created", axios_response.data);
     } catch (error) {
       return createErrorResponse("payment creation failed", error);

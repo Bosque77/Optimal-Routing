@@ -1,7 +1,7 @@
 import User from "../models/user-model";
 import config from "../utils/config";
 import bcrypt from "bcrypt";
-import { createCustomer } from "../services/stripe-service";
+import stripeService from "../services/stripe-service";
 import Region from "../models/region-model";
 import { NewUser } from "../types";
 
@@ -39,7 +39,7 @@ const createUser = async (new_user: NewUser, verificationCode: string) => {
 
     const email = new_user.email;
     const name = new_user.first_name + " " + new_user.last_name;
-    const stripeUserId = await createCustomer({ email, name });
+    const stripeUserId = await stripeService.createCustomer({ email, name });
 
     const user = new User({
       email: new_user.email,
@@ -81,7 +81,7 @@ const createUserByGoogleId = async (new_user: NewUser) => {
   try {
     const email = new_user.email;
     const name = new_user.first_name + " " + new_user.last_name;
-    const stripeUserId = await createCustomer({ email, name });
+    const stripeUserId = await stripeService.createCustomer({ email, name });
 
 
     const user = new User({

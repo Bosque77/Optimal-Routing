@@ -239,7 +239,7 @@ export interface User {
   last_name: string,
   verified: boolean;
   verificationCode: string;
-  stripeUserId?: string;
+  stripeUserId: string;
   phone_number?: string;
 }
 
@@ -277,7 +277,8 @@ export interface AlertState {
 }
 
 export interface UserType {
-  _id: string,
+  _id: string;
+  stripeUserId: string;
 }
 
 export interface UserRequest extends Request {

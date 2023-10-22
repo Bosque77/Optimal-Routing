@@ -9,7 +9,7 @@ const customerSchema = z.object({
     phone: z.string().optional(),
 })
 
-export const createCustomer = async (customerData: { email: string; name: string; phone?: string }) => {  
+const createCustomer = async (customerData: { email: string; name: string; phone?: string }) => {  
   const new_customer = customerSchema.parse(customerData)
 
 
@@ -38,4 +38,21 @@ export const getCustomerCards = async (stripeCustomerId: string) => {
   });
 
   return cards.data;
+}
+
+
+export const attachPaymentMethod = async (paymentMethodId: string, stripeCustomerId: string) => {
+  
+  const paymentMethod = await stripe.paymentMethods.attach(paymentMethodId, {
+    customer: stripeCustomerId,
+  });
+
+  return paymentMethod;
+}
+
+
+export default {
+  createCustomer,
+  getCustomerCards,
+  attachPaymentMethod
 }

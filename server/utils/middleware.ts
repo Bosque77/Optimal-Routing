@@ -99,7 +99,7 @@ const userExtractor = asyncHandler(
           name: ERROR_CODES.USER_NOT_FOUND,
         };
       } else {
-        const formatted_user: UserType = { _id: user.id };
+        const formatted_user: UserType = { _id: user.id, stripeUserId: user.stripeUserId };
         request.user = formatted_user;
       }
       next();
