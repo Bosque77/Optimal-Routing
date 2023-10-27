@@ -81,56 +81,50 @@ export const CardDetails: FunctionComponent = () => {
   };
 
   const insertCardDetails = () => {
-    return <div></div>;
-
-    // This code will display the card details of the user but is WIP
-    // return card_details.map((card: any) => {
-    //   let card_icon;
-
-    //   switch (card.title) {
-    //     case "Visa":
-    //       card_icon = visa_icon;
-    //       break;
-    //     case "Mastercard":
-    //       card_icon = mastercard_icon;
-    //       break;
-    //     default:
-    //       card_icon = visa_icon;
-    //       break;
-    //   }
-
-    //   return (
-    //     <div
-    //       key={card.id}
-    //       className={
-    //         card.active
-    //           ? `flex flex-col items-start px-6 py-4 bg-gray-200 my-4 mx-4 rounded`
-    //           : `flex flex-col items-start px-6 py-4 bg-gray-50 my-4 mx-4 rounded`
-    //       }
-    //     >
-    //       <div className="flex flex-row items-center w-full">
-    //         <div className="flex justify-start items-center">
-    //           <img src={card_icon} className="w-8 h-8 mr-2" alt="Card Icon" />
-    //           <p className="font-semibold">{card.title}</p>
-    //         </div>
-    //         <p className="flex justify-start font-semibold ml-4">
-    //           **** **** **** {card.last_4_digits}
-    //         </p>
-    //         <input
-    //           type="radio"
-    //           name="cardSelection"
-    //           className=" ml-auto cursor-pointer"
-    //           checked={card.active}
-    //           onChange={() => handleCardSelect(card.id)}
-    //         />
-    //       </div>
-    //       <button className="text-sm text-gray-500 block mt-2 hover:text-gray-900 hover:scale-105 active:scale-95">
-    //         Edit
-    //       </button>
-    //     </div>
-    //   );
-    // });
+    if (cardDetails && cardDetails.length > 0) {
+      return cardDetails.map((cardDetail:any, index:any) => (
+        <div key={index} className="flex items-center mt-4 space-x-4">
+          <img
+            src={cardDetail.card.brand === 'visa' ? visa_icon : mastercard_icon}
+            alt={cardDetail.card.brand}
+            className="w-12 h-12"
+          />
+          <div>Last 4 Digits: {cardDetail.card.last4}</div>
+          <div className="flex grow">Expiration: {`${cardDetail.card.exp_month}/${cardDetail.card.exp_year}`}</div>
+          <button className="ml-auto px-4 py-2 border rounded-lg text-gray-600 active:scale-95 hover:bg-gray-200">Select</button>
+          </div>
+      ));
+    }
+    return null;
   };
+  
+  
+  return (
+    <>
+      <div className="border bg-white shadow-md rounded-lg p-4">
+        <div className="flex justify-between items-center">
+          <div className="text-xl font-semibold">Card Details</div>
+          <button
+            className="ml-auto px-4 py-2 border rounded-lg text-blue-600 hover:bg-blue-100 hover:text-blue-700 focus:outline-none focus:ring focus:ring-blue-200"
+            onClick={() => setModalOpen(true)}
+          >
+            Add Payment
+          </button>
+        </div>
+        {insertCardDetails()}
+      </div>
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        style={customStyles}
+      >
+        <AddCardPayment />
+      </Modal>
+    </>
+  );
+  
+  
+  
 
   return (
     <>

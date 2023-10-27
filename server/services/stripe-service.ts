@@ -33,12 +33,16 @@ const createCustomer = async (customerData: { email: string; name: string; phone
 }
 
 export const getCustomerCards = async (stripeCustomerId: string) => {
-  const cards = await stripe.customers.listSources(stripeCustomerId, {
-    object: 'card',
+  const cards = await stripe.paymentMethods.list({
+    customer: stripeCustomerId,
+    type: 'card'
   });
+
+  console.log(cards)
 
   return cards.data;
 }
+
 
 
 export const attachPaymentMethod = async (paymentMethodId: string, stripeCustomerId: string) => {

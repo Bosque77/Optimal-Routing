@@ -34,9 +34,9 @@ usersRouter.get("/", async (request: Request, response: Response) => {
 // get users cards
 usersRouter.get("/cards", async (request: Request, response: Response) => {
   try {
+    console.log('inside the get cards controller')
     const user = request.user as UserType;
-    const user_id = user._id as string;
-    const stripe_user_id = await userService.getStripeUserId(user_id);
+    const stripe_user_id = user.stripeUserId
     console.log(stripe_user_id)
     const card_data = await stripeService.getCustomerCards(stripe_user_id!);
     response.json(card_data);
