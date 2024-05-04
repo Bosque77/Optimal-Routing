@@ -1,6 +1,11 @@
 
+Setup your .env variables
+PORT = 
+MONGODB_URI=mongodb://<username>:<password>@<host>:<port>/<database>
 
-You can deploy the server directly on AWS using elastic beanstalk.  
+
+
+Deploying to AWS Elastic Beanstalk
 
 1) Create the following file under the server folder
 

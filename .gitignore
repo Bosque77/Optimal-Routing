@@ -112,3 +112,4 @@ dist
 **/requests
 
 my-deployment-package.zip
+.DS_Store
